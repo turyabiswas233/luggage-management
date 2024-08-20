@@ -1,0 +1,89 @@
+.service-item {
+    margin-bottom: 30px;
+    text-align: center;
+    border: 1px solid #4a686a;
+    padding: 30px 45px 28px;
+    border-radius: 8px;
+    transition: 0.5s all ease;
+  }
+  
+  .service-item:hover {
+    background-color: #4a686a;
+  }
+  
+  .service-item:hover h3 a,
+  .service-item:hover p,
+  .service-item:hover .service-link {
+    color: #ffff; /* Change font color to white on hover */
+  }
+  
+  .service-item .service-top {
+    position: relative;
+    margin-bottom: 30px;
+  }
+  
+  .service-item h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .service-item h3 a {
+    color: #242424;
+  }
+  
+  .service-item h3 a:hover {
+    letter-spacing: 1px;
+  }
+  
+  .service-item p {
+    margin-bottom: 12px;
+    transition: 0.5s all ease;
+  }
+  
+  .service-item .service-link {
+    display: inline-block;
+    color: #678385;
+    font-weight: 500;
+  }
+  
+  .service-item .service-link i {
+    display: inline-block;
+    font-size: 17px;
+    position: relative;
+    top: 2px;
+  }
+  
+  .service-item .service-link:hover {
+    letter-spacing: 1px;
+  }
+  
+  .service-item.two {
+    border: 1px solid #4a686a;
+  }
+  
+  .service-item.two:hover {
+    background-color: #4a686a;
+  }
+  
+  /* Additional CSS */
+  .service-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .service-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .service-title,
+  .service-text,
+  .service-link {
+    transition: color 0.3s;
+  }
+  
+  .service-title:hover,
+  .service-text:hover,
+  .service-link:hover {
+    color: #719499; /* Example hover color, change to your preference */
+  }
+  

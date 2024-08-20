@@ -1,0 +1,338 @@
+$red-color: #f32c2c;
+$yellow-color: #fdb139;
+$dark-color: #1d1d1d;
+$bg-color: #252525;
+$card-bg: #0e0e0e;
+$white-color: #ffffff;
+
+.switch-box {
+    position: fixed;
+    bottom: 15px;
+    right: 120px;
+    z-index: 9999;
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: transparent;
+        border: 1.5px solid $yellow-color;
+        transition: 0.4s;
+        &::before {
+            position: absolute;
+            content: "";
+            height: 25px;
+            width: 25px;
+            left: 0px;
+            bottom: 4px;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+            transition: 0.4s;
+            box-shadow: 0 0px 15px #2020203d;
+            background: white url('../img/night.png');
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        &.round {
+            border-radius: 34px;
+            &::before {
+                border-radius: 50%;
+            }
+        }
+    }
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 30px;
+        input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+    }
+    input:checked + .slider {
+        background-color: transparent;
+        border: 1.5px solid $red-color;
+    }
+      
+    input:focus + .slider {
+        box-shadow: 0 0 1px $red-color;
+    }
+      
+    input:checked + .slider:before {
+        transform: translateX(24px);
+        background: white url('../img/sunny.png');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+
+.theme-dark {
+    $black-color: #ffffff;
+    $grey-color: #ffffff;
+    h1, h2, h3, h4, h5, h6 {
+        color: $white-color; 
+    }
+    h3 {
+        color: $white-color; 
+        a {
+            color: $white-color !important;
+            transition: 0.7s;
+            &:hover {
+                color:  $yellow-color !important;
+            }
+        }
+    }
+    p {
+        color: $white-color !important; 
+    }
+    body {
+        background: $dark-color;
+        color: $white-color; 
+    }
+    .banner-area {
+        &.two {
+            .banner-text {
+                .banner-form {
+                    background-color: $bg-color;
+                    .form-group {
+                        .form-control {
+                            background-color: $card-bg;
+                            color: $white-color;
+                        }
+                        .nice-select {
+                            background-color: $card-bg;
+                        }
+                    }
+                }
+            }
+        }
+        &.three {
+            background-color: $card-bg;
+        }
+    }
+    .counter-area {
+        &::before {
+            background-color: $dark-color;
+        }
+        &::after {
+            background-color: $bg-color;
+        }
+    }
+    .counter-area {
+        &.three {
+            .counter-wrap {
+                background-color: $bg-color;
+            }
+        }
+    }
+    .choose-area, .about-area {
+        background-color: $bg-color;
+    }
+    .choose-item {
+        background-color: $card-bg;
+    }
+    .love-area {
+        .love-item {
+            ul {
+                li {
+                    color: $white-color;
+                }
+            }
+        }
+    }
+    .service-area {
+        &.two {
+            background-color: #303030;
+            .service-item {
+                background-color: $card-bg;
+            }
+        }
+        &.three {
+            background-color: #303030;
+            .service-item {
+                background-color: $card-bg;
+            }
+        }
+    }
+    .project-area {
+        &.two {
+            background-color: #303030;
+        }
+    }
+    .faq-area {
+        .faq-content {
+            .accordion {
+                a {
+                    color: $white-color;
+                    &::after {
+                        color: $white-color;
+                    }
+                }
+            }
+        }
+    }
+    .estimate-area {
+        .estimate-content {
+            .form-group {
+                .form-control {
+                    background-color: $card-bg;
+                    color: $white-color;
+                }
+            }
+        }
+    }
+    .review-area {
+        .review-item {
+            background-color: $card-bg;
+        }
+    }
+    .team-area {
+        background-color: $bg-color;
+    }
+    .team-item {
+        background-color: $card-bg;
+    }
+    .blog-details-area {
+        .details-item {
+            .details-img {
+                blockquote {
+                    background-color: $bg-color;
+                }
+            }
+        }
+        .details-item {
+            .details-form {
+                background-color: $bg-color;
+                .form-group {
+                    .form-control {
+                        background-color: $card-bg;
+                        color: $white-color;
+                    }
+                    label {
+                        color: $white-color;
+                    }
+                }
+            }
+        }
+    }
+    .widget-area {
+        .search form {
+            .form-control {
+                background-color: $card-bg;
+                color: $white-color;
+            }
+        }
+        .cat {
+            ul {
+                li {
+                    background-color: $bg-color;
+                    transition: 0.7s;
+                    a {
+                        color: $white-color;
+                    }
+                    &:hover {
+                        background-color:#4a686a;
+                    }
+                }
+            }
+        }
+        .related {
+            .related-inner {
+                ul {
+                    li {
+                        a {
+                            color: $white-color;
+                            transition: 0.7s;
+                            &:hover {
+                                color: $yellow-color;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .newsletter {
+            .form-control {
+                background-color: $card-bg;
+                color: $white-color;
+            }
+        }
+        .tags {
+            ul {
+                li {
+                    a {
+                        color: $white-color;
+                    }
+                }
+            }
+        }
+        .information {
+            ul {
+                li {
+                    span {
+                        color: $white-color;
+                    }
+                }
+            }
+        }
+        
+    }
+    .subscribe-area {
+        &::before {
+            background-color: $card-bg;
+        }
+        .subscribe-wrap {
+            background-color: $bg-color;
+            box-shadow: none;
+            .newsletter-form {
+                .form-control {
+                    background-color: $card-bg;
+                    color: $white-color;
+                }
+            }
+        }
+    }
+    footer {
+        background-color: $card-bg;
+    }
+    .location-area {
+        .location-item {
+            a {
+                color: $white-color;
+                &:hover {
+                    color: $yellow-color;
+                }
+            }
+        }
+    }
+    .user-form-area {
+        .user-item {
+            form {
+                .form-group {
+                    .form-control {
+                        background-color: $card-bg;
+                        color: $white-color;
+                    }
+                }
+            }
+        }
+    }
+    .contact-area {
+        #contactForm {
+            .form-group {
+                .form-control {
+                    background-color: $card-bg;
+                    color: $white-color;
+                }
+                label {
+                    color: $white-color;
+                }
+            }
+        }
+    }
+}

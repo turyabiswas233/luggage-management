@@ -1,0 +1,83 @@
+@import 'compass/css3';
+
+// Color, font, and spacing definitions
+$lum0: 98%;
+$lum1: 83%;
+$sat: 9%;
+$font-family: koho, trebuchet ms, verdana, century gothic, arial, sans-serif;
+$base-font-size: 16px; // Base font size for scaling
+$section-padding: 40px;
+
+// Breakpoints for responsive design
+$breakpoint-md: 768px; // Medium devices and up
+
+// Utility Mixins for Responsive Design
+@mixin respond-to($media) {
+  @if $media == 'medium' {
+    @media (min-width: $breakpoint-md) { @content; }
+  }
+}
+
+// Main container styles
+.col-lg-6 {
+  width: 100%;
+  padding: 0 15px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  
+  @include respond-to('medium') {
+    max-width: 50%;
+  }
+}
+
+.about-content {
+  background: #fff;
+  padding: $section-padding;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  
+  .section-title {
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    color: hsl(203, 87%, 34%);
+    font-size: calc(1.25 * #{$base-font-size});
+    text-transform: uppercase;
+  }
+
+  .step {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: linear-gradient(to right, hsl($lum1, $sat, 90%), hsl($lum0, $sat, 95%));
+    border-left: 5px solid hsl(203, 87%, 34%);
+    
+    .step-header {
+      font-size: calc(1.05 * #{$base-font-size});
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin: 0;
+      font-size: $base-font-size;
+      line-height: 1.5;
+    }
+  }
+
+  .cmn-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: hsl(203, 87%, 34%);
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    
+    &:hover {
+      background-color: darken(hsl(203, 87%, 34%), 10%);
+    }
+  }
+}

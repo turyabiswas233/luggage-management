@@ -1,0 +1,46 @@
+/* styles.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+.container-fluid {
+    padding: 0;
+}
+.sidebar {
+    width: 30%;
+    height: 100vh;
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    background: #f8f9fa;
+}
+.map-container {
+    width: 70%;
+    height: 100vh;
+}
+.storage-spot {
+    border: 1px solid #ddd;
+    padding: 35px;
+    margin-bottom: 35px;
+    border-radius: 5px;
+    background: #fff;
+}
+.storage-spot:hover {
+    background: #f1f1f1;
+}
+.spot-details h3 {
+    margin: 0;
+}
+.spot-price p {
+    margin: 0;
+    font-weight: bold;
+}
+.filters label {
+    display: block;
+    margin-bottom: 10px;
+}
+.filters input, .filters select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+}

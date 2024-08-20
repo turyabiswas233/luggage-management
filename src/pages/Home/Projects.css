@@ -1,0 +1,56 @@
+.card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card img {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .card img:hover {
+    opacity: 0.8;
+  }
+  
+  .card h3 {
+    color: #333;
+    font-weight: 700;
+    font-size: 1.5rem; /* Larger font size */
+    margin-bottom: 0.5rem; /* Adjust spacing */
+    text-transform: uppercase; /* Uppercase for a modern look */
+    letter-spacing: 1px; /* More readable with increased letter spacing */
+  }
+  
+  .card p {
+    color: #666;
+    line-height: 1.6; /* Improved line height for readability */
+    font-size: 1rem; /* Standard font size for paragraphs */
+    margin-bottom: 1rem; /* Add more space below the paragraph */
+  }
+  
+  .card a {
+    color: #1d4ed8;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    font-weight: bold; /* Make links bold */
+    padding: 0.5rem 1rem; /* Padding for better clickability */
+    border-radius: 4px; /* Rounded corners for aesthetic */
+    background-color: transparent; /* Background color can be changed for emphasis */
+  }
+  
+  .card a:hover {
+    color: #2563eb;
+    text-decoration:solid;
+    background-color: #e2e8f0; /* Light background on hover for contrast */
+  }
+  
+  /* Optional: Responsive typography */
+  @media (max-width: 768px) {
+    .card h3 {
+      font-size: 1.25rem; /* Smaller font size on smaller screens */
+    }
+  }
+  
