@@ -9,8 +9,7 @@ import {
   PaymentElement,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import GooglePayButton from "@google-pay/button-react";
-
+ 
 //other components
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -58,6 +57,7 @@ const LuggageStoreDetails = () => {
     specialRequests: "",
     notes: "",
   });
+  const [qrChecked, setQrChecked] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
   const [bookingId, setBookingId] = useState("");
@@ -209,13 +209,8 @@ const LuggageStoreDetails = () => {
     window.location.reload(); // Refresh the page when OK is clicked
   };
   useEffect(() => {
-    let search = new URLSearchParams(window.location.search);
-    console.log(
-      search.get("payment_intent"),
-      search.get("payment_intent_client_secret"),
-      search.get("redirect_status")
-    );
-  }, []);
+    console.log(qrChecked);
+  }, [qrChecked]);
   return (
     <div>
       {isLoggedIn ? <ClientNavbarComp /> : <NavbarComp />}
@@ -269,6 +264,8 @@ const LuggageStoreDetails = () => {
               setClientId={setClientId}
               clientDetails={clientDetails}
               setClientDetails={setClientDetails}
+              qrChecked={qrChecked}
+              setQrChecked={setQrChecked}
             />
           </div>
         </div>
@@ -288,6 +285,7 @@ const LuggageStoreDetails = () => {
             storeDetails={storeDetails}
             totalPrice={totalPrice} // Pass the total price here
             luggageQuantity={luggageQuantity}
+            qrChecked={qrChecked}
           />
         </Elements>
       )}
@@ -322,45 +320,13 @@ const PaymentFormModal = ({
   storeDetails,
   totalPrice,
   luggageQuantity,
+  qrChecked,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
-
-  // handle google payment
-  const paymentRequestHandle = {
-    apiVersion: 2,
-    apiVersionMinor: 0,
-    allowedPaymentMethods: [
-      {
-        type: "CARD",
-        parameters: {
-          allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
-          allowedCardNetworks: ["MASTERCARD", "VISA"],
-        },
-        tokenizationSpecification: {
-          type: "PAYMENT_GATEWAY",
-          parameters: {
-            gateway: "STRIPE",
-            gatewayMerchantId: config.STRIPE_PUBLIC_KEY,
-            // Replace with your actual publishable key
-          },
-        },
-      },
-    ],
-    merchantInfo: {
-      merchantId: "12345678901234567890",
-      merchantName: "Demo Merchant",
-    },
-    transactionInfo: {
-      totalPriceStatus: "FINAL",
-      totalPriceLabel: "Total",
-      totalPrice: `${totalPrice}`,
-      currencyCode: "BDT",
-      countryCode: "BD",
-    },
-  };
+ 
 
   const handlePayment = async (e) => {
     e?.preventDefault();
@@ -419,6 +385,7 @@ const PaymentFormModal = ({
               endDate: responseData.endDate,
               locationid: storeDetails.id,
             },
+            qrChecked: qrChecked,
             storeDetails,
             totalPrice, // Pass the total price here
             luggageQuantity, // Pass the luggage quantity here

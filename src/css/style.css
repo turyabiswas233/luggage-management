@@ -8,3 +8,21 @@
 @import 'additional-styles/flatpickr.css';
 
 @import 'tailwindcss/utilities';
+
+
+.anim-rot{
+    animation: rot .8s infinite cubic-bezier(0, 0.5,1, 1);
+}
+
+@keyframes rot {
+    0%{
+        transform: rotate(0deg);
+    }
+    40% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    
+}
