@@ -6,7 +6,7 @@ import {
   Elements,
   useStripe,
   useElements,
-  CardElement,
+  PaymentElement,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import GooglePayButton from "@google-pay/button-react";
@@ -208,66 +208,78 @@ const LuggageStoreDetails = () => {
     setShowBookingErrorModal(false);
     window.location.reload(); // Refresh the page when OK is clicked
   };
-
+  useEffect(() => {
+    let search = new URLSearchParams(window.location.search);
+    console.log(
+      search.get("payment_intent"),
+      search.get("payment_intent_client_secret"),
+      search.get("redirect_status")
+    );
+  }, []);
   return (
-    <Elements stripe={stripePromise}>
-      <div>
-        {isLoggedIn ? <ClientNavbarComp /> : <NavbarComp />}
+    <div>
+      {isLoggedIn ? <ClientNavbarComp /> : <NavbarComp />}
 
-        <div className="container mx-auto mt-12 pt-32">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="col-span-2">
-              {storeDetails ? (
-                <LuggageStoreInfo
-                  id={storeDetails.id}
-                  title={storeDetails.title}
-                  details={storeDetails.details}
-                  price={storeDetails.price}
-                  lat={storeDetails.lat}
-                  lng={storeDetails.lng}
-                  availableFrom={storeDetails.availableFrom}
-                  availableTo={storeDetails.availableTo}
-                  discountPercentage={storeDetails.discountPercentage}
-                  openTime={storeDetails.openTime}
-                  closeTime={storeDetails.closeTime}
-                  notes={storeDetails.notes}
-                  GOOGLE_MAPS_API_KEY={GOOGLE_MAPS_API_KEY}
-                />
-              ) : (
-                <div>Loading...</div>
-              )}
-            </div>
-            <div>
-              {bookingError && (
-                <div className="alert alert-danger">{bookingError}</div>
-              )}
-              <BookingForm
-                locationid={storeDetails?.id}
-                handleSubmit={handleSubmit}
-                luggageQuantity={luggageQuantity}
-                setLuggageQuantity={setLuggageQuantity}
-                serviceOption={serviceOption}
-                setServiceOption={setServiceOption}
-                promoCode={promoCode}
-                setPromoCode={setPromoCode}
-                discount={discount}
-                setDiscount={setDiscount}
-                checkinTime={checkinTime}
-                setCheckinTime={setCheckinTime}
-                checkoutTime={checkoutTime}
-                setCheckoutTime={setCheckoutTime}
-                totalPrice={totalPrice}
-                setTotalPrice={setTotalPrice}
-                regularprice={storeDetails?.regularprice}
-                clientId={clientId}
-                setClientId={setClientId}
-                clientDetails={clientDetails}
-                setClientDetails={setClientDetails}
+      <div className="container mx-auto mt-12 pt-32">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="col-span-2">
+            {storeDetails ? (
+              <LuggageStoreInfo
+                id={storeDetails.id}
+                title={storeDetails.title}
+                details={storeDetails.details}
+                price={storeDetails.price}
+                lat={storeDetails.lat}
+                lng={storeDetails.lng}
+                availableFrom={storeDetails.availableFrom}
+                availableTo={storeDetails.availableTo}
+                discountPercentage={storeDetails.discountPercentage}
+                openTime={storeDetails.openTime}
+                closeTime={storeDetails.closeTime}
+                notes={storeDetails.notes}
+                GOOGLE_MAPS_API_KEY={GOOGLE_MAPS_API_KEY}
               />
-            </div>
+            ) : (
+              <div>Loading...</div>
+            )}
+          </div>
+          <div>
+            {bookingError && (
+              <div className="alert alert-danger">{bookingError}</div>
+            )}
+            <BookingForm
+              locationid={storeDetails?.id}
+              handleSubmit={handleSubmit}
+              luggageQuantity={luggageQuantity}
+              setLuggageQuantity={setLuggageQuantity}
+              serviceOption={serviceOption}
+              setServiceOption={setServiceOption}
+              promoCode={promoCode}
+              setPromoCode={setPromoCode}
+              discount={discount}
+              setDiscount={setDiscount}
+              checkinTime={checkinTime}
+              setCheckinTime={setCheckinTime}
+              checkoutTime={checkoutTime}
+              setCheckoutTime={setCheckoutTime}
+              totalPrice={totalPrice}
+              setTotalPrice={setTotalPrice}
+              regularprice={storeDetails?.regularprice}
+              clientId={clientId}
+              setClientId={setClientId}
+              clientDetails={clientDetails}
+              setClientDetails={setClientDetails}
+            />
           </div>
         </div>
-        {showPaymentModal && (
+      </div>
+      {showPaymentModal && clientSecret && (
+        <Elements
+          stripe={stripePromise}
+          options={{
+            clientSecret: clientSecret,
+          }}
+        >
           <PaymentFormModal
             clientSecret={clientSecret}
             clientDetails={clientDetails}
@@ -277,28 +289,28 @@ const LuggageStoreDetails = () => {
             totalPrice={totalPrice} // Pass the total price here
             luggageQuantity={luggageQuantity}
           />
-        )}
-        {/* Booking Error Modal */}
-        <Modal
-          show={showBookingErrorModal}
-          onHide={handleBookingErrorModalClose}
-          className="modal-dialog-centered"
-        >
-          <Modal.Header closeButton>
-            <Modal.Title className="bg-gray-200 text-red-500">
-              Booking Error
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p>{bookingError}</p>{" "}
-            {/* Display the dynamic booking error message here */}
-            <Button variant="primary" onClick={handleBookingErrorModalClose}>
-              OK
-            </Button>
-          </Modal.Body>
-        </Modal>
-      </div>
-    </Elements>
+        </Elements>
+      )}
+      {/* Booking Error Modal */}
+      <Modal
+        show={showBookingErrorModal}
+        onHide={handleBookingErrorModalClose}
+        className="modal-dialog-centered"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title className="bg-gray-200 text-red-500">
+            Booking Error
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>{bookingError}</p>{" "}
+          {/* Display the dynamic booking error message here */}
+          <Button variant="primary" onClick={handleBookingErrorModalClose}>
+            OK
+          </Button>
+        </Modal.Body>
+      </Modal>
+    </div>
   );
 };
 
@@ -352,21 +364,26 @@ const PaymentFormModal = ({
 
   const handlePayment = async (e) => {
     e?.preventDefault();
+
     if (!stripe || !elements) return;
 
-    const cardElement = elements.getElement(CardElement);
-
-    const { error, paymentIntent } = await stripe.confirmCardPayment(
-      clientSecret,
-      {
-        payment_method: {
-          card: cardElement,
-          billing_details: {
-            name: guestDetails?.name || clientDetails.name, // Use guestDetails name if available
-          },
-        },
-      }
-    );
+    // const cardElement = elements.getElement(PaymentElement);
+    const { error: submitError } = await elements.submit();
+    if (submitError) {
+      alert("Another error occurred");
+      console.log(submitError);
+      return;
+    }
+    const { error, paymentIntent } = await stripe.confirmPayment({
+      clientSecret: clientSecret,
+      elements: elements,
+      redirect: "if_required",
+      // confirmParams: {
+      //   // Return URL where Stripe will redirect after the payment
+      //   return_url:
+      //     `${window.location.origin}/` + window.location.pathname.slice(1),
+      // },
+    });
 
     if (error) {
       setErrorMessage(error.message);
@@ -432,7 +449,7 @@ const PaymentFormModal = ({
             <h6 className="text-gray-800 font-medium mb-3">
               Enter Your Payment Details
             </h6>
-            <CardElement
+            <PaymentElement
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
               options={{
                 style: {
@@ -483,81 +500,6 @@ const PaymentFormModal = ({
           >
             Pay Now
           </Button>
-          {/* <CustomGoogleBtn totalPrice={totalPrice} /> */}
-          <GooglePayButton
-            className="w-full"
-            environment="TEST"
-            buttonSizeMode="fill"
-            buttonRadius={5}
-            paymentRequest={{
-              ...paymentRequestHandle,
-              merchantInfo: {
-                merchantId: "12345678901234567890",
-                merchantName: "Demo Merchant",
-              },
-            }}
-            onLoadPaymentData={async (paymentRequest) => {
-              console.log("paymentRequest: ");
-              if (paymentRequest?.paymentMethodData?.tokenizationData?.token);
-              console.log(paymentRequest);
-              alert("Payment done by GPAY")
-              try {
-                const response = await fetch(
-                  `${config.API_BASE_URL}/api/v1/bookings/${bookingId}`,
-                  {
-                    method: "PUT",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ status: "paid" }),
-                  }
-                );
-
-                const responseData = await response.json();
-
-                if (!response.ok) {
-                  throw new Error("Failed to update booking status");
-                }
-
-                // navigate("/payment-success", {
-                //   state: {
-                //     paymentIntent,
-                //     guestDetails: guestDetails || clientDetails, // Use guestDetails if it exists, otherwise use clientDetails
-                //     bookingDetails: {
-                //       bookingId: responseData._id,
-                //       bookingDate: responseData.bookingDate,
-                //       startDate: responseData.startDate,
-                //       startTime: responseData.startTime,
-                //       endTime: responseData.endTime,
-                //       endDate: responseData.endDate,
-                //       locationid: storeDetails.id,
-                //     },
-                //     storeDetails,
-                //     totalPrice, // Pass the total price here
-                //     luggageQuantity, // Pass the luggage quantity here
-                //   },
-                // });
-              } catch (error) {
-                console.error("Error updating booking status:", error);
-              }
-            }}
-            onError={(error) => {
-              console.error("Google Pay Error:", error);
-              setErrorMessage(
-                "An error occurred during Google Pay transaction. Please try again."
-              );
-            }}
-            onClick={(e) => {
-              console.log("triggers GPAY");
-            }}
-            onCancel={(ccc) => {
-              console.log("cancel: ", ccc);
-              setErrorMessage("Payment Cancelled");
-              navigate("/payment-cancelled");
-            }}
-            buttonColor="black"
-            buttonType="pay"
-          />
         </form>
       </Modal.Body>
     </Modal>
@@ -565,3 +507,5 @@ const PaymentFormModal = ({
 };
 
 export default LuggageStoreDetails;
+
+// payment_intent=pi_3PqJ7CBwcWogP8JA1yH52Xfv&payment_intent_client_secret=pi_3PqJ7CBwcWogP8JA1yH52Xfv_secret_T4scU5DtdkXij04toMwJqGLp7&redirect_status=succeeded
