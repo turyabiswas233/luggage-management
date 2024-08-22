@@ -9,7 +9,7 @@ import {
   PaymentElement,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
- 
+
 //other components
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -58,6 +58,7 @@ const LuggageStoreDetails = () => {
     notes: "",
   });
   const [qrChecked, setQrChecked] = useState(false);
+  const [isAgree, setIsAgree] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
   const [bookingId, setBookingId] = useState("");
@@ -264,8 +265,9 @@ const LuggageStoreDetails = () => {
               setClientId={setClientId}
               clientDetails={clientDetails}
               setClientDetails={setClientDetails}
-              qrChecked={qrChecked}
               setQrChecked={setQrChecked}
+              isAgree={isAgree}
+              setIsAgree={setIsAgree}
             />
           </div>
         </div>
@@ -286,6 +288,7 @@ const LuggageStoreDetails = () => {
             totalPrice={totalPrice} // Pass the total price here
             luggageQuantity={luggageQuantity}
             qrChecked={qrChecked}
+            isAgree={isAgree}
           />
         </Elements>
       )}
@@ -321,15 +324,20 @@ const PaymentFormModal = ({
   totalPrice,
   luggageQuantity,
   qrChecked,
+  isAgree,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
- 
 
   const handlePayment = async (e) => {
     e?.preventDefault();
+
+    if (!isAgree) {
+      alert("Please agree our Terms and Conditions");
+      return;
+    }
 
     if (!stripe || !elements) return;
 

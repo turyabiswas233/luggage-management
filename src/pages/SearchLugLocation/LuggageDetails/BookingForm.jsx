@@ -20,8 +20,9 @@ const BookingForm = ({
   clientId,
   clientDetails,
   setClientDetails,
-  qrChecked,
   setQrChecked,
+  isAgree,
+  setIsAgree,
 }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -312,6 +313,31 @@ const BookingForm = ({
               No
             </label>
           </section>
+        </div>
+
+        <div className="Mb-4 flex gap-2 items-center mb-6 group w-fit">
+          <div
+            className={`w-1 p-2 h-1 rounded-sm transition-colors grid place-content-center  ${
+              !isAgree ? "bg-gray-300/50 group-hover:bg-teal-300" : "bg-teal-500"
+            }`}
+          >
+          </div>
+          <input
+            type="checkbox"
+            hidden
+            name="isAgree"
+            id="isAgree"
+            onChange={(e) => setIsAgree(e.target.checked)}
+          />
+          <label htmlFor="isAgree" className="text-base">
+            I have read and agree to{" "}
+            <a
+              className="text-teal-500 font-medium hover:underline"
+              href="/terms-and-conditions"
+            >
+              Terms and Conditions
+            </a>{" "}
+          </label>
         </div>
 
         <div className="border-t border-gray-300 pt-4">
