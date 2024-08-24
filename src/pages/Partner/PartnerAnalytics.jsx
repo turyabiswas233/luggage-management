@@ -1,51 +1,42 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Line } from "react-chartjs-2";
+import { Line, Doughnut, Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import "tailwindcss/tailwind.css";
 import PartnerNavbarComp from "./PartnerNavbarComp";
 import WelcomeBanner from "../../partials/dashboard/WelcomeBanner";
 import config from "../../config";
 
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 const PartnerAnalytics = () => {
-  const [data, setData] = useState([
-    {
-      partnerId: "66aa2105e16047c6256fd8e8",
-      totalEarnings: 42,
-      totalPending: 430.5,
-      months: [
-        {
-          month: "May 2024",
-          monthStart: "2024-04-30T18:00:00.000Z",
-          monthEnd: "2024-05-31T17:59:59.999Z",
-          earned: 0,
-          pending: 0,
-        },
-        {
-          month: "June 2024",
-          monthStart: "2024-05-31T18:00:00.000Z",
-          monthEnd: "2024-06-30T17:59:59.999Z",
-          earned: 0,
-          pending: 0,
-        },
-        {
-          month: "July 2024",
-          monthStart: "2024-06-30T18:00:00.000Z",
-          monthEnd: "2024-07-31T17:59:59.999Z",
-          earned: 0,
-          pending: 0,
-        },
-        {
-          month: "August 2024",
-          monthStart: "2024-07-31T18:00:00.000Z",
-          monthEnd: "2024-08-31T17:59:59.999Z",
-          earned: 42,
-          pending: 430.5,
-        },
-      ],
-      payment: { method: "CARD" },
-    },
-  ]);
+  const [data, setData] = useState({
+    partnerId: "",
+    totalEarnings: 0,
+    totalPending: 0,
+    months: [
+      {
+        month: "May 2024",
+        monthStart: "2024-04-30T18:00:00.000Z",
+        monthEnd: "2024-05-31T17:59:59.999Z",
+        earned: 0,
+        pending: 0,
+      },
+    ],
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -53,13 +44,13 @@ const PartnerAnalytics = () => {
     const token = localStorage.getItem("token"); // Retrieve token from local storage
 
     axios
-      .get(`${config.API_BASE_URL}/api/v1/analytics/partner-analytics/`, {
+      .get(`${config.API_BASE_URL}/api/v1/analytics/my-earnings/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        // setData(response.data);
+        setData(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -67,46 +58,6 @@ const PartnerAnalytics = () => {
         setError("Failed to fetch data");
         setLoading(false);
       });
-    setData([
-      {
-        partnerId: "66aa2105e16047c6256fd8e8",
-        totalEarnings: 42,
-        totalPending: 430.5,
-        months: [
-          {
-            month: "May 2024",
-            monthStart: "2024-04-30T18:00:00.000Z",
-            monthEnd: "2024-05-31T17:59:59.999Z",
-            earned: 0,
-            pending: 0,
-          },
-          {
-            month: "June 2024",
-            monthStart: "2024-05-31T18:00:00.000Z",
-            monthEnd: "2024-06-30T17:59:59.999Z",
-            earned: 0,
-            pending: 0,
-          },
-          {
-            month: "July 2024",
-            monthStart: "2024-06-30T18:00:00.000Z",
-            monthEnd: "2024-07-31T17:59:59.999Z",
-            earned: 0,
-            pending: 0,
-          },
-          {
-            month: "August 2024",
-            monthStart: "2024-07-31T18:00:00.000Z",
-            monthEnd: "2024-08-31T17:59:59.999Z",
-            earned: 42,
-            pending: 430.5,
-          },
-        ],
-        payment: {
-          method: "CARD",
-        },
-      },
-    ]);
   }, []);
 
   if (loading) {
@@ -122,31 +73,33 @@ const PartnerAnalytics = () => {
   }
 
   // Convert earnings from cents to AUD dollars
-  const convertToDollars = (amountInCents) => amountInCents.toFixed(2);
+  const convertToDollars = (amountInCents) =>
+    ((38.095 / 100) * amountInCents).toFixed(2);
 
   // Prepare data for the graph
-  const labels = data[0].months.map((day, id) =>
-    id < 7 ? new Date(day.month).toLocaleDateString() : null
+  const labels = data.months.map((day, id) =>
+    id < 7 ? months[new Date(day.month).getMonth()] : null
   );
-  const amounts = data[0].months.map((day) => convertToDollars(day.earned));
-
+  const amounts = data.months.map((day) => convertToDollars(day.earned));
   const graphData = {
     labels: labels,
     datasets: [
       {
-        label: "Earnings in Last 7 Days (AUD)",
+        label: "Earnings in Last 7 Months ($AUD)",
         data: amounts,
         fill: false,
         backgroundColor: "rgb(75, 192, 192)",
-        borderColor: "rgba(75, 192, 192, 0.2)",
-        tension: 0.1,
+        borderColor: "rgba(75, 192, 192, 0.3)",
+        tension: 0.25,
+        min: 0,
       },
     ],
   };
 
   // Calculate total pending earnings in dollars
-  const totalPendingEarnings = convertToDollars(data[0].totalEarnings);
-
+  const totalEarnings = convertToDollars(data.totalEarnings);
+  const totalPendingEarnings = convertToDollars(data.totalPending);
+  console.log(data);
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-gray-100">
       {/* Navbar */}
@@ -158,27 +111,30 @@ const PartnerAnalytics = () => {
           <div className="px-4 mt-32 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
             {/* Welcome banner */}
             <WelcomeBanner />
-
-            {/* Graph Component */}
-            <div className="mb-8">
-              <h1 className="text-2xl font-bold mb-4 text-center">
-                Partner Analytics
-              </h1>
-              <Line data={graphData} />
-            </div>
-
+            <h1 className="text-2xl font-bold mb-4 text-center">
+              Partner Analytics
+            </h1>
             {/* Total Earnings and Indicators */}
             <div className="flex justify-center items-center mb-8">
               <div className="bg-white p-4 rounded-lg shadow-lg">
-                <h2 className="text-xl font-bold">Total Completed Earnings</h2>
-                <p className="text-3xl font-semibold text-green-500">
-                  ${totalPendingEarnings} AUD
+                <h2 className="text-xl font-bold text-center underline underline-offset-2">Total Completed Earnings</h2>
+                <p className="text-xl font-semibold text-green-900">
+                  Total Earned: $<span className="text-3xl text-green-500">{totalEarnings} AUD</span>
                 </p>
+                <p className="text-xl font-semibold text-orange-900">
+                  Total Earned: $<span className="text-3xl text-orange-500">{totalPendingEarnings} AUD</span>
+                </p>
+                
               </div>
             </div>
 
+            {/* Graph Component */}
+            <div className="mb-8">
+              <Bar data={graphData} />
+            </div>
+
             {/* Table Component */}
-            <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
+            <div className="overflow-x-auto bg-white rounded-lg shadow-lg hidden">
               <table className="table-auto w-full text-left">
                 <thead className="bg-gray-200">
                   <tr>
@@ -190,8 +146,8 @@ const PartnerAnalytics = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((booking, index) => (
-                    <tr key={index} className="bg-white border-b">
+                  {data && (
+                    <tr className="bg-white border-b">
                       <td className="px-4 py-2">
                         {new Date().toLocaleDateString()}
                       </td>
@@ -199,7 +155,7 @@ const PartnerAnalytics = () => {
                         {new Date().toLocaleDateString()}
                       </td>
                       <td className="px-4 py-2">
-                        ${convertToDollars(booking.totalEarnings)}
+                        ${convertToDollars(data.totalEarnings)}
                       </td>
                       <td className="px-4 py-2">
                         <span
@@ -210,12 +166,12 @@ const PartnerAnalytics = () => {
                               : "bg-green-100 text-green-800"
                           }`}
                         >
-                          {/* {booking.status} */} paid
+                          'PAID'
                         </span>
                       </td>
-                      <td className="px-4 py-2">{booking.payment.method}</td>
+                      {/* <td className="px-4 py-2">{data.payment.method}</td> */}
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>

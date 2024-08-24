@@ -45,7 +45,7 @@ const LoginForm = ({ loginType, onClose }) => {
         localStorage.setItem('token', result.token); // Store the token in local storage
         localStorage.setItem('loginTime', new Date().getTime().toString());
         if (loginType === 'Partner') {
-          navigate('/partner/profile'); // Redirect to partner profile
+          navigate('/partner/home'); // Redirect to partner profile
         } else {
           navigate('/client/home'); // Redirect to client profile
         }

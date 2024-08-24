@@ -49,10 +49,10 @@ const DatePicker = ({
   const [pdateId, setpDate] = useState(new Date().getDate());
   const [pyear, setpyear] = useState(today.getFullYear());
   const [selectedPTime, setSelectedPTime] = useState({
-    endTime: { h: today.getHours() + 1, m: today.getMinutes() < 30 ? 0 : 30 },
+    endTime: { h: 0, m: 0 },
     startTime: {
-      h: today.getHours() + (today.getMinutes() < 30 ? 0 : 1),
-      m: today.getMinutes() < 30 ? 30 : 0,
+      h: 0,
+      m: 0,
     },
   });
   const [bag, setBag] = useState(1);
@@ -66,7 +66,7 @@ const DatePicker = ({
     )
   );
   const [pickUp, setPickUp] = useState(
-    new Date(dropOff.getTime() + 3600000 / 2)
+    new Date(dropOff.getTime() + 3600000 * 6)
   );
   const [toggleDateDrop, setToggleDateDrop] = useState(false);
   const [toggleTimeDrop, setToggleTimeDrop] = useState(false);
@@ -74,13 +74,21 @@ const DatePicker = ({
   const [toggleTimePick, setToggleTimePick] = useState(false);
 
   useEffect(() => {
-    setdyear(dropOff.getFullYear());
-    setdmid(dropOff.getMonth());
-    setdDate(dropOff.getDate());
+    let res = pickUp;
 
-    setpyear(pickUp.getFullYear());
-    setpmid(pickUp.getMonth());
-    setpDate(pickUp.getDate());
+    setpmid(res.getMonth());
+    setpyear(res.getFullYear());
+    setpDate(res.getDate());
+    setSelectedPTime({
+      startTime: {
+        h: res.getHours(),
+        m: res.getMinutes(),
+      },
+      endTime: {
+        h: (res.getMinutes() == 30 ? 1 : 0) + res.getHours(),
+        m: res.getMinutes() == 30 ? 0 : 30,
+      },
+    });
   }, []);
 
   useEffect(() => {
@@ -140,6 +148,13 @@ const DatePicker = ({
 
   return (
     <div className="w-full mx-auto space-y-4">
+      {/* <p>
+        {dropOff.toLocaleDateString()}:{dropOff.toLocaleTimeString()}
+      </p>
+      <p>
+        {pickUp.toLocaleDateString()}:{pickUp.toLocaleTimeString()}
+      </p> */}
+
       {/* drop off box */}
       <div className="flex lg:flex-row flex-col items-start justify-between gap-2">
         {/* drop off date */}
@@ -553,3 +568,18 @@ function timeConvert(h, m) {
     .padStart(2, "0")} ${ap}`;
 }
 export default DatePicker;
+
+/*
+@service = 2.6/bg/d
+7.9 - 4 = 3.9
+@superadmin = 6.5/bg/d
+@partner = 4/bg/d
+
+@partnerTotal = 38.095/100* totalEarning
+@partnerPendingTotal = 38.095/100* totalPending
+
+@superadminTotal  = 61.905/100* total
+@superadminPendingTotal = 61.905
+
+
+*/

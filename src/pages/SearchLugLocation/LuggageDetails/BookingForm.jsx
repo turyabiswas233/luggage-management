@@ -92,10 +92,12 @@ const BookingForm = ({
     const diffInMs = end - start;
 
     // Convert milliseconds to days
-    const diffInDays = Math.round(diffInMs / (1000 * 60 * 60 * 24));
+    const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
 
+    //round figure duration to check either it crosses 24h or not
+    const rd = Math.round(diffInDays);
     // Since any date change counts as an extra day, add 1 if there's a difference
-    return diffInDays <= 1 ? 1 : diffInDays;
+    return rd < 1 ? 1 : diffInDays > rd ? rd + 1 : rd;
   };
 
   const validateDateTime = (checkin, checkout) => {

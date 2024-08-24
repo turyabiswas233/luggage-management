@@ -1,0 +1,8 @@
+1. Partner registration not working
+2. payment details according to percent
+3. email should be unique
+4. qr code issue
+
+
+id: turya@gmail.com
+pass: pokemon123
