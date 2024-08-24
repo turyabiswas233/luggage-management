@@ -15,6 +15,7 @@ const PartnerLocations = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [locationsPerPage] = useState(3);
+  const [active, setActive] = useState(true);
   const [qrCode, setQrCode] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [fetchingQRCode, setFetchingQRCode] = useState(false);
@@ -39,6 +40,7 @@ const PartnerLocations = () => {
         }
       );
       if (Array.isArray(response.data)) {
+        console.log(response);
         setLocations(response.data);
       } else {
         setLocations([]); // Handle case where response is not an array
@@ -144,12 +146,20 @@ const PartnerLocations = () => {
           <div className="px-4 mt-32 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
             {/* Create Location Button */}
             <div className="mb-4 flex gap-2 items-start">
-                <div>
-                    <p>Accept Service</p>
-                    <button className=" w-8 h-2 rounded-md border border-slate-800 p-px">
-                        <span className="absolute w-2 h-2 left-1 rounded-md bg-teal-500"></span>
-                    </button>
-                </div>
+              <div className="hidden">
+                <button
+                  className={` w-10 h-5 rounded-full border border-slate-800 relative ${
+                    active ? "bg-teal-600" : "bg-teal-50"
+                  }`}
+                  onClick={(e) => setActive((p) => !p)}
+                >
+                  <span
+                    className={`absolute w-1/3 h-2/3 transition-all ${
+                      active ? "left-[60%] bg-teal-50" : "left-[5%] bg-teal-500"
+                    } top-1/3 -translate-y-1/4 rounded-md `}
+                  ></span>
+                </button>
+              </div>
               <button
                 onClick={() => navigate("/partner/create-location")}
                 className="px-4 py-2 bg-blue-500 text-white rounded-lg"
@@ -183,6 +193,7 @@ const PartnerLocations = () => {
                     <tr>
                       <th className="w-2/12 py-3 px-6 text-left">Name</th>
                       <th className="w-3/12 py-3 px-6 text-left">Address</th>
+                      <th className="w-3/12 py-3 px-6 text-left">Capacity</th>
                       <th className="w-2/12 py-3 px-6 text-left">Open Time</th>
                       <th className="w-2/12 py-3 px-6 text-left">Close Time</th>
                       <th className="w-3/12 py-3 px-6 text-left">URL</th>
@@ -201,6 +212,9 @@ const PartnerLocations = () => {
                           {location.name}
                         </td>
                         <td className="w-3/12 py-3 px-6 border">{`${location.address.street}, ${location.address.city}, ${location.address.state}, ${location.address.zipCode}, ${location.address.country}`}</td>
+                        <td className="w-2/12 py-3 px-6 border">
+                          {location.capacity}
+                        </td>
                         <td className="w-2/12 py-3 px-6 border">
                           {location.openTime}
                         </td>

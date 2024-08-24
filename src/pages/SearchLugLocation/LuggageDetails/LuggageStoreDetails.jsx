@@ -59,7 +59,7 @@ const LuggageStoreDetails = () => {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
   const [bookingId, setBookingId] = useState("");
-  const [isBookingAllowd, setBookingAllowed] = useState(false);
+  const [isBookingAllowd, setBookingAllowed] = useState(true);
   const [bookingError, setBookingError] = useState("");
   const [showBookingErrorModal, setShowBookingErrorModal] = useState(false);
   const [guestDetails, setGuestDetails] = useState(null);
@@ -94,7 +94,7 @@ const LuggageStoreDetails = () => {
               notes: data.notes,
               link: data.url,
             });
-            setBookingAllowed(data?.isBookingAllowd || false);
+            setBookingAllowed(data?.isBookingAllowd || true);
           } else {
             console.error("Error fetching store details:", data);
             navigate("/error"); // Redirect to an error page
@@ -119,7 +119,8 @@ const LuggageStoreDetails = () => {
 
     const token = localStorage.getItem("token");
     const url = `${config.API_BASE_URL}/api/v1/bookings/instant-booking`;
-
+    // console.log(bookingData);
+    // return;
     const fetchOptions = {
       method: "POST",
       headers: {
@@ -265,7 +266,7 @@ const LuggageStoreDetails = () => {
               setQrChecked={setQrChecked}
               isAgree={isAgree}
               setIsAgree={setIsAgree}
-              isBookingAllowd={isBookingAllowd}
+              // isBookingAllowd={isBookingAllowd}
             />
           </div>
         </div>
@@ -368,6 +369,7 @@ const PaymentFormModal = ({
         );
 
         const responseData = await response.json();
+        console.log(responseData);
 
         if (!response.ok) {
           throw new Error("Failed to update booking status");

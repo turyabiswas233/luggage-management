@@ -6,7 +6,6 @@ import moment from "moment-timezone";
 
 const BookingForm = ({
   handleSubmit,
-  isBookingAllowd = false,
   luggageQuantity,
   setLuggageQuantity,
   promoCode,
@@ -373,7 +372,7 @@ const BookingForm = ({
             <span>A${totalPrice.toFixed(2)}</span>
           </div>
         </div>
-        {!isBookingAllowd && (
+        {false && (
           <div
             className="bg-yellow-100 flex items-center gap-2 border border-yellow-400 my-3 text-yellow-700 px-4 py-3 rounded"
             role="alert"
@@ -393,7 +392,7 @@ const BookingForm = ({
           variant="primary"
           onClick={openUserDetailsModal}
           className="w-full bg-[#1A73A7] text-white py-2 rounded hover:bg-blue-700 transition duration-300 mb-2"
-          disabled={!checkinTime || !checkoutTime || !isBookingAllowd}
+          disabled={!checkinTime || !checkoutTime}
         >
           Book Now
         </Button>
