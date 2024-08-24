@@ -29,8 +29,6 @@ import NavbarComp from "../../Home/NavbarComp";
 import { Button, Modal } from "react-bootstrap";
 import { FiAlertCircle } from "react-icons/fi";
 
-import CustomGoogleBtn from "../../../components/CustomGoogleBtn";
-
 library.add(faMapMarkerAlt, faClock, faStar, faWifi, faShieldAlt, faTag);
 
 const stripePromise = loadStripe(config.STRIPE_PUBLIC_KEY);
@@ -45,8 +43,7 @@ const LuggageStoreDetails = () => {
   const [promoCode, setPromoCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [checkinTime, setCheckinTime] = useState("");
-  const [checkoutTime, setCheckoutTime] = useState("");
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [clientId, setClientId] = useState(null);
   const [clientDetails, setClientDetails] = useState({
@@ -62,6 +59,7 @@ const LuggageStoreDetails = () => {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
   const [bookingId, setBookingId] = useState("");
+  const [isBookingAllowd, setBookingAllowed] = useState(false);
   const [bookingError, setBookingError] = useState("");
   const [showBookingErrorModal, setShowBookingErrorModal] = useState(false);
   const [guestDetails, setGuestDetails] = useState(null);
@@ -96,6 +94,7 @@ const LuggageStoreDetails = () => {
               notes: data.notes,
               link: data.url,
             });
+            setBookingAllowed(data?.isBookingAllowd || false);
           } else {
             console.error("Error fetching store details:", data);
             navigate("/error"); // Redirect to an error page
@@ -114,6 +113,7 @@ const LuggageStoreDetails = () => {
 
   const handleSubmit = async (bookingData, guestDetails) => {
     console.log("Guest Details:", guestDetails); // Log guest details to the console
+    console.log("Boking Details:", bookingData); // Log booking details to the console
 
     setGuestDetails(guestDetails); // Store guestDetails in state
 
@@ -217,8 +217,8 @@ const LuggageStoreDetails = () => {
       {isLoggedIn ? <ClientNavbarComp /> : <NavbarComp />}
 
       <div className="container mx-auto mt-12 pt-32">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="col-span-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div>
             {storeDetails ? (
               <LuggageStoreInfo
                 id={storeDetails.id}
@@ -254,10 +254,6 @@ const LuggageStoreDetails = () => {
               setPromoCode={setPromoCode}
               discount={discount}
               setDiscount={setDiscount}
-              checkinTime={checkinTime}
-              setCheckinTime={setCheckinTime}
-              checkoutTime={checkoutTime}
-              setCheckoutTime={setCheckoutTime}
               totalPrice={totalPrice}
               setTotalPrice={setTotalPrice}
               regularprice={storeDetails?.regularprice}
@@ -265,9 +261,11 @@ const LuggageStoreDetails = () => {
               setClientId={setClientId}
               clientDetails={clientDetails}
               setClientDetails={setClientDetails}
+              qrChecked={qrChecked}
               setQrChecked={setQrChecked}
               isAgree={isAgree}
               setIsAgree={setIsAgree}
+              isBookingAllowd={isBookingAllowd}
             />
           </div>
         </div>
@@ -352,11 +350,6 @@ const PaymentFormModal = ({
       clientSecret: clientSecret,
       elements: elements,
       redirect: "if_required",
-      // confirmParams: {
-      //   // Return URL where Stripe will redirect after the payment
-      //   return_url:
-      //     `${window.location.origin}/` + window.location.pathname.slice(1),
-      // },
     });
 
     if (error) {

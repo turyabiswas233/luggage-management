@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Spinner } from "react-bootstrap";
+import { FiAlertCircle, FiCheck } from "react-icons/fi";
+import DatePicker from "./DatePicker";
 import moment from "moment-timezone";
 
 const BookingForm = ({
   handleSubmit,
+  isBookingAllowd = false,
   luggageQuantity,
   setLuggageQuantity,
   promoCode,
   setPromoCode,
   discount,
   setDiscount,
-  checkinTime,
-  setCheckinTime,
-  checkoutTime,
-  setCheckoutTime,
   totalPrice,
   setTotalPrice,
   locationid,
   clientId,
   clientDetails,
   setClientDetails,
+  qrChecked,
   setQrChecked,
   isAgree,
   setIsAgree,
@@ -29,7 +29,8 @@ const BookingForm = ({
   const [errors, setErrors] = useState({});
   const [promoApplied, setPromoApplied] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [checkinTime, setCheckinTime] = useState(new Date());
+  const [checkoutTime, setCheckoutTime] = useState(new Date());
   const [guestDetails, setGuestDetails] = useState({
     name: "",
     email: "",
@@ -50,8 +51,8 @@ const BookingForm = ({
       .add(20, "hours")
       .format("YYYY-MM-DDTHH:mm");
 
-    setCheckinTime(checkin);
-    setCheckoutTime(checkout);
+    //    setCheckinTime(checkin);
+    //  setCheckoutTime(checkout);
 
     setTotalPrice(0);
     setDiscount(0);
@@ -74,38 +75,43 @@ const BookingForm = ({
     setPromoApplied(false);
   };
 
-  const handleCheckoutTimeChange = (e) => {
-    const newCheckoutTime = e.target.value;
-    if (new Date(newCheckoutTime) < new Date(checkinTime)) {
+  const handleCheckoutTimeChange = () => {
+    if (checkoutTime.getTime() < checkinTime.getTime()) {
       setErrorMessage("Pickup date can't be before the drop-off date.");
     } else {
       setErrorMessage("");
-      setCheckoutTime(newCheckoutTime);
     }
   };
 
   const calculateDuration = (checkin, checkout) => {
     if (!checkin || !checkout) return 1;
     // Convert both dates to only date components (ignore time)
-    const start = new Date(checkin).setHours(0, 0, 0, 0);
-    const end = new Date(checkout).setHours(0, 0, 0, 0);
+    const start = checkin?.getTime();
+    const end = checkout?.getTime();
 
     // Calculate the difference in milliseconds
     const diffInMs = end - start;
 
     // Convert milliseconds to days
-    const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+    const diffInDays = Math.round(diffInMs / (1000 * 60 * 60 * 24));
 
     // Since any date change counts as an extra day, add 1 if there's a difference
-    return diffInDays >= 0 ? diffInDays + 1 : 0;
+    return diffInDays <= 1 ? 1 : diffInDays;
   };
 
   const validateDateTime = (checkin, checkout) => {
     const now = new Date();
-    if (new Date(checkin) < now) {
+    const newNow = new Date(
+      now.getFullYear,
+      now.getMonth(),
+      now.getDate(),
+      now.getHours(),
+      now.getMinutes() < 30 ? 0 : 30
+    );
+    if (checkin < newNow) {
       setErrorMessage("Check-in time must be in the future.");
       return false;
-    } else if (new Date(checkout) < new Date(checkin)) {
+    } else if (checkout < checkin) {
       setErrorMessage("Pickup date can't be before the drop-off date.");
       return false;
     }
@@ -180,6 +186,7 @@ const BookingForm = ({
       endTime: moment(checkoutTime).tz(australianTimeZone).format("HH:mm"),
       totalPricePaid: parseFloat(totalPrice).toFixed(2),
       specialRequests: clientDetails.specialRequests || "No requirement",
+      luggageQuantity: luggageQuantity,
     };
 
     if (clientId) {
@@ -193,7 +200,10 @@ const BookingForm = ({
     }
 
     try {
-      await handleSubmit(bookingData, guestDetails);
+      await handleSubmit(
+        { ...bookingData, qrChecked: qrChecked },
+        guestDetails
+      );
       setShowModal(false); // Close modal on successful submission
     } catch (error) {
       setErrorMessage("Submission failed. Please try again.");
@@ -211,48 +221,16 @@ const BookingForm = ({
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6">
+    <div className="bg-white text-slate-900 shadow-md rounded-lg p-6">
       <h5 className="text-2xl font-bold mb-4">Your Booking</h5>
       {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
       <form id="booking-form" onSubmit={handleFormSubmit}>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <label>
-            Drop off:
-            <input
-              type="datetime-local"
-              className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
-              value={checkinTime}
-              onChange={(e) => setCheckinTime(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Pick up:
-            <input
-              type="datetime-local"
-              className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
-              value={checkoutTime}
-              onChange={handleCheckoutTimeChange}
-              required
-            />
-          </label>
-        </div>
-        <div className="mb-4">
-          <label htmlFor="luggageQuantity" className="block font-bold mb-1">
-            Number of Bags:
-          </label>
-          <div className="flex items-center">
-            <input
-              type="number"
-              className="w-full p-2 border border-gray-300 rounded"
-              id="luggageQuantity"
-              name="luggageQuantity"
-              value={luggageQuantity}
-              onChange={(e) => setLuggageQuantity(Number(e.target.value))}
-              required
-            />
-          </div>
-        </div>
+        <DatePicker
+          setCheckinTime={setCheckinTime}
+          setCheckoutTime={setCheckoutTime}
+          setLuggageQuantity={setLuggageQuantity}
+        />
+
         <div className="mb-4">
           <label htmlFor="promoCode" className="block font-bold mb-1">
             Promo Code:
@@ -291,37 +269,33 @@ const BookingForm = ({
           <h4 className="font-bold text-sm">
             Have you reached us through a QR Code?
           </h4>
-          <section className="p-1 flex justify-start items-center gap-2 border border-2 rounded-md mt-1">
-            <input
-              type="radio"
-              name="qrChecker"
-              id="qrCheckerYes"
-              onChange={(e) => setQrChecked(true)}
-            />
-            <label className="flex-1" htmlFor="qrCheckerYes">
-              Yes
-            </label>
-          </section>
-          <section className="p-1 flex justify-start items-center gap-2 border border-2 rounded-md mt-1">
-            <input
-              type="radio"
-              name="qrChecker"
-              id="qrCheckerNo"
-              onChange={(e) => setQrChecked(false)}
-            />
-            <label className="flex-1" htmlFor="qrCheckerNo">
-              No
-            </label>
-          </section>
+          <div className="grid grid-cols-2 gap-4">
+            <section className="p-1 flex justify-start items-center gap-2 border border-2 rounded-md mt-1">
+              <input
+                type="radio"
+                name="qrChecker"
+                id="qrCheckerYes"
+                onChange={() => setQrChecked(true)}
+              />
+              <label className="flex-1" htmlFor="qrCheckerYes">
+                Yes
+              </label>
+            </section>
+            <section className="p-1 flex justify-start items-center gap-2 border border-2 rounded-md mt-1">
+              <input
+                type="radio"
+                name="qrChecker"
+                id="qrCheckerNo"
+                onChange={() => setQrChecked(false)}
+              />
+              <label className="flex-1" htmlFor="qrCheckerNo">
+                No
+              </label>
+            </section>
+          </div>
         </div>
 
         <div className="Mb-4 flex gap-2 items-center mb-6 group w-fit">
-          <div
-            className={`w-1 p-2 h-1 rounded-sm transition-colors grid place-content-center  ${
-              !isAgree ? "bg-gray-300/50 group-hover:bg-teal-300" : "bg-teal-500"
-            }`}
-          >
-          </div>
           <input
             type="checkbox"
             hidden
@@ -330,6 +304,17 @@ const BookingForm = ({
             onChange={(e) => setIsAgree(e.target.checked)}
           />
           <label htmlFor="isAgree" className="text-base">
+            <div
+              className={`bg-gray-300 w-fit transition-colors duration-500 inline-block mr-2 rounded-sm ${
+                isAgree ? "bg-teal-400/80" : "bg-gray-100"
+              }`}
+            >
+              <FiCheck
+                className={`p-px transition-colors ${!isAgree && "opacity-30"}`}
+                enableBackground={"true"}
+                color={"black"}
+              />
+            </div>
             I have read and agree to{" "}
             <a
               className="text-teal-500 font-medium hover:underline"
@@ -369,11 +354,17 @@ const BookingForm = ({
             <span>
               Total Service Charge per day (A$2.60 x{" "}
               {calculateDuration(checkinTime, checkoutTime)} day
-              {calculateDuration(checkinTime, checkoutTime) > 1 ? "s" : ""})
+              {calculateDuration(checkinTime, checkoutTime) > 1
+                ? "s"
+                : ""} x {luggageQuantity} bag{luggageQuantity > 1 ? "s" : ""})
             </span>
             <span>
               A$
-              {(2.6 * calculateDuration(checkinTime, checkoutTime)).toFixed(2)}
+              {(
+                2.6 *
+                luggageQuantity *
+                calculateDuration(checkinTime, checkoutTime)
+              ).toFixed(2)}
             </span>
           </div>
 
@@ -382,12 +373,27 @@ const BookingForm = ({
             <span>A${totalPrice.toFixed(2)}</span>
           </div>
         </div>
-
+        {!isBookingAllowd && (
+          <div
+            className="bg-yellow-100 flex items-center gap-2 border border-yellow-400 my-3 text-yellow-700 px-4 py-3 rounded"
+            role="alert"
+          >
+            <span>
+              <FiAlertCircle />{" "}
+            </span>
+            <p>
+              <strong className="font-bold">
+                Service Temporarily Blocked.
+              </strong>{" "}
+              Try another location.
+            </p>
+          </div>
+        )}
         <Button
           variant="primary"
           onClick={openUserDetailsModal}
           className="w-full bg-[#1A73A7] text-white py-2 rounded hover:bg-blue-700 transition duration-300 mb-2"
-          disabled={!checkinTime || !checkoutTime}
+          disabled={!checkinTime || !checkoutTime || !isBookingAllowd}
         >
           Book Now
         </Button>
