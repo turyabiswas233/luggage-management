@@ -40,12 +40,13 @@ const PartnerLocations = () => {
         }
       );
       if (Array.isArray(response.data)) {
-        console.log(response);
+        console.log("LOCATION: ", response);
         setLocations(response.data);
       } else {
         setLocations([]); // Handle case where response is not an array
       }
     } catch (error) {
+      console.log(error);
       if (error.response && error.response.status === 401) {
         localStorage.removeItem("token");
         navigate("/");
@@ -193,10 +194,13 @@ const PartnerLocations = () => {
                     <tr>
                       <th className="w-2/12 py-3 px-6 text-left">Name</th>
                       <th className="w-3/12 py-3 px-6 text-left">Address</th>
-                      <th className="w-3/12 py-3 px-6 text-left">Capacity</th>
+                      <th className="w-3/12 py-3 px-6 text-left">Capacity (fixed to 50)</th>
                       <th className="w-2/12 py-3 px-6 text-left">Open Time</th>
                       <th className="w-2/12 py-3 px-6 text-left">Close Time</th>
                       <th className="w-3/12 py-3 px-6 text-left">URL</th>
+                      <th className="w-1/12 py-3 px-6 text-left">
+                        Accept Overbooking
+                      </th>
                       <th className="w-1/12 py-3 px-6 text-left">Edit</th>
                       <th className="w-1/12 py-3 px-6 text-left">Action</th>
                     </tr>
@@ -226,6 +230,47 @@ const PartnerLocations = () => {
                           onClick={() => handleURLClick(location.url)}
                         >
                           {location.url}
+                        </td>
+                        <td className="w-1/12 py-3 px-6 border text-center">
+                          <button
+                            onClick={async () => {
+                              try {
+                                const token = localStorage.getItem("token");
+                                const response = await axios.put(
+                                  `${config.API_BASE_URL}/api/v1/bookings/locations/${location._id}/toggle-overbooking`,
+                                  {},
+                                  {
+                                    headers: {
+                                      Authorization: `Bearer ${token}`,
+                                    },
+                                  }
+                                );
+                                if (response.status === 200) {
+                                  alert(response.data?.message);
+                                  setLocations((pre) =>
+                                    pre.map((ele) =>
+                                      ele._id === response.data.data._id
+                                        ? response.data.data
+                                        : ele
+                                    )
+                                  );
+                                  // fetchLocations();
+                                } else {
+                                  alert("Failed to Toggle location.");
+                                }
+                              } catch (error) {
+                                console.log(error);
+                                setError("An error occured. Please try again");
+                              }
+                            }}
+                            className={`px-4 py-2 rounded-lg ${
+                              location.overbooking
+                                ? "bg-green-500"
+                                : "bg-red-400"
+                            } text-white transition duration-150`}
+                          >
+                            {location.overbooking ? "Accepting" : "Rejected"}
+                          </button>
                         </td>
                         <td className="w-1/12 py-3 px-6 border text-center">
                           <button

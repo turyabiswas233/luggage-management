@@ -59,7 +59,7 @@ const LuggageStoreDetails = () => {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
   const [bookingId, setBookingId] = useState("");
-  const [isBookingAllowd, setBookingAllowed] = useState(true);
+  const [isBookingAllowd, setBookingAllowed] = useState(false);
   const [bookingError, setBookingError] = useState("");
   const [showBookingErrorModal, setShowBookingErrorModal] = useState(false);
   const [guestDetails, setGuestDetails] = useState(null);
@@ -75,6 +75,7 @@ const LuggageStoreDetails = () => {
 
         try {
           const response = await fetch(url);
+          // console.log(response);
           const data = await response.json();
 
           if (response.ok) {
@@ -93,8 +94,8 @@ const LuggageStoreDetails = () => {
               closeTime: data.closeTime,
               notes: data.notes,
               link: data.url,
+              isAllowd: data.overbooking,
             });
-            setBookingAllowed(data?.isBookingAllowd || true);
           } else {
             console.error("Error fetching store details:", data);
             navigate("/error"); // Redirect to an error page
@@ -109,7 +110,7 @@ const LuggageStoreDetails = () => {
     };
 
     fetchStoreDetails();
-  }, [location, navigate]);
+  }, [location, navigate, setBookingAllowed]);
 
   const handleSubmit = async (bookingData, guestDetails) => {
     console.log("Guest Details:", guestDetails); // Log guest details to the console
@@ -210,9 +211,12 @@ const LuggageStoreDetails = () => {
     setShowBookingErrorModal(false);
     window.location.reload(); // Refresh the page when OK is clicked
   };
+
   useEffect(() => {
-    console.log(qrChecked);
-  }, [qrChecked]);
+    // alert(storeDetails?.isAllowd);
+    setBookingAllowed(storeDetails?.isAllowd);
+  }, [storeDetails]);
+
   return (
     <div>
       {isLoggedIn ? <ClientNavbarComp /> : <NavbarComp />}
@@ -234,7 +238,7 @@ const LuggageStoreDetails = () => {
                 openTime={storeDetails.openTime}
                 closeTime={storeDetails.closeTime}
                 notes={storeDetails.notes}
-                GOOGLE_MAPS_API_KEY={GOOGLE_MAPS_API_KEY}
+                GOOGLE_MAPS_API_KEY={GOOGLE_MAPS_API_KEY} 
               />
             ) : (
               <div>Loading...</div>
@@ -244,30 +248,32 @@ const LuggageStoreDetails = () => {
             {bookingError && (
               <div className="alert alert-danger">{bookingError}</div>
             )}
-            <BookingForm
-              locationid={storeDetails?.id}
-              handleSubmit={handleSubmit}
-              luggageQuantity={luggageQuantity}
-              setLuggageQuantity={setLuggageQuantity}
-              serviceOption={serviceOption}
-              setServiceOption={setServiceOption}
-              promoCode={promoCode}
-              setPromoCode={setPromoCode}
-              discount={discount}
-              setDiscount={setDiscount}
-              totalPrice={totalPrice}
-              setTotalPrice={setTotalPrice}
-              regularprice={storeDetails?.regularprice}
-              clientId={clientId}
-              setClientId={setClientId}
-              clientDetails={clientDetails}
-              setClientDetails={setClientDetails}
-              qrChecked={qrChecked}
-              setQrChecked={setQrChecked}
-              isAgree={isAgree}
-              setIsAgree={setIsAgree}
-              // isBookingAllowd={isBookingAllowd}
-            />
+            {storeDetails && (
+              <BookingForm
+                locationid={storeDetails?.id}
+                handleSubmit={handleSubmit}
+                luggageQuantity={luggageQuantity}
+                setLuggageQuantity={setLuggageQuantity}
+                serviceOption={serviceOption}
+                setServiceOption={setServiceOption}
+                promoCode={promoCode}
+                setPromoCode={setPromoCode}
+                discount={discount}
+                setDiscount={setDiscount}
+                totalPrice={totalPrice}
+                setTotalPrice={setTotalPrice}
+                regularprice={storeDetails?.regularprice}
+                clientId={clientId}
+                setClientId={setClientId}
+                clientDetails={clientDetails}
+                setClientDetails={setClientDetails}
+                qrChecked={qrChecked}
+                setQrChecked={setQrChecked}
+                isAgree={isAgree}
+                setIsAgree={setIsAgree}
+                isBookingAllowd={storeDetails?.isAllowd}
+              />
+            )}
           </div>
         </div>
       </div>

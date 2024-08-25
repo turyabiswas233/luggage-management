@@ -20,6 +20,7 @@ const BookingForm = ({
   setClientDetails,
   qrChecked,
   setQrChecked,
+  isBookingAllowed,
   isAgree,
   setIsAgree,
 }) => {
@@ -394,7 +395,7 @@ const BookingForm = ({
           variant="primary"
           onClick={openUserDetailsModal}
           className="w-full bg-[#1A73A7] text-white py-2 rounded hover:bg-blue-700 transition duration-300 mb-2"
-          disabled={!checkinTime || !checkoutTime}
+          disabled={!checkinTime || !checkoutTime || !isAgree}
         >
           Book Now
         </Button>

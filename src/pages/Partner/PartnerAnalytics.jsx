@@ -122,7 +122,7 @@ const PartnerAnalytics = () => {
                   Total Earned: $<span className="text-3xl text-green-500">{totalEarnings} AUD</span>
                 </p>
                 <p className="text-xl font-semibold text-orange-900">
-                  Total Earned: $<span className="text-3xl text-orange-500">{totalPendingEarnings} AUD</span>
+                  Total Pending: $<span className="text-3xl text-orange-500">{totalPendingEarnings} AUD</span>
                 </p>
                 
               </div>

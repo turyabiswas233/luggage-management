@@ -31,7 +31,12 @@ const SuperAdminPartnerAnalytics = () => {
         {
           label: "Average Monthly Earnings",
           data: partners.map((partner) =>
-            partner.earnings.length > 0 ? partner.earnings[0].totalEarnings : 0
+            partner.earnings.length > 0
+              ? partner.earnings.reduce(
+                  (p, c) => p + (c.totalEarnings * 38.095) / 100,
+                  0
+                )
+              : 0
           ),
           backgroundColor: "rgba(75, 192, 192, 0.6)",
         },
@@ -101,6 +106,7 @@ const SuperAdminPartnerAnalytics = () => {
                     <th className="py-3 px-6 text-left">Partner ID</th>
                     <th className="py-3 px-6 text-left">Partner Email</th>
                     <th className="py-3 px-6 text-left">Total Earnings</th>
+                    <th className="py-3 px-6 text-left">Total Paid</th>
                     <th className="py-3 px-6 text-left">
                       Income Indicator ({">10000"})
                     </th>
@@ -110,7 +116,11 @@ const SuperAdminPartnerAnalytics = () => {
                 <tbody className="text-gray-800">
                   {currentPartners.map((partner, pid) => {
                     let earning = partner.earnings.reduce(
-                      (p, c) => p + (c.totalEarnings || 0),
+                      (p, c) => p + ((c.totalEarnings * 38.095) / 100 || 0),
+                      0
+                    );
+                    let paid = partner.earnings.reduce(
+                      (p, c) => p + ((c.amountPaid * 38.095) / 100 || 0),
                       0
                     );
                     return (
@@ -118,11 +128,16 @@ const SuperAdminPartnerAnalytics = () => {
                         key={partner.partnerId}
                         className="bg-white hover:bg-gray-200 transition duration-150"
                       >
-                        <td className="py-3 px-6 border text-center">{pid + 1}</td>
+                        <td className="py-3 px-6 border text-center">
+                          {pid + 1}
+                        </td>
                         <td className="py-3 px-6 border">
                           {partner.partnerEmail}
                         </td>
-                        <td className="py-3 px-6 border">${earning}</td>
+                        <td className="py-3 px-6 border">
+                          ${earning.toFixed(2)}
+                        </td>
+                        <td className="py-3 px-6 border">${paid.toFixed(2)}</td>
 
                         <td className="py-3 px-6 border text-center">
                           {earning >= 10000 ? (

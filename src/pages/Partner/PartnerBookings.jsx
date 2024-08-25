@@ -25,7 +25,7 @@ const PartnerBookings = () => {
             },
           }
         );
-        console.log(response.data);
+        // console.log(response.data);
         if (Array.isArray(response.data.bookings)) {
           setBookings(response.data.bookings);
         } else {
@@ -45,8 +45,12 @@ const PartnerBookings = () => {
     fetchBookings();
   }, []);
 
-  const filteredBookings = bookings.filter((booking) =>
-    booking.location.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredBookings = bookings.filter(
+    (booking) =>
+      booking.location.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (booking.guest?.name || "")
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
   );
 
   const indexOfLastBooking = currentPage * bookingsPerPage;
@@ -78,6 +82,13 @@ const PartnerBookings = () => {
     date.setHours(hours, minutes);
     return date.toLocaleString(undefined, options);
   };
+  const [totalPaid, setTotalPaid] = useState(0);
+  useEffect(() => {
+    setTotalPaid(0);
+    currentBookings.forEach((e) => {
+      if (e.status === "paid") setTotalPaid((p) => p + e.payment.amount);
+    });
+  }, [currentBookings]);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-gray-100">
@@ -95,7 +106,7 @@ const PartnerBookings = () => {
             <div className="mb-4">
               <input
                 type="text"
-                placeholder="Search by Location"
+                placeholder="Search by Location or Guest Name"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
@@ -127,6 +138,9 @@ const PartnerBookings = () => {
                         Pick-up Time
                       </th>
                       <th className="w-1/4 py-3 px-6 text-left">Guest</th>
+                      <th className="w-1/4 py-3 px-6 text-left">
+                        Luggage Number
+                      </th>
                       <th className="w-1/6 py-3 px-6 text-left">
                         Payment Amount
                       </th>
@@ -165,11 +179,26 @@ const PartnerBookings = () => {
                               ? `${booking.guest.name} ${booking.guest.email} ${booking.guest.phone}`
                               : "--No Info--"}
                           </td>
-                          <td className="w-1/6 py-3 px-6 border">
-                            ${booking.payment.amount || ""} AUD
+                          <td className="w-1/4 py-3 px-6 border">
+                            {booking.luggageCount || "--"}
                           </td>
                           <td className="w-1/6 py-3 px-6 border">
-                            {booking.status || ""}
+                            $
+                            {booking.payment.amount
+                              ? booking.payment.amount.toFixed(2)
+                              : "0.00"}{" "}
+                            AUD
+                          </td>
+                          <td className="w-1/6 py-3 px-6 border text-center">
+                            <span
+                              className={`px-3 py-1 rounded-full ${
+                                booking.status == "paid"
+                                  ? "bg-green-100/80 text-green-500"
+                                  : "bg-yellow-100/80 text-yellow-500"
+                              }`}
+                            >
+                              {booking.status || ""}
+                            </span>
                           </td>
                         </tr>
                       ))
