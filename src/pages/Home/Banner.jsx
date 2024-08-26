@@ -1,12 +1,12 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Autocomplete, useJsApiLoader } from '@react-google-maps/api';
-import backgroundImage from '../../img/home-two/luggage-1.jpg';
-import './Banner.css';
-import config from '../../config';
-import translations from './translations'; // Import your translations
+import React, { useState, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
+import backgroundImage from "../../img/home-two/luggage-1.jpg";
+import "./Banner.css";
+import config from "../../config";
+import translations from "./translations"; // Import your translations
 
-const libraries = ['places'];
+const libraries = ["places"];
 
 function Banner({ currentLanguage }) {
   const navigate = useNavigate();
@@ -32,10 +32,10 @@ function Banner({ currentLanguage }) {
       if (place.geometry) {
         setSelectedPlace(place);
       } else {
-        console.log('No geometry available for the selected place');
+        console.log("No geometry available for the selected place");
       }
     } else {
-      console.log('Autocomplete is not loaded yet!');
+      console.log("Autocomplete is not loaded yet!");
     }
   };
 
@@ -46,9 +46,11 @@ function Banner({ currentLanguage }) {
         lat: selectedPlace.geometry.location.lat(),
         lng: selectedPlace.geometry.location.lng(),
       };
-      navigate('/luggage_locations', { state: { location, inputLocation: locationInputRef.current.value } });
+      navigate("/luggage_locations", {
+        state: { location, inputLocation: locationInputRef.current.value },
+      });
     } else {
-      console.log('Please select a valid place');
+      console.log("Please select a valid place");
     }
   };
 
@@ -61,16 +63,16 @@ function Banner({ currentLanguage }) {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          navigate('/luggage_locations', { state: { location, nearby: true } });
+          navigate("/luggage_locations", { state: { location, nearby: true } });
           setLoadingLocation(false);
         },
         (error) => {
-          console.error('Error fetching location:', error);
+          console.error("Error fetching location:", error);
           setLoadingLocation(false);
         }
       );
     } else {
-      console.log('Geolocation is not supported by this browser.');
+      console.log("Geolocation is not supported by this browser.");
     }
   };
 
@@ -78,7 +80,13 @@ function Banner({ currentLanguage }) {
   if (!isLoaded) return <div>Loading Maps</div>;
 
   // Fetch translations for the current language
-  const { title, subtitle, searchPlaceholder, searchButton, findLocationsButton } = translations[currentLanguage]?.heroSection;
+  const {
+    title,
+    subtitle,
+    searchPlaceholder,
+    searchButton,
+    findLocationsButton,
+  } = translations[currentLanguage]?.heroSection;
 
   return (
     <div
@@ -87,11 +95,22 @@ function Banner({ currentLanguage }) {
     >
       <div className="absolute inset-0 bg-gray-800 opacity-40 backdrop-blur-md"></div>
       <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold drop-shadow-lg">
-          <span className='slogan-color'>{title.split(' ')[0]}</span> {title.split(' ')[1]} <span className='slogan-color'>{title.split(' ')[2]}</span>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold drop-shadow-lg capitalize">
+          <span className="slogan-color">{title.split(" ")[0]}</span>{" "}
+          {title.split(" ")[1]}{" "}
+          <span className="slogan-color">
+            {title.split(" ")[2]} {title.split(" ")[3]}
+          </span>
         </h1>
-        <p className="mt-4 text-base sm:text-lg lg:text-xl drop-shadow-md">{subtitle}</p>
-        <form id="locationForm" className="mt-4" onSubmit={handleSubmit} aria-label="Location search form">
+        <p className="mt-4 text-base sm:text-lg lg:text-xl drop-shadow-md">
+          {subtitle}
+        </p>
+        <form
+          id="locationForm"
+          className="mt-4"
+          onSubmit={handleSubmit}
+          aria-label="Location search form"
+        >
           <div className="flex flex-col sm:flex-row justify-center items-center relative">
             <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
               <input
@@ -112,7 +131,9 @@ function Banner({ currentLanguage }) {
           <button
             type="button"
             onClick={handleNearMyLocationClick}
-            className={`find-button bg-green-600 hover:bg-green-800 text-white rounded-md shadow-md transition duration-300 ease-in-out mt-4 px-8 py-3 w-full sm:w-auto ${loadingLocation ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`find-button bg-green-600 hover:bg-green-800 text-white rounded-md shadow-md transition duration-300 ease-in-out mt-4 px-8 py-3 w-full sm:w-auto ${
+              loadingLocation ? "opacity-50 cursor-not-allowed" : ""
+            }`}
             disabled={loadingLocation}
           >
             {findLocationsButton}

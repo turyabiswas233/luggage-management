@@ -18,16 +18,16 @@ const PartnerBookings = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `${config.API_BASE_URL}/api/v1/analytics/client-bookings`,
+          `${config.API_BASE_URL}/api/v1/bookings/fetch/all/booking-info/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        // console.log(response.data);
-        if (Array.isArray(response.data.bookings)) {
-          setBookings(response.data.bookings);
+        console.log(response.data);
+        if (Array.isArray(response.data)) {
+          setBookings(response.data);
         } else {
           setBookings([]);
         }
@@ -86,7 +86,8 @@ const PartnerBookings = () => {
   useEffect(() => {
     setTotalPaid(0);
     currentBookings.forEach((e) => {
-      if (e.status === "paid") setTotalPaid((p) => p + e.payment.amount);
+      if (e.status === "paid")
+        setTotalPaid((p) => p + e.payment.amount * 0.38095);
     });
   }, [currentBookings]);
 
@@ -101,7 +102,9 @@ const PartnerBookings = () => {
           <div className="px-4 mt-32 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
             {/* Welcome banner */}
             <WelcomeBanner />
-
+            <div className="hidden mb-4 px-4 py-2 bg-black text-white rounded-md text-xl">
+              Total Earned by booking: ${totalPaid.toFixed(0)} AUD
+            </div>
             {/* Search bar */}
             <div className="mb-4">
               <input
@@ -154,54 +157,61 @@ const PartnerBookings = () => {
                         <td>No data to show</td>
                       </tr>
                     ) : (
-                      currentBookings.map((booking, index) => (
-                        <tr
-                          key={index}
-                          className="bg-white hover:bg-gray-200 transition duration-150"
-                        >
-                          <td className="w-1/4 py-3 px-6 border">
-                            {booking.location.name || ""}
-                          </td>
-                          <td className="w-1/6 py-3 px-6 border">
-                            {formatDate(booking.bookingDate)}
-                          </td>
-                          <td className="w-1/4 py-3 px-6 border">
-                            {formatDateTime(
-                              booking.startDate,
-                              booking.startTime
-                            )}
-                          </td>
-                          <td className="w-1/4 py-3 px-6 border">
-                            {formatDateTime(booking.endDate, booking.endTime)}
-                          </td>
-                          <td className="w-1/6 py-3 px-6 border">
-                            {booking.guest
-                              ? `${booking.guest.name} ${booking.guest.email} ${booking.guest.phone}`
-                              : "--No Info--"}
-                          </td>
-                          <td className="w-1/4 py-3 px-6 border">
-                            {booking.luggageCount || "--"}
-                          </td>
-                          <td className="w-1/6 py-3 px-6 border">
-                            $
-                            {booking.payment.amount
-                              ? booking.payment.amount.toFixed(2)
-                              : "0.00"}{" "}
-                            AUD
-                          </td>
-                          <td className="w-1/6 py-3 px-6 border text-center">
-                            <span
-                              className={`px-3 py-1 rounded-full ${
-                                booking.status == "paid"
-                                  ? "bg-green-100/80 text-green-500"
-                                  : "bg-yellow-100/80 text-yellow-500"
-                              }`}
-                            >
-                              {booking.status || ""}
-                            </span>
-                          </td>
-                        </tr>
-                      ))
+                      currentBookings
+                        .sort((a, b) => {
+                          let x = new Date(a.bookingDate).getTime();
+                          let y = new Date(b.bookingDate).getTime();
+                          if (x < y) return 1;
+                          else return -1;
+                        })
+                        .map((booking, index) => (
+                          <tr
+                            key={index}
+                            className="bg-white hover:bg-gray-200 transition duration-150"
+                          >
+                            <td className="w-1/4 py-3 px-6 border">
+                              {booking.location.name || ""}
+                            </td>
+                            <td className="w-1/6 py-3 px-6 border">
+                              {formatDate(booking.bookingDate)}
+                            </td>
+                            <td className="w-1/4 py-3 px-6 border">
+                              {formatDateTime(
+                                booking.startDate,
+                                booking.startTime
+                              )}
+                            </td>
+                            <td className="w-1/4 py-3 px-6 border">
+                              {formatDateTime(booking.endDate, booking.endTime)}
+                            </td>
+                            <td className="w-1/6 py-3 px-6 border">
+                              {booking.guest
+                                ? `${booking.guest.name} ${booking.guest.email} ${booking.guest.phone}`
+                                : "--No Info--"}
+                            </td>
+                            <td className="w-1/4 py-3 px-6 border">
+                              {booking.luggageCount || "--"}
+                            </td>
+                            <td className="w-1/6 py-3 px-6 border">
+                              $
+                              {booking.payment.amount
+                                ? (booking.payment.amount * 0.38095).toFixed(2)
+                                : "0.00"}{" "}
+                              AUD
+                            </td>
+                            <td className="w-1/6 py-3 px-6 border text-center">
+                              <span
+                                className={`px-3 py-1 rounded-full ${
+                                  booking.status == "paid"
+                                    ? "bg-green-100/80 text-green-500"
+                                    : "bg-yellow-100/80 text-yellow-500"
+                                }`}
+                              >
+                                {booking.status || ""}
+                              </span>
+                            </td>
+                          </tr>
+                        ))
                     )}
                   </tbody>
                 </table>

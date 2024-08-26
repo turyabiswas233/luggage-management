@@ -65,7 +65,7 @@ const translations = {
         {
           name: "Jac Lorry",
           position: "Client",
-          text: "Outstanding service! The team goes above and beyond to ensure customer satisfaction. The luggage quality is top-notch and their support is always there when you need it.",
+          text: "Thank you for providing such a fantastic customer experience. The luggage is well-made and the team's support has been invaluable. I'll definitely be a repeat customer.",
           rating: 5
         },
         {
@@ -145,22 +145,22 @@ const translations = {
       company: "Company",
       about: "About",
       services: "Services",
-      projects: "Projects",
-      team: "Team",
+
+
       blog: "Blog",
       support: "Support",
       faq: "FAQ",
       privacyPolicy: "Privacy Policy",
       terms: "Terms & Conditions",
-      community: "Community",
-      contact: "Contact",
+
+
       contactInfo: "Contact Info",
       address: "Address: 52 Merlin St Craigieburn VIC 3064",
       email: "Email: admin@Urloker.com",
       phone: "Phone: +01 234 567 89",
       followUs: "Follow Us",
       companyDescription: "Urloker offers secure and convenient luggage storage solutions.",
-      copyright: "Copyright &copy; {year} Urloker. Designed By EasytechInnovation",
+      copyright: "Copyright {year} Urloker. Designed By EasytechInnovation",
     },
     luggageStorageLocations: {
       title: 'Our Top Luggage Storage Locations',
@@ -225,22 +225,22 @@ const translations = {
       company: "Compañía",
       about: "Acerca de",
       services: "Servicios",
-      projects: "Proyectos",
-      team: "Equipo",
+
+
       blog: "Blog",
       support: "Apoyo",
       faq: "FAQ",
       privacyPolicy: "Política de Privacidad",
       terms: "Términos y Condiciones",
-      community: "Comunidad",
-      contact: "Contacto",
+
+
       contactInfo: "Información de Contacto",
       address: "Dirección: 52 Merlin St Craigieburn VIC 3064",
       email: "Correo electrónico: admin@Urloker.com",
       phone: "Teléfono: +01 234 567 89",
       followUs: "Síguenos",
       companyDescription: "Urloker ofrece soluciones de almacenamiento de equipaje seguras y convenientes para su hogar y oficina.",
-      copyright: "Copyright &copy; {year} Urloker. Diseñado Por EasytechInnovation",
+      copyright: "Copyright {year} Urloker. Diseñado Por EasytechInnovation",
     },
 
 
@@ -302,7 +302,7 @@ const translations = {
         {
           name: "Jac Lorry",
           position: "Cliente",
-          text: "¡Servicio excepcional! El equipo va más allá para asegurar la satisfacción del cliente. La calidad del equipaje es de primera y su soporte siempre está allí cuando lo necesitas.",
+          text: "Gracias por brindar una experiencia al cliente tan fantástica. El equipaje está bien hecho y el apoyo del equipo ha sido invaluable. Definitivamente seré un cliente habitual.",
           rating: 5
         },
         {
@@ -458,22 +458,22 @@ const translations = {
       company: "公司",
       about: "关于",
       services: "服务",
-      projects: "项目",
-      team: "团队",
+
+
       blog: "博客",
       support: "支持",
       faq: "常见问题",
       privacyPolicy: "隐私政策",
       terms: "条款和条件",
-      community: "社区",
-      contact: "联系",
+
+
       contactInfo: "联系信息",
       address: "地址: 52 Merlin St Craigieburn VIC 3064",
       email: "邮箱: admin@Urloker.com",
       phone: "电话: +01 234 567 89",
       followUs: "关注我们",
       companyDescription: "Urloker 为您的家和办公室提供安全便捷的行李存储解决方案。",
-      copyright: "Copyright &copy; {year} Urloker. 设计由 EasytechInnovation",
+      copyright: "Copyright {year} Urloker. 设计由 EasytechInnovation",
     },
     luggageStorageLocations: {
       title: '我们推荐的行李寄存地点',
@@ -530,7 +530,7 @@ const translations = {
         {
           name: "杰克·洛里",
           position: "客户",
-          text: "优秀的服务！团队超越了客户的期望，确保客户满意。行李质量一流，他们的支持随时待命。",
+          text: "感谢您提供如此出色的客户体验。行李箱做工精良，团队的支持非常宝贵。我肯定会成为回头客。",
           rating: 5
         },
         {

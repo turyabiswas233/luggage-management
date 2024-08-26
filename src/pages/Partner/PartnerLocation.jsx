@@ -20,6 +20,7 @@ const PartnerLocations = () => {
   const [showModal, setShowModal] = useState(false);
   const [fetchingQRCode, setFetchingQRCode] = useState(false);
   const [qrCodeError, setQrCodeError] = useState(null);
+  const [qrCodeDetails, setQrCodeDetails] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -81,7 +82,7 @@ const PartnerLocations = () => {
     }
   };
 
-  const handleURLClick = async (url) => {
+  const handleURLClick = async (url, location) => {
     setFetchingQRCode(true);
     setQrCodeError(null);
     try {
@@ -89,9 +90,14 @@ const PartnerLocations = () => {
         `${config.API_BASE_URL}/api/v1/qr-code/${url}`
       );
       setQrCode(response.data.qrCode);
+      setQrCodeDetails({
+        address: location?.address,
+        name: location?.name,
+      });
       setShowModal(true);
     } catch (error) {
       setQrCodeError("Unable to fetch QR code. Please try again later.");
+      setQrCodeDetails(null);
     } finally {
       setFetchingQRCode(false);
     }
@@ -194,7 +200,9 @@ const PartnerLocations = () => {
                     <tr>
                       <th className="w-2/12 py-3 px-6 text-left">Name</th>
                       <th className="w-3/12 py-3 px-6 text-left">Address</th>
-                      <th className="w-3/12 py-3 px-6 text-left">Capacity (fixed to 50)</th>
+                      <th className="w-3/12 py-3 px-6 text-left">
+                        Capacity (fixed to 50)
+                      </th>
                       <th className="w-2/12 py-3 px-6 text-left">Open Time</th>
                       <th className="w-2/12 py-3 px-6 text-left">Close Time</th>
                       <th className="w-3/12 py-3 px-6 text-left">URL</th>
@@ -227,7 +235,7 @@ const PartnerLocations = () => {
                         </td>
                         <td
                           className="w-3/12 py-3 px-6 border text-blue-500 underline cursor-pointer"
-                          onClick={() => handleURLClick(location.url)}
+                          onClick={() => handleURLClick(location.url, location)}
                         >
                           {location.url}
                         </td>
@@ -353,14 +361,32 @@ const PartnerLocations = () => {
               <div className="text-red-500">{qrCodeError}</div>
             ) : (
               <div className="text-center">
-                <img src={logo} alt="Logo" className="mb-4 w-48 mx-auto" />{" "}
+                <img
+                  src={logo}
+                  alt="Logo"
+                  className="-mt-4 mb-4 w-48 mx-auto"
+                />{" "}
                 {/* Larger logo */}
                 <img
                   src={qrCode}
                   alt="QR Code"
-                  className="mb-4 w-48 mx-auto"
+                  className="mb-4 w-48 mx-auto rounded-md"
                 />{" "}
                 {/* Smaller QR Code */}
+                {qrCodeDetails && (
+                  <div className="text-slate-100 font-medium">
+                    <p className="text-yellow-400 font-medium text-xl">{qrCodeDetails?.name}</p>
+                    <p className="text-sm">
+                      {qrCodeDetails?.address?.street},{" "}
+                      {qrCodeDetails?.address?.state}
+                    </p>
+                    <p className="text-sm">
+                      {qrCodeDetails?.address?.city}-{" "}
+                      {qrCodeDetails?.address?.zipCode},
+                      {qrCodeDetails?.address?.country}
+                    </p>
+                  </div>
+                )}
                 <p className="px-2 mx-32  text-xl  text-white rounded-lg mt-4  transition duration-150">
                   Book Now
                 </p>

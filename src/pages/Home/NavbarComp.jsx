@@ -47,7 +47,7 @@ const NavbarComp = ({ currentLanguage = 'en', setLanguage }) => {
 
   return (
     <div className="fixed top-0 w-full bg-white shadow-md z-50">
-      <div className="container mx-auto flex justify-between items-center py-4 px-24">
+      <div className="mx-auto flex justify-between items-center p-4 md:px-24">
         <div className="flex items-center">
           <a href="/" className="flex items-center">
             <img src={logo} alt="logo1" className="h-16 w-40" />
@@ -79,7 +79,7 @@ const NavbarComp = ({ currentLanguage = 'en', setLanguage }) => {
             </svg>
           </button>
         </div>
-        <nav className={`flex-col md:flex md:flex-row md:space-x-16 text-[#1a73a7] ${isMenuOpen ? 'flex' : 'hidden'}`}>
+        <nav className={`flex-col absolute top-24 right-10 md:static md:flex md:flex-row md:space-x-16 text-[#1a73a7] ${isMenuOpen ? 'flex bg-white shadow-xl shadow-slate-300 md:shadow-none rounded-md p-3' : 'hidden'}`}>
           <div className="md:flex md:flex-row md:space-x-16">
             <a href="/" className="hover:text-[#2a9b84] ">{currentTranslations.header.home}</a>
             <a href="/comingsoon" className="hidden md:block  hover:text-[#2a9b84] ">{currentTranslations.header.urlokerKeys}</a>
@@ -118,7 +118,7 @@ const NavbarComp = ({ currentLanguage = 'en', setLanguage }) => {
             </div>
             {setLanguage && (
               <div 
-                className="relative group ps-12"
+                className="relative group"
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
               >

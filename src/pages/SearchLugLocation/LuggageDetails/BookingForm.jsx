@@ -24,6 +24,7 @@ const BookingForm = ({
   isAgree,
   setIsAgree,
 }) => {
+  console.log(isBookingAllowed);
   const [errorMessage, setErrorMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [errors, setErrors] = useState({});
@@ -159,8 +160,8 @@ const BookingForm = ({
     } else if (!/\S+@\S+\.\S+/.test(guestDetails.email) && !clientId) {
       newErrors.email = "Email is invalid";
     }
-    if (!guestDetails.phone && !clientId)
-      newErrors.phone = "Phone number is required";
+    // if (!guestDetails.phone && !clientId)
+    //   newErrors.phone = "Phone number is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -473,8 +474,11 @@ const BookingForm = ({
                       name="phone"
                       value={guestDetails.phone}
                       onChange={handleInputChange}
-                      required
+                      //required
                     />
+                    <p className="text-sm text-rose-500">
+                      *phone number at least 10 digit long
+                    </p>
                     {errors.phone && (
                       <p className="text-red-500">{errors.phone}</p>
                     )}

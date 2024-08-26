@@ -75,10 +75,10 @@ const LuggageStoreDetails = () => {
 
         try {
           const response = await fetch(url);
-          // console.log(response);
           const data = await response.json();
 
           if (response.ok) {
+            // console.log(data);
             setStoreDetails({
               id: data._id,
               title: data.name,
@@ -238,7 +238,7 @@ const LuggageStoreDetails = () => {
                 openTime={storeDetails.openTime}
                 closeTime={storeDetails.closeTime}
                 notes={storeDetails.notes}
-                GOOGLE_MAPS_API_KEY={GOOGLE_MAPS_API_KEY} 
+                GOOGLE_MAPS_API_KEY={GOOGLE_MAPS_API_KEY}
               />
             ) : (
               <div>Loading...</div>
@@ -334,23 +334,29 @@ const PaymentFormModal = ({
   const stripe = useStripe();
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handlePayment = async (e) => {
     e?.preventDefault();
-
+    setLoading(true);
     if (!isAgree) {
       alert("Please agree our Terms and Conditions");
+      setLoading(false);
       return;
     }
 
-    if (!stripe || !elements) return;
+    if (!stripe || !elements) {
+      setLoading(false);
+      return;
+    }
 
     // const cardElement = elements.getElement(PaymentElement);
     const { error: submitError } = await elements.submit();
     if (submitError) {
-      alert("Another error occurred");
+      alert("Another error occurred with payment plugin.");
       console.log(submitError);
+      setLoading(false);
       return;
     }
     const { error, paymentIntent } = await stripe.confirmPayment({
@@ -361,6 +367,7 @@ const PaymentFormModal = ({
 
     if (error) {
       setErrorMessage(error.message);
+      setLoading(false);
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
       try {
         const response = await fetch(
@@ -402,8 +409,12 @@ const PaymentFormModal = ({
         });
       } catch (error) {
         console.error("Error updating booking status:", error);
+        setLoading(false);
+      } finally {
+        setLoading(false);
       }
     } else {
+      setLoading(false);
       navigate("/payment-cancelled");
     }
   };
@@ -473,8 +484,9 @@ const PaymentFormModal = ({
             variant="primary"
             type="submit"
             className="w-full bg-[#1A73A7] text-white py-3 rounded-lg hover:bg-blue-600 transition duration-300 font-semibold"
+            disabled={loading}
           >
-            Pay Now
+            {loading ? "loading..." : "Pay Now"}
           </Button>
         </form>
       </Modal.Body>
