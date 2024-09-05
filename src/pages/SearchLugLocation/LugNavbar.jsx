@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { Autocomplete, useJsApiLoader } from '@react-google-maps/api';
 import config from '../../config';
-import urlockerLogo from '../../img/home-two/logo3.svg'; // Adjust the path as needed
+import urlockerLogo from '/img/home-two/logo3.svg'; // Adjust the path as needed
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBars, faGlobe } from '@fortawesome/free-solid-svg-icons';
 

@@ -3,6 +3,7 @@ import { Button, Modal, Spinner } from "react-bootstrap";
 import { FiAlertCircle, FiCheck } from "react-icons/fi";
 import DatePicker from "./DatePicker";
 import moment from "moment-timezone";
+import { useSearchParams } from "react-router-dom";
 
 const BookingForm = ({
   handleSubmit,
@@ -17,14 +18,13 @@ const BookingForm = ({
   locationid,
   clientId,
   clientDetails,
-  setClientDetails,
-  qrChecked,
-  setQrChecked,
-  isBookingAllowed,
+  setClientDetails, 
+  setQrcode,
   isAgree,
   setIsAgree,
 }) => {
-  console.log(isBookingAllowed);
+  const search = useSearchParams();
+
   const [errorMessage, setErrorMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [errors, setErrors] = useState({});
@@ -203,8 +203,12 @@ const BookingForm = ({
     }
 
     try {
+      setQrcode(Boolean(search[0].get("isQrcode")) || false)
       await handleSubmit(
-        { ...bookingData, qrChecked: qrChecked },
+        {
+          ...bookingData,
+          qrChecked: Boolean(search[0].get("isQrcode")) || false,
+        },
         guestDetails
       );
       setShowModal(false); // Close modal on successful submission
@@ -272,27 +276,17 @@ const BookingForm = ({
           <h4 className="font-bold text-sm">
             Have you reached us through a QR Code?
           </h4>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid gap-4">
             <section className="p-1 flex justify-start items-center gap-2 border border-2 rounded-md mt-1">
               <input
+                disabled
                 type="radio"
                 name="qrChecker"
                 id="qrCheckerYes"
-                onChange={() => setQrChecked(true)}
+                defaultChecked={Boolean(search[0].get("isQrcode")) || false}
               />
               <label className="flex-1" htmlFor="qrCheckerYes">
-                Yes
-              </label>
-            </section>
-            <section className="p-1 flex justify-start items-center gap-2 border border-2 rounded-md mt-1">
-              <input
-                type="radio"
-                name="qrChecker"
-                id="qrCheckerNo"
-                onChange={() => setQrChecked(false)}
-              />
-              <label className="flex-1" htmlFor="qrCheckerNo">
-                No
+                {Boolean(search[0].get("isQrcode")) ? "Yes" : "No"}
               </label>
             </section>
           </div>

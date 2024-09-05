@@ -1,8 +1,8 @@
 import React from 'react';
 import './Projects.css'; 
-import furniture from '../../img/home-two/furniture-1.jpg';
-import plumbing from '../../img/home-two/plumbing-1.jpg';
-import house from '../../img/home-two/house-1.jpg';
+import furniture from '/img/home-two/furniture-1.jpg';
+import plumbing from '/img/home-two/plumbing-1.jpg';
+import house from '/img/home-two/house-1.jpg';
 
 function Projects() {
   return (

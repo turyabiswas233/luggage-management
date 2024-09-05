@@ -5,7 +5,7 @@ import html2canvas from 'html2canvas';
 import { motion } from 'framer-motion';
 import NavbarComp from '../Home/NavbarComp';
 import ClientNavbarComp from '../User/ClientNavbarComp'; // Assume ClientNavbarComp is correctly imported
-import logo from '../../img/home-two/logo3.svg'; // Assume logo is in the assets folder
+import logo from '/img/home-two/logo3.svg'; // Assume logo is in the assets folder
 
 const BookingConfirmation = () => {
     const location = useLocation();

@@ -23,20 +23,7 @@ const months = [
 ];
 
 const PartnerAnalytics = () => {
-  const [data, setData] = useState({
-    partnerId: "",
-    totalEarnings: 0,
-    totalPending: 0,
-    months: [
-      {
-        month: "May 2024",
-        monthStart: "2024-04-30T18:00:00.000Z",
-        monthEnd: "2024-05-31T17:59:59.999Z",
-        earned: 0,
-        pending: 0,
-      },
-    ],
-  });
+  const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -65,27 +52,22 @@ const PartnerAnalytics = () => {
   }
 
   // if (error) {
-  //     return <div className="text-center mt-20 text-red-500">{error}</div>;
+  //   return <div className="text-center mt-20 text-red-500">{error}</div>;
   // }
-
-  if (!data) {
-    return <div className="text-center mt-20">No data available</div>;
-  }
 
   // Convert earnings from cents to AUD dollars
   const convertToDollars = (amountInCents) =>
     ((38.095 / 100) * amountInCents).toFixed(2);
-
   // Prepare data for the graph
-  const labels = data.months.map((day, id) =>
+  const labels = data?.months?.map((day, id) =>
     id < 7 ? months[new Date(day.month).getMonth()] : null
   );
-  const amounts = data.months.map((day) => convertToDollars(day.earned));
+  const amounts = data?.months?.map((day) => convertToDollars(day.earned));
   const graphData = {
     labels: labels,
     datasets: [
       {
-        label: "Earnings in Last 7 Months ($AUD)",
+        label: "Earnings in Last 4 Months ($AUD)",
         data: amounts,
         fill: false,
         backgroundColor: "rgb(75, 192, 192)",
@@ -97,8 +79,8 @@ const PartnerAnalytics = () => {
   };
 
   // Calculate total pending earnings in dollars
-  const totalEarnings = convertToDollars(data.totalEarnings);
-  const totalPendingEarnings = convertToDollars(data.totalPending);
+  const totalEarnings = convertToDollars(data?.totalEarnings);
+  const totalPendingEarnings = convertToDollars(data?.totalPending);
   console.log(data);
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-gray-100">
@@ -117,21 +99,31 @@ const PartnerAnalytics = () => {
             {/* Total Earnings and Indicators */}
             <div className="flex justify-center items-center mb-8">
               <div className="bg-white p-4 rounded-lg shadow-lg">
-                <h2 className="text-xl font-bold text-center underline underline-offset-2">Total Completed Earnings</h2>
+                <h2 className="text-xl font-bold text-center underline underline-offset-2">
+                  Total Completed Earnings
+                </h2>
                 <p className="text-xl font-semibold text-green-900">
-                  Total Earned: $<span className="text-3xl text-green-500">{totalEarnings} AUD</span>
+                  Total Earned: $
+                  <span className="text-3xl text-green-500">
+                    {isNaN(totalEarnings) ? "0.00" : totalEarnings} AUD
+                  </span>
                 </p>
                 <p className="text-xl font-semibold text-orange-900">
-                  Total Pending: $<span className="text-3xl text-orange-500">{totalPendingEarnings} AUD</span>
+                  Total Pending: $
+                  <span className="text-3xl text-orange-500">
+                    {isNaN(totalPendingEarnings)
+                      ? "0.00"
+                      : totalPendingEarnings}{" "}
+                    AUD
+                  </span>
                 </p>
-                
               </div>
             </div>
 
             {/* Graph Component */}
-            <div className="mb-8">
+           {!data? <div className="text-center mt-20">No data available</div>: <div className="mb-8">
               <Bar data={graphData} />
-            </div>
+            </div>}
 
             {/* Table Component */}
             <div className="overflow-x-auto bg-white rounded-lg shadow-lg hidden">

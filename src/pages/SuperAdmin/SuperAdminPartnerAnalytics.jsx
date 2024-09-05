@@ -14,12 +14,45 @@ Chart.register(...registerables);
 const SuperAdminPartnerAnalytics = () => {
   const navigate = useNavigate();
   const [partners, setPartners] = useState([]);
+  const [adminEarning, setAdminEarning] = useState({
+    monthlyEarnings: [],
+    last7DaysEarnings: [],
+  });
 
   const [currentPage, setCurrentPage] = useState(1);
   const [partnersPerPage] = useState(10);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
+  // superadmin monthly earning
+  const getChartDataAdminMonth = () => {
+    return {
+      labels: adminEarning?.monthlyEarnings?.map((p) => p.period) || [],
+      datasets: [
+        {
+          label: "Average Monthly Earnings by Super Admin",
+          data:
+            adminEarning?.monthlyEarnings?.map((p) => p.totalEarnings) || [],
+          backgroundColor: "rgba(75, 192, 192, 0.6)",
+        },
+      ],
+    };
+  };
+  // superadmin 7days earning
+  const getChartDataAdminDays = () => {
+    return {
+      labels: adminEarning?.last7DaysEarnings?.map((p) => p.period) || [],
+      datasets: [
+        {
+          label: "Last 7 Days Earnings by Super-Admin",
+          data:
+            adminEarning?.last7DaysEarnings?.map((p) => p.totalEarnings) || [],
+          backgroundColor: "rgba(75, 192, 192, 0.6)",
+        },
+      ],
+    };
+  };
+  // partner
   const getChartData = () => {
     return {
       labels: partners.map((partner) =>
@@ -29,7 +62,7 @@ const SuperAdminPartnerAnalytics = () => {
       ),
       datasets: [
         {
-          label: "Average Monthly Earnings",
+          label: "Average Monthly Earnings by Partners",
           data: partners.map((partner) =>
             partner.earnings.length > 0
               ? partner.earnings.reduce(
@@ -43,7 +76,6 @@ const SuperAdminPartnerAnalytics = () => {
       ],
     };
   };
-
   useEffect(() => {
     try {
       const URL = `${config.API_BASE_URL}/api/v1/analytics/all-partner-earnings`;
@@ -65,6 +97,32 @@ const SuperAdminPartnerAnalytics = () => {
       console.log(err);
       setErrMsg("An unexpected error occured. Try refreshing the page.");
     }
+    // try to fetch super-admin analytics
+    try {
+      const URL = `${config.API_BASE_URL}/api/v1/analytics/superadmin/earnings`;
+      const token = localStorage.getItem("token");
+      axios
+        .get(URL, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.success) setAdminEarning(res?.data?.data);
+          else {
+            setAdminEarning(null);
+            setErrMsg("No data found");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          setErrMsg("An unexpected error occured. Try refreshing the page.");
+        });
+    } catch (err) {
+      console.log(err);
+      setErrMsg("An unexpected error occured. Try refreshing the page.");
+    }
   }, []);
 
   const indexOfLastPartner = currentPage * partnersPerPage;
@@ -73,7 +131,7 @@ const SuperAdminPartnerAnalytics = () => {
     indexOfFirstPartner,
     indexOfLastPartner
   );
-  console.log(partners);
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   console.log(errMsg);
   return (
@@ -174,6 +232,31 @@ const SuperAdminPartnerAnalytics = () => {
                 height={500}
               />
             </div>
+            {adminEarning && (
+              <div className="grid grid-cols-2 gap-5 my-5">
+                <div className="bg-white p-4 rounded-lg shadow-lg">
+                  <Bar
+                    data={getChartDataAdminMonth()}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                    }}
+                    height={500}
+                  />
+                </div>
+
+                <div className="bg-white p-4 rounded-lg shadow-lg">
+                  <Bar
+                    data={getChartDataAdminDays()}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                    }}
+                    height={500}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </main>
       </div>

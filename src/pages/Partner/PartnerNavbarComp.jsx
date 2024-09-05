@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, NavLink } from 'react-router-dom';
-import logo from '../../img/home-two/logo3.svg';
+import React, { useState, useEffect } from "react";
+import { useNavigate, NavLink } from "react-router-dom";
+import logo from "/img/home-two/logo3.svg";
 
 const PartnerNavbarComp = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,9 +10,9 @@ const PartnerNavbarComp = () => {
   const navigate = useNavigate();
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('loginTime');
-    navigate('/logout');
+    localStorage.removeItem("token");
+    localStorage.removeItem("loginTime");
+    navigate("/logout");
   };
 
   const toggleMenu = () => {
@@ -28,8 +28,8 @@ const PartnerNavbarComp = () => {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const loginTime = localStorage.getItem('loginTime');
+    const token = localStorage.getItem("token");
+    const loginTime = localStorage.getItem("loginTime");
     if (token) {
       setIsAuthenticated(true);
       const currentTime = new Date().getTime();
@@ -45,7 +45,7 @@ const PartnerNavbarComp = () => {
         return () => clearTimeout(timer);
       }
     } else {
-      navigate('/');
+      navigate("/");
     }
   }, [navigate]);
 
@@ -85,30 +85,78 @@ const PartnerNavbarComp = () => {
             </svg>
           </button>
         </div>
-        <nav className={`flex-col md:flex md:flex-row md:space-x-4 text-[#1a73a7] ${isMenuOpen ? 'flex' : 'hidden'}`}>
+        <nav
+          className={`flex-col md:flex md:flex-row md:space-x-4 text-[#1a73a7] ${
+            isMenuOpen ? "flex" : "hidden"
+          }`}
+        >
           <div className="md:flex md:flex-row md:space-x-4">
-            <a href="/partner/home" className="hover:text-[#FDB139]">Home</a>
-
+            <a href="/partner/home" className="hover:text-[#FDB139]">
+              Home
+            </a>
           </div>
           {isAuthenticated && (
             <div className="md:flex md:flex-row md:space-x-4">
-              <div 
+              <div
                 className="relative group"
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
               >
-                <button onClick={() => handleDropdownToggle('partnerOptions')} className="hover:text-[#FDB139] flex items-center focus:outline-none">
-                  Partner Menu <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                <button
+                  onClick={() => handleDropdownToggle("partnerOptions")}
+                  className="hover:text-[#FDB139] flex items-center focus:outline-none"
+                >
+                  Partner Menu{" "}
+                  <svg
+                    className="ml-1 w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 9l-7 7-7-7"
+                    ></path>
+                  </svg>
                 </button>
-                <div className={`absolute bg-blue-900 text-white shadow-lg mt-1 rounded-md overflow-hidden ${activeDropdown === 'partnerOptions' ? 'block' : 'hidden'} md:group-hover:block w-48`}>
-                  <NavLink to="/partner/bookings" className="block px-4 py-2 hover:bg-blue-800">Partner Bookings</NavLink>
-                  <NavLink to="/partner/locations" className="block px-4 py-2 hover:bg-blue-800">Partner's Location</NavLink>
-                  <NavLink to="/partner/analytics" className="block px-4 py-2 hover:bg-blue-800">Partner's Analytics</NavLink>
+                <div
+                  className={`absolute bg-blue-900 text-white shadow-lg mt-1 rounded-md overflow-hidden ${
+                    activeDropdown === "partnerOptions" ? "block" : "hidden"
+                  } md:group-hover:block w-48`}
+                >
+                  <NavLink
+                    to="/partner/bookings"
+                    className="block px-4 py-2 hover:bg-blue-800"
+                  >
+                    Partner Bookings
+                  </NavLink>
+                  <NavLink
+                    to="/partner/locations"
+                    className="block px-4 py-2 hover:bg-blue-800"
+                  >
+                    Partner's Location
+                  </NavLink>
+                  <NavLink
+                    to="/partner/analytics"
+                    className="block px-4 py-2 hover:bg-blue-800"
+                  >
+                    Partner's Analytics
+                  </NavLink>
                   {/* <NavLink to="/partner/allcustomers" className="block px-4 py-2 hover:bg-blue-800">All Customers</NavLink> */}
-                  <NavLink to="/partner/profile" className="block px-4 py-2 hover:bg-blue-800">Partner Profile</NavLink>
+                  <NavLink
+                    to="/partner/profile"
+                    className="block px-4 py-2 hover:bg-blue-800"
+                  >
+                    Partner Profile
+                  </NavLink>
                 </div>
               </div>
-              <a href="/logout" className="hover:text-[#FDB139]">Logout</a>
+              <a href="/logout" className="hover:text-[#FDB139]">
+                Logout
+              </a>
             </div>
           )}
         </nav>

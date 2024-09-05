@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../img/home-two/logo3.svg';
+import logo from '/img/home-two/logo3.svg';
 
 const ClientNavbarComp = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

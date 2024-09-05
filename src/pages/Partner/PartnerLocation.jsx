@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PartnerNavbarComp from "./PartnerNavbarComp";
 import config from "../../config";
-import logo from "../../img/home-two/logo3.svg"; // Import the logo
+import logo from "/img/home-two/logo3.svg"; // Import the logo
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import "./PartnerLocation.css";
@@ -201,7 +201,7 @@ const PartnerLocations = () => {
                       <th className="w-2/12 py-3 px-6 text-left">Name</th>
                       <th className="w-3/12 py-3 px-6 text-left">Address</th>
                       <th className="w-3/12 py-3 px-6 text-left">
-                        Capacity (fixed to 50)
+                        Capacity
                       </th>
                       <th className="w-2/12 py-3 px-6 text-left">Open Time</th>
                       <th className="w-2/12 py-3 px-6 text-left">Close Time</th>

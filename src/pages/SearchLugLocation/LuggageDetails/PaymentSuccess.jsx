@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 import "tailwindcss/tailwind.css";
 import config from "../../../config";
 import html2pdf from "html2pdf.js";
-import urlockerLogo from "../../../img/home-two/logo3.svg"; // Import the logo
+import urlockerLogo from "/img/home-two/logo3.svg"; // Import the logo
 
 const PaymentSuccess = () => {
   const location = useLocation();

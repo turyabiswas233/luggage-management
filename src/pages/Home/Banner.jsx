@@ -1,10 +1,10 @@
 import React, { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
-import backgroundImage from "../../img/home-two/luggage-1.jpg";
+import backgroundImage from "/img/home-two/luggage-1.jpg";
 import "./Banner.css";
 import config from "../../config";
-import translations from "./translations"; // Import your translations
+import { useTranslation } from "react-i18next";
 
 const libraries = ["places"];
 
@@ -14,6 +14,9 @@ function Banner({ currentLanguage }) {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [loadingLocation, setLoadingLocation] = useState(false);
   const locationInputRef = useRef(null);
+  const { t } = useTranslation();
+  const translate = t('home');
+
 
   const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 
@@ -86,7 +89,7 @@ function Banner({ currentLanguage }) {
     searchPlaceholder,
     searchButton,
     findLocationsButton,
-  } = translations[currentLanguage]?.heroSection;
+  } = translate?.heroSection;
 
   return (
     <div

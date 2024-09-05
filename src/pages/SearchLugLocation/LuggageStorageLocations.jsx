@@ -2,33 +2,33 @@ import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import translations from '../Home/translations'; // Import translations
 
 // Import images
-import avalonAirport from '../../img/location_common/Avalon Airport.jpg';
-import melbourneCBD from '../../img/location_common/Melbourne CBD.jpg';
-import melbourneAirport from '../../img/location_common/Melbourne Airport.jpg';
-import southbank from '../../img/location_common/Southbank.jpg';
-import southernCrossStation from '../../img/location_common/Southern Cross Station.jpg';
-import melbourneCentralStation from '../../img/location_common/Melbourne Central Station.jpg';
-import flindersStreetStation from '../../img/location_common/Flinders Street Station.jpg';
-import parliamentStation from '../../img/location_common/Parliament Station.jpg';
-import flagstaffStation from '../../img/location_common/Flagstaff Station.jpg';
-import swanstonStreet from '../../img/location_common/Swanston Street.jpg';
-import spencerStreet from '../../img/location_common/Spencer Street.jpg';
-import melbourneConventionCentre from '../../img/location_common/Melbourne Convention Centre.jpg';
-import queenVictoriaMarket from '../../img/location_common/Queen Victoria Market.jpg';
-import crownCasinoMelbourne from '../../img/location_common/Crown Casino Melbourne.jpg';
-import chinaTownMelbourne from '../../img/location_common/Chinatown Melbourne.jpg';
-import melbourneCricketGround from '../../img/location_common/Melbourne Cricket Ground (MCG).jpg';
-import marvelStadium from '../../img/location_common/Marvel Stadium.jpg';
-import newQuay from '../../img/location_common/New Quay.jpg';
-import stKildaPier from '../../img/location_common/St Kilda Pier.jpg';
-import docklands from '../../img/location_common/Docklands.jpg';
-import portMelbourne from '../../img/location_common/Port Melbourne.jpg';
-import albertPark from '../../img/location_common/Albert Park.jpg';
-import dfoMelbourne from '../../img/location_common/DFO Melbourne.jpg';
-import chadstone from '../../img/location_common/Chadstone.jpg';
+import avalonAirport from '/img/location_common/Avalon Airport.jpg';
+import melbourneCBD from '/img/location_common/Melbourne CBD.jpg';
+import melbourneAirport from '/img/location_common/Melbourne Airport.jpg';
+import southbank from '/img/location_common/Southbank.jpg';
+import southernCrossStation from '/img/location_common/Southern Cross Station.jpg';
+import melbourneCentralStation from '/img/location_common/Melbourne Central Station.jpg';
+import flindersStreetStation from '/img/location_common/Flinders Street Station.jpg';
+import parliamentStation from '/img/location_common/Parliament Station.jpg';
+import flagstaffStation from '/img/location_common/Flagstaff Station.jpg';
+import swanstonStreet from '/img/location_common/Swanston Street.jpg';
+import spencerStreet from '/img/location_common/Spencer Street.jpg';
+import melbourneConventionCentre from '/img/location_common/Melbourne Convention Centre.jpg';
+import queenVictoriaMarket from '/img/location_common/Queen Victoria Market.jpg';
+import crownCasinoMelbourne from '/img/location_common/Crown Casino Melbourne.jpg';
+import chinaTownMelbourne from '/img/location_common/Chinatown Melbourne.jpg';
+import melbourneCricketGround from '/img/location_common/Melbourne Cricket Ground (MCG).jpg';
+import marvelStadium from '/img/location_common/Marvel Stadium.jpg';
+import newQuay from '/img/location_common/New Quay.jpg';
+import stKildaPier from '/img/location_common/St Kilda Pier.jpg';
+import docklands from '/img/location_common/Docklands.jpg';
+import portMelbourne from '/img/location_common/Port Melbourne.jpg';
+import albertPark from '/img/location_common/Albert Park.jpg';
+import dfoMelbourne from '/img/location_common/DFO Melbourne.jpg';
+import chadstone from '/img/location_common/Chadstone.jpg';
+import { useTranslation } from 'react-i18next';
 
 const locations = [
   { name: 'Melbourne Airport', image: melbourneAirport },
@@ -91,7 +91,9 @@ const LuggageStorageLocations = ({ currentLanguage }) => {
   };
 
   // Get translations for the current language
-  const t = translations[currentLanguage]?.luggageStorageLocations;
+  const { t: tl } = useTranslation();
+  const t = tl('home')?.luggageStorageLocations;
+  // const t = translations[currentLanguage]?.luggageStorageLocations;
 
   return (
     <div className="bg-gradient-to-b from-gray-200 via-white to-gray-300 py-24">

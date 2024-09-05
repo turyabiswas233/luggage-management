@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../img/home-two/logo3.svg";
+import logo from "/img/home-two/logo3.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookF,
@@ -7,10 +7,11 @@ import {
   faTwitter,
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
-import translations from "./translations"; // Import translations
+import { useTranslation } from "react-i18next";
 
 function Footer({ currentLanguage = "en" }) {
-  const t = translations[currentLanguage].footer; // Accessing footer section based on the current language
+  const { t: tl } = useTranslation();
+  const t = tl("home")?.footer;
 
   return (
     <footer className="bg-teal-800 text-white py-16">

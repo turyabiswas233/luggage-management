@@ -43,6 +43,7 @@ const LuggageStoreDetails = () => {
   const [promoCode, setPromoCode] = useState("");
   const [discount, setDiscount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [qrChecked, setQrcode] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [clientId, setClientId] = useState(null);
@@ -54,7 +55,7 @@ const LuggageStoreDetails = () => {
     specialRequests: "",
     notes: "",
   });
-  const [qrChecked, setQrChecked] = useState(false);
+
   const [isAgree, setIsAgree] = useState(false);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
@@ -78,7 +79,7 @@ const LuggageStoreDetails = () => {
           const data = await response.json();
 
           if (response.ok) {
-            // console.log(data);
+            console.log(data?.overbooking);
             setStoreDetails({
               id: data._id,
               title: data.name,
@@ -212,110 +213,115 @@ const LuggageStoreDetails = () => {
     window.location.reload(); // Refresh the page when OK is clicked
   };
 
-  useEffect(() => {
-    // alert(storeDetails?.isAllowd);
-    setBookingAllowed(storeDetails?.isAllowd);
-  }, [storeDetails]);
-
   return (
     <div>
       {isLoggedIn ? <ClientNavbarComp /> : <NavbarComp />}
 
-      <div className="container mx-auto mt-12 pt-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div>
-            {storeDetails ? (
-              <LuggageStoreInfo
-                id={storeDetails.id}
-                title={storeDetails.title}
-                details={storeDetails.details}
-                price={storeDetails.price}
-                lat={storeDetails.lat}
-                lng={storeDetails.lng}
-                availableFrom={storeDetails.availableFrom}
-                availableTo={storeDetails.availableTo}
-                discountPercentage={storeDetails.discountPercentage}
-                openTime={storeDetails.openTime}
-                closeTime={storeDetails.closeTime}
-                notes={storeDetails.notes}
-                GOOGLE_MAPS_API_KEY={GOOGLE_MAPS_API_KEY}
-              />
-            ) : (
-              <div>Loading...</div>
-            )}
+      {
+        <div>
+          <div className="container mx-auto mt-12 pt-32">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                {storeDetails ? (
+                  <LuggageStoreInfo
+                    id={storeDetails.id}
+                    title={storeDetails.title}
+                    details={storeDetails.details}
+                    price={storeDetails.price}
+                    lat={storeDetails.lat}
+                    lng={storeDetails.lng}
+                    availableFrom={storeDetails.availableFrom}
+                    availableTo={storeDetails.availableTo}
+                    discountPercentage={storeDetails.discountPercentage}
+                    openTime={storeDetails.openTime}
+                    closeTime={storeDetails.closeTime}
+                    notes={storeDetails.notes}
+                    GOOGLE_MAPS_API_KEY={GOOGLE_MAPS_API_KEY}
+                  />
+                ) : (
+                  <div>Loading...</div>
+                )}
+              </div>
+              <div>
+                {bookingError && (
+                  <div className="alert alert-danger">{bookingError}</div>
+                )}
+                {storeDetails &&
+                  (true ? (
+                    <BookingForm
+                      locationid={storeDetails?.id}
+                      handleSubmit={handleSubmit}
+                      luggageQuantity={luggageQuantity}
+                      setLuggageQuantity={setLuggageQuantity}
+                      serviceOption={serviceOption}
+                      setServiceOption={setServiceOption}
+                      promoCode={promoCode}
+                      setPromoCode={setPromoCode}
+                      discount={discount}
+                      setDiscount={setDiscount}
+                      totalPrice={totalPrice}
+                      setTotalPrice={setTotalPrice}
+                      regularprice={storeDetails?.regularprice}
+                      clientId={clientId}
+                      setClientId={setClientId}
+                      clientDetails={clientDetails}
+                      setClientDetails={setClientDetails}
+                      isAgree={isAgree}
+                      setIsAgree={setIsAgree}
+                      setQrcode={setQrcode}
+                    />
+                  ) : (
+                    <div className="text-center py-10 px-2 mb-10">
+                      <p className="text-3xl font-bold">
+                        This luggage storage shop is currently full.
+                      </p>
+                      <p>Please try another location</p>
+                    </div>
+                  ))}
+              </div>
+            </div>
           </div>
-          <div>
-            {bookingError && (
-              <div className="alert alert-danger">{bookingError}</div>
-            )}
-            {storeDetails && (
-              <BookingForm
-                locationid={storeDetails?.id}
-                handleSubmit={handleSubmit}
-                luggageQuantity={luggageQuantity}
-                setLuggageQuantity={setLuggageQuantity}
-                serviceOption={serviceOption}
-                setServiceOption={setServiceOption}
-                promoCode={promoCode}
-                setPromoCode={setPromoCode}
-                discount={discount}
-                setDiscount={setDiscount}
-                totalPrice={totalPrice}
-                setTotalPrice={setTotalPrice}
-                regularprice={storeDetails?.regularprice}
-                clientId={clientId}
-                setClientId={setClientId}
+          {showPaymentModal && clientSecret && (
+            <Elements
+              stripe={stripePromise}
+              options={{
+                clientSecret: clientSecret,
+              }}
+            >
+              <PaymentFormModal
+                clientSecret={clientSecret}
                 clientDetails={clientDetails}
-                setClientDetails={setClientDetails}
+                guestDetails={guestDetails}
+                bookingId={bookingId}
+                storeDetails={storeDetails}
+                totalPrice={totalPrice} // Pass the total price here
                 qrChecked={qrChecked}
-                setQrChecked={setQrChecked}
+                luggageQuantity={luggageQuantity}
                 isAgree={isAgree}
-                setIsAgree={setIsAgree}
-                isBookingAllowd={storeDetails?.isAllowd}
               />
-            )}
-          </div>
+            </Elements>
+          )}
+          {/* Booking Error Modal */}
+          <Modal
+            show={showBookingErrorModal}
+            onHide={handleBookingErrorModalClose}
+            className="modal-dialog-centered"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title className="bg-gray-200 text-red-500">
+                Booking Error
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>{bookingError}</p>{" "}
+              {/* Display the dynamic booking error message here */}
+              <Button variant="primary" onClick={handleBookingErrorModalClose}>
+                OK
+              </Button>
+            </Modal.Body>
+          </Modal>
         </div>
-      </div>
-      {showPaymentModal && clientSecret && (
-        <Elements
-          stripe={stripePromise}
-          options={{
-            clientSecret: clientSecret,
-          }}
-        >
-          <PaymentFormModal
-            clientSecret={clientSecret}
-            clientDetails={clientDetails}
-            guestDetails={guestDetails}
-            bookingId={bookingId}
-            storeDetails={storeDetails}
-            totalPrice={totalPrice} // Pass the total price here
-            luggageQuantity={luggageQuantity}
-            qrChecked={qrChecked}
-            isAgree={isAgree}
-          />
-        </Elements>
-      )}
-      {/* Booking Error Modal */}
-      <Modal
-        show={showBookingErrorModal}
-        onHide={handleBookingErrorModalClose}
-        className="modal-dialog-centered"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title className="bg-gray-200 text-red-500">
-            Booking Error
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>{bookingError}</p>{" "}
-          {/* Display the dynamic booking error message here */}
-          <Button variant="primary" onClick={handleBookingErrorModalClose}>
-            OK
-          </Button>
-        </Modal.Body>
-      </Modal>
+      }
     </div>
   );
 };
@@ -369,6 +375,9 @@ const PaymentFormModal = ({
       setErrorMessage(error.message);
       setLoading(false);
     } else if (paymentIntent && paymentIntent.status === "succeeded") {
+      console.log("Yahooo", paymentIntent, bookingId);
+
+      // return;
       try {
         const response = await fetch(
           `${config.API_BASE_URL}/api/v1/bookings/${bookingId}`,

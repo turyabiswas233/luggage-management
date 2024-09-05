@@ -1,15 +1,15 @@
 import React from "react";
 import Slider from "react-slick";
-import review1 from "../../img/home-two/team-1.jpg";
-import review2 from "../../img/home-two/alisa.png";
-import review3 from "../../img/home-two/jack.png";
-import review4 from "../../img/home-two/jackson.jpeg";
-import review5 from "../../img/home-two/robert.jpg";
+import review1 from "/img/home-two/team-1.jpg";
+import review2 from "/img/home-two/alisa.png";
+import review3 from "/img/home-two/jack.png";
+import review4 from "/img/home-two/jackson.jpeg";
+import review5 from "/img/home-two/robert.jpg";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Review.css"; // Custom CSS for additional styling
-import translations from "./translations"; // Import translations
+import { useTranslation } from "react-i18next";
 
 const CustomPrevArrow = (props) => {
   const { className, onClick } = props;
@@ -32,7 +32,9 @@ const CustomNextArrow = (props) => {
 };
 
 const Review = ({ currentLanguage = "en" }) => {
-  const t = translations[currentLanguage].reviewSection; // Accessing review section based on the current language
+  const { t: tl } = useTranslation();
+
+  const t = tl("home")?.reviewSection;
 
   const settings = {
     dots: true,
