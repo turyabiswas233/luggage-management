@@ -3,11 +3,11 @@ import "./Choose.css"; // Import custom CSS for additional styling
 import luggage1 from "/img/home-two/luggage-1.jpg";
 import luggage2 from "/img/home-two/luggage-2.jpg";
 import translations from "./translations"; // Import translations
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-const Choose = ({ currentLanguage = "en" }) => {
+const Choose = () => {
   const { t: tl } = useTranslation();
-  const t = tl('home')?.whyChooseUs;
+  const t = tl("home")?.whyChooseUs;
   return (
     <div className="choose-area bg-white relative overflow-hidden py-12">
       <div className="choose-shape absolute inset-0 z-0">

@@ -10,9 +10,9 @@ import luggage from "/img/home-two/luggage-1.jpg";
 import hospital from "/img/home-two/hospital-1.jpg";
 import { useTranslation } from "react-i18next";
 
-function Blog({ currentLanguage = "en" }) {
+function Blog() {
   const { t: tl } = useTranslation();
-  const t = tl('home').blogSection; // Accessing blog section based on the current language
+  const t = tl("home").blogSection; // Accessing blog section based on the current language
 
   const imageMap = {
     furniture,

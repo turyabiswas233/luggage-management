@@ -7,10 +7,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 
-function FAQ({ currentLanguage }) {
+function FAQ() {
   const [openFAQ, setOpenFAQ] = useState({});
   const { t: tl } = useTranslation();
-  const t = tl('home')?.faqSection;
+  const t = tl("home")?.faqSection;
 
   const toggleFAQ = (index) => {
     setOpenFAQ((prev) => ({

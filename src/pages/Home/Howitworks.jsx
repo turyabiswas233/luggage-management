@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
 
-function HowItWorks({ currentLanguage }) {
+function HowItWorks() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);

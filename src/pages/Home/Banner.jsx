@@ -8,15 +8,14 @@ import { useTranslation } from "react-i18next";
 
 const libraries = ["places"];
 
-function Banner({ currentLanguage }) {
+function Banner() {
   const navigate = useNavigate();
   const [autocomplete, setAutocomplete] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [loadingLocation, setLoadingLocation] = useState(false);
   const locationInputRef = useRef(null);
   const { t } = useTranslation();
-  const translate = t('home');
-
+  const translate = t("home");
 
   const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 

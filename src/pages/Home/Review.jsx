@@ -31,7 +31,7 @@ const CustomNextArrow = (props) => {
   );
 };
 
-const Review = ({ currentLanguage = "en" }) => {
+const Review = () => {
   const { t: tl } = useTranslation();
 
   const t = tl("home")?.reviewSection;

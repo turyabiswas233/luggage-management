@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { useTranslation } from "react-i18next";
 
-function Footer({ currentLanguage = "en" }) {
+function Footer() {
   const { t: tl } = useTranslation();
   const t = tl("home")?.footer;
 
@@ -36,7 +36,7 @@ function Footer({ currentLanguage = "en" }) {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="/about"
+                  href="/#"
                   className="hover:underline hover:text-teal-200 transition-colors duration-300"
                 >
                   {t.about}

@@ -7,7 +7,8 @@
     "start": "react-scripts start",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "reinstall": "npm remove all && npm install"
   },
   "dependencies": {
     "@canvasjs/react-charts": "^1.0.2",
@@ -22,6 +23,7 @@
     "@hookform/resolvers": "^3.9.0",
     "@mui/material": "^5.16.1",
     "@react-google-maps/api": "^2.19.3",
+    "@sideway/address": "^5.0.0",
     "@stripe/react-stripe-js": "^2.7.3",
     "@stripe/stripe-js": "^4.1.0",
     "@tailwindcss/forms": "^0.5.7",
@@ -41,6 +43,7 @@
     "i18next": "^23.14.0",
     "i18next-browser-languagedetector": "^8.0.0",
     "i18next-http-backend": "^2.5.2",
+    "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
@@ -62,7 +65,7 @@
     "react-multiple-datepicker": "^0.1.0",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.24.1",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "^3.0.1",
     "react-slick": "^0.30.2",
     "react-spinners": "^0.14.1",
     "react-transition-group": "^4.4.5",
