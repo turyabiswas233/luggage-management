@@ -1,13 +1,13 @@
-import React, { useState, useRef, useCallback } from 'react';
-import { Autocomplete, useJsApiLoader } from '@react-google-maps/api';
-import config from '../../config';
-import urlockerLogo from '/img/home-two/logo3.svg'; // Adjust the path as needed
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faBars, faGlobe } from '@fortawesome/free-solid-svg-icons';
+import React, { useState, useRef, useCallback } from "react";
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
+import config from "../../config";
+import urlockerLogo from "/img/home-two/logo3.svg"; // Adjust the path as needed
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch, faBars, faGlobe } from "@fortawesome/free-solid-svg-icons";
 
-const libraries = ['places'];
+const libraries = ["places"];
 
-const LugNavbar = ({ onLocationSelected }) => {
+const LugNavbar = ({ onLocationSelected, updateLocations }) => {
   const [autocomplete, setAutocomplete] = useState(null);
   const locationInputRef = useRef(null);
 
@@ -30,11 +30,15 @@ const LugNavbar = ({ onLocationSelected }) => {
           lat: place.geometry.location.lat(),
           lng: place.geometry.location.lng(),
         });
+        updateLocations({
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng(),
+        });
       } else {
-        console.log('No geometry available for the selected place');
+        console.log("No geometry available for the selected place");
       }
     } else {
-      console.log('Autocomplete is not loaded yet!');
+      console.log("Autocomplete is not loaded yet!");
     }
   };
 
@@ -42,9 +46,12 @@ const LugNavbar = ({ onLocationSelected }) => {
   if (!isLoaded) return <div>Loading Maps</div>;
 
   return (
-    <nav className="bg-white shadow-md p-4 flex justify-between items-center">
+    <nav className="bg-white shadow-md p-4 flex justify-between items-center flex-shrink-0">
       <div className="flex items-center">
-      <button onClick={() => window.location.href = '/'} className="focus:outline-none">
+        <button
+          onClick={() => (window.location.href = "/")}
+          className="focus:outline-none"
+        >
           <img src={urlockerLogo} alt="Urloker Logo" className="h-16 w-auto" />
         </button>
       </div>
@@ -64,7 +71,6 @@ const LugNavbar = ({ onLocationSelected }) => {
           </div>
         </Autocomplete>
       </div>
-
     </nav>
   );
 };

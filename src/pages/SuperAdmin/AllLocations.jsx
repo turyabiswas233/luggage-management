@@ -327,7 +327,9 @@ const AllLocations = () => {
                       <th className="py-3 px-6 text-left font-bold">QRCode</th>
                       <th className="py-3 px-6 text-left font-bold">Partner</th>
                       <th className="py-3 px-6 text-left font-bold">Actions</th>
-                      <th className="py-3 px-6 text-left font-bold">Trash</th>
+                      <th className="py-3 px-6 text-left font-bold hidden">
+                        Trash
+                      </th>
                     </tr>
                   </thead>
 
@@ -404,7 +406,7 @@ const AllLocations = () => {
                               Delete
                             </button>
                           </td>
-                          <td className="py-3 px-6 border-b text-center">
+                          <td className="py-3 px-6 border-b text-center hidden">
                             {location.isDeleted ? (
                               <span className="text-gray-500">
                                 Soft Deleted

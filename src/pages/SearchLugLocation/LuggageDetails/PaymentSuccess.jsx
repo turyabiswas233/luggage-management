@@ -106,7 +106,7 @@ const PaymentSuccess = () => {
     const element = bookingInfoRef.current;
 
     const opt = {
-      margin: 1,
+      margin: .5,
       filename: "booking-info.pdf",
       image: { type: "jpeg", quality: 0.98 },
       html2canvas: { scale: 2 },
@@ -115,7 +115,7 @@ const PaymentSuccess = () => {
 
     html2pdf().from(element).set(opt).save();
   };
-  if (paymentIntent)
+  // if (paymentIntent)
     return (
       <div>
         {localStorage.getItem("token") && <ClientNavbarComp />}
@@ -311,11 +311,11 @@ const PaymentSuccess = () => {
         </Modal>
       </div>
     );
-  else {
-    return (
-      <div className=" w-20 h-20 rounded-full border-4 border-t-transparent border-blue-500 mx-auto mt-32 anim-rot"></div>
-    );
-  }
+  // else {
+  //   return (
+  //     <div className=" w-20 h-20 rounded-full border-4 border-t-transparent border-blue-500 mx-auto mt-32 anim-rot"></div>
+  //   );
+  // }
 };
 
 export default PaymentSuccess;

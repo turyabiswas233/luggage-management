@@ -11,6 +11,7 @@ const PartnerBookings = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [bookingsPerPage] = useState(50);
+  const [filtertype, setType] = useState("false");
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -25,7 +26,7 @@ const PartnerBookings = () => {
             },
           }
         );
-        console.log(response.data);
+        console.log("data is fetched");
         if (Array.isArray(response.data)) {
           setBookings(response.data);
         } else {
@@ -44,14 +45,19 @@ const PartnerBookings = () => {
 
     fetchBookings();
   }, []);
-
-  const filteredBookings = bookings.filter(
-    (booking) =>
-      booking.location.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (booking.guest?.name || "")
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase())
-  );
+  const filteredBookings = bookings
+    .filter(
+      (p) => p.keyStorage.isKeyStorage == (filtertype == "true" ? true : false)
+    )
+    .filter(
+      (booking) =>
+        booking.location.name
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+        (booking.guest?.name || "")
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
+    );
 
   const indexOfLastBooking = currentPage * bookingsPerPage;
   const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
@@ -106,14 +112,24 @@ const PartnerBookings = () => {
               Total Earned by booking: ${totalPaid.toFixed(0)} AUD
             </div>
             {/* Search bar */}
-            <div className="mb-4">
+            <div className="mb-4 grid grid-cols-3 gap-2">
               <input
                 type="text"
                 placeholder="Search by Location or Guest Name"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
+                className="px-4 py-2 col-span-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
               />
+              <select
+                className="rounded-md border text-sm"
+                value={filtertype}
+                onChange={(e) => {
+                  setType(e.target.value);
+                }}
+              >
+                <option value={"false"}>Luggage</option>
+                <option value={"true"}>Keys</option>
+              </select>
             </div>
 
             {/* Booking List Table */}
@@ -140,9 +156,11 @@ const PartnerBookings = () => {
                       <th className="w-1/4 py-3 px-6 text-left">
                         Pick-up Time
                       </th>
-                      <th className="w-1/4 py-3 px-6 text-left">Guest</th>
                       <th className="w-1/4 py-3 px-6 text-left">
-                        Luggage Number
+                        {filtertype == "true" ? "Agent" : "Guest"}
+                      </th>
+                      <th className="w-1/4 py-3 px-6 text-left">
+                        {filtertype == 'true' ? 'Pickup Info' :'Luggage Number'}
                       </th>
                       <th className="w-1/6 py-3 px-6 text-left">
                         Payment Amount
@@ -186,11 +204,15 @@ const PartnerBookings = () => {
                             </td>
                             <td className="w-1/6 py-3 px-6 border">
                               {booking.guest
-                                ? `${booking.guest.name} ${booking.guest.email} ${booking.guest.phone}`
+                                ? `${booking.guest.name} ${
+                                    booking.guest.email
+                                  } ${booking.guest.phone || "no phone"}`
                                 : "--No Info--"}
                             </td>
-                            <td className="w-1/4 py-3 px-6 border">
-                              {booking.luggageCount || "--"}
+                            <td className={`w-1/4 py-3 px-6 border ${filtertype=='false' && 'text-center'}`}>
+                              {filtertype == "false"
+                                ? booking.luggageCount || "--"
+                                : `${booking?.keyStorage?.keyPickUpBy?.name} ${booking?.keyStorage?.keyPickUpBy?.email} ${booking?.keyStorage?.keyPickUpBy?.phone}`}
                             </td>
                             <td className="w-1/6 py-3 px-6 border">
                               $

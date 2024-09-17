@@ -25,6 +25,7 @@ const DatePicker = ({
   setCheckinTime,
   setCheckoutTime,
   setLuggageQuantity,
+  hideBags = Boolean(false),
 }) => {
   const [timeRange, setTimeRange] = useState([
     {
@@ -535,26 +536,28 @@ const DatePicker = ({
         </div>
       </div>
 
-      <div className="border w-full border-gray-300 hover:border-teal-600 transition-colors p-2 rounded-md">
-        <label className="block text-gray-700 text-xs">Number of Bags</label>
-        <select
-          name="bagNum"
-          id="bagNum"
-          className="text-black p-2 mt-2 rounded-md border border-gray-300 w-full hover:border-teal-500 hover:bg-teal-50"
-          value={bag}
-          onChange={(e) => setBag(e.target.value)}
-        >
-          {bags.map((b, bi) => (
-            <option
-              className="py-2 px-4 text-xl"
-              key={`bagNum_${bi}`}
-              value={b}
-            >
-              {b}
-            </option>
-          ))}
-        </select>
-      </div>
+      {!hideBags && (
+        <div className="border w-full border-gray-300 hover:border-teal-600 transition-colors p-2 rounded-md">
+          <label className="block text-gray-700 text-xs">Number of Bags</label>
+          <select
+            name="bagNum"
+            id="bagNum"
+            className="text-black p-2 mt-2 rounded-md border border-gray-300 w-full hover:border-teal-500 hover:bg-teal-50"
+            value={bag}
+            onChange={(e) => setBag(e.target.value)}
+          >
+            {bags.map((b, bi) => (
+              <option
+                className="py-2 px-4 text-xl"
+                key={`bagNum_${bi}`}
+                value={b}
+              >
+                {b}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
     </div>
   );
 };

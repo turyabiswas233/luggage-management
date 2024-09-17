@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import logo from "/img/home-two/logo3.svg";
+import { HiMiniBellAlert } from "react-icons/hi2";
+import Notifications from "../../components/DropdownNotifications";
 
 const PartnerNavbarComp = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,6 +10,9 @@ const PartnerNavbarComp = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
+  const [toggleNoti, setNotiActive] = useState(false);
+
+  const handleToggleNoti = () => setNotiActive((p) => !p);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -64,29 +69,9 @@ const PartnerNavbarComp = () => {
         <a href="/partner/home" className="flex items-center">
           <img src={logo} alt="logo1" className="h-16 w-40" />
         </a>
-        <div className="md:hidden">
-          <button
-            onClick={toggleMenu}
-            className="text-[#1a73a7] focus:outline-none"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16m-7 6h7"
-              ></path>
-            </svg>
-          </button>
-        </div>
+
         <nav
-          className={`flex-col md:flex md:flex-row md:space-x-4 text-[#1a73a7] ${
+          className={`flex-col absolute bg-white rounded-md px-2 py-3 origin-top-right top-full right-10 translate-y-5 md:translate-y-0 md:static md:flex md:flex-row md:space-x-4 text-[#1a73a7] ${
             isMenuOpen ? "flex" : "hidden"
           }`}
         >
@@ -134,6 +119,12 @@ const PartnerNavbarComp = () => {
                     Partner Bookings
                   </NavLink>
                   <NavLink
+                    to="/partner/urlokerkeys"
+                    className="block px-4 py-2 hover:bg-blue-800"
+                  >
+                    Partner Urloker Keys
+                  </NavLink>
+                  <NavLink
                     to="/partner/locations"
                     className="block px-4 py-2 hover:bg-blue-800"
                   >
@@ -160,6 +151,30 @@ const PartnerNavbarComp = () => {
             </div>
           )}
         </nav>
+        <div className="flex gap-2">
+          <div onClick={handleToggleNoti} type="button">
+            <Notifications align={"right"} />
+          </div>
+          <button
+            onClick={toggleMenu}
+            className="text-[#1a73a7] focus:outline-none md:hidden"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              ></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );

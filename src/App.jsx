@@ -27,6 +27,7 @@ import AboutDetails from "./pages/About/AboutDetails";
 import Home from "./pages/Home/Home";
 import Support from "./pages/Support";
 import Terms from "./pages/Terms";
+import ResetPasswordForm from "./pages/ResetPasswordForm";
 
 import LuggageStoreDetails from "./pages/SearchLugLocation/LuggageDetails/LuggageStoreDetails";
 import LuggageLocation from "./pages/SearchLugLocation/LuggageLocation";
@@ -67,6 +68,13 @@ import AllPartnerPayment from "./pages/SuperAdmin/AllPartnerPayment";
 import TawkTo from "./TawkTo";
 import BlogDetails from "./pages/BlogDetails";
 import Privacy from "./pages/Privacy";
+import UrlokerKeys from "./pages/UrlokerKeys/UrlokerKeys";
+import AddNotification from "./pages/SuperAdmin/Notification/NtAdd";
+import AllNotificationAdmin from "./pages/SuperAdmin/Notification/NtList";
+import AllNotificationPartner from "./pages/Partner/Notification/NtList";
+import SuperAdminUrloker from "./pages/UrlokerKeys/SuperAdminUrloker";
+import PartnerUrloker from "./pages/UrlokerKeys/PartnerUrloker";
+import PartnerKeyDetails from "./pages/SuperAdmin/PartnerKeyDetails";
 
 function App() {
   const location = useLocation();
@@ -92,9 +100,11 @@ function App() {
         <Route exact path="/guideline" element={<GuidelineCom />} />
 
         <Route path="/logout" element={<Logout />} />
+        <Route path="/urlokerKeys" element={<UrlokerKeys />} />
         <Route path="/comingsoon" element={<ComingSoon />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        <Route path="/reset-password-form/:tokenId" element={<ResetPasswordForm />} />
         <Route path="*" element={<UnauthorizedPage />} />
 
         {/* admin  */}
@@ -117,6 +127,11 @@ function App() {
           exact
           path="/superadmin/partners/:id"
           element={<PartnerDetails />}
+        />
+        <Route
+          exact
+          path="/superadmin/partners/:id/urlokerkey"
+          element={<PartnerKeyDetails />}
         />
         <Route
           exact
@@ -165,6 +180,7 @@ function App() {
           path="/partner_availability_calender"
           element={<PartnerAvailabilityCalendar />}
         />
+        <Route exact path="/partner/notification" element={<AllNotificationPartner />} />
         <Route exact path="/partner/locations" element={<PartnerLocations />} />
         <Route exact path="/partner/bookings" element={<PartnerBookings />} />
         <Route
@@ -207,6 +223,26 @@ function App() {
           exact
           path="/searchnearlocation"
           element={<SearchNearLocation />}
+        />
+        <Route
+          exact
+          path="/superadmin/notification/add"
+          element={<AddNotification />}
+        />
+        <Route
+          exact
+          path="/superadmin/notification/all"
+          element={<AllNotificationAdmin />}
+        />
+        <Route
+          exact
+          path="/superadmin/urlokerkey"
+          element={<SuperAdminUrloker />}
+        />
+        <Route
+          exact
+          path="/partner/urlokerkeys"
+          element={<PartnerUrloker />}
         />
         <Route exact path="/allluggage" element={<AllLuggage />} />
         <Route exact path="/luggage/:id" element={<LuggageDetails />} />

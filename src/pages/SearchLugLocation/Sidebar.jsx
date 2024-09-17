@@ -3,8 +3,14 @@ import StorageSpot from "./StorageSpot";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBoxOpen } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment-timezone";
+import LugNavbar from "./LugNavbar";
 
-const Sidebar = ({ storageSpots, visibleLocations }) => {
+const Sidebar = ({
+  visibleLocations,
+  foundLocationLength,
+  onLocationSelected,
+  seeOnMyLocation,
+}) => {
   const [dropOffTime, setDropOffTime] = useState("");
   const [pickUpTime, setPickUpTime] = useState("");
   const [filteredSpots, setFilteredSpots] = useState([]);
@@ -49,8 +55,12 @@ const Sidebar = ({ storageSpots, visibleLocations }) => {
   };
 
   return (
-    <div className="w-full lg:w-1/3 bg-white p-8 lg:p-6 shadow-lg rounded">
-      <div className="filters">
+    <div className="w-full bg-white shadow-lg rounded-md h-full flex flex-col relative overflow-y-auto lg:max-w-lg">
+      <LugNavbar
+        onLocationSelected={onLocationSelected}
+        updateLocations={seeOnMyLocation}
+      />
+      <div className="filters border-b border-b-green-800 p-4 sticky top-0 left-0">
         <div className="flex flex-col lg:flex-row justify-between">
           <label className="w-full lg:w-1/2 lg:pr-2 mb-2 lg:mb-0">
             Drop off:
@@ -72,14 +82,16 @@ const Sidebar = ({ storageSpots, visibleLocations }) => {
           </label>
         </div>
         <button
-          className="w-full py-2 bg-blue-700 text-white rounded-lg flex items-center justify-center hover:bg-blue-800 transition duration-300"
-          onClick={() => handleSearch()}
+          className="w-full py-2 bg-teal-700 text-white rounded-lg flex items-center justify-center hover:bg-teal-800 transition duration-300"
+          onClick={() => {
+            handleSearch();
+          }}
         >
           <FontAwesomeIcon icon={faSearch} className="mr-2" />
           Search
         </button>
       </div>
-      <div className="storage-spots overflow-y-auto h-[28rem] mt-4 pt-2 lg:mt-16">
+      <div className="storage-spots p-4 h-auto overflow-y-auto">
         {filteredSpots.length > 0 ? (
           filteredSpots.map((spot, index) => (
             <StorageSpot
@@ -98,10 +110,12 @@ const Sidebar = ({ storageSpots, visibleLocations }) => {
               }
               availableFrom={spot.availableFrom}
               availableTo={spot.availableTo}
+              distance={spot?.distance}
               discountPercentage={spot.discountPercentage}
               openTime={spot.openTime}
               closeTime={spot.closeTime}
               notes={spot.notes}
+              address={spot?.address}
             />
           ))
         ) : (
@@ -111,7 +125,14 @@ const Sidebar = ({ storageSpots, visibleLocations }) => {
               className="text-gray-400 text-6xl mb-4"
             />
             <p className="text-gray-500 mb-4">
-              No stores available at the moment
+              No stores available around you.
+              <br />
+              {foundLocationLength > 0 && (
+                <span>
+                  But there are ${foundLocationLength} stores available around
+                  <b>30.00 KM</b>
+                </span>
+              )}
             </p>
             <p className="text-gray-700 mb-6">
               Urlocker is available in 2+ cities with more added every week. We

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMapMarkerAlt,
@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "tailwindcss/tailwind.css";
 import config from "../../../config";
-
+import googleMapIcon from "/img/home-two/gmi.svg";
 // Function to generate random customer names
 const generateRandomName = () => {
   const firstNames = [
@@ -133,6 +133,9 @@ const LuggageStoreInfo = ({
           position: location,
           map: map,
           title: title,
+          icon: {
+            url: googleMapIcon,
+          },
         });
       };
 
@@ -167,7 +170,7 @@ const LuggageStoreInfo = ({
       <p className="flex items-center mb-4 text-lg">
         <FontAwesomeIcon icon={faTag} className="text-[#1A73A7] mr-3" />
         <strong>Luggage Price:</strong>{" "}
-        <span className="ml-2"> starts from $7.90 AUD / Per Day</span>
+        <span className="ml-2"> starts from <b>$7.90 AUD bag/day</b></span>
       </p>
       <p className="mb-4 text-lg">
         <FontAwesomeIcon icon={faStar} className="text-[#eab308] mr-2" />

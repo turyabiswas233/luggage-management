@@ -200,9 +200,7 @@ const PartnerLocations = () => {
                     <tr>
                       <th className="w-2/12 py-3 px-6 text-left">Name</th>
                       <th className="w-3/12 py-3 px-6 text-left">Address</th>
-                      <th className="w-3/12 py-3 px-6 text-left">
-                        Capacity
-                      </th>
+                      <th className="w-3/12 py-3 px-6 text-left">Capacity</th>
                       <th className="w-2/12 py-3 px-6 text-left">Open Time</th>
                       <th className="w-2/12 py-3 px-6 text-left">Close Time</th>
                       <th className="w-3/12 py-3 px-6 text-left">URL</th>
@@ -365,17 +363,19 @@ const PartnerLocations = () => {
                   src={logo}
                   alt="Logo"
                   className="-mt-4 mb-4 w-48 mx-auto"
-                />{" "}
+                />
                 {/* Larger logo */}
                 <img
                   src={qrCode}
                   alt="QR Code"
                   className="mb-4 w-48 mx-auto rounded-md"
-                />{" "}
+                />
                 {/* Smaller QR Code */}
                 {qrCodeDetails && (
                   <div className="text-slate-100 font-medium">
-                    <p className="text-yellow-400 font-medium text-xl">{qrCodeDetails?.name}</p>
+                    <p className="text-yellow-400 font-medium text-xl">
+                      {qrCodeDetails?.name}
+                    </p>
                     <p className="text-sm">
                       {qrCodeDetails?.address?.street},{" "}
                       {qrCodeDetails?.address?.state}

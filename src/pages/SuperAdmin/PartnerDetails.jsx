@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import logo from "/img/home-two/logo3.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AiFillCreditCard } from "react-icons/ai";
 import {
   faEnvelope,
   faMapMarkerAlt,
   faIdBadge,
   faArrowLeft,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
+import { LuLoader } from "react-icons/lu";
 import config from "../../config";
 import SuperAdminSidebar from "../../partials/SuperAdminSidebar";
 import SuperAdminHeader from "../../partials/SuperAdminHeader";
+import html2pdf from "html2pdf.js";
 
 const PartnerDetails = () => {
   const { id } = useParams();
@@ -19,6 +24,8 @@ const PartnerDetails = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [paySlipStatus, setSlipStatus] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,7 +47,7 @@ const PartnerDetails = () => {
             },
           }
         );
-        console.log("API response:", response);
+        // console.log("Partner All Info:", response);
 
         if (response.status === 200 && response.data) {
           setPartner(response.data);
@@ -100,7 +107,7 @@ const PartnerDetails = () => {
           setSidebarOpen={setSidebarOpen}
         />
 
-        <main className="flex-grow p-6 grid grid-cols-2 gap-5">
+        <main className="flex-grow p-6 grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="max-w-3xl mx-auto">
             <div className="bg-white p-8 rounded-lg shadow-lg transition-all transform hover:scale-105 duration-300">
               <h1 className="text-4xl font-bold mb-6 text-center text-[#1a73a7]">
@@ -131,6 +138,22 @@ const PartnerDetails = () => {
                     </strong>{" "}
                     {`${partner.businessAddress.street}, ${partner.businessAddress.district}, ${partner.businessAddress.city}, ${partner.businessAddress.state}, ${partner.businessAddress.zipCode}, ${partner.businessAddress.country}`}
                   </p>
+                  <div className="text-gray-600">
+                    <p className="font-medium text-gray-700 flex items-center gap-2">
+                      <AiFillCreditCard color="#1a73a7" /> Bank Details:
+                    </p>
+                    <div className="grid-cols-2 grid gap-2 text-sm px-3">
+                      <p>Bank Name: {partner.bankDetails?.bankName || "---"}</p>
+                      <p>
+                        AC Holder:{" "}
+                        {partner.bankDetails?.accountHolderName || ""}
+                      </p>
+                      <p>
+                        AC Number: {partner.bankDetails?.accountNumber || ""}
+                      </p>
+                      <p>BSB No: {partner.bankDetails?.bsbNumber || ""}</p>
+                    </div>
+                  </div>
                   <p className="text-gray-600 flex items-center">
                     <FontAwesomeIcon
                       icon={faIdBadge}
@@ -143,13 +166,22 @@ const PartnerDetails = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex justify-center">
+              <div className="flex justify-center gap-2">
                 <button
                   onClick={() => navigate("/superadmin/partners")}
                   className="px-6 py-2 bg-[#1a73a7] text-white rounded-full hover:bg-[#15628e] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-transform transform hover:-translate-y-1 flex items-center"
                 >
                   <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-                  Back to Partners List
+                  Back
+                </button>
+                <button
+                  onClick={() =>
+                    navigate(`/superadmin/partners/${id}/urlokerkey`)
+                  }
+                  className="px-6 py-2 bg-[#1a73a7] text-white rounded-full hover:bg-[#15628e] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-transform transform hover:-translate-y-1 flex items-center"
+                >
+                  Keys Info
+                  <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
                 </button>
               </div>
             </div>
@@ -160,8 +192,15 @@ const PartnerDetails = () => {
                 <h1 className="text-4xl font-bold mb-6 text-center text-[#1a73a7]">
                   Check Payment Status
                 </h1>
+                <h1 className="text-xl font-bold mb-6 text-center text-red-500">
+                  In test mode
+                </h1>
                 {/* check payment */}
-                <CheckPaymentStatus months={months} />
+                <CheckPaymentStatus
+                  months={months}
+                  partner={partner}
+                  setSlipStatus={setSlipStatus}
+                />
               </div>
             </div>
             <div className="max-w-3xl mx-auto w-full">
@@ -169,19 +208,23 @@ const PartnerDetails = () => {
                 <h1 className="text-4xl font-bold mb-6 text-center text-[#1a73a7]">
                   Update Payment Status
                 </h1>
+                <h1 className="text-xl font-bold mb-6 text-center text-red-500">
+                  In test mode
+                </h1>
 
                 {/* check payment */}
                 <UpdatePaymentStatus months={months} />
               </div>
             </div>
           </div>
+          <PaymentSlip paymentSlip={paySlipStatus} />
         </main>
       </div>
     </div>
   );
 };
 
-const CheckPaymentStatus = ({ months }) => {
+const CheckPaymentStatus = ({ months, partner, setSlipStatus }) => {
   const { id } = useParams();
   const [month, setMonth] = useState(months[new Date().getMonth()]);
   const [year, setYear] = useState(new Date().getFullYear());
@@ -214,11 +257,22 @@ const CheckPaymentStatus = ({ months }) => {
           },
         }
       );
-      console.log("API response:", response);
 
       if (response.status === 200 && response.data) {
         setStatus(response.data?.data);
-        console.log("Partner data:", response.data);
+        console.log(
+          "Partner data:",
+          response.data?.data?.isPaid?.earningsBreakdown
+        );
+        console.log("partner:", partner);
+        setSlipStatus({
+          ...response.data?.data?.isPaid?.earningsBreakdown,
+          partnerName: partner?.user?.username,
+          address: partner?.businessAddress,
+          abnNumber: partner?.tradeLicenseNumber,
+          month: month - 1,
+          year,
+        });
       } else {
         setError("Failed to fetch partner details");
       }
@@ -244,7 +298,6 @@ const CheckPaymentStatus = ({ months }) => {
           id="month"
           value={month}
           onChange={(e) => setMonth(e.target.value)}
-          defaultValue={months[new Date().getMonth()]}
         >
           {months.map((m) => (
             <option value={m} key={`month_${m}`}>
@@ -261,7 +314,6 @@ const CheckPaymentStatus = ({ months }) => {
           id="year"
           value={year}
           onChange={(e) => setYear(e.target.value)}
-          defaultValue={new Date().getFullYear()}
         >
           {years.map((m) => (
             <option value={m} key={`year_${m}`}>
@@ -273,12 +325,14 @@ const CheckPaymentStatus = ({ months }) => {
       {payStatus && (
         <section
           className={`col-span-2 w-full border text-center rounded-md ${
-            payStatus.isPaid
+            payStatus?.isPaid?.paymentStatus == "paid"
               ? "bg-green-50 border-green-500 text-green-400"
               : "bg-red-50 border-red-500 text-red-400"
           }`}
         >
-          <path className="py-2">{payStatus?.isPaid ? "Paid" : "Unpaid"}</path>
+          <span className="py-2 capitalize">
+            {payStatus?.isPaid?.paymentStatus}
+          </span>
         </section>
       )}
       {error && (
@@ -343,7 +397,7 @@ const UpdatePaymentStatus = ({ months }) => {
           },
         }
       );
-      console.log("API response:", response);
+      // console.log("API response:", response);
 
       if (response.status === 200 && response.data) {
         setStatus(response.data?.data);
@@ -373,7 +427,6 @@ const UpdatePaymentStatus = ({ months }) => {
           id="month"
           value={month}
           onChange={(e) => setMonth(e.target.value)}
-          defaultValue={months[new Date().getMonth()]}
         >
           {months.map((m) => (
             <option value={m} key={`month_${m}`}>
@@ -390,7 +443,6 @@ const UpdatePaymentStatus = ({ months }) => {
           id="year"
           value={year}
           onChange={(e) => setYear(e.target.value)}
-          defaultValue={new Date().getFullYear()}
         >
           {years.map((m) => (
             <option value={m} key={`year_${m}`}>
@@ -443,5 +495,103 @@ const UpdatePaymentStatus = ({ months }) => {
     </form>
   );
 };
+const PaymentSlip = ({ paymentSlip }) => {
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const slipref = useRef(null);
+  const [load, setLoad] = useState(false);
+  const handleDownloadPDF = () => {
+    const paySlip = slipref.current;
+    setLoad(true);
+    const opt = {
+      margin: .5,
+      filename: "payment-slip-location.pdf",
+      image: { type: "jpeg", quality: 0.98 },
 
+      html2canvas: { scale: 4, dpi: 192, letterRendering: true },
+      jsPDF: { unit: "cm", format: "a4", orientation: "landscape" },
+    };
+    try {
+      html2pdf().from(paySlip).set(opt).save();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      // setLoad(false);
+    }
+  };
+
+  if (!paymentSlip) return;
+  return (
+    <div className="bg-teal-50 p-10 rounded-xl shadow-xl shadow-gray-200 w-fit lg:col-span-2">
+      <div className="bg-white space-y-2 p-2" ref={slipref}>
+        <img className="bg-white" src={logo} width={85} height={85} />
+        <table className="paymentSlipSuper mx-auto">
+          <tbody>
+            <tr>
+              <td>PARTNER NAME</td>
+              <td>{paymentSlip?.partnerName}</td>
+            </tr>
+            <tr>
+              <td>PARTNER ADDRESS</td>
+              <td>{`${paymentSlip.address.street}, ${paymentSlip.address.district}, ${paymentSlip.address.city}, ${paymentSlip.address.state}, ${paymentSlip.address.zipCode}, ${paymentSlip.address.country}`}</td>
+            </tr>
+            <tr>
+              <td>ABN NUMBER</td>
+              <td>{paymentSlip.abnNumber}</td>
+            </tr>
+            <tr>
+              <td colSpan={2}></td>
+            </tr>
+
+            <tr>
+              <td className="text-center" colSpan={2}>
+                PAYMENT DETAILS
+              </td>
+            </tr>
+            <tr>
+              <td>FREQUENCY</td>
+              <td>{months[paymentSlip.month] + " " + paymentSlip.year}</td>
+            </tr>
+            <tr>
+              <td>EARNING FROM QR CODE BOOKING</td>
+              <td className="font-bold">
+                $ {paymentSlip.totalQrCodeEarnings} AUD
+              </td>
+            </tr>
+            <tr>
+              <td>EARNING FROM ONLINE BOOKING</td>
+              <td className="font-bold">
+                $ {paymentSlip.totalOnlineEarnings} AUD
+              </td>
+            </tr>
+            <tr>
+              <td>TOTAL EARNING</td>
+              <td className="font-bold">$ {paymentSlip.totalEarnings} AUD</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <button
+        className="bg-teal-500 text-white rounded-full px-6 py-2 mt-3 disabled:pointer-events-none disabled:opacity-40 min-w-48 text-center"
+        disabled={load}
+        onClick={handleDownloadPDF}
+      >
+        {load ? <LuLoader className="animate-spin mx-auto" /> : "Donwload"}
+      </button>
+    </div>
+  );
+};
 export default PartnerDetails;
