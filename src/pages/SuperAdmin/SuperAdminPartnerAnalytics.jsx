@@ -121,7 +121,7 @@ const SuperAdminPartnerAnalytics = () => {
 
       datasets: [
         {
-          label: "Average Monthly Earnings by Urloker ($AUD)",
+          label: "Total Earnings by Urloker ($AUD)",
           data:
             dataM
               ?.sort((a, b) =>
@@ -131,66 +131,46 @@ const SuperAdminPartnerAnalytics = () => {
                   : -1
               )
               ?.map((p) => convertToDollars(p?.earned)) || [],
+          backgroundColor: "#09E68A",
+        },
+        {
+          label: "Total QR code Earnings by Urloker ($AUD)",
+          data:
+            dataM
+              ?.sort((a, b) =>
+                new Date(a?.monthStart).getTime() >
+                new Date(b?.monthStart).getTime()
+                  ? 1
+                  : -1
+              )
+              ?.map((p) => convertToDollars(p?.totalQrCodeEarnings)) || [],
+          backgroundColor: "#168AF7",
+        },
+        {
+          label: "Total Keys Earnings by Urloker ($AUD)",
+          data:
+            dataM
+              ?.sort((a, b) =>
+                new Date(a?.monthStart).getTime() >
+                new Date(b?.monthStart).getTime()
+                  ? 1
+                  : -1
+              )
+              ?.map((p) => convertToDollars(p?.totalKeyStorageEarnings)) || [],
           backgroundColor: "#f79616",
         },
       ],
     };
   };
-  // superadmin 7days earning
-  const getChartDataAdminDays = () => {
-    return {
-      labels: adminEarning?.last7DaysEarnings?.map((p) => p.period) || [],
-      datasets: [
-        {
-          label: "Last 7 Days Earnings by Super-Admin",
-          data:
-            adminEarning?.last7DaysEarnings?.map((p) => p.totalEarnings) || [],
-          backgroundColor: "rgba(75, 192, 192, 0.6)",
-        },
-      ],
-    };
-  };
-  // partner
-  const getChartData = () => {
-    return {
-      labels: partners.map((partner) =>
-        partner.partnerEmail
-          .slice(0, partner.partnerEmail.indexOf("@"))
-          .toUpperCase()
-      ),
-      datasets: [
-        {
-          label: "Average Monthly Earnings by Urloker",
-          data: partners.map((partner) =>
-            partner.earnings.length > 0
-              ? partner.earnings.reduce(
-                  (p, c) => p + (c.totalEarnings * 38.095) / 100,
-                  0
-                )
-              : 0
-          ),
-          backgroundColor: "rgba(75, 192, 192, 0.6)",
-        },
-      ],
-    };
-  };
 
-  const indexOfLastPartner = currentPage * partnersPerPage;
-  const indexOfFirstPartner = indexOfLastPartner - partnersPerPage;
-  const currentPartners = partners.slice(
-    indexOfFirstPartner,
-    indexOfLastPartner
-  );
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-  console.log(errMsg);
+  if (errMsg) console.log(errMsg);
   const convertToDollars = (amountInCents) =>
     (((100 - 38.095) / 100) * amountInCents).toFixed(2);
-  // Prepare data for the graph
+
   // Calculate total pending earnings in dollars
   const totalEarnings = convertToDollars(data?.totalEarnings);
-  const totalPendingEarnings = convertToDollars(data?.totalPending);
-
+  const totalKeysEarnings = convertToDollars(data?.totalKeyStorageEarnings);
+  const totalQrCodeEarnings = convertToDollars(data?.totalQrCodeEarnings);
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -213,74 +193,6 @@ const SuperAdminPartnerAnalytics = () => {
             <WelcomeBanner />
             {errMsg}
 
-            {/* Partner Analytics Table PENDING*/}
-            <div className="overflow-x-auto bg-white rounded-lg shadow-lg mb-6">
-              <table className="min-w-full">
-                <thead className="bg-[#4A686A] text-white">
-                  <tr>
-                    <th className="py-3 px-6 text-left">Partner ID</th>
-                    <th className="py-3 px-6 text-left">Partner Email</th>
-                    <th className="py-3 px-6 text-left">Total Earnings</th>
-                    <th className="py-3 px-6 text-left">Total Paid</th>
-                    <th className="py-3 px-6 text-left">
-                      Income Indicator ({">10000"})
-                    </th>
-                  </tr>
-                </thead>
-
-                <tbody className="text-gray-800">
-                  {currentPartners.map((partner, pid) => {
-                    let earning = partner.earnings.reduce(
-                      (p, c) => p + ((c.totalEarnings * 38.095) / 100 || 0),
-                      0
-                    );
-                    let paid = partner.earnings.reduce(
-                      (p, c) => p + ((c.amountPaid * 38.095) / 100 || 0),
-                      0
-                    );
-                    return (
-                      <tr
-                        key={partner.partnerId}
-                        className="bg-white hover:bg-gray-200 transition duration-150"
-                      >
-                        <td className="py-3 px-6 border text-center">
-                          {pid + 1}
-                        </td>
-                        <td className="py-3 px-6 border">
-                          {partner.partnerEmail}
-                        </td>
-                        <td className="py-3 px-6 border">
-                          ${earning.toFixed(2)}
-                        </td>
-                        <td className="py-3 px-6 border">${paid.toFixed(2)}</td>
-
-                        <td className="py-3 px-6 border text-center">
-                          {earning >= 10000 ? (
-                            <span className="text-green-600 font-semibold">
-                              Good
-                            </span>
-                          ) : (
-                            <span className="text-red-600 font-semibold">
-                              Bad
-                            </span>
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              {/* Pagination */}
-              <div className="flex justify-end p-4">
-                <Pagination
-                  partnersPerPage={partnersPerPage}
-                  totalPartners={partners.length}
-                  paginate={paginate}
-                  currentPage={currentPage}
-                />
-              </div>
-            </div>
-
             {/* Total Earnings and Indicators DONE */}
             <div className="flex justify-center items-center mb-8">
               <div className="bg-white p-4 rounded-lg shadow-lg">
@@ -288,18 +200,22 @@ const SuperAdminPartnerAnalytics = () => {
                   Total Completed Earnings by Urloker
                 </h2>
                 <p className="text-xl font-semibold text-green-900">
-                  Total Earned: $
+                  Total Earnings: $
                   <span className="text-3xl text-green-500">
                     {isNaN(totalEarnings) ? "0.00" : totalEarnings} AUD
                   </span>
                 </p>
-                <p className="text-xl font-semibold text-orange-900">
-                  Total Pending: $
-                  <span className="text-3xl text-orange-500">
-                    {isNaN(totalPendingEarnings)
-                      ? "0.00"
-                      : totalPendingEarnings}{" "}
+                <p className="text-xl font-semibold text-blue-900">
+                  Total QR code Earnings: $
+                  <span className="text-3xl text-blue-500">
+                    {isNaN(totalQrCodeEarnings) ? "0.00" : totalQrCodeEarnings}{" "}
                     AUD
+                  </span>
+                </p>
+                <p className="text-xl font-semibold text-orange-900">
+                  Total Keys Earning: $
+                  <span className="text-3xl text-orange-500">
+                    {isNaN(totalKeysEarnings) ? "0.00" : totalKeysEarnings} AUD
                   </span>
                 </p>
               </div>
@@ -528,9 +444,9 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
                 {" "}
                 bookingId (Luggage Count)
               </th>
-              <th className="border border-white">paymentAmount ($AUD)</th>
-              <th className="border border-white">locationName</th>
-              <th className="border border-white">source</th>
+              <th className="border border-white">Paid Amount ($AUD)</th>
+              <th className="border border-white">Location</th>
+              <th className="border border-white">Source</th>
               <th className="border border-white">Status</th>
             </tr>
           </thead>
@@ -623,6 +539,10 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
                   <td className="border border-black">{data.month}</td>
                 </tr>
                 <tr>
+                  <td className="border border-black">Total Booking in QR-CODE</td>
+                  <td className="border border-black">{data?.bookings?.filter(f=> f?.source =='qr_code')?.length || 0}</td>
+                </tr>
+                <tr>
                   <td className="border border-black">
                     Earning from IN-Store (QR-CODE) Booking
                   </td>
@@ -675,10 +595,10 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
                     Booking Id (Luggage Count)
                   </th>
                   <th className="p-2 border border-black">
-                    paymentAmount ($AUD)
+                    Paid Amount ($AUD)
                   </th>
-                  <th className="p-2 border border-black">locationName</th>
-                  <th className="p-2 border border-black">source</th>
+                  <th className="p-2 border border-black">Location</th>
+                  <th className="p-2 border border-black">Source</th>
                   <th className="p-2 border border-black">Status</th>
                 </tr>
               </thead>

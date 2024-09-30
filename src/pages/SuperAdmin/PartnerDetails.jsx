@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "/img/home-two/logo3.svg";
@@ -25,6 +25,7 @@ const PartnerDetails = () => {
   const [error, setError] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [paySlipStatus, setSlipStatus] = useState(null);
+  const [qrBonus, setQRBonus] = useState(null);
 
   const navigate = useNavigate();
 
@@ -108,13 +109,13 @@ const PartnerDetails = () => {
         />
 
         <main className="flex-grow p-6 grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-white p-8 rounded-lg shadow-lg transition-all transform hover:scale-105 duration-300">
-              <h1 className="text-4xl font-bold mb-6 text-center text-[#1a73a7]">
-                {partner.user.username} Details
+          <div className="w-auto">
+            <div className="bg-white p-8 rounded-lg shadow-lg duration-300">
+              <h1 className="text-4xl break-all font-bold mb-6 text-center text-[#1a73a7]">
+                Details
               </h1>
               <div className="mb-6">
-                <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+                <h2 className="text-xl font-semibold mb-4 text-center text-gray-800">
                   {partner.user.username}
                 </h2>
                 <div className="space-y-4">
@@ -190,41 +191,40 @@ const PartnerDetails = () => {
             <div className="max-w-3xl mx-auto w-full">
               <div className="bg-white p-8 rounded-lg shadow-lg">
                 <h1 className="text-4xl font-bold mb-6 text-center text-[#1a73a7]">
-                  Check Payment Status
-                </h1>
-                <h1 className="text-xl font-bold mb-6 text-center text-red-500">
-                  In test mode
-                </h1>
-                {/* check payment */}
-                <CheckPaymentStatus
-                  months={months}
-                  partner={partner}
-                  setSlipStatus={setSlipStatus}
-                />
-              </div>
-            </div>
-            <div className="max-w-3xl mx-auto w-full">
-              <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h1 className="text-4xl font-bold mb-6 text-center text-[#1a73a7]">
                   Update Payment Status
                 </h1>
-                <h1 className="text-xl font-bold mb-6 text-center text-red-500">
-                  In test mode
-                </h1>
+                <h1 className="text-xl font-bold mb-6 text-center text-red-500"></h1>
 
                 {/* check payment */}
                 <UpdatePaymentStatus months={months} />
               </div>
             </div>
           </div>
-          <PaymentSlip paymentSlip={paySlipStatus} />
+          <div className="flex flex-col lg:flex-row md:col-span-2 gap-4">
+            <div className="max-w-3xl mx-auto w-full">
+              <div className="bg-white p-8 rounded-lg shadow-lg">
+                <h1 className="text-4xl font-bold mb-6 text-center text-[#1a73a7]">
+                  Get Payment Slip
+                </h1>
+                <h1 className="text-xl font-bold mb-6 text-center text-red-500"></h1>
+                {/* check payment */}
+                <CheckPaymentStatus
+                  months={months}
+                  partner={partner}
+                  setSlipStatus={setSlipStatus}
+                  setQRBonus={setQRBonus}
+                />
+              </div>
+            </div>
+            <PaymentSlip paymentSlip={paySlipStatus} qrBonus={qrBonus} />
+          </div>
         </main>
       </div>
     </div>
   );
 };
 
-const CheckPaymentStatus = ({ months, partner, setSlipStatus }) => {
+const CheckPaymentStatus = ({ months, partner, setSlipStatus, setQRBonus }) => {
   const { id } = useParams();
   const [month, setMonth] = useState(months[new Date().getMonth()]);
   const [year, setYear] = useState(new Date().getFullYear());
@@ -258,13 +258,22 @@ const CheckPaymentStatus = ({ months, partner, setSlipStatus }) => {
         }
       );
 
+      // get qrcode bonus info
+      const qrres = await axios.get(
+        `${config.API_BASE_URL}/api/v1/analytics/partner/qr-code-bookings-bonus?partnerId=${id}&month=${month}&year=${year}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("API response:", qrres.data);
+      setQRBonus(qrres.data?.data);
+
       if (response.status === 200 && response.data) {
         setStatus(response.data?.data);
-        console.log(
-          "Partner data:",
-          response.data?.data?.isPaid?.earningsBreakdown
-        );
-        console.log("partner:", partner);
+        console.log(response.data);
         setSlipStatus({
           ...response.data?.data?.isPaid?.earningsBreakdown,
           partnerName: partner?.user?.username,
@@ -347,7 +356,7 @@ const CheckPaymentStatus = ({ months, partner, setSlipStatus }) => {
         type="submit"
         disabled={load}
       >
-        Check
+        Generate
       </button>
     </form>
   );
@@ -361,6 +370,7 @@ const UpdatePaymentStatus = ({ months }) => {
   const [load, setLoading] = useState(false);
   const [payStatus, setStatus] = useState(null);
   const [error, setError] = useState("");
+  const [toggleHistory, setToggleHistory] = useState(false);
   useEffect(() => {
     let cy = new Date().getFullYear();
     setYears([]);
@@ -373,8 +383,8 @@ const UpdatePaymentStatus = ({ months }) => {
   const checkPaymentStatus = async (e) => {
     setLoading(true);
     e.preventDefault();
-    if (isNaN(amountPaid)) {
-      setError("Payment amount must be a number");
+    if (0 >= amountPaid) {
+      setError("Payment amount cannot be 0$");
       setLoading(false);
       return;
     }
@@ -400,7 +410,7 @@ const UpdatePaymentStatus = ({ months }) => {
       // console.log("API response:", response);
 
       if (response.status === 200 && response.data) {
-        setStatus(response.data?.data);
+        setStatus(response.data?.message);
         console.log("Partner data:", response.data);
       } else {
         setError("Failed to fetch partner details");
@@ -457,6 +467,10 @@ const UpdatePaymentStatus = ({ months }) => {
           className="rounded-md bg-white text-black border-2 outline-none w-full placegolder"
           name="amount"
           id="amount"
+          type="number"
+          min={0}
+          max={100000}
+          step={0.01}
           value={amountPaid}
           onChange={(e) => setAmount(e.target.value)}
           required
@@ -465,17 +479,9 @@ const UpdatePaymentStatus = ({ months }) => {
       </section>
       {payStatus && (
         <section
-          className={`col-span-3 w-full border text-center rounded-md ${
-            payStatus.paymentStatus === "paid"
-              ? "bg-green-50 border-green-500 text-green-400"
-              : "bg-red-50 border-red-500 text-red-400"
-          }`}
+          className={`col-span-3 w-full border text-center rounded-md bg-green-50 border-green-500 text-green-400`}
         >
-          <p className="py-2">
-            {payStatus?.paymentStatus
-              ? `Paid: $${payStatus?.amountPaid} AUD`
-              : "Unpaid"}
-          </p>
+          <p className="py-2">{payStatus}</p>
         </section>
       )}
       {error && (
@@ -485,17 +491,27 @@ const UpdatePaymentStatus = ({ months }) => {
           <p className="py-2">{error}</p>
         </section>
       )}
-      <button
-        className="px-6 py-2 col-span-3 bg-[#1a73a7] text-white rounded-full hover:bg-[#15628e] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center disabled:opacity-50 disabled:pointer-events-none"
-        type="submit"
-        disabled={load}
-      >
-        Update
-      </button>
+      <div className="grid grid-cols-2 gap-3 col-span-3">
+        <button
+          className="px-6 py-2 bg-[#1a73a7] text-white rounded-full hover:bg-[#15628e] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center disabled:opacity-50 disabled:pointer-events-none"
+          type="submit"
+          disabled={load}
+        >
+          Pay ${amountPaid || "0.00"}
+        </button>
+        <button
+          className="px-6 py-2 bg-[#1a73a7] text-white rounded-full hover:bg-[#15628e] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center disabled:opacity-50 disabled:pointer-events-none"
+          type="button"
+          onClick={() => setToggleHistory((pre) => !pre)}
+        >
+          History
+        </button>
+      </div>
+      {toggleHistory && <PaymentHistory id={id} month={month} year={year} />}
     </form>
   );
 };
-const PaymentSlip = ({ paymentSlip }) => {
+const PaymentSlip = ({ paymentSlip, qrBonus }) => {
   const months = [
     "January",
     "February",
@@ -516,7 +532,7 @@ const PaymentSlip = ({ paymentSlip }) => {
     const paySlip = slipref.current;
     setLoad(true);
     const opt = {
-      margin: .5,
+      margin: 0.5,
       filename: "payment-slip-location.pdf",
       image: { type: "jpeg", quality: 0.98 },
 
@@ -528,60 +544,75 @@ const PaymentSlip = ({ paymentSlip }) => {
     } catch (error) {
       console.log(error);
     } finally {
-      // setLoad(false);
+      setLoad(false);
     }
   };
 
   if (!paymentSlip) return;
   return (
-    <div className="bg-teal-50 p-10 rounded-xl shadow-xl shadow-gray-200 w-fit lg:col-span-2">
-      <div className="bg-white space-y-2 p-2" ref={slipref}>
+    <div className="bg-teal-50 p-10 rounded-xl shadow-xl shadow-gray-200 w-full md:col-span-2">
+      <div
+        className="mx-auto max-w-screen-md bg-white shadow-lg rounded-lg overflow-hidden"
+        ref={slipref}
+      >
         <img className="bg-white" src={logo} width={85} height={85} />
-        <table className="paymentSlipSuper mx-auto">
-          <tbody>
-            <tr>
-              <td>PARTNER NAME</td>
-              <td>{paymentSlip?.partnerName}</td>
-            </tr>
-            <tr>
-              <td>PARTNER ADDRESS</td>
-              <td>{`${paymentSlip.address.street}, ${paymentSlip.address.district}, ${paymentSlip.address.city}, ${paymentSlip.address.state}, ${paymentSlip.address.zipCode}, ${paymentSlip.address.country}`}</td>
-            </tr>
-            <tr>
-              <td>ABN NUMBER</td>
-              <td>{paymentSlip.abnNumber}</td>
-            </tr>
-            <tr>
-              <td colSpan={2}></td>
-            </tr>
-
-            <tr>
-              <td className="text-center" colSpan={2}>
-                PAYMENT DETAILS
-              </td>
-            </tr>
-            <tr>
-              <td>FREQUENCY</td>
-              <td>{months[paymentSlip.month] + " " + paymentSlip.year}</td>
-            </tr>
-            <tr>
-              <td>EARNING FROM QR CODE BOOKING</td>
-              <td className="font-bold">
-                $ {paymentSlip.totalQrCodeEarnings} AUD
-              </td>
-            </tr>
-            <tr>
-              <td>EARNING FROM ONLINE BOOKING</td>
-              <td className="font-bold">
-                $ {paymentSlip.totalOnlineEarnings} AUD
-              </td>
-            </tr>
-            <tr>
-              <td>TOTAL EARNING</td>
-              <td className="font-bold">$ {paymentSlip.totalEarnings} AUD</td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="px-6 py-4">
+          <div className="font-bold text-xl text-center mb-10">
+            Payment Slip
+          </div>
+          <div className="mb-4 text-sm">
+            <h2 className="text-lg font-semibold">Partner Details</h2>
+            <p>
+              <strong>Name:</strong> {paymentSlip?.partnerName}
+            </p>
+            <p>
+              <strong>ABN:</strong> {paymentSlip?.abnNumber}
+            </p>
+            <p>
+              <strong>Address:</strong>
+              {`${paymentSlip.address.street}, ${paymentSlip.address.district}, ${paymentSlip.address.city}, ${paymentSlip.address.state}, ${paymentSlip.address.zipCode}, ${paymentSlip.address.country}`}
+            </p>
+          </div>
+          <div className="grid grid-cols-2 gap-1">
+            <div className="mb-4 text-sm">
+              <h2 className="text-base font-semibold">Payment Details</h2>
+              <p>
+                <strong>Month - Year:</strong> {months[paymentSlip?.month]} -{" "}
+                {paymentSlip?.year}
+              </p>
+              <p>
+                <strong>Earning from QR Code Booking:</strong> $
+                {convertToDollars(paymentSlip?.totalQrCodeEarnings)}
+              </p>
+              <p>
+                <strong>Earning from Online Booking:</strong> $
+                {convertToDollars(paymentSlip?.totalOnlineEarnings)}
+              </p>
+              <p>
+                <strong>Keys Earning:</strong> $
+                {convertToDollars(paymentSlip?.totalKeyBookingsEarnings)}
+              </p>
+              <p>
+                <strong>Total Earning:</strong> $
+                {convertToDollars(paymentSlip?.totalEarnings)}
+              </p>
+            </div>
+            <div className="mb-4">
+              {/* generate qrBonus only show bonus amount with total booking */}
+              {qrBonus && (
+                <div className="P-3 text-sm rounded-md border p-2">
+                  <h2 className="text-base font-semibold">QR Code Booking</h2>
+                  <p>
+                    <strong>Total Booking[QR]:</strong> {qrBonus?.totalBookings}
+                  </p>
+                  <p>
+                    <strong>Total Bonus:</strong> ${qrBonus?.bonus}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
 
       <button
@@ -594,4 +625,87 @@ const PaymentSlip = ({ paymentSlip }) => {
     </div>
   );
 };
+const PaymentHistory = ({ id, month, year }) => {
+  const [history, setHistory] = useState([]);
+  const [load, setLoading] = useState(false);
+  useEffect(() => {
+    const fetchPaymentHistory = async () => {
+      setLoading(true);
+      try {
+        console.log("Fetching partner payment history...");
+        const token = localStorage.getItem("token");
+
+        const response = await axios.get(
+          `${config.API_BASE_URL}/api/v1/analytics/payment-records/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.status === 200 && response.data) {
+          setHistory(response.data?.data);
+          console.log("Partner data:", response.data);
+        } else {
+          setError("Failed to fetch partner details");
+        }
+      } catch (err) {
+        setError("Failed to fetch partner details");
+        console.log("API error:", err);
+      } finally {
+        setLoading(false);
+        console.log("Fetching completed");
+      }
+    };
+
+    fetchPaymentHistory();
+  }, []);
+  const filteredHistory = history.filter(
+    (h) => h.month == month && h.year == year
+  );
+
+  return (
+    <div className="col-span-3">
+      <h3 className="text-2xl text-center font-semibold text-[#1a73a7] mb-4">
+        Payment History
+      </h3>
+      {/* use luloader to show loading */}
+      {load ? (
+        <LuLoader className="animate-spin mx-auto" size={"2em"} />
+      ) : (
+        <div className="grid grid-cols-1 gap-4">
+          {filteredHistory?.length > 0 ? (
+            filteredHistory?.map((h, i) => (
+              <div
+                key={`hi-${i}`}
+                className=" bg-white border-2 rounded-lg px-4 py-2 grid gap-2 grid-cols-2"
+              >
+                <div>
+                  <p className="text-gray-700 font-semibold">
+                    Month: {h?.month}
+                  </p>
+                  <p className="text-gray-700 font-semibold">Year: {h?.year}</p>
+                </div>
+                <div>
+                  <p className="text-gray-700 font-semibold">
+                    Amount Paid: ${h?.amountPaid}
+                  </p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-red-700 text-lg font-semibold text-center">
+              No history found {month}-{year}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const convertToDollars = (amountInCents) =>
+  ((38.095 / 100) * amountInCents).toFixed(2);
 export default PartnerDetails;

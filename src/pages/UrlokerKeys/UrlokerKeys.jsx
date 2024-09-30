@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Card, Row, Col, Form, Alert, Modal } from "react-bootstrap";
+import React, { useEffect, useRef, useState, useMemo } from "react";
+import { Card, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "tailwindcss/tailwind.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import config from "../../config";
 import axios from "axios";
 import DatePicker from "../SearchLugLocation/LuggageDetails/DatePicker";
@@ -21,14 +21,13 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useTranslation } from "react-i18next";
 import NavbarComp from "../Home/NavbarComp";
 import { FaInfoCircle } from "react-icons/fa";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
+
 import html2pdf from "html2pdf.js";
 
 const stripePromise = loadStripe(config.STRIPE_PUBLIC_KEY);
 
 function UrlokerKeys() {
-  const navi = useNavigate();
+  const { 0: sk } = useSearchParams();
   const [dropOffName, setDropOffName] = useState("");
   const [dropOffEmail, setDropOffEmail] = useState("");
   const [dropOffPhone, setDropOffPhone] = useState("");
@@ -39,7 +38,7 @@ function UrlokerKeys() {
   const [pickUpDate, setPickUpDate] = useState(new Date());
   const [keysNum, setKeysNum] = useState(1);
   const [load, setLoad] = useState(false);
-  const [location, setLocation] = useState("");
+  // const [location, setLocation] = useState(sk.get("location") || "");
   const [locs, setLocs] = useState([]);
   const [amount, setAmount] = useState(15.0);
   const [clientSecret, setClientSecret] = useState(null);
@@ -68,23 +67,6 @@ function UrlokerKeys() {
     };
 
     html2pdf().from(element).set(opt).save();
-    return;
-    html2canvas(element, { scale })
-      .then((canvas) => {
-        const imgData = canvas.toDataURL("image/png"); // Use PNG for better quality
-        const pdf = new jsPDF();
-
-        // Calculate X and Y positions to center the content
-        const imgWidth = 310; // PDF width in mm
-        const imgHeight = (canvas.height * imgWidth) / canvas.width; // Keep aspect ratio
-
-        pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight); // Use 'PNG' format
-        pdf.save("keys-payment-slip.pdf");
-      })
-      .finally(() => {
-        // Restore original class
-        element.className = originalClass;
-      });
   };
   const handleChangeLanguage = (lang) => {
     setCurrentLanguage(lang);
@@ -94,6 +76,11 @@ function UrlokerKeys() {
   useEffect(() => {
     getAllLocations();
   }, []);
+
+  const location = useMemo(() => {
+    const loc = sk.get("location") || "";
+    return loc;
+  }, [locs, sk]);
 
   const getAllLocations = async () => {
     const url = config.API_BASE_URL;
@@ -242,31 +229,7 @@ function UrlokerKeys() {
               />
             </div>
           </div>
-          <div className="grid grid-cols-1 gap-4 my-4">
-            <div>
-              <label className="block mb-2">Location</label>
-              <select
-                className="border rounded-md px-3 py-2 w-full"
-                placeholder="Location"
-                required
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              >
-                <option
-                  className="disabled:bg-black/30 text-gray-500"
-                  value={""}
-                  disabled
-                >
-                  Select a location
-                </option>
-                {locs.map((loc) => (
-                  <option key={loc?._id} value={loc?._id}>
-                    {loc?.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
+          <br />
 
           {/* middle part */}
           <DatePicker
@@ -277,7 +240,7 @@ function UrlokerKeys() {
           />
         </div>
         {/* entire payment- right part */}
-        <div className="bg-white border border-gray-400 p-2 rounded-md">
+        <div className="bg-white border border-gray-400 p-2 rounded-md h-fit py-5">
           <p className="text-center font-bold text-2xl">Payment Checkout</p>
           <p className="flex flex-wrap items-center p-2 my-2 bg-teal-50">
             <span className="flex items-center gap-2">
@@ -288,6 +251,17 @@ function UrlokerKeys() {
             </span>
             <span className="font-bold ml-6 text-sm">
               {bookingId || "Click submit to proceed"}
+            </span>
+          </p>
+          <p className="flex flex-wrap items-center p-2 my-2 bg-teal-50">
+            <span className="flex items-center gap-2">
+              <span>
+                <FaInfoCircle />
+              </span>
+              <span>Location: </span>
+            </span>
+            <span className="font-bold ml-6 text-sm">
+              {locs?.find((l) => l?._id === location)?.name || "No location"}
             </span>
           </p>
           <p className="flex gap-2 items-center p-2 my-2 bg-teal-50">

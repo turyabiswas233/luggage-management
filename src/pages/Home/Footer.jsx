@@ -36,7 +36,7 @@ function Footer() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="/#"
+                  href="/about"
                   className="hover:underline hover:text-teal-200 transition-colors duration-300"
                 >
                   {t.about}
@@ -44,7 +44,7 @@ function Footer() {
               </li>
               <li>
                 <a
-                  href="/#services"
+                  href="/services"
                   className="hover:underline hover:text-teal-200 transition-colors duration-300"
                 >
                   {t.services}
@@ -150,9 +150,9 @@ function Footer() {
                   </a>
                 </span>
               </li>
-              <li>
+              {/* <li>
                 <span>{t.phone}</span>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className="w-full md:w-1/2 lg:w-1/5 px-4 mb-8">

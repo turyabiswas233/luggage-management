@@ -1,60 +1,81 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCar, faTruck, faBuilding, faHome } from '@fortawesome/free-solid-svg-icons';
-import '@fortawesome/fontawesome-svg-core/styles.css';
-import './Service.css'; // Make sure to create and include this CSS file
+import React from "react";
+import { FcServices } from "react-icons/fc";
+import NavComp from './NavbarComp'
+import Footer from './Footer'
+import "./Service.css"; // Make sure to create and include this CSS file
 
 function Service() {
   return (
-    <section className="bg-gradient-to-b from-gray-50  to-gray-100 py-16 scroll-mt-20" id="services">
-      <div className="container mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-8">We Are Committed To Give Our Best Services</h2>
-        <div className="flex flex-wrap -mx-4">
-          <div className="w-full md:w-1/2 lg:w-1/4 px-4 mb-8">
-            <div className="service-item service-card">
-              <div className="service-top">
-                <FontAwesomeIcon icon={faCar} className="text-4xl text-blue-400 mb-4" />
-              </div>
-              <h3 className="text-xl font-bold mb-4 service-title"><a href="service-details.html">Car Washing</a></h3>
-              <p className="service-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-              <a href="service-details.html" className="service-link">Learn More <i className="fas fa-arrow-right"></i></a>
-            </div>
-          </div>
-          <div className="w-full md:w-1/2 lg:w-1/4 px-4 mb-8">
-            <div className="service-item service-card two">
-              <div className="service-top hover:text-gray-400">
-                <FontAwesomeIcon icon={faTruck} className="text-4xl text-blue-400  mb-4" />
-              </div>
-              <h3 className="text-xl font-bold mb-4 service-title"><a href="service-details.html">Truck Washing</a></h3>
-              <p className="service-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-              <a href="service-details.html" className="service-link">Learn More <i className="fas fa-arrow-right"></i></a>
-            </div>
-          </div>
-          <div className="w-full md:w-1/2 lg:w-1/4 px-4 mb-8">
-            <div className="service-item service-card three ">
-              <div className="service-top ">
-              <FontAwesomeIcon icon={faBuilding} className="text-4xl text-blue-400 mb-4"
-    />
-              </div>
-              <h3 className="text-xl font-bold mb-4 service-title"><a href="service-details.html">Office Luggage</a></h3>
-              <p className="service-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-              <a href="service-details.html" className="service-link">Learn More <i className="fas fa-arrow-right"></i></a>
-            </div>
-          </div>
-          <div className="w-full md:w-1/2 lg:w-1/4 px-4 mb-8">
-            <div className="service-item service-card">
-              <div className="service-top">
-                <FontAwesomeIcon icon={faHome} className="text-4xl text-blue-400 mb-4" />
-              </div>
-              <h3 className="text-xl font-bold mb-4 service-title"><a href="service-details.html">House Luggage</a></h3>
-              <p className="service-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-              <a href="service-details.html" className="service-link">Learn More <i className="fas fa-arrow-right"></i></a>
-            </div>
-          </div>
-        </div>
+    <section
+      className="bg-gradient-to-br pt-44 from-gray-50  to-gray-300 py-16 scroll-mt-20 text-slate-700"
+      id="services"
+    >
+      <NavComp />
+      <h3 className="my-3 text-4xl font-semibold text-center">Our services</h3>
+      <div className="flex justify-center items-center">
+        <FcServices size={200} className="animate-pulse" />
       </div>
+      <div>
+        <ul className="px-14 py-5 grid grid-cols-1 gap-5">
+          {serviceList.map((ele, eleId) => (
+            <li
+              className="p-10 rounded-md shadow-xl hover:bg-white transition-colors"
+              key={eleId}
+            >
+              <span className="text-xl font-bold">{ele?.title}: </span> <span>{ele?.desc}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <br />
+      <Footer />
     </section>
   );
 }
-
+const serviceList = [
+  {
+    title: "Secure Luggage Storage",
+    desc: "Safe and monitored storage locations with surveillance systems to keep customers' belongings secure.",
+  },
+  {
+    title: "Key Storage for Airbnb Hosts and Guests",
+    desc: "We now offer key storage services, allowing Airbnb hosts to securely store their keys and guests to pick them up with ease at our partner locations.",
+  },
+  {
+    title: "Online Booking Platform",
+    desc: "A user-friendly website and mobile platform that allows customers to book luggage storage in advance with just a few clicks.",
+  },
+  {
+    title: "QR Code Booking at Partner Locations",
+    desc: "Customers can scan a QR code at any partner store to quickly and easily book storage services.",
+  },
+  {
+    title: "Flexible Storage Options",
+    desc: "Storage solutions for all types of luggage, regardless of size or shape, from small backpacks to large suitcases.",
+  },
+  {
+    title: "All-Day Access",
+    desc: "Customers can access their luggage any time during business hours, allowing for flexibility in retrieval.",
+  },
+  {
+    title: "Real-Time Notifications",
+    desc: "Instant confirmation of bookings, reminders about pick-up times, and updates about any changes via SMS or email.",
+  },
+  {
+    title: "24/7 Customer Support:",
+    desc: "A dedicated chatbot and support team available around the clock to handle customer inquiries and resolve issues.",
+  },
+  {
+    title: "Unbeatable Pricing",
+    desc: "Transparent, flat-rate pricing with no hidden fees, ensuring a cost-effective solution for all travellers.",
+  },
+  {
+    title: "Multiple Storage Locations",
+    desc: "A growing network of partner stores and locations across Australia to make storage convenient and accessible wherever customers are.",
+  },
+  {
+    title: "Insurance Coverage",
+    desc: "Optional insurance for additional peace of mind, ensuring that high-value items are protected during storage.",
+  },
+];
 export default Service;

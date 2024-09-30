@@ -167,7 +167,7 @@ const translations = {
       terms: "Terms & Conditions",
 
       contactInfo: "Contact Info",
-      address: "Address: 52 Merlin St Craigieburn VIC 3064",
+      address: "Address: 1 William St, Hawthorn, Victoria 3122, Australia",
       email: "Email: admin@Urloker.com",
       phone: "Phone: +01 234 567 89",
       followUs: "Follow Us",
@@ -202,6 +202,32 @@ const translations = {
         title: "How It Works Video",
         altText: "Guideline",
       },
+    },
+    about: {
+      title: "About Us",
+      info: [
+        `At Urloker, we provide the best luggage storage solutions in
+          Australia, offering a seamless, secure, and affordable experience for
+          travellers. Whether you're exploring a new city or need a safe place
+          to store your belongings, our hassle-free booking process, unbeatable
+          rates, and growing network of partner locations make it easy to store
+          your luggage with confidence.`,
+        ` Customers can book storage directly through our website or by scanning
+          a QR code at any of our partner stores, allowing for maximum
+          flexibility and convenience. Our advanced security measures, including
+          surveillance systems, ensure that your bags are safe and accessible
+          whenever you need them. Our No Rush Retrieval policy gives you freedom
+          to Store your luggage and retrieve it at your convenience—no time
+          limits, no pressure, just freedom to explore at your own pace.`,
+        `Urloker is committed to provide best customer service. Our dedicated
+          chatbot is available 24/7 to help resolve any customer service
+          inquiries quickly and efficiently, ensuring a smooth experience from
+          start to finish.`,
+        `As the leading luggage storage service provider in Australia, our
+          slogan is Freedom in Every Journey which depicts our mission to
+          provide every customer with peace of mind, knowing their belongings
+          are in safe hands while they enjoy the freedom of exploring the city.`,
+      ],
     },
   },
   es: {
@@ -252,7 +278,7 @@ const translations = {
       terms: "Términos y Condiciones",
 
       contactInfo: "Información de Contacto",
-      address: "Dirección: 52 Merlin St Craigieburn VIC 3064",
+      address: "Dirección: 1 William St, Hawthorn, Victoria 3122, Australia",
       email: "Correo electrónico: admin@Urloker.com",
       phone: "Teléfono: +01 234 567 89",
       followUs: "Síguenos",
@@ -411,6 +437,30 @@ const translations = {
         },
       ],
     },
+    about: {
+      title: "Sobre nosotros",
+      info: [
+        `En Urloker, ofrecemos las mejores soluciones de almacenamiento de equipaje en
+Australia, ofreciendo una experiencia sencilla, segura y asequible para
+los viajeros. Ya sea que esté explorando una nueva ciudad o necesite un lugar seguro
+para guardar sus pertenencias, nuestro proceso de reserva sin complicaciones, tarifas
+inmejorables y nuestra creciente red de ubicaciones asociadas hacen que sea fácil almacenar
+su equipaje con confianza.`,
+        ` Los clientes pueden reservar el almacenamiento directamente a través de nuestro sitio web o escaneando
+un código QR en cualquiera de nuestras tiendas asociadas, lo que permite una máxima
+flexibilidad y comodidad. Nuestras medidas de seguridad avanzadas, incluidos
+sistemas de vigilancia, garantizan que su equipaje esté seguro y accesible
+siempre que lo necesite. Nuestra política de recuperación sin prisas le brinda la libertad
+de almacenar su equipaje y recuperarlo cuando lo desee, sin límites de tiempo, sin presiones, solo la libertad de explorar a su propio ritmo.`,
+        `Urloker se compromete a brindar el mejor servicio al cliente. Nuestro chatbot
+dedicado está disponible las 24 horas, los 7 días de la semana para ayudar a resolver cualquier consulta de servicio al cliente
+de manera rápida y eficiente, lo que garantiza una experiencia fluida de principio a fin.`,
+        `Como proveedor líder de servicios de almacenamiento de equipaje en Australia, nuestro
+lema es Libertad en cada viaje, que refleja nuestra misión de
+brindar a cada cliente tranquilidad, sabiendo que sus pertenencias
+están en buenas manos mientras disfrutan de la libertad de explorar la ciudad.`,
+      ],
+    },
   },
   zh: {
     header: {
@@ -509,7 +559,7 @@ const translations = {
       terms: "条款和条件",
 
       contactInfo: "联系信息",
-      address: "地址: 52 Merlin St Craigieburn VIC 3064",
+      address: "地址: 1 William St, Hawthorn, Victoria 3122, Australia",
       email: "邮箱: admin@Urloker.com",
       phone: "电话: +01 234 567 89",
       followUs: "关注我们",
@@ -612,6 +662,15 @@ const translations = {
         title: "操作指南视频",
         altText: "指南",
       },
+    },
+    about: {
+      title: "关于我们",
+      info: [
+        `在 Urloker, 我们提供澳大利亚最好的行李寄存解决方案, 为旅行者提供无缝、安全且实惠的体验。无论您是在探索新城市还是需要一个安全的地方来存放您的物品, 我们轻松的预订流程、无与伦比的价格以及不断增长的合作地点网络让您可以轻松放心地存放行李。`,
+        `客户可以直接通过我们的网站或在我们的任何合作商店扫描二维码预订寄存服务，从而获得最大的灵活性和便利性。我们先进的安全措施（包括监控系统）可确保您的行李安全无虞，并且随时可以取用。我们的“不着急取回”政策让您可以自由地寄存行李并在方便时取回——没有时间限制，没有压力，您可以按照自己的节奏自由探索。`,
+        `Urloker 致力于提供最佳客户服务。我们专用的聊天机器人全天候待命，可快速高效地帮助解决任何客户服务问题，确保从始至终的顺畅体验。`,
+        `作为澳大利亚领先的行李寄存服务提供商，我们的口号是“旅途自由”，体现了我们的使命：让每一位顾客安心，让他们知道自己的物品在安全的手中，同时享受探索城市的自由。`,
+      ],
     },
   },
 };

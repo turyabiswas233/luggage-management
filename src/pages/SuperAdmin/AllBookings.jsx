@@ -70,12 +70,20 @@ const AllBookings = () => {
     return map;
   }, {});
 
-  const filteredBookings = bookings.filter(
-    (booking) =>
-      booking.location &&
-      booking.location.name &&
-      booking.location.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredBookings = bookings
+    .sort((X, Y) => {
+      // REVERSE ORDER BY bookingDate
+      let x = new Date(X.bookingDate).getTime();
+      let y = new Date(Y.bookingDate).getTime();
+      if (x < y) return 1;
+      else return -1;
+    })
+    .filter(
+      (booking) =>
+        booking.guest &&
+        booking.guest.name &&
+        booking.guest.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
   const indexOfLastBooking = currentPage * bookingsPerPage;
   const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
@@ -151,7 +159,7 @@ const AllBookings = () => {
             <div className="mb-4">
               <input
                 type="text"
-                placeholder="Search by Location"
+                placeholder="Search by Client/Guest Name"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
@@ -177,6 +185,12 @@ const AllBookings = () => {
                         Location Name
                       </th>
                       <th className="w-1/5 py-3 px-6 text-left">
+                        Luggage Count
+                      </th>
+                      <th className="w-1/5 py-3 px-6 text-left">
+                        Paid Amount [in AUD]
+                      </th>
+                      <th className="w-1/5 py-3 px-6 text-left">
                         Booking Date
                       </th>
                       <th className="w-1/5 py-3 px-6 text-left">
@@ -197,31 +211,46 @@ const AllBookings = () => {
                         if (x < y) return 1;
                         else return -1;
                       })
-                      .map((booking) => (
-                        <tr
-                          key={booking._id}
-                          className="bg-white hover:bg-gray-200 transition duration-150"
-                        >
-                          <td className="w-1/5 py-3 px-6 border">
-                            {getClientInfo(booking.client, booking.guest)}
-                          </td>
-                          <td className="w-1/5 py-3 px-6 border">
-                            {booking.location ? booking.location.name : "N/A"}
-                          </td>
-                          <td className="w-1/5 py-3 px-6 border">
-                            {formatDate(booking.bookingDate, "")}
-                          </td>
-                          <td className="w-1/5 py-3 px-6 border">
-                            {formatDate(booking.startDate, booking.startTime)}
-                          </td>
-                          <td className="w-1/5 py-3 px-6 border">
-                            {formatDate(booking.endDate, booking.endTime)}
-                          </td>
-                          <td className="w-1/5 py-3 px-6 border">
-                            {booking.status}
-                          </td>
-                        </tr>
-                      ))}
+                      .map(
+                        (booking) =>
+                          booking?.keyStorage?.isKeyStorage == false && (
+                            <tr
+                              key={booking._id}
+                              className="bg-white hover:bg-gray-200 transition duration-150"
+                            >
+                              <td className="w-1/5 py-3 px-6 border">
+                                {getClientInfo(booking.client, booking.guest)}
+                              </td>
+                              <td className="w-1/5 py-3 px-6 border">
+                                {booking.location
+                                  ? booking.location.name
+                                  : "N/A"}
+                                {/* {JSON.stringify(booking,null,2)} */}
+                              </td>
+                              <td className="w-1/5 py-3 px-6 border">
+                                {booking?.luggageCount}
+                              </td>
+                              <td className="w-1/5 py-3 px-6 border">
+                                ${Number(booking?.payment?.amount).toFixed(2)}
+                              </td>
+                              <td className="w-1/5 py-3 px-6 border">
+                                {formatDate(booking.bookingDate, "")}
+                              </td>
+                              <td className="w-1/5 py-3 px-6 border">
+                                {formatDate(
+                                  booking.startDate,
+                                  booking.startTime
+                                )}
+                              </td>
+                              <td className="w-1/5 py-3 px-6 border">
+                                {formatDate(booking.endDate, booking.endTime)}
+                              </td>
+                              <td className="w-1/5 py-3 px-6 border">
+                                {booking.status}
+                              </td>
+                            </tr>
+                          )
+                      )}
                   </tbody>
                 </table>
               )}

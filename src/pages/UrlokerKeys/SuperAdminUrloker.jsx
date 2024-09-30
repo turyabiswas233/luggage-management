@@ -116,7 +116,9 @@ function SuperAdminUrloker() {
                 </thead>
                 <tbody>
                   {bookingList.map((b) => {
-                    return <BookingCard key={b?._id} bookingData={b} />;
+                    return (
+                      <BookingCard key={b?._id} bookingData={b} _id={b?._id} />
+                    );
                   })}
                 </tbody>
               </table>
@@ -130,7 +132,7 @@ function SuperAdminUrloker() {
     </div>
   );
 }
-const BookingCard = ({ bookingData }) => {
+const BookingCard = ({ bookingData, _id }) => {
   const {
     guest,
     payment,
@@ -140,10 +142,26 @@ const BookingCard = ({ bookingData }) => {
     startTime,
     luggageCount,
   } = bookingData;
- 
 
   const formattedStartDate = new Date(startDate).toLocaleDateString();
+  // delete booking by id
+  const deleteBookingById = async () => {
+    const url = `${config.API_BASE_URL}/api/v1/bookings/system/hard-delete-booking?bookingId=${_id}`;
+    const token = `Bearer ${localStorage.getItem("token")}`;
+    try {
+      const response = await axios.delete(url, {
+        headers: {
+          Authorization: token,
+        },
+      });
 
+      alert("Booking Deleted Successfully");
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+      alert("Failed to delete booking");
+    }
+  };
   return (
     <tr className="hover:bg-green-50 transition-colors text-xs">
       <td className="text-gray-700 px-4 border-b border border-black">

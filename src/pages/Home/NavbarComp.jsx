@@ -45,7 +45,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
           </a>
           <div className="md:hidden ml-4">
             <a
-              href="/urlokerKeys"
+              href="/urlokerKeysMap"
               className="flex items-center text-[#1a73a7] hover:text-[#2a9b84]"
             >
               <FontAwesomeIcon icon={faKey} className="mr-2" />{" "}
@@ -86,7 +86,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
               {currentTranslations.header.home}
             </a>
             <a
-              href="/urlokerKeys"
+              href="/urlokerKeysMap"
               className="hidden md:block  hover:text-[#2a9b84] "
             >
               {currentTranslations.header.urlokerKeys}

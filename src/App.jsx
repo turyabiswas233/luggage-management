@@ -25,6 +25,7 @@ import AdminAnalytics from "./pages/SuperAdmin/AdminAnalytics";
 import SearchNearLocation from "./pages/SearchNearLocation";
 import AboutDetails from "./pages/About/AboutDetails";
 import Home from "./pages/Home/Home";
+import Service from "./pages/Home/Service";
 import Support from "./pages/Support";
 import Terms from "./pages/Terms";
 import ResetPasswordForm from "./pages/ResetPasswordForm";
@@ -75,6 +76,7 @@ import AllNotificationPartner from "./pages/Partner/Notification/NtList";
 import SuperAdminUrloker from "./pages/UrlokerKeys/SuperAdminUrloker";
 import PartnerUrloker from "./pages/UrlokerKeys/PartnerUrloker";
 import PartnerKeyDetails from "./pages/SuperAdmin/PartnerKeyDetails";
+import UrlokerKeysMap from "./pages/UrlokerKeys/UrlokerKeysMap";
 
 function App() {
   const location = useLocation();
@@ -93,6 +95,7 @@ function App() {
         <Route exact path="/blog-details/:blogid" element={<BlogDetails />} />
         <Route exact path="/dashboard" element={<Dashboard />} />
         <Route exact path="/about" element={<AboutDetails />} />
+        <Route exact path="/services" element={<Service />} />
         <Route exact path="/support" element={<Support />} />
         <Route exact path="/privacy-policy" element={<Privacy />} />
         <Route exact path="/terms-and-conditions" element={<Terms />} />
@@ -101,6 +104,7 @@ function App() {
 
         <Route path="/logout" element={<Logout />} />
         <Route path="/urlokerKeys" element={<UrlokerKeys />} />
+        <Route path="/urlokerKeysMap" element={<UrlokerKeysMap />} />
         <Route path="/comingsoon" element={<ComingSoon />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
