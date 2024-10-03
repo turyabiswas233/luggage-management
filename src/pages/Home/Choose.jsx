@@ -10,18 +10,6 @@ const Choose = () => {
   const t = tl("home")?.whyChooseUs;
   return (
     <div className="choose-area bg-white relative overflow-hidden py-12">
-      <div className="choose-shape absolute inset-0 z-0">
-        <img
-          src="assets/img/home-one/choose1.png"
-          alt="Shape"
-          className="animate-spin-slow absolute top-[330px] left-[345px]"
-        />
-        <img
-          src="assets/img/home-one/banner-shape3.png"
-          alt="Shape"
-          className="animate-pulse absolute right-[100px] bottom-[-40px]"
-        />
-      </div>
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap items-center justify-between">
           <div className="lg:w-1/2 p-4">

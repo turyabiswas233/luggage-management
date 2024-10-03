@@ -10,8 +10,6 @@ import "./css/style.css";
 import "./charts/ChartjsConfig";
 
 // Import pages
-import Dashboard from "./pages/Dashboard";
-
 import SearchLuggage from "./pages/SearchLuggage";
 import UserServiceAgency from "./pages/UserServiceAgency";
 import AllPartner from "./pages/SuperAdmin/AllPartner";
@@ -46,8 +44,7 @@ import AllBookings from "./pages/SuperAdmin/AllBookings";
 import PartnerBookings from "./pages/Partner/PartnerBookings";
 import Logout from "./pages/Home/Logout";
 import BookingConfirmation from "./pages/SearchLugLocation/BookingConfirmation";
-import ClientMenu from "./pages/User/ClientMenu";
-import AdminDashboard from "./pages/SuperAdmin/AdminDashboard";
+import ClientMenu from "./pages/User/ClientMenu"; 
 import ClientWallet from "./pages/User/ClientWallet";
 import ClientBookingHistory from "./pages/User/ClientBookingHistory";
 import PartnerDetails from "./pages/SuperAdmin/PartnerDetails";
@@ -93,7 +90,6 @@ function App() {
         {/* common  */}
         <Route exact path="/" element={<Home />} />
         <Route exact path="/blog-details/:blogid" element={<BlogDetails />} />
-        <Route exact path="/dashboard" element={<Dashboard />} />
         <Route exact path="/about" element={<AboutDetails />} />
         <Route exact path="/services" element={<Service />} />
         <Route exact path="/support" element={<Support />} />
@@ -108,15 +104,14 @@ function App() {
         <Route path="/comingsoon" element={<ComingSoon />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
-        <Route path="/reset-password-form/:tokenId" element={<ResetPasswordForm />} />
+        <Route
+          path="/reset-password-form/:tokenId"
+          element={<ResetPasswordForm />}
+        />
         <Route path="*" element={<UnauthorizedPage />} />
 
         {/* admin  */}
-        <Route
-          exact
-          path="/superadmin/dashboard"
-          element={<AdminDashboard />}
-        />
+
         <Route exact path="/superadmin/login" element={<AdminLoginForm />} />
         <Route exact path="/superadmin/profile" element={<AdminProfile />} />
         <Route exact path="/superadmin/clients" element={<AllClient />} />
@@ -184,7 +179,11 @@ function App() {
           path="/partner_availability_calender"
           element={<PartnerAvailabilityCalendar />}
         />
-        <Route exact path="/partner/notification" element={<AllNotificationPartner />} />
+        <Route
+          exact
+          path="/partner/notification"
+          element={<AllNotificationPartner />}
+        />
         <Route exact path="/partner/locations" element={<PartnerLocations />} />
         <Route exact path="/partner/bookings" element={<PartnerBookings />} />
         <Route
@@ -243,11 +242,7 @@ function App() {
           path="/superadmin/urlokerkey"
           element={<SuperAdminUrloker />}
         />
-        <Route
-          exact
-          path="/partner/urlokerkeys"
-          element={<PartnerUrloker />}
-        />
+        <Route exact path="/partner/urlokerkeys" element={<PartnerUrloker />} />
         <Route exact path="/allluggage" element={<AllLuggage />} />
         <Route exact path="/luggage/:id" element={<LuggageDetails />} />
       </Routes>

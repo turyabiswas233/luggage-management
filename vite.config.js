@@ -22,7 +22,7 @@ export default defineConfig({
     ],
   },
   build: {
-    chunkSizeWarningLimit: 4000,
+    chunkSizeWarningLimit: 5000,
     commonjsOptions: {
       transformMixedEsModules: true,
     },

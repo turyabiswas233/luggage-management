@@ -137,9 +137,6 @@ function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
-                <span>{t.address}</span>
-              </li>
-              <li>
                 <span>
                   Email:{" "}
                   <a

@@ -12,6 +12,8 @@ import config from "../../config";
 import html2pdf from "html2pdf.js";
 import logo from "/img/home-two/logo3.svg";
 import { ClipLoader } from "react-spinners";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 const months = [
   "Jan",
   "Feb",
@@ -359,17 +361,21 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
   const handleDownloadPDF = () => {
     const paySlip = paymentSlip.current;
 
-    const opt = {
-      margin: 0.5,
-      filename: "payment-slip-booking.pdf",
-      image: { type: "jpeg", quality: 1 },
+    // old codes
 
-      html2canvas: { scale: 3, dpi: 192, letterRendering: true },
-      jsPDF: { unit: "cm", format: "a4", orientation: "portrait" }, //landscape
-    };
     try {
       setLoad(true);
-      html2pdf().from(paySlip).set(opt).save();
+      html2pdf()
+        .from(paySlip)
+        .set({
+          margin: 1,
+          filename: "payment-slip-booking.pdf",
+          image: { type: "jpeg", quality: 1 },
+
+          html2canvas: { scale: 4, dpi: 180 },
+          jsPDF: { unit: "cm", format: "a4", orientation: "portrait" }, //landscape
+        })
+        .save();
     } catch (error) {
       console.log(error);
     } finally {
@@ -539,8 +545,13 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
                   <td className="border border-black">{data.month}</td>
                 </tr>
                 <tr>
-                  <td className="border border-black">Total Booking in QR-CODE</td>
-                  <td className="border border-black">{data?.bookings?.filter(f=> f?.source =='qr_code')?.length || 0}</td>
+                  <td className="border border-black">
+                    Total Booking in QR-CODE
+                  </td>
+                  <td className="border border-black">
+                    {data?.bookings?.filter((f) => f?.source == "qr_code")
+                      ?.length || 0}
+                  </td>
                 </tr>
                 <tr>
                   <td className="border border-black">
@@ -581,8 +592,10 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
                 </tr>
               </tfoot>
             </table>
-            <div className="html2pdf__page-break"></div>
-            <table className="h-fit rounded-md w-full border border-black">
+            {data?.bookings?.length > 5 && (
+              <div className="html2pdf__page-break"></div>
+            )}
+            <table className="h-fit w-full">
               <thead className="table-header-group text-center">
                 <tr>
                   <th className="border border-black py-3 bg-white" colSpan={6}>
@@ -608,8 +621,11 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
                   if (b.status == "paid")
                     return (
                       <>
+                        {bid > 0 && bid % 13 == 0 && (
+                          <div className="html2pdf__page-break"></div>
+                        )}
                         <tr
-                          className={`p-3 text-sm border border-black ${
+                          className={`px-3  border border-black ${
                             bid % 2 == 0 ? "bg-gray-200" : "bg-gray-100"
                           } hover:bg-gray-800 hover:text-white`}
                           key={`booking_${bid}`}
@@ -642,18 +658,12 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
                                   <MdClose />
                                 )}{" "}
                               </span>
-                              <span>{b.status}</span>
+                              <span className="-translate-y-2 pl-2">
+                                {b.status}
+                              </span>
                             </span>
                           </td>
                         </tr>
-                        {bid > 20 && bid % 16 == 0 ? (
-                          <div className="html2pdf__page-break"></div>
-                        ) : (
-                          bid > 10 &&
-                          bid % 13 == 0 && (
-                            <div className="html2pdf__page-break"></div>
-                          )
-                        )}
                       </>
                     );
                 })}
@@ -764,7 +774,9 @@ const PaymentDetailsByMonthL = ({ data, convertToDollars }) => {
             <tr className="bg-gray-800 text-white">
               <th className="p-2 border border-white">Location ID</th>
               <th className="p-2 border border-white">Location Name</th>
-              <th className="p-2 border border-white">Total Bookings</th>
+              <th className="p-2 border border-white">
+                Total Bookings(including pending)
+              </th>
               <th className="p-2 border border-white">Earned ($AUD)</th>
             </tr>
           </thead>
@@ -876,7 +888,9 @@ const PaymentDetailsByMonthL = ({ data, convertToDollars }) => {
                 <tr className="bg-gray-800 text-white">
                   <th className="p-2 border border-white">Location ID</th>
                   <th className="p-2 border border-white">Location Name</th>
-                  <th className="p-2 border border-white">Total Bookings</th>
+                  <th className="p-2 border border-white">
+                    Total Bookings(including pending)
+                  </th>
                   <th className="p-2 border border-white">Earned ($AUD)</th>
                 </tr>
               </thead>
@@ -884,22 +898,29 @@ const PaymentDetailsByMonthL = ({ data, convertToDollars }) => {
               <tbody className="text-center">
                 {data?.locationBreakdown?.map((b, bid) => {
                   return (
-                    <tr
-                      className={`px-3  border border-black ${
-                        bid % 2 == 0 ? "bg-gray-200" : "bg-gray-100"
-                      } hover:bg-gray-800 hover:text-white`}
-                      key={`location_${bid}`}
-                    >
-                      <td className="border p-2 border-black">{bid + 1}</td>
-                      <td className="border p-2 border-black">
-                        {b.locationName}
-                      </td>
-                      <td className="border p-2 border-black">{b.bookings}</td>
+                    <>
+                      {bid > 0 && bid % 10 == 0 && (
+                        <div className="html2pdf__page-break"></div>
+                      )}
+                      <tr
+                        className={`px-3  border border-black ${
+                          bid % 2 == 0 ? "bg-gray-200" : "bg-gray-100"
+                        } hover:bg-gray-800 hover:text-white`}
+                        key={`location_${bid}`}
+                      >
+                        <td className="border p-2 border-black">{bid + 1}</td>
+                        <td className="border p-2 border-black">
+                          {b.locationName}
+                        </td>
+                        <td className="border p-2 border-black">
+                          {b.bookings}
+                        </td>
 
-                      <td className="flex justify-center items-center p-2">
-                        {convertToDollars(b.earned)}
-                      </td>
-                    </tr>
+                        <td className="flex justify-center items-center p-2">
+                          {convertToDollars(b.earned)}
+                        </td>
+                      </tr>
+                    </>
                   );
                 })}
               </tbody>

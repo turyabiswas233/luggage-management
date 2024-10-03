@@ -352,7 +352,9 @@ const PaymentDetailsByMonth = ({
                     >
                       <td className="border border-black">{b.bookingId}</td>
                       <td className="border border-black">{b.luggageCount}</td>
-                      <td className="border border-black">{convertToDollars(b.paymentAmount)}</td>
+                      <td className="border border-black">
+                        {convertToDollars(b.paymentAmount)}
+                      </td>
                       <td className="border border-black">{b.locationName}</td>
                       <td className="border border-black">
                         {b.source == "qr_code" ? "QR CODE" : "ONLINE"}
@@ -502,31 +504,38 @@ const PaymentDetailsByMonth = ({
                 {data?.bookings?.map((b, bid) => {
                   if (b?.status == "paid")
                     return (
-                      <div
-                        className={`grid grid-cols-6 text-sm border border-black`}
-                        key={`booking_${bid}`}
-                      >
-                        <p className="py-2 overflow-hidden text-xs break-all">
-                          {b.bookingId}
-                        </p>
-                        <p className="py-2">{b.luggageCount}</p>
-                        <p className="py-2">{convertToDollars(b.paymentAmount)}</p>
-                        <p className="py-2">{b.locationName}</p>
-                        <p className="py-2">
-                          {b.source == "qr_code" ? "QR CODE" : "ONLINE"}
-                        </p>
-                        <p className="flex justify-center items-center py-2">
-                          <span
-                            className={`${
-                              b.status === "paid"
-                                ? "bg-green-200 text-green-600"
-                                : "bg-yellow-200 text-yellow-600"
-                            } rounded-full px-3 py-1 w-32 flex justify-center items-center tracking-tight`}
-                          >
-                            {b.status}
-                          </span>
-                        </p>
-                      </div>
+                      <>
+                        {bid > 0 && bid % 13 == 0 && (
+                          <div className="html2pdf__page-break"></div>
+                        )}
+                        <div
+                          className={`grid grid-cols-6 text-sm border border-black`}
+                          key={`booking_${bid}`}
+                        >
+                          <p className="py-2 overflow-hidden text-xs break-all">
+                            {b.bookingId}
+                          </p>
+                          <p className="py-2">{b.luggageCount}</p>
+                          <p className="py-2">
+                            {convertToDollars(b.paymentAmount)}
+                          </p>
+                          <p className="py-2">{b.locationName}</p>
+                          <p className="py-2">
+                            {b.source == "qr_code" ? "QR CODE" : "ONLINE"}
+                          </p>
+                          <p className="flex justify-center items-center py-2">
+                            <span
+                              className={`${
+                                b.status === "paid"
+                                  ? "bg-green-200 text-green-600"
+                                  : "bg-yellow-200 text-yellow-600"
+                              } rounded-full px-3 py-1 w-32 flex justify-center items-center tracking-tight`}
+                            >
+                              {b.status}
+                            </span>
+                          </p>
+                        </div>
+                      </>
                     );
                 })}
               </div>
