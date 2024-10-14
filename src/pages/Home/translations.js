@@ -18,9 +18,17 @@ const translations = {
       title: "Have Any Questions? We Are Here To Answer You",
       faqs: [
         {
-          question: "What can I store with Urloker?",
+          question: "How does the Urloker luggage storage system work?",
           answer:
-            "From luggage and backpacks to gym bags and beyond, our service is like having a personal storage solution wherever you are. Whether you’re between Airbnbs or heading out for a night on the town, you can store more than just your luggage with us.",
+            "UrLoker provides collection and delivery services. Click on a location or book a van in the same way that you would book a doctor's appointment through the website. Book a flight by telephone, specifying the location, date and time. As for the dropping out, you will have to put your bag in a locker and as for pick up, the staff will take it and keep it safely.",
+        },
+        {
+          question: "What things can I store?",
+          answer: `
+            <li>Luggage: franchises of suitcases, big bags duffle</li>
+            <li>Personal items: Women's purses, Computer Case</li>
+            <li>Bulky Items: Sporting equipment, Child params</li>
+            `,
         },
         {
           question: "Are there size limits?",
@@ -38,6 +46,11 @@ const translations = {
             "We offer a flat 24-hour rate, ensuring you get the same great price whether you store your items for just a few hours or the entire day.",
         },
         {
+          question:
+            "Can I book luggage storage for the whole day with a single booking?",
+          answer: `Yes, you can easily book luggage storage for the entire day with just one booking, ensuring a hassle-free experience.`,
+        },
+        {
           question: "Looking for luggage lockers nearby?",
           answer:
             "We partner with trusted businesses that provide secure storage areas for your belongings, offering the same safety and convenience as traditional lockers—without the hassle of availability or size constraints.",
@@ -51,6 +64,19 @@ const translations = {
           question: "Can I get a refund if I cancel?",
           answer:
             "Absolutely! You can cancel your booking anytime before check-in for a full refund, and best of all—no cancellation fees!",
+        },
+        {
+          question: "What security measures are in place?",
+          answer: `
+            <li>Super Locks</li>
+            <li>CCTV</li>
+            <li>Staff trained</li>
+          `,
+        },
+        {
+          question: "what kind of service Urloker Luggage Storage provide?",
+          answer:
+            "Urloker Luggage Storage provides secure and monitored luggage storage solutions with flexible options for all bag sizes. They also offer key storage services for Airbnb hosts and guests, with easy online and QR code booking at partner locations. Additionally, Urloker provides 24/7 customer support, real-time notifications, and optional insurance for added peace of mind.",
         },
       ],
     },
@@ -227,6 +253,59 @@ const translations = {
           slogan is Freedom in Every Journey which depicts our mission to
           provide every customer with peace of mind, knowing their belongings
           are in safe hands while they enjoy the freedom of exploring the city.`,
+      ],
+    },
+    cityInfo: {
+      title: "Luggage Storage in Melbourne - Simple, Safe and Price-wise",
+      desc: `Luggage storage in Melbourne has never been easier or more convenient than with UrLoker. We know the struggle of having to carry heavy bags when out exploring the marvelous city of Melbourne. Whether it is your first time visiting Melbourne as a tourist, a business traveler on the go or even someone who has a layover in Melbourne Airport, our easy location and secured storage guarantee a safe and pleasant experience throughout the whole trip.\\break At UrLoker, we are on a mission of ensuring that every resident and visitor to Melbourne has easy and reliable access to cheap, safe and effective luggage storage facilities, which will enable them to move around the city freely. Most airport buggage lockers & storage facilities are located inside Melbourne airports, Southern cross station, and flinders street station so there is no way the city can be so big that we don't have a storage close to you. If you are looking for a range of services whether short term or long term, what you need is at UrLoker.`,
+      otherInfo: [
+        {
+          title: "Luggage Storage Melbourne Airport",
+          desc: "If you are flying to or from Melbourne Airport, you can use the luggage storage facilities prior or after your flight to not stress or worry about your bags. If you are a traveler with a long layover or just several hours before the next flight, use our Melbourne Airport luggage lockers that have such a perfect option.",
+        },
+        {
+          title: "Luggage Storage in Melbourne CBD",
+          desc: "For inner city visitors, as you tour the central business district, you can utilize our luggage storage services spread over the Melbourne CBD. With our lockers strategically placed, you can dump your travel bags and come out to see all the famous sites, shop and eat with no back baggage.",
+        },
+        {
+          title: "Southern Cross Station Luggage Storage",
+          desc: "Southern Cross station is one of the main terminals in Melbourne and therefore perfect if you have luggage to be kept. While you are waiting to take your train, bus or shuttle, you can easily leave your bags with us and enjoy the Southern Cross Station luggage storage facility.",
+        },
+        {
+          title: "Flinders Street Station Luggage Storage",
+          desc: "Flinders Street Station is a busy operational hub and one of the most recognizable buildings spiral structure to view. Our storage facilities here offer a safe way to stow your bags while visiting nearby sites such as Federation Square, National Gallery of Victoria, or Yarra River.",
+        },
+      ],
+      whyBest: [
+        {
+          title: "Best Locations",
+          desc: "We have strategically placed our luggage storage lockers in prime areas of Melbourne such as the international airport, Southern Cross Station, and Flinders Street Station to diversify clientele access no matter where they are within the city.",
+        },
+        {
+          title: "Safety and Trustworthieness",
+          desc: "We know that there is always a safety concern when it comes to the things you carry with you. It also has secure lockers for the clients equipped with competent locking systems and 24/7 video surveillance, therefore, you will be free to move around without worrying about your luggage.",
+        },
+        {
+          title: "Easy to Store Your Luggage",
+          desc: "If you want to leave your bags for a couple of hours or a full day or more, we have flexible storage solutions which are meant to cover your needs. If you have changed some of your plans, you can add extra time to your storage without worrying that you're missing out on much of your time in Melbourne.",
+        },
+        {
+          title: "No High Prices",
+          desc: "It is a good thing to know that at UrLoker, there is no experience where luggage storage is offered at exorbitant fees. With our affordable rates, you are sure that you have the best possible service for your money without worrying about high storage costs.",
+        },
+        {
+          title: "No Long Wait for Admission",
+          desc: "Booking of the lockers is very fast and does not waste time. A locker can be secured in advance to be used on a later date or otherwise, on reaching the venue, one can get a locker on the spot. To use our system, you do not need to register, you need to put your luggage through our luggage storage in a few clicks.",
+        },
+        {
+          title:
+            "Avoid Carrying Heavy Luggage While Traveling Around the City of Melbourne",
+          desc: "Melbourne is a city that is full of cultural, historical, and other activities. If it is for you to catch up with the regular tourist spots like Federation Square, walk through the laneways of the CBD or simply take a walk by the Yarra River, UrLoker has got you covered on all whereas you do not have to lug around your bags and walk around the city.<br />Thanks to our network of storage facilities which include important places like the Melbourne Airport, Southern Cross Station and Flinders Street Station, you don't have to think about your bags while having fun in Melbourne.",
+        },
+        {
+          title: "Make Your Luggage Storage Booking Today with UrLoker",
+          desc: "Style your Melbourne trip without heavy bags or luggage restricting you. UrLoker enables you to keep your luggage safe and sound while sight-seeing, thanks to its safe and economical luggage storage services. Reserve your luggage storage services now and discover Melbourne hassle free!",
+        },
       ],
     },
   },

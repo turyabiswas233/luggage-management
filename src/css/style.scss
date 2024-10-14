@@ -380,7 +380,7 @@ button {
     max-width: 1290px;
     margin-left: auto;
     margin-right: auto;
-    background-image: url('../img/home-one/counter-bg.jpg');
+    background-image: url('/img/home-one/counter-bg.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -658,7 +658,7 @@ button {
         }
     }
     .about-img {
-        background-image: url('../img/home-one/about-bg.jpg');
+        background-image: url('/img/home-one/about-bg.jpg');
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
@@ -825,7 +825,7 @@ button {
 
 /*-- Estimate CSS --*/
 .estimate-area {
-    background-image: url('../img/home-one/estimation-bg.jpg');
+    background-image: url('/img/home-one/estimation-bg.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -1227,7 +1227,7 @@ footer {
 /*-- Banner CSS --*/
 .banner-area.two {
     height: 1000px;
-    background-image: url('../img/home-two/banner-bg.jpg');
+    background-image: url('/img/home-two/banner-bg.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -1572,7 +1572,7 @@ footer {
         }
     }
     .faq-img {
-        background-image: url('../img/home-two/faq.jpg');
+        background-image: url('/img/home-two/faq.jpg');
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
@@ -1964,7 +1964,7 @@ footer {
 
 /*----- About CSS -----*/
 .page-title-area {
-    background-image: url('../img/page-title-bg.jpg');
+    background-image: url('/img/page-title-bg.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -2242,7 +2242,7 @@ footer {
             }
         }
         .watch-item {
-            background-image: url('../img/service-details11.jpg');
+            background-image: url('/img/service-details11.jpg');
 
             &:before {
                 background-color: #1d3d5d;

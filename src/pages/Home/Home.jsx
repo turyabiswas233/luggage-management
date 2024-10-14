@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "tailwindcss/tailwind.css";
+// import "tailwindcss/tailwind.css";
 import NavbarComp from "./NavbarComp";
 import Banner from "./Banner";
 import FAQ from "./FAQ";
@@ -7,6 +7,7 @@ import Review from "./Review";
 import Footer from "./Footer";
 import Choose from "./Choose";
 import Blog from "./Blog";
+import CityInfo from "./CityInfo";
 import LuggageStorageLocations from "../SearchLugLocation/LuggageStorageLocations";
 import ScrollToTopButton from "./ScrollToTopButton";
 import HowItWorks from "./Howitworks";
@@ -29,15 +30,16 @@ const Home = () => {
         currentLanguage={currentLanguage}
         setLanguage={handleChangeLanguage}
       />
-      <Banner currentLanguage={currentLanguage} />
-      <LuggageStorageLocations currentLanguage={currentLanguage} />
-      <HowItWorks currentLanguage={currentLanguage} />
-      <FAQ currentLanguage={currentLanguage} />
+      <Banner />
+      <LuggageStorageLocations />
+      <CityInfo currentLanguage={currentLanguage} />
+      <HowItWorks />
+      <FAQ />
 
-      <Review currentLanguage={currentLanguage} />
-      <Choose currentLanguage={currentLanguage} />
-      <Blog currentLanguage={currentLanguage} />
-      <Footer currentLanguage={currentLanguage} />
+      <Review />
+      <Choose />
+      <Blog />
+      <Footer />
       <ScrollToTopButton />
     </div>
   );

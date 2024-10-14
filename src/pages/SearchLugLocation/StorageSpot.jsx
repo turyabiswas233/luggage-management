@@ -62,7 +62,7 @@ const StorageSpot = ({
       <div className=" px-4 mb-4">
 
       <p className="text-gray-700 text-sm flex gap-1">
-        <GiPathDistance size={"1.5em"} /> {distanceConvert(distance)}
+        <GiPathDistance size={"1.5em"} width={25} height={25} /> {distanceConvert(distance)}
       </p>
       <p className="text-sm flex gap-1">
         <MdLocationOn size={"1.5em"} />

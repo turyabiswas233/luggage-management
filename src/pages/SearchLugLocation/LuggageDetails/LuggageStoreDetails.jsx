@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "tailwindcss/tailwind.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
+// import "tailwindcss/tailwind.css";
 // payment components
 import {
   Elements,

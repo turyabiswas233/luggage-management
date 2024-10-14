@@ -39,7 +39,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
   return (
     <div className="fixed top-0 w-full bg-white shadow-md z-50">
       <div className="mx-auto flex justify-between items-center p-4 md:py-4 md:px-24 md:w-5/6">
-        <div className="flex items-center">
+        <nav className="flex items-center">
           <a href="/" className="flex items-center">
             <img src={logo} alt="logo1" className="h-16 w-40" />
           </a>
@@ -52,7 +52,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
               {currentTranslations.header.urlokerKeys}
             </a>
           </div>
-        </div>
+        </nav>
         <div className="md:hidden">
           <button
             onClick={toggleMenu}

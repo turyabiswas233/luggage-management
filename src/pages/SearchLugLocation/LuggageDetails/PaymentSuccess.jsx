@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import ClientNavbarComp from "../../User/ClientNavbarComp";
 import { useLocation } from "react-router-dom";
-import "tailwindcss/tailwind.css";
+// import "tailwindcss/tailwind.css";
 import config from "../../../config";
 import html2pdf from "html2pdf.js";
 import urlockerLogo from "/img/home-two/logo3.svg"; // Import the logo

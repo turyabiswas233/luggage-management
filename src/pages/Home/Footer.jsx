@@ -156,7 +156,7 @@ function Footer() {
             <h4 className="text-lg font-bold mb-4 hover:text-teal-200 transition-colors duration-300">
               {t.followUs}
             </h4>
-            <div className="flex space-x-4">
+            <div className="flex flex-wrap gap-3">
               <a
                 href="https://www.facebook.com/profile.php?id=61564185476772"
                 target="_blank"

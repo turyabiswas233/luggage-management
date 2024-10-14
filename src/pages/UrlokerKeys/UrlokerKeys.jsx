@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { Card, Row, Col } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "tailwindcss/tailwind.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
+// import "tailwindcss/tailwind.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import config from "../../config";
 import axios from "axios";

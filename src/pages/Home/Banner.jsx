@@ -1,7 +1,7 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, lazy } from "react";
 import { useNavigate } from "react-router-dom";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
-import backgroundImage from "/img/home-two/luggage-1.jpg";
+import backgroundImage from "/img/home-two/luggage-1.webp";
 import "./Banner.css";
 import config from "../../config";
 import { useTranslation } from "react-i18next";

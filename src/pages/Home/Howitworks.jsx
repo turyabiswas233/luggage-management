@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import book from "/img/home-two/book.jpg";
 import lock from "/img/home-two/lock.jpg";
 import enjoy from "/img/home-two/enjoy.jpg";
-import guideline from "/img/home-two/luggage-1.jpg";
+import guideline from "/img/home-two/luggage-1.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
@@ -24,8 +24,8 @@ function HowItWorks() {
         <h2 className="text-4xl font-bold text-center text-[#4A686A] mb-16">
           {t?.title}
         </h2>
-        <div className="flex flex-wrap justify-center lg:justify-between items-center space-y-12 lg:space-y-0">
-          <div className="w-full lg:w-7/12 px-4 grid grid-cols-1 lg:grid-cols-3 gap-y-16 lg:gap-x-12">
+        <div className="flex flex-col justify-center lg:justify-between items-center space-y-12">
+          <div className="w-full px-4 grid grid-cols-1 lg:grid-cols-3 gap-y-16 lg:gap-x-12">
             {/* Book Step */}
             <div className="group relative bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105">
               <div className="flex flex-col items-center text-center">
@@ -88,7 +88,7 @@ function HowItWorks() {
             </div>
           </div>
           {/* Video Section */}
-          <div className="w-full lg:w-5/12 px-4 mt-12 lg:mt-0">
+          <div className="w-full px-4 mt-12 lg:mt-0">
             <div className="relative w-full h-96 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
               <img
                 src={guideline}

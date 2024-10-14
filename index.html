@@ -6,50 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Title Tag -->
-    <title>Luggage Storage Near Me | Secure and Convenient | UrLoker</title>
+    <title>UrLoker: Luggage Storage Melbourne | Secure and Convenient</title>
 
+    <link
+      rel="shortcut icon"
+      href="/icons/favicon-32x32.png"
+      type="image/svg+xml"
+    />
+    <link rel="shortcut icon" href="/icons/favicon.ico" type="image/x-icon" />
+
+    <meta
+      http-equiv="Cache-Control : public, max-age=86400;"
+      content="public, max-age=86400"
+    />
     <!-- Meta Descriptions -->
     <meta
       name="description"
-      content="Find secure, affordable luggage storage near you with UrLoker. Our app connects you with trusted locations to store your bags safely while you explore the city."
+      content="Secure, affordable luggage storage in Melbourne with UrLoker. Use our app to get trusted locations for safely store your bags and explore the city hands free"
     />
 
     <!-- Keywords (Use sparingly, as Google doesn't heavily rely on them) -->
     <meta
       name="keywords"
-      content="luggage storage, bag storage, secure luggage storage, luggage lockers, short-term storage, luggage storage app, UrLoker"
+      content="luggage storage, bag storage, secure luggage storage, luggage lockers, short-term storage, luggage storage app, UrLoker, luggage"
     />
 
     <!-- Open Graph for Social Sharing -->
     <meta
       property="og:title"
-      content="Luggage Storage Near Me | Secure and Convenient | UrLoker"
+      content="UrLoker: Luggage Storage Melbourne | Secure and Convenient"
     />
     <meta
       property="og:description"
-      content="Find secure, affordable luggage storage near you with UrLoker. Our app connects you with trusted locations to store your bags safely while you explore the city."
+      content="Secure, affordable luggage storage in Melbourne with UrLoker. Use our app to get trusted locations for safely store your bags and explore the city hands free"
     />
-    <meta
-      property="og:image"
-      content="https://urloker.com/assets/images/og-image.jpg"
-    />
+    <meta property="og:image" content="https://urloker.com/logo.png" />
     <meta property="og:url" content="https://urloker.com" />
     <meta property="og:type" content="website" />
-
-    <!-- Twitter Card for Twitter Sharing -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Luggage Storage Near Me | Secure and Convenient | UrLoker"
-    />
-    <meta
-      name="twitter:description"
-      content="Find secure, affordable luggage storage near you with UrLoker. Our app connects you with trusted locations to store your bags safely while you explore the city."
-    />
-    <meta
-      name="twitter:image"
-      content="https://urloker.com/assets/images/twitter-card.jpg"
-    />
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://urloker.com" />
@@ -74,8 +67,7 @@
         ]
       }
     </script>
-    <link rel="shortcut icon" href="/logo.png" type="image/svg+xml" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -110,7 +102,8 @@
           j = d.createElement(s),
           dl = l != "dataLayer" ? "&l=" + l : "";
         j.async = true;
-        j.src = "https://www.googletagmanager.com/gtm.js?id=GTM-P8PL2NSQ" + i + dl;
+        j.src =
+          "https://www.googletagmanager.com/gtm.js?id=GTM-P8PL2NSQ" + i + dl;
         f.parentNode.insertBefore(j, f);
       })(window, document, "script", "dataLayer", "GTM-P8PL2NSQ");
     </script>
@@ -128,6 +121,8 @@
         style="display: none; visibility: hidden"
       ></iframe
     ></noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
 
     <script>
       if (localStorage.getItem("sidebar-expanded") == "true") {
@@ -136,8 +131,6 @@
         document.querySelector("body").classList.remove("sidebar-expanded");
       }
     </script>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
 
     <!-- <script src="//code.tidio.co/dfxgexxro6nzwiduywhxricwzh9cvvzn.js"></script> -->
     <script

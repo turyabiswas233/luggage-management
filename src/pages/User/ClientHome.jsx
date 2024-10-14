@@ -1,5 +1,5 @@
 import React from 'react';
-import 'tailwindcss/tailwind.css';
+// import 'tailwindcss/tailwind.css';
 import Banner from '../Home/Banner';
 import Service from '../Home/Service';
 import Projects from '../Home/Projects';

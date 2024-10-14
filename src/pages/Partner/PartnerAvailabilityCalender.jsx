@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NavbarComp from '../Home/NavbarComp';
 import { Modal, Button, Form } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const HostAvailabilityCalendar = () => {
     const [month, setMonth] = useState(new Date().getMonth());
