@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import "react-quill/dist//quill.snow.css";
 import Quill from "quill";
 
 // Registering the 'script' format to include superscript and subscript

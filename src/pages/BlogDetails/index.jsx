@@ -24,16 +24,18 @@ function BlogDetails() {
         currentLanguage={currentLanguage}
       />
       <div className="main py-32 px-5 space-y-6">
-        <h1 className="text-5xl font-extrabold">{head}</h1>
+        <header>
+          <h1 className="text-5xl font-extrabold">{head}</h1>
 
-        <img
-          className="object-cover aspect-video rounded-lg w-full max-w-3xl mx-auto"
-          width={1920}
-          height={1000}
-          src={img}
-          alt="image file"
-        />
-        <h1 className="text-lg">{desc}</h1>
+          <img
+            className="object-cover aspect-video rounded-lg w-full max-w-3xl mx-auto"
+            width={1920}
+            height={1000}
+            src={img}
+            alt="image file"
+          />
+          <p className="text-lg">{desc}</p>
+        </header>
         <div>
           {othersInfo.map((ele, id) => {
             return (

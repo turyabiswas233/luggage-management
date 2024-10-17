@@ -99,7 +99,7 @@ const LoginForm = ({ loginType, onClose }) => {
 
   return (
     <motion.div
-      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+      className="fixed h-screen w-screen inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

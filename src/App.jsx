@@ -1,12 +1,8 @@
 import React, { useEffect } from "react";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 import { Routes, Route, useLocation } from "react-router-dom";
 
 import "./css/style.css";
-
-import "./charts/ChartjsConfig";
 
 // Import pages
 import SearchLuggage from "./pages/SearchLuggage";
@@ -43,7 +39,7 @@ import AllBookings from "./pages/SuperAdmin/AllBookings";
 import PartnerBookings from "./pages/Partner/PartnerBookings";
 import Logout from "./pages/Home/Logout";
 import BookingConfirmation from "./pages/SearchLugLocation/BookingConfirmation";
-import ClientMenu from "./pages/User/ClientMenu"; 
+import ClientMenu from "./pages/User/ClientMenu";
 import ClientWallet from "./pages/User/ClientWallet";
 import ClientBookingHistory from "./pages/User/ClientBookingHistory";
 import PartnerDetails from "./pages/SuperAdmin/PartnerDetails";

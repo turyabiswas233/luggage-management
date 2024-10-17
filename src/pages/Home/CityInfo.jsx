@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import "./Banner.css";
+import React from "react";
 import { useTranslation } from "react-i18next";
 
 function CityInfo() {
@@ -8,9 +7,9 @@ function CityInfo() {
 
   const t = tl("home")?.cityInfo;
   return (
-    <div className="p-14 bg-gradient-to-br from-white to-gray-200">
-      <header className="space-y-6">
-        <h1 className="text-4xl font-bold">{t?.title}</h1>
+    <div className="bg-gradient-to-br from-white to-gray-200">
+      <header className="space-y-6 bg-gradient-to-br from-custom-teal to-custom-teal-deep text-white p-14">
+        <h1 className="text-4xl font-bold ">{t?.title}</h1>
         {t?.desc?.split("\\break")?.map((item, index) => (
           <p key={`pel_${index}`} className="px-3 text-justify">
             {item}
@@ -19,7 +18,7 @@ function CityInfo() {
       </header>
 
       {/* other info */}
-      <div className="space-y-4 mt-5">
+      <div className="space-y-4 mt-5 p-14">
         <section className="space-y-2">
           <h2 className="text-3xl font-bold">
             Comprehensive Luggage Storage Services
@@ -29,22 +28,25 @@ function CityInfo() {
             every individual customer’s preferences:
           </p>
         </section>
+        <div className=" grid grid-cols-1 gap-3 md:grid-cols-2">
+
         {t?.otherInfo?.map((ele, eid) => (
-          <section key={`oele_${eid}`} className="pt-5">
+          <section key={`oele_${eid}`} className="pt-3">
             <h3 className="text-xl font-bold">{ele?.title}</h3>
             <br />
             <p>{ele?.desc}</p>
           </section>
         ))}
+        </div>
       </div>
 
-      <hr />
-
-      <div>
+      <div className="mt-5 p-5 md:p-14 bg-gradient-to-br from-white to-custom-gray">
         <header>
-          <h1>Why UrLoker is Your Best Luggage Storage Provider</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-custom-teal-deep">
+            Why UrLoker is Your Best Luggage Storage Provider
+          </h1>
           <br />
-          <p>
+          <p className="p-3">
             UrLoker is much more than providing luggage for hire for the
             clients, we provide the luggage hire services from a broader view,
             making you more relaxed. UrLoker is different for the following
@@ -54,10 +56,10 @@ function CityInfo() {
 
         <div>
           {t?.whyBest?.map((ele, eid) => (
-            <section key={`why-best_${eid}`}>
-              <h3 className="text-xl font-bold">{ele?.title}</h3>
+            <section key={`why-best_${eid}`} className="group">
               <br />
-              <p dangerouslySetInnerHTML={{ __html: ele?.desc }}></p>
+              <h3 className="text-xl font-bold group-hover:text-custom-teal transition-colors">{ele?.title}</h3>
+              <p className="p-3" dangerouslySetInnerHTML={{ __html: ele?.desc }}></p>
             </section>
           ))}
         </div>

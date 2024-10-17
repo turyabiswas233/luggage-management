@@ -11,7 +11,7 @@ import {
   faLifeRing,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
-// import 'tailwindcss/tailwind.css';
+
 import ClientNavbarComp from "./ClientNavbarComp";
 import { useNavigate } from "react-router-dom";
 

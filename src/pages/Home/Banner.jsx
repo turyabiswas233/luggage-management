@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, lazy } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 import backgroundImage from "/img/home-two/luggage-1.webp";
@@ -7,6 +7,7 @@ import config from "../../config";
 import { useTranslation } from "react-i18next";
 
 const libraries = ["places"];
+const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 
 function Banner() {
   const navigate = useNavigate();
@@ -16,8 +17,6 @@ function Banner() {
   const locationInputRef = useRef(null);
   const { t } = useTranslation();
   const translate = t("home");
-
-  const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
@@ -33,6 +32,17 @@ function Banner() {
       const place = autocomplete.getPlace();
       if (place.geometry) {
         setSelectedPlace(place);
+        if (place && place.geometry) {
+          const location = {
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng(),
+          };
+          navigate("/luggage_locations", {
+            state: { location, inputLocation: locationInputRef.current.value },
+          });
+        } else {
+          console.log("Please select a valid place");
+        }
       } else {
         console.log("No geometry available for the selected place");
       }
@@ -92,55 +102,73 @@ function Banner() {
 
   return (
     <div
-      className="banner bg-cover bg-center mt-28 h-screen flex items-center justify-center relative"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+      // className="banner bg-cover bg-center bg-no-repeat mt-28 h-screen flex items-center justify-center relative"
+      // style={{ backgroundImage: `url(${backgroundImage})` }}
+      className="bg-teal-700/20 h-auto min-h-screen w-screen p-5"
     >
-      <div className="absolute inset-0 bg-gray-800 opacity-40 backdrop-blur-md"></div>
-      <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold drop-shadow-lg capitalize">
-          <span className="slogan-color">{title.split(" ")[0]}</span>{" "}
-          {title.split(" ")[1]}{" "}
-          <span className="slogan-color">
-            {title.split(" ")[2]} {title.split(" ")[3]}
-          </span>
-        </h1>
-        <p className="mt-4 text-base sm:text-lg lg:text-xl drop-shadow-md">
-          {subtitle}
-        </p>
-        <form
-          id="locationForm"
-          className="mt-4"
-          onSubmit={handleSubmit}
-          aria-label="Location search form"
-        >
-          <div className="flex flex-col sm:flex-row justify-center items-center relative">
-            <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-              <input
-                type="text"
-                id="location"
-                className="form-input p-3 rounded-none sm:rounded-l-md shadow-md focus:outline-none focus:ring-1 focus:ring-blue-100 w-full sm:w-96 lg:w-[500px] mb-4 sm:mb-0 relative"
-                placeholder={searchPlaceholder}
-                ref={locationInputRef}
-              />
-            </Autocomplete>
-            <button
-              type="submit"
-              className="search-button bg-green-600 hover:bg-green-800 text-white rounded-none sm:rounded-r-md shadow-md transition duration-300 ease-in-out p-3 sm:px-6 w-full sm:w-auto"
-            >
-              {searchButton}
-            </button>
-          </div>
-          <button
-            type="button"
-            onClick={handleNearMyLocationClick}
-            className={`find-button bg-green-600 hover:bg-green-800 text-white rounded-md shadow-md transition duration-300 ease-in-out mt-4 px-8 py-3 w-full sm:w-auto ${
-              loadingLocation ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-            disabled={loadingLocation}
+      {/* <div className="absolute inset-0 bg-gray-800 opacity-40 backdrop-blur-md"></div> */}
+      <div className=" grid grid-cols-1 h-full mt-28 md:grid-cols-2 divide-x-reverse max-w-screen-xl mx-auto py-14">
+        <div className="p-10 max-w-screen-md">
+          <img
+            className="rounded-2xl w-full aspect-auto skew-x-3 -skew-y-12 rotate-2 scale-x-90"
+            src={backgroundImage}
+            width={1000}
+            height={400}
+            alt="bg-image"
+            loading="lazy"
+          />
+        </div>
+        <div className="relative z-10 text-white px-4 sm:px-6 lg:px-8">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold drop-shadow-lg capitalize text-center">
+            <span className="slogan-color">{title.split(" ")[0]}</span>{" "}
+            {title.split(" ")[1]}{" "}
+            <span className="slogan-color">
+              {title.split(" ")[2]} {title.split(" ")[3]}
+            </span>
+          </h1>
+          <p className="mt-4 text-base sm:text-lg lg:text-xl drop-shadow-md text-custom-teal-deep">
+            {subtitle}
+          </p>
+
+          <form
+            id="locationForm"
+            className="mt-4"
+            onSubmit={handleSubmit}
+            aria-label="Location search form"
           >
-            {findLocationsButton}
-          </button>
-        </form>
+            <div className="flex flex-col sm:flex-row justify-center items-center relative">
+              <Autocomplete
+                onLoad={onLoad}
+                onPlaceChanged={onPlaceChanged}
+                className="flex items-center h-fit w-full"
+              >
+                <input
+                  type="text"
+                  id="location"
+                  className="bg-white text-black placeholder:text-gray-700 rounded-full p-3 w-full h-fit"
+                  placeholder={searchPlaceholder}
+                  ref={locationInputRef}
+                />
+              </Autocomplete>
+              <button
+                type="submit"
+                className="w-full rounded-full bg-custom-teal hover:bg-custom-teal-deep py-2 mt-2 hidden"
+              >
+                {searchButton}
+              </button>
+            </div>
+            <button
+              type="button"
+              onClick={handleNearMyLocationClick}
+              className={`bg-custom-teal hover:bg-custom-teal-deep text-white rounded-full shadow-md transition duration-300 ease-in-out mt-4 px-8 py-3 w-full ${
+                loadingLocation ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={loadingLocation}
+            >
+              {findLocationsButton}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

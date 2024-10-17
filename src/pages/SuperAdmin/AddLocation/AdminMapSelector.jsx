@@ -60,7 +60,7 @@ const AdminMapSelector = ({ onSelect }) => {
         }
     };
 
-    const debouncedFetchAddressDetails = useCallback(debounce(fetchAddressDetails, 500), []);
+    const debouncedFetchAddressDetails = useCallback(debounce(fetchAddressDetails, 1000), []);
 
     const onPlaceChanged = () => {
         if (autocomplete !== null) {

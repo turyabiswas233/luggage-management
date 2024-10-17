@@ -4,12 +4,14 @@ import lock from "/img/home-two/lock.jpg";
 import enjoy from "/img/home-two/enjoy.jpg";
 import guideline from "/img/home-two/luggage-1.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 function HowItWorks() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [loadingLocation, setLoadingLocation] = useState(false);
+  const navigate = useNavigate();
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -17,17 +19,38 @@ function HowItWorks() {
   const { t: tl } = useTranslation();
 
   const t = tl("home")?.howItWorks;
-
+  const { findLocationsButton } = tl("home")?.heroSection;
+  const handleNearMyLocationClick = () => {
+    if (navigator.geolocation) {
+      setLoadingLocation(true);
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          navigate("/luggage_locations", { state: { location, nearby: true } });
+          setLoadingLocation(false);
+        },
+        (error) => {
+          console.error("Error fetching location:", error);
+          setLoadingLocation(false);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  };
   return (
-    <section className="bg-gradient-to-b from-gray-50 to-gray-100 py-24">
-      <div className="container mx-auto">
-        <h2 className="text-4xl font-bold text-center text-[#4A686A] mb-16">
+    <section className="bg-gradient-to-b from-gray-50 to-gray-100 px-3 py-10 md:p-14">
+      <div className="mx-auto">
+        <h2 className="px-3 text-4xl font-bold text-[#4A686A] mb-16">
           {t?.title}
         </h2>
         <div className="flex flex-col justify-center lg:justify-between items-center space-y-12">
           <div className="w-full px-4 grid grid-cols-1 lg:grid-cols-3 gap-y-16 lg:gap-x-12">
             {/* Book Step */}
-            <div className="group relative bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105">
+            <div className="group relative bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl ">
               <div className="flex flex-col items-center text-center">
                 <div className="bg-gradient-to-r from-gray-500 to-green-500 rounded-full p-4 mb-4">
                   <img
@@ -41,15 +64,9 @@ function HowItWorks() {
                 </h3>
                 <p className="text-gray-600">{t?.steps?.book?.description}</p>
               </div>
-              <div className="absolute bottom-1/2 right-0 transform translate-y-1/2 translate-x-1/2">
-                <FontAwesomeIcon
-                  icon={faArrowRight}
-                  className="text-4xl text-blue-500 animate-pulse ps-5"
-                />
-              </div>
             </div>
             {/* Lock Step */}
-            <div className="group relative bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105">
+            <div className="group relative bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl ">
               <div className="flex flex-col items-center text-center">
                 <div className="bg-gradient-to-r from-gray-500 to-green-400 rounded-full p-4 mb-4">
                   <img
@@ -63,15 +80,9 @@ function HowItWorks() {
                 </h3>
                 <p className="text-gray-600">{t?.steps?.lock?.description}</p>
               </div>
-              <div className="absolute bottom-1/2 right-0 transform translate-y-1/2 translate-x-1/2">
-                <FontAwesomeIcon
-                  icon={faArrowRight}
-                  className="text-4xl text-blue-500 animate-pulse ps-5"
-                />
-              </div>
             </div>
             {/* Enjoy Step */}
-            <div className="group relative bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105">
+            <div className="group relative bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl ">
               <div className="flex flex-col items-center text-center">
                 <div className="bg-gradient-to-r from-gray-500 to-green-500 rounded-full p-4 mb-4">
                   <img
@@ -88,7 +99,7 @@ function HowItWorks() {
             </div>
           </div>
           {/* Video Section */}
-          <div className="w-full px-4 mt-12 lg:mt-0">
+          <div className="w-full px-4 mt-12 lg:mt-0 hidden">
             <div className="relative w-full h-96 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
               <img
                 src={guideline}
@@ -107,8 +118,18 @@ function HowItWorks() {
           </div>
         </div>
       </div>
+      <button
+        type="button"
+        onClick={handleNearMyLocationClick}
+        className={`bg-custom-teal hover:bg-custom-teal-deep text-white rounded-full shadow-md transition duration-100 ease-in-out -translate-x-1/2 relative left-1/2 mt-10 px-8 py-3 w-fit ${
+          loadingLocation ? "opacity-50 cursor-not-allowed" : ""
+        }`}
+        disabled={loadingLocation}
+      >
+        {findLocationsButton}
+      </button>
 
-      {isModalOpen && (
+      {false && isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
           <div className="relative w-full max-w-4xl p-8 bg-white rounded-lg shadow-lg">
             <button

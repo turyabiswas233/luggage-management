@@ -39,9 +39,11 @@ function Blog() {
               className="bg-white transition duration-500 transform hover:-translate-y-2 hover:shadow-2xl rounded-lg overflow-hidden"
             >
               <img
+                className="w-full aspect-auto object-fill transition duration-500 transform hover:scale-110"
                 src={imageMap[post.imageUrl]}
                 alt="Blog"
-                className="w-full h-64 object-cover transition duration-500 transform hover:scale-110"
+                width={500}
+                height={500}
               />
 
               <div className="p-6">

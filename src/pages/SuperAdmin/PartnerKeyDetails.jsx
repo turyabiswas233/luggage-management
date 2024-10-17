@@ -61,11 +61,17 @@ function PartnerKeyDetails() {
   const totalBookings = data?.reduce((p, c) => p + c?.totalBookings, 0);
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-gray-100">
-        <button className="bg-white right-full m-2 p-2 h-10 w-10 text-left flex justify-center items-center rounded-full ring-1 ring-teal-700 group" onClick={()=>{
-            navigate(`/superadmin/partners/${id}`)
-        }}>
-            <FontAwesomeIcon icon={faArrowLeft} className="group-hover:-translate-x-1 transition-transform"/>
-        </button>
+      <button
+        className="bg-white right-full m-2 p-2 h-10 w-10 text-left flex justify-center items-center rounded-full ring-1 ring-teal-700 group"
+        onClick={() => {
+          navigate(`/superadmin/partners/${id}`);
+        }}
+      >
+        <FontAwesomeIcon
+          icon={faArrowLeft}
+          className="group-hover:-translate-x-1 transition-transform"
+        />
+      </button>
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden bg-gray-100">
         <main className="p-8 max-w-9xl mx-auto w-full">
           <p className="p-2 rounded-sm bg-teal-50 ring-1 ring-teal-500 text-teal-600 font-semibold w-full mx-auto max-w-md text-center">
@@ -176,10 +182,11 @@ const BookingCard = ({ bookingData }) => {
     startDate,
     startTime,
     luggageCount,
+    status
   } = bookingData;
 
   const formattedStartDate = new Date(startDate).toLocaleDateString();
-
+  console.log(bookingData);
   return (
     <tr className="hover:bg-green-50 transition-colors text-sm">
       <td className="text-gray-700 px-4 border-b border border-black">
@@ -193,7 +200,7 @@ const BookingCard = ({ bookingData }) => {
       </td>
       <td className="text-gray-700 px-4 border-b border border-black">
         <ul className="list-disc pl-4 ">
-          <li>{location.name}</li>
+          <li>{location}</li>
           {keyStorage.isKeyStorage && (
             <li>
               Key Storage Fee:{" "}
@@ -207,6 +214,7 @@ const BookingCard = ({ bookingData }) => {
       </td>
       <td className="text-gray-700 px-4 border-b border border-black">
         <ul className="list-disc pl-4">
+          <li>Payment Status: {status}</li>
           <li>{`Drop off Time: ${formattedStartDate} - ${startTime}`}</li>
           <li className="hidden">{`Keys Count: ${luggageCount}`}</li>
           {/* <li>{`Payment Status: ${payment.status}`}</li> */}

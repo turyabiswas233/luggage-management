@@ -1,6 +1,7 @@
 import React from "react";
-import logo from "/img/home-two/logo3.svg";
+import logo from "/icons/android-chrome-192x192.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ScrollToTopButton from "./ScrollToTopButton";
 import {
   faFacebookF,
   faInstagram,
@@ -14,15 +15,17 @@ function Footer() {
   const t = tl("home")?.footer;
 
   return (
-    <footer className="bg-teal-800 text-white py-16">
+    <footer className="bg-teal-800 text-white py-16 px-5">
       <div className="container mx-auto">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full md:w-1/2 lg:w-1/5 px-2 mb-8">
             <a href="/" className="flex items-center mb-4">
               <img
                 src={logo}
-                alt="logo2"
-                className="h-28 transform hover:scale-110 transition-transform duration-300"
+                alt="Urloker"
+                className="transform aspect-square transition-transform duration-300 rounded-md overflow-hidden"
+                width={100}
+                height={100}
               />
             </a>
             <p className="hover:text-teal-200 transition-colors duration-300">
@@ -186,6 +189,7 @@ function Footer() {
           </div>
         </div>
         <div className="text-center mt-8">
+        <ScrollToTopButton />
           <p className="hover:text-teal-200 transition-colors duration-300">
             &copy;
             {t.copyright.replace("{year}", new Date().getFullYear())}

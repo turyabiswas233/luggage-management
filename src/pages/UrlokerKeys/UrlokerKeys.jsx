@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { Card, Row, Col } from "react-bootstrap";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import "tailwindcss/tailwind.css";
+
 import { useNavigate, useSearchParams } from "react-router-dom";
 import config from "../../config";
 import axios from "axios";
@@ -24,9 +23,8 @@ import { FaInfoCircle } from "react-icons/fa";
 
 import html2pdf from "html2pdf.js";
 
-const stripePromise = loadStripe(config.STRIPE_PUBLIC_KEY);
-
 function UrlokerKeys() {
+  const stripePromise = loadStripe(config.STRIPE_PUBLIC_KEY);
   const { 0: sk } = useSearchParams();
   const [dropOffName, setDropOffName] = useState("");
   const [dropOffEmail, setDropOffEmail] = useState("");
@@ -110,7 +108,7 @@ function UrlokerKeys() {
         guest: {
           name: dropOffName,
           email: dropOffEmail,
-          phone: dropOffPhone || "",
+          phone: dropOffPhone || "0000000000",
         },
         location: location, // Valid location ID
         startDate: `${dropOffDate.getFullYear()}-${
@@ -125,7 +123,7 @@ function UrlokerKeys() {
         keyPickUpBy: {
           name: pickUpName,
           email: pickUpEmail,
-          phone: pickUpPhone || "",
+          phone: pickUpPhone || "0000000000",
         },
         keyPickUpTime: pickUpDate.toISOString(), // Key pickup time
         keyStorageFee: amount, // Optional, defaults to the location's hourly fee
@@ -147,14 +145,7 @@ function UrlokerKeys() {
       setLoad(false);
     }
   };
-  useEffect(() => {
-    if (finalMessage) {
-      let loop = setTimeout(() => {
-        // navi("/");
-      }, 2000);
-      return () => clearTimeout(loop);
-    }
-  }, [finalMessage]);
+
   return (
     <div
       className={`${
@@ -193,13 +184,6 @@ function UrlokerKeys() {
                 value={dropOffEmail}
                 onChange={(e) => setDropOffEmail(e.target.value)}
               />
-              <input
-                type="tel"
-                className="border rounded-md px-3 py-2 w-full mt-2"
-                placeholder="Phone"
-                value={dropOffPhone}
-                onChange={(e) => setDropOffPhone(e.target.value)}
-              />
             </div>
             <div className=" border border-gray-600 p-2 rounded-md">
               <label className="block mb-2 text-sm">Pick-up Person</label>
@@ -219,13 +203,6 @@ function UrlokerKeys() {
                 required
                 value={pickUpEmail}
                 onChange={(e) => setPickUpEmail(e.target.value)}
-              />
-              <input
-                type="tel"
-                className="border rounded-md px-3 py-2 w-full mt-2"
-                placeholder="Phone"
-                value={pickUpPhone}
-                onChange={(e) => setPickUpPhone(e.target.value)}
               />
             </div>
           </div>
@@ -344,13 +321,13 @@ function UrlokerKeys() {
                 <strong>{"Drop-off Person/Agent:"}</strong>
                 <p className="m-0">{dropOffName}</p>
                 <p className="m-0">{dropOffEmail}</p>
-                <p className="m-0">{dropOffPhone}</p>
+                {/* <p className="m-0">{dropOffPhone}</p> */}
               </Col>
               <Col md={6}>
                 <strong>Pick-up Person:</strong>
                 <p className="m-0">{pickUpName}</p>
                 <p className="m-0">{pickUpEmail}</p>
-                <p className="m-0">{pickUpPhone}</p>
+                {/* <p className="m-0">{pickUpPhone}</p> */}
               </Col>
             </Row>
 

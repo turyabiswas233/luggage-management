@@ -4,7 +4,7 @@ import axios from "axios";
 import { Spinner } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import MapContainer from "./MapContainer";
-// import "bootstrap/dist/css/bootstrap.min.css";
+
 import "./luggagelocation.css";
 import config from "../../config";
 

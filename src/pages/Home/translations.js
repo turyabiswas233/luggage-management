@@ -199,7 +199,7 @@ const translations = {
       followUs: "Follow Us",
       companyDescription:
         "Urloker offers secure and convenient luggage storage solutions.",
-      copyright: "Copyright {year} Urloker. Designed By EasytechInnovation",
+      copyright: "{year} Urloker. Designed By EasytechInnovation",
     },
     luggageStorageLocations: {
       title: "Our Top Luggage Storage Locations",
@@ -363,7 +363,7 @@ const translations = {
       followUs: "Síguenos",
       companyDescription:
         "Urloker ofrece soluciones de almacenamiento de equipaje seguras y convenientes para su hogar y oficina.",
-      copyright: "Copyright {year} Urloker. Diseñado Por EasytechInnovation",
+      copyright: "{year} Urloker. Diseñado Por EasytechInnovation",
     },
 
     heroSection: {
@@ -644,7 +644,7 @@ están en buenas manos mientras disfrutan de la libertad de explorar la ciudad.`
       followUs: "关注我们",
       companyDescription:
         "Urloker 为您的家和办公室提供安全便捷的行李存储解决方案。",
-      copyright: "Copyright {year} Urloker. 设计由 EasytechInnovation",
+      copyright: "{year} Urloker. 设计由 EasytechInnovation",
     },
     luggageStorageLocations: {
       title: "我们推荐的行李寄存地点",

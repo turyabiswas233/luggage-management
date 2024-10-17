@@ -37,7 +37,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
     translations[currentLanguage] || translations["en"];
 
   return (
-    <div className="fixed top-0 w-full bg-white shadow-md z-50">
+    <div className="fixed top-0 w-full bg-white/70 backdrop-blur shadow-md z-50">
       <div className="mx-auto flex justify-between items-center p-4 md:py-4 md:px-24 md:w-5/6">
         <nav className="flex items-center">
           <a href="/" className="flex items-center">
@@ -77,7 +77,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
         <nav
           className={`flex-col md:items-center gap-y-4 absolute top-24 left-0 w-screen md:w-fit md:static md:flex md:flex-row md:space-x-16 text-[#1a73a7] ${
             isMenuOpen
-              ? "flex bg-white shadow-xl shadow-slate-300 md:shadow-none rounded-md p-3"
+              ? "flex bg-white md:bg-transparent shadow-xl shadow-slate-300 md:shadow-none rounded-md p-3"
               : "hidden"
           }`}
         >

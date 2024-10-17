@@ -7,7 +7,7 @@ import {
   faWifi,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
-// import "tailwindcss/tailwind.css";
+
 import config from "../../../config";
 import googleMapIcon from "/img/home-two/gmi.svg";
 // Function to generate random customer names

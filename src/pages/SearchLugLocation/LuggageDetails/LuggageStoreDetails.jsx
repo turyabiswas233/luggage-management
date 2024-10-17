@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import "tailwindcss/tailwind.css";
+
 // payment components
 import {
   Elements,
@@ -31,9 +30,9 @@ import { FiAlertCircle } from "react-icons/fi";
 
 library.add(faMapMarkerAlt, faClock, faStar, faWifi, faShieldAlt, faTag);
 
-const stripePromise = loadStripe(config.STRIPE_PUBLIC_KEY);
-
 const LuggageStoreDetails = () => {
+  const stripePromise = loadStripe(config.STRIPE_PUBLIC_KEY);
+
   const location = useLocation();
   const navigate = useNavigate();
 

@@ -14,9 +14,10 @@
       type="image/svg+xml"
     />
     <link rel="shortcut icon" href="/icons/favicon.ico" type="image/x-icon" />
+    <link rel="preload" href="/img/home-two/luggage-1.webp" as="image" />
 
     <meta
-      http-equiv="Cache-Control : public, max-age=86400;"
+      http-equiv="Cache-Control : public, max-age=5184000;"
       content="public, max-age=86400"
     />
     <!-- Meta Descriptions -->
@@ -40,12 +41,16 @@
       property="og:description"
       content="Secure, affordable luggage storage in Melbourne with UrLoker. Use our app to get trusted locations for safely store your bags and explore the city hands free"
     />
-    <meta property="og:image" content="https://urloker.com/logo.png" />
+    <meta property="og:image" content="https://urloker.com/icons/favicon.ico" />
     <meta property="og:url" content="https://urloker.com" />
     <meta property="og:type" content="website" />
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://urloker.com" />
+    <meta
+      name="keywords"
+      content="urloker,best location,safety and trustworthieness, security guaranteed, $1000 protection, size doesn't matter, flat rate for all bag size,24/7 support"
+    />
 
     <!-- Schema.org Markup for SEO -->
     <script type="application/ld+json">
@@ -55,7 +60,7 @@
         "name": "UrLoker",
         "description": "UrLoker offers secure and convenient luggage storage solutions.",
         "url": "https://urloker.com",
-        "logo": "https://urloker.com/logo.png",
+        "logo": "https://urloker.com/icons/favicon.ico",
         "contactPoint": {
           "@type": "ContactPoint",
           "contactType": "Customer Service"
@@ -67,19 +72,6 @@
         ]
       }
     </script>
-
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>URLOKER</title>
@@ -113,16 +105,8 @@
     class="font-inter antialiased bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400"
   >
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-P8PL2NSQ"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe
-    ></noscript>
+
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
 
     <script>
       if (localStorage.getItem("sidebar-expanded") == "true") {
@@ -132,7 +116,6 @@
       }
     </script>
 
-    <!-- <script src="//code.tidio.co/dfxgexxro6nzwiduywhxricwzh9cvvzn.js"></script> -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-6NF0VZZPTZ"
@@ -146,5 +129,6 @@
 
       gtag("config", "G-6NF0VZZPTZ");
     </script>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -277,7 +277,7 @@ const BookingForm = ({
             Have you reached us through a QR Code?
           </h4>
           <div className="grid gap-4">
-            <section className="p-1 flex justify-start items-center gap-2 border border-2 rounded-md mt-1">
+            <section className="p-1 flex justify-start items-center gap-2 border rounded-md mt-1">
               <input
                 disabled
                 type="radio"
