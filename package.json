@@ -55,6 +55,7 @@
     "react-chatbotify": "^1.7.0",
     "react-datepicker": "^7.3.0",
     "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.52.1",
     "react-i18next": "^14.1.3",
     "react-icons": "^5.2.1",
@@ -68,6 +69,7 @@
     "react-spinners": "^0.14.1",
     "react-transition-group": "^4.4.5",
     "reactstrap": "^9.2.2",
+    "swiper": "^11.1.14",
     "yup": "^1.4.0"
   },
   "devDependencies": {

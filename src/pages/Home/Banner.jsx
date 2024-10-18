@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
-import backgroundImage from "/img/home-two/luggage-1.webp";
+import backgroundImage from "/img/home-two/hero1.jpg";
 import "./Banner.css";
 import config from "../../config";
 import { useTranslation } from "react-i18next";
@@ -99,21 +99,22 @@ function Banner() {
     searchButton,
     findLocationsButton,
   } = translate?.heroSection;
-
+   
   return (
     <div
       // className="banner bg-cover bg-center bg-no-repeat mt-28 h-screen flex items-center justify-center relative"
       // style={{ backgroundImage: `url(${backgroundImage})` }}
-      className="bg-teal-700/20 h-auto min-h-screen w-screen p-5"
+      className="bg-custom-teal-deep/10 min-h-fit h-auto w-screen bg-cover backdrop-blur bg-no-repeat"
     >
-      {/* <div className="absolute inset-0 bg-gray-800 opacity-40 backdrop-blur-md"></div> */}
-      <div className=" grid grid-cols-1 h-full mt-28 md:grid-cols-2 divide-x-reverse max-w-screen-xl mx-auto py-14">
+      {/* <div className="absolute inset-0 bg-teal-100 opacity-80 backdrop-blur blur"></div> */}
+      <div className=" grid grid-cols-1 min-h-[75vh] h-full mt-24 md:grid-cols-2 md:items-center divide-x-reverse max-w-screen-xl mx-auto py-20">
         <div className="p-10 max-w-screen-md">
           <img
-            className="rounded-2xl w-full aspect-auto skew-x-3 -skew-y-12 rotate-2 scale-x-90"
+            // className="rounded-2xl w-full max-w-md mx-auto aspect-auto skew-x-3 -skew-y-12 rotate-2 scale-x-90 mb-5"
+            className="rounded-2xl mx-auto"
             src={backgroundImage}
-            width={1000}
-            height={400}
+            width={500}
+            height={(500 * 9) / 16}
             alt="bg-image"
             loading="lazy"
           />
@@ -130,12 +131,12 @@ function Banner() {
             {subtitle}
           </p>
 
-          <form
+          {/* <form
             id="locationForm"
             className="mt-4"
             onSubmit={handleSubmit}
             aria-label="Location search form"
-          >
+          > */}
             <div className="flex flex-col sm:flex-row justify-center items-center relative">
               <Autocomplete
                 onLoad={onLoad}
@@ -150,24 +151,24 @@ function Banner() {
                   ref={locationInputRef}
                 />
               </Autocomplete>
-              <button
+              {/* <button
                 type="submit"
                 className="w-full rounded-full bg-custom-teal hover:bg-custom-teal-deep py-2 mt-2 hidden"
               >
                 {searchButton}
-              </button>
+              </button> */}
             </div>
             <button
               type="button"
               onClick={handleNearMyLocationClick}
-              className={`bg-custom-teal hover:bg-custom-teal-deep text-white rounded-full shadow-md transition duration-300 ease-in-out mt-4 px-8 py-3 w-full ${
+              className={`bg-custom-teal hover:bg-custom-teal-deep text-white font-bold text-lg rounded-full shadow-md transition duration-300 ease-in-out mt-4 px-12 py-4 w-full md:w-fit ${
                 loadingLocation ? "opacity-50 cursor-not-allowed" : ""
               }`}
               disabled={loadingLocation}
             >
               {findLocationsButton}
             </button>
-          </form>
+          {/* </form> */}
         </div>
       </div>
     </div>

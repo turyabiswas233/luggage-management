@@ -12,6 +12,8 @@ import LuggageStorageLocations from "../SearchLugLocation/LuggageStorageLocation
 // import ScrollToTopButton from "./ScrollToTopButton";
 import HowItWorks from "./Howitworks";
 import { useTranslation } from "react-i18next";
+import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [currentLanguage, setCurrentLanguage] = useState(
@@ -36,42 +38,99 @@ const Home = () => {
 
       <Review />
       <Choose />
-      <CityInfo />
       <Demo />
-      <Blog />
+      <CityInfo />
+      <CurrentCities />
       <FAQ />
+      <Blog />
       <Footer />
       {/* <ScrollToTopButton /> */}
     </div>
   );
 };
 const Demo = () => {
+  const [openFAQ, setOpenFAQ] = useState(0);
+  const { t: tl } = useTranslation();
+  const t = tl("home")?.demo;
+
+  const toggleFAQ = (index) => {
+    setOpenFAQ((p) => (p == index ? -1 : index));
+  };
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-      <div className="p-10 bg-slate-100">
-        <h2 className="font-extrabold text-4xl my-4">
-          Hassle Free Luggage Storage, Book in Seconds
+    <section
+      className="py-16 bg-gradient-to-r from-gray-200 to-custom-gray scroll-mt-20"
+      id="faq"
+    >
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl text-left font-extrabold md:text-center text-custom-teal mb-12 transition duration-500 ease-in-out hover:text-custom-teal-deep">
+          {t?.title}
         </h2>
-        <article className="mt-10">
-          <ul className="pl-10 list-disc text-lg font-medium">
-            <li>Security Guaranteed</li>
-            <li>$1000 protection</li>
-            <li>Size Doesn't Matter</li>
-            <li>
-              Flat Rate for All Bag Size No Need to Pay Extra No Hourly Fees
-            </li>
-          </ul>
-        </article>
+        <div className="flex flex-wrap -mx-4">
+          <div className="w-full lg:w-3/4 py-4 mx-auto h-full">
+            {t.list.map((faq, index) => (
+              <div
+                key={index}
+                className={`p-4 border-y border-gray-400 text-gray-900 group transition-all ease-out duration-500 h-full ${
+                  openFAQ == index
+                    ? "max-h-52 overflow-y-auto min-h-full"
+                    : "max-h-20"
+                }`}
+              >
+                <h3
+                  className="text-xl font-bold transition-colors group-hover:text-gray-500 cursor-pointer flex items-center justify-between select-none"
+                  onClick={() => toggleFAQ(index)}
+                >
+                  {faq.title}
+                  {openFAQ == index ? (
+                    <FaMinusCircle color="#23a373" />
+                  ) : (
+                    <FaPlusCircle color="#23a373" />
+                  )}
+                </h3>
+                {openFAQ == index && (
+                  <div
+                    className="transition group-hover:text-gray-500 mt-2 overflow-x-hidden break-words text-justify px-5 font-medium select-none"
+                    dangerouslySetInnerHTML={{
+                      __html: faq.desc,
+                    }}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      <div className="p-10 bg-gradient-to-br from-custom-teal-deep to-custom-teal/80 text-white">
-        <h2 className="font-extrabold text-4xl my-4">Need a lot!</h2>
-        <article className="my-10 space-y-6 text-lg">
-          <p>
-            Enjoy Full Day Flexibility with a Fixed Price. You Won't find better
-            24/7 Support. We are always here for you.
-          </p>
-          <p>Enjoy Freedom in Every Journey with Urloker.</p>
-        </article>
+    </section>
+  );
+};
+const CurrentCities = () => {
+  const cities = [
+    {
+      name: "Melbourne CBD",
+      to: "/luggage-storage-melbourne-cbd",
+    },
+    {
+      name: "Melbourne Airport",
+      to: "/luggage-storage-melbourne-airport",
+    },
+    {
+      name: "Flinders Street Station",
+      to: "/flinders-street-station-luggage-storage",
+    },
+  ];
+  return (
+    <div className="p-10 bg-gray-50 w-full">
+      <h2 className="text-3xl font-bold">
+        Store your luggage to your closet location
+      </h2>
+      <br />
+      <h4 className="text-xl font-bold">Newly added lcoations</h4>
+      <div className="flex flex-wrap gap-3 my-5">
+        {cities?.sort()?.map((loc) => (
+          <Link to={loc?.to} key={`city-${loc?.name}`} className="relative after:absolute after:w-full after:h-1 after:bg-custom-teal-deep after:left-0 after:-bottom-2 after:rounded-full hover:after:h-2 after:transition-all">
+            {loc?.name}
+          </Link>
+        ))}
       </div>
     </div>
   );

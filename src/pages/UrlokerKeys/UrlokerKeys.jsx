@@ -87,7 +87,7 @@ function UrlokerKeys() {
         `${url}/api/v1/locations/public/all-locations`
       );
       const data = response.data;
-      console.log("success");
+      console.log("success", data);
       if (Array.isArray(data)) setLocs(data.filter((a) => a.canStoreKeys));
       else {
         console.log("Data is not an array list");

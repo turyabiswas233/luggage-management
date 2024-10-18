@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import { Spinner } from "react-bootstrap";
 import Sidebar from "./Sidebar";
 import MapContainer from "./MapContainer";
 
 import "./luggagelocation.css";
 import config from "../../config";
+import { LuLoader } from "react-icons/lu";
 
 const LuggageLocation = () => {
   const { state } = useLocation();
@@ -92,17 +92,10 @@ const LuggageLocation = () => {
     }
   };
 
-  if (loading || !currentLocation) {
+  if (loading) {
     return (
-      <div className="d-flex justify-content-center align-items-center min-vh-100">
-        <Spinner
-          animation="border"
-          role="status"
-          variant="primary"
-          style={{ width: "5rem", height: "5rem" }}
-        >
-          <span className="sr-only">Loading...</span>
-        </Spinner>
+      <div className="flex justify-center items-center h-dvh">
+        <LuLoader size={"3em"} className="animate-spin" />
       </div>
     );
   }

@@ -41,7 +41,7 @@ function CityInfo() {
       </div>
 
       <div className="mt-5 p-5 md:p-14 bg-gradient-to-br from-white to-custom-gray">
-        <header>
+        <header className="p-5">
           <h1 className="text-3xl md:text-4xl font-bold text-custom-teal-deep">
             Why UrLoker is Your Best Luggage Storage Provider
           </h1>
@@ -54,7 +54,7 @@ function CityInfo() {
           </p>
         </header>
 
-        <div>
+        <div className="p-5">
           {t?.whyBest?.map((ele, eid) => (
             <section key={`why-best_${eid}`} className="group">
               <br />

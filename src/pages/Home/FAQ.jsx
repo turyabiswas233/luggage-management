@@ -28,7 +28,7 @@ function FAQ() {
         <div className="flex flex-wrap -mx-4">
           <div className="w-full lg:w-3/4 py-4 mx-auto h-full">
             {t.faqs.map((faq, index) => (
-              <div key={index} className={`p-4 border-y border-gray-400 transition-all ease-out duration-500 h-full ${openFAQ == index ? "max-h-48 overflow-y-hidden min-h-full" : 'max-h-20'}`}>
+              <div key={index} className={`p-4 min-h-full border-y border-gray-400 transition-all ease-out duration-1000 h-full ${openFAQ == index ? "max-h-52 overflow-y-auto" : 'max-h-20'}`}>
                 <h3
                   className="text-xl font-bold text-gray-700 cursor-pointer flex items-center justify-between"
                   onClick={() => toggleFAQ(index)}

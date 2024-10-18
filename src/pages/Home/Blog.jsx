@@ -9,6 +9,7 @@ import furniture from "/img/home-two/furniture-1.jpg";
 import luggage from "/img/home-two/luggage-1.webp";
 import hospital from "/img/home-two/hospital-1.webp";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 function Blog() {
   const { t: tl } = useTranslation();
@@ -77,13 +78,15 @@ function Blog() {
                   </span>
                 </div>
                 <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                <a
-                  href={"/blog-details/" + (index + 1)}
+                <Link
+                  to={"/blog-details/" + (index + 1)}
+                  about={post?.comments}
+                  title={post?.title}
                   className="inline-flex items-center text-blue-600 hover:text-blue-700 transition duration-300 font-semibold"
                 >
                   Read More{" "}
                   <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
-                </a>
+                </Link>
               </div>
             </div>
           ))}

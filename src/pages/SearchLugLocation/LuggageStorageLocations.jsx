@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 // Import images
 import avalonAirport from "/img/location_common/Avalon Airport.webp";
@@ -29,6 +28,8 @@ import dfoMelbourne from "/img/location_common/DFO Melbourne.webp";
 import chadstone from "/img/location_common/Chadstone.webp";
 import { useTranslation } from "react-i18next";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 
 const locations = [
   { name: "Melbourne Airport", image: melbourneAirport },
@@ -56,7 +57,29 @@ const locations = [
   { name: "DFO Melbourne", image: dfoMelbourne },
   { name: "Chadstone", image: chadstone },
 ];
+const CustomPrevArrow = (props) => {
+  const { className, onClick } = props;
+  return (
+    <button
+      className={`${className} custom-arrow custom-prev-arrow`}
+      onClick={onClick}
+    >
+      <MdKeyboardArrowLeft />
+    </button>
+  );
+};
 
+const CustomNextArrow = (props) => {
+  const { className, onClick } = props;
+  return (
+    <button
+      className={`${className} custom-arrow custom-next-arrow`}
+      onClick={onClick}
+    >
+      <MdKeyboardArrowRight />
+    </button>
+  );
+};
 const LuggageStorageLocations = () => {
   const navigate = useNavigate();
 
@@ -114,48 +137,58 @@ const LuggageStorageLocations = () => {
         <h2 className="text-4xl font-extrabold text-center mb-12 text-[#4A686A]">
           {t?.title}
         </h2>
-        <div className="relative">
-          <Slide
-            arrows={false}
-            autoplay={false}
-            indicators={true}
-            prevArrow={<CustomPrevArrow />}
-            nextArrow={<CustomNextArrow />}
-            slidesToScroll={1}
-            slidesToShow={1}
-            transitionDuration={500}
-          >
-            {locations.map((location, index) => (
-              <div
-                key={index}
-                className="mt-12 mx-auto bg-white shadow-md rounded-xl overflow-hidden transform transition-transform duration-300 w-full max-w-xl"
-              >
-                <img
-                  className="w-full h-56 object-cover"
-                  src={location.image}
-                  alt={location.name}
-                  width={400}
-                  height={(400 * 9) / 16}
-                  loading="lazy"
-                />
-                <div className="p-6 text-center">
-                  <h3 className="text-2xl font-semibold mb-4 text-gray-800">
-                    {location.name}
-                  </h3>
-                  <button
-                    onClick={() => handleSearchLocation(location.name)}
-                    className="bg-[#2a9b84] text-white px-4 py-2 rounded-full hover:bg-[#2a8b74] transition-colors duration-300"
-                  >
-                    {t?.searchButton}
-                  </button>
-                </div>
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={30}
+          slidesPerView={'auto'}
+          loop={true}
+          speed={1000}
+          autoplay={{
+            delay: 2000,
+            pauseOnMouseEnter: true,
+          }}
+          onSwiper={(swiper) => console.log(swiper)}
+          onSlideChange={() => console.log("slide change")}
+        >
+          {locations.map((location, index) => (
+            <SwiperSlide
+              key={index}
+              className="mt-12 mx-auto p-4 mb-5 bg-white rounded-xl overflow-hidden transform transition-transform duration-300 w-full max-w-xl"
+            >
+              <img
+                className="aspect-video w-full object-cover rounded-xl"
+                src={location.image}
+                alt={location.name}
+                width={300}
+                height={280}
+                loading="lazy"
+              />
+              <div className="pt-3 text-lg">
+                <h3 className="font-semibold mb-4 text-gray-800">
+                  {location.name}
+                </h3>
+                <button
+                  onClick={() => handleSearchLocation(location.name)}
+                  className="bg-[#2a9b84] text-white px-4 py-2 rounded-full hover:bg-[#2a8b74] transition-colors duration-300"
+                >
+                  {t?.searchButton}
+                </button>
               </div>
-            ))}
-          </Slide>
-        </div>
+            </SwiperSlide>
+          ))}
+          <SwipeButton />
+        </Swiper>
       </div>
     </div>
   );
 };
-
+const SwipeButton = () => {
+  const swipe = useSwiper();
+  return (
+    <div className="flex gap-3 items-center justify-end">
+      <CustomPrevArrow onClick={() => swipe.slidePrev()} />
+      <CustomNextArrow onClick={() => swipe.slideNext()} />
+    </div>
+  );
+};
 export default LuggageStorageLocations;

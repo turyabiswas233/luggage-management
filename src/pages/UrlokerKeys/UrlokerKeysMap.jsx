@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import { Spinner } from "react-bootstrap";
+import { LuLoader } from "react-icons/lu";
 import Sidebar from "./Sidebar";
 import MapContainer from "../SearchLugLocation/MapContainer";
 
@@ -13,11 +13,9 @@ const LuggageLocation = () => {
   const [locations, setLocations] = useState([]);
   const [visibleLocations, setVisibleLocations] = useState([]);
   const [currentLocation, setCurrentLocation] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const fetchLocations = async (loc, retryCount = 0) => {
-    console.log("loc", loc);
-
     try {
       setLoading(true);
       const response = await axios.get(
@@ -26,12 +24,12 @@ const LuggageLocation = () => {
           params: {
             latitude: loc?.lat || -33.805,
             longitude: loc?.lng || 151.805,
-            maxDistance: 30000,
+            maxDistance: 29000,
             limit: 30,
           },
         }
       );
-      console.log(response.data?.filter((f) => f?.canStoreKeys === true));
+
       setLocations(response.data?.filter((f) => f?.canStoreKeys === true));
       setVisibleLocations(
         response.data?.filter((f) => f?.canStoreKeys === true)
@@ -49,14 +47,13 @@ const LuggageLocation = () => {
     } finally {
       setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
     if (state?.location) {
       setCurrentLocation(state?.location);
       fetchLocations(state?.location);
-    } else getNearestLocations();
+    } else getNearestLocations(null);
   }, [state]);
 
   const handleLocationSelected = (location) => {
@@ -93,18 +90,10 @@ const LuggageLocation = () => {
       console.log("Geolocation is not supported by this browser.");
     }
   };
-
-  if (loading || !currentLocation) {
+  if (loading) {
     return (
-      <div className="d-flex justify-content-center align-items-center min-vh-100">
-        <Spinner
-          animation="border"
-          role="status"
-          variant="primary"
-          style={{ width: "5rem", height: "5rem" }}
-        >
-          <span className="sr-only">Loading...</span>
-        </Spinner>
+      <div className="flex justify-center items-center h-dvh">
+        <LuLoader size={"3em"} className="animate-spin" />
       </div>
     );
   }

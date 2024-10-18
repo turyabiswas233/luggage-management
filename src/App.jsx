@@ -70,6 +70,11 @@ import PartnerUrloker from "./pages/UrlokerKeys/PartnerUrloker";
 import PartnerKeyDetails from "./pages/SuperAdmin/PartnerKeyDetails";
 import UrlokerKeysMap from "./pages/UrlokerKeys/UrlokerKeysMap";
 
+// city files 
+import MelbourneCBD from "./pages/City/Page1";
+import AirportPage from "./pages/City/Page2";
+import FlindersPage from "./pages/City/Page3";
+
 function App() {
   const location = useLocation();
 
@@ -240,6 +245,11 @@ function App() {
         <Route exact path="/partner/urlokerkeys" element={<PartnerUrloker />} />
         <Route exact path="/allluggage" element={<AllLuggage />} />
         <Route exact path="/luggage/:id" element={<LuggageDetails />} />
+
+        {/* city routes */}
+        <Route exact path="/luggage-storage-melbourne-cbd" element={<MelbourneCBD />} />
+        <Route exact path="/luggage-storage-melbourne-airport" element={<AirportPage />} />
+        <Route exact path="/flinders-street-station-luggage-storage" element={<FlindersPage />} />
       </Routes>
 
       <TawkTo />

@@ -308,6 +308,28 @@ const translations = {
         },
       ],
     },
+    demo: {
+      title: "Hassle Free Luggage Storage, Book in Seconds",
+      list: [
+        {
+          title: "Security Guaranteed",
+          desc: "$1000 protection",
+        },
+        {
+          title: "Size Doesn't Matter",
+          desc: "Flat Rate for All Bag Size No Need to Pay Extra",
+        },
+        {
+          title: "No Hourly Fees",
+          desc: "Enjoy full Day Flexibility with a Fixed Price Unbeatable Prices",
+        },
+        {
+          title: "24/7 Support",
+          desc: "We are Always Here for You",
+        },
+      ],
+      end: "Enjoy Freedom in Every Journey with Urloker",
+    },
   },
   es: {
     header: {
@@ -540,6 +562,28 @@ brindar a cada cliente tranquilidad, sabiendo que sus pertenencias
 están en buenas manos mientras disfrutan de la libertad de explorar la ciudad.`,
       ],
     },
+    demo: {
+      title: "Hassle Free Luggage Storage, Book in Seconds",
+      list: [
+        {
+          title: "Security Guaranteed",
+          desc: "$1000 protection",
+        },
+        {
+          title: "Size Doesn't Matter",
+          desc: "Flat Rate for All Bag Size No Need to Pay Extra",
+        },
+        {
+          title: "No Hourly Fees",
+          desc: "Enjoy full Day Flexibility with a Fixed Price Unbeatable Prices",
+        },
+        {
+          title: "24/7 Support",
+          desc: "We are Always Here for You",
+        },
+      ],
+      end: "Enjoy Freedom in Every Journey with Urloker",
+    },
   },
   zh: {
     header: {
@@ -750,6 +794,28 @@ están en buenas manos mientras disfrutan de la libertad de explorar la ciudad.`
         `Urloker 致力于提供最佳客户服务。我们专用的聊天机器人全天候待命，可快速高效地帮助解决任何客户服务问题，确保从始至终的顺畅体验。`,
         `作为澳大利亚领先的行李寄存服务提供商，我们的口号是“旅途自由”，体现了我们的使命：让每一位顾客安心，让他们知道自己的物品在安全的手中，同时享受探索城市的自由。`,
       ],
+    },
+    demo: {
+      title: "Hassle Free Luggage Storage, Book in Seconds",
+      list: [
+        {
+          title: "Security Guaranteed",
+          desc: "$1000 protection",
+        },
+        {
+          title: "Size Doesn't Matter",
+          desc: "Flat Rate for All Bag Size No Need to Pay Extra",
+        },
+        {
+          title: "No Hourly Fees",
+          desc: "Enjoy full Day Flexibility with a Fixed Price Unbeatable Prices",
+        },
+        {
+          title: "24/7 Support",
+          desc: "We are Always Here for You",
+        },
+      ],
+      end: "Enjoy Freedom in Every Journey with Urloker",
     },
   },
 };
