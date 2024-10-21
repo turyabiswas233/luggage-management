@@ -35,6 +35,15 @@ function HowItWorks() {
         (error) => {
           console.error("Error fetching location:", error);
           setLoadingLocation(false);
+          if (navigator.permissions) {
+            navigator.permissions
+              .query({ name: "geolocation" })
+              .then(function (result) {
+                if (result.state === "denied") {
+                  alert("Please enable location services to use this feature");
+                }
+              });
+          }
         }
       );
     } else {

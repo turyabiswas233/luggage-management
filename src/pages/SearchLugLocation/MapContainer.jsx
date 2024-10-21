@@ -21,9 +21,9 @@ const MapContainer = ({ locations, setVisibleLocations, center }) => {
   const initMap = async () => {
     if (window.google && window.google.maps.Map) {
       const map = new google.maps.Map(document.getElementById("map"), {
-        center: center || { lat: -37.8688, lng: 144.9093 },
+        center: center || { lat: -36.8688, lng: 144.9093 },
         mapId: "DemoMapId",
-        zoom: 12,
+        zoom: 5,
       });
       if (!map) return;
 
@@ -53,10 +53,8 @@ const MapContainer = ({ locations, setVisibleLocations, center }) => {
 
       const marker = new AdvancedMarkerElement({
         position: {
-          // lat: center?.lat,
-          // lng: center?.lng,
-          lat: center.lat || -37.8295,
-          lng: center.lng || 144.905,
+          lat: center?.lat || -37.8295,
+          lng: center?.lng || 144.905,
         },
         map: map,
         title: "You",

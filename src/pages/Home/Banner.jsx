@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { Autocomplete, useJsApiLoader } from "@react-google-maps/api"; 
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 import backgroundImage from "/img/home-two/luggage-1.png";
 import "./Banner.css";
 import config from "../../config";
@@ -81,6 +81,15 @@ function Banner() {
         (error) => {
           console.error("Error fetching location:", error);
           setLoadingLocation(false);
+          if (navigator.permissions) {
+            navigator.permissions
+              .query({ name: "geolocation" })
+              .then(function (result) {
+                if (result.state === "denied") {
+                  alert("Please enable location services to use this feature");
+                }
+              });
+          }
         }
       );
     } else {
@@ -99,7 +108,7 @@ function Banner() {
     searchButton,
     findLocationsButton,
   } = translate?.heroSection;
-   
+
   return (
     <div
       // className="banner bg-cover bg-center bg-no-repeat mt-28 h-screen flex items-center justify-center relative"
@@ -137,8 +146,9 @@ function Banner() {
             onSubmit={handleSubmit}
             aria-label="Location search form"
           > */}
-            <div className="flex flex-col sm:flex-row justify-center items-center relative">
-              {isLoaded && <Autocomplete
+          <div className="flex flex-col sm:flex-row justify-center items-center relative">
+            {isLoaded && (
+              <Autocomplete
                 onLoad={onLoad}
                 onPlaceChanged={onPlaceChanged}
                 className="flex items-center h-fit w-full"
@@ -150,24 +160,25 @@ function Banner() {
                   placeholder={searchPlaceholder}
                   ref={locationInputRef}
                 />
-              </Autocomplete>}
-              {/* <button
+              </Autocomplete>
+            )}
+            {/* <button
                 type="submit"
                 className="w-full rounded-full bg-custom-teal hover:bg-custom-teal-deep py-2 mt-2 hidden"
               >
                 {searchButton}
               </button> */}
-            </div>
-            <button
-              type="button"
-              onClick={handleNearMyLocationClick}
-              className={`bg-custom-teal hover:bg-custom-teal-deep text-white font-bold text-lg rounded-full shadow-md transition duration-300 ease-in-out mt-4 px-12 py-4 w-full md:w-fit ${
-                loadingLocation ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-              disabled={loadingLocation}
-            >
-              {findLocationsButton}
-            </button>
+          </div>
+          <button
+            type="button"
+            onClick={handleNearMyLocationClick}
+            className={`bg-custom-teal hover:bg-custom-teal-deep text-white font-bold text-lg rounded-full shadow-md transition duration-300 ease-in-out mt-4 px-12 py-4 w-full md:w-fit ${
+              loadingLocation ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={loadingLocation}
+          >
+            {findLocationsButton}
+          </button>
           {/* </form> */}
         </div>
       </div>

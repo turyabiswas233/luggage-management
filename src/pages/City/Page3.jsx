@@ -76,6 +76,15 @@ function FlindersPage() {
           };
           navigate("/luggage_locations", { state: { location, nearby: true } });
           setLoadingLocation(false);
+          if (navigator.permissions) {
+            navigator.permissions
+              .query({ name: "geolocation" })
+              .then(function (result) {
+                if (result.state === "denied") {
+                  alert("Please enable location services to use this feature");
+                }
+              });
+          }
         },
         (error) => {
           console.error("Error fetching location:", error);
