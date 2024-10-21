@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import cbd from "/city/flinders/flinders.png";
+import locImage from "/city/flinders/locationMap.png";
 import NavbarComp from "../Home/NavbarComp";
 import { useTranslation } from "react-i18next";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Footer from "../Home/Footer";
+import AttractionBox from "./AttractionBox";
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
+import config from "../../config";
+import { useNavigate } from "react-router-dom";
+
+const libraries = ["places"];
+const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 
 function FlindersPage() {
   const [currentLanguage, setCurrentLanguage] = useState(
@@ -13,10 +21,70 @@ function FlindersPage() {
       ? "en"
       : localStorage.getItem("i18nextLng") || "en"
   );
-  const { i18n } = useTranslation();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const translate = t("home");
+  const [autocomplete, setAutocomplete] = useState(null);
+  const [selectedPlace, setSelectedPlace] = useState(null);
+  const [loadingLocation, setLoadingLocation] = useState(false);
+  const locationInputRef = useRef(null);
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+    libraries,
+  });
+
+  const onLoad = useCallback((autocompleteInstance) => {
+    setAutocomplete(autocompleteInstance);
+  }, []);
+  const onPlaceChanged = () => {
+    if (autocomplete !== null) {
+      const place = autocomplete.getPlace();
+      if (place.geometry) {
+        setSelectedPlace(place);
+        if (place && place.geometry) {
+          const location = {
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng(),
+          };
+          navigate("/luggage_locations", {
+            state: { location, inputLocation: locationInputRef.current.value },
+          });
+        } else {
+          console.log("Please select a valid place");
+        }
+      } else {
+        console.log("No geometry available for the selected place");
+      }
+    } else {
+      console.log("Autocomplete is not loaded yet!");
+    }
+  };
+
   const handleChangeLanguage = (lang) => {
     setCurrentLanguage(lang);
-    i18n.changeLanguage(lang);
+    t.changeLanguage(lang);
+  };
+
+  const handleNearMyLocationClick = () => {
+    if (navigator.geolocation) {
+      setLoadingLocation(true);
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          navigate("/luggage_locations", { state: { location, nearby: true } });
+          setLoadingLocation(false);
+        },
+        (error) => {
+          console.error("Error fetching location:", error);
+          setLoadingLocation(false);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
   };
   const data = [
     {
@@ -41,6 +109,8 @@ function FlindersPage() {
         "No, but it is advisable to do so at least 48 through 72 hours prior to the date of travel in case high tourist centres in low periods are not conveniently forced into our centers by forcing bookers.",
     },
   ];
+  const { searchPlaceholder, findLocationsButton } = translate?.heroSection;
+
   return (
     <div>
       <NavbarComp
@@ -59,43 +129,92 @@ function FlindersPage() {
           name="description"
           content="Urloker: Flinders Street Station luggage storage made easy. Secure, affordable options in Melbourne's heart. Drop your bags and explore freely"
         />
-        <meta name="keywords" content="luggage-storage-melbourne-cbd" />
-        <link rel="canonical" href="/luggage-storage-melbourne-cbd" />
+        <meta
+          name="keywords"
+          content="flinders-street-station-luggage-storage"
+        />
+        <link rel="canonical" href="/flinders-street-station-luggage-storage" />
       </Helmet>
-
-      <header className="my-10 py-20 px-5">
-        <h1 className="text-4xl md:text-5xl font-bold my-4">
-          Flinders Street Station Luggage Storage
-        </h1>
-        <div className="">
+      <header className="mt-10 py-20 px-5 text-black/80 bg-white">
+        <div className="my-10 flex gap-10 flex-col lg:flex-row w-full max-w-screen-xl mx-auto">
+          <div className="space-y-6">
+            <p className="text-sm">Freedom in Every Journey</p>
+            <img
+              src={cbd}
+              width={800}
+              height={(800 * 9) / 16}
+              className="aspect-video object-cover rounded-md w-full lg:hidden flex-1"
+              alt="flinders street station luggage storage"
+            />
+            <h1 className="text-4xl md:text-6xl font-bold my-4 text-green-800">
+              Luggage Storage Flinders Street Station
+            </h1>
+            <p>Looking For Luggage Services? We Are Here...</p>
+            <div className="flex flex-col sm:flex-row justify-center items-center relative">
+              {isLoaded && (
+                <Autocomplete
+                  onLoad={onLoad}
+                  onPlaceChanged={onPlaceChanged}
+                  className="flex items-center h-fit w-full"
+                >
+                  <input
+                    type="text"
+                    id="location"
+                    className="bg-white text-black placeholder:text-gray-700 rounded-full p-3 w-full h-fit"
+                    placeholder={searchPlaceholder}
+                    ref={locationInputRef}
+                    defaultValue={"Flinders Street Melbourne VIC, Australia"}
+                  />
+                </Autocomplete>
+              )}
+              {/* <button
+                type="submit"
+                className="w-full rounded-full bg-custom-teal hover:bg-custom-teal-deep py-2 mt-2 hidden"
+              >
+                {searchButton}
+              </button> */}
+            </div>
+            <button
+              type="button"
+              onClick={handleNearMyLocationClick}
+              className={`bg-custom-teal hover:bg-custom-teal-deep text-white font-bold text-lg rounded-full shadow-md transition duration-300 ease-in-out mt-4 px-12 py-4 w-full md:w-fit ${
+                loadingLocation ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={loadingLocation}
+            >
+              {findLocationsButton}
+            </button>
+          </div>
           <img
             src={cbd}
             width={1280}
             height={720}
-            className="aspect-video"
-            alt="flinders street station luggage storage"
+            className="aspect-video rounded-md max-w-2xl w-full hidden lg:block flex-1"
+            alt="Luggage Storage Flinders Street Station "
           />
-          <div className="space-y-6 my-5">
-            <h2 className="text-3xl font-bold">
-              Flinders Street Station Luggage Storage: Prise for the Convenience
-              in Melbourne
-            </h2>
-            <p>
-              Carrying heavy bags is a challenge anytime one is sightseeing in
-              Melbourne. Whether you are navigating the busy streets, visiting
-              iconic attractions or waiting to catch a train, it is essential to
-              safely store your bags where you can trust. At
-              <a href="/" className="text-custom-teal-deep font-bold">
-                Urloker
-              </a>{" "}
-              we offer reliable flinders street station luggage storage - an
-              easy and hassle free solution for travellers to enjoy the city
-              without the burden of heavy bags.
-            </p>
-          </div>
         </div>
       </header>
-      <main className="p-5 bg-white">
+      <AttractionBox locationImage={locImage} me={"Flinders Street Station"} />
+
+      <main className="p-5 bg-white xl:px-52 w-full mx-auto">
+        <div className="space-y-6 my-5">
+          <h2 className="text-3xl font-bold">
+            Flinders Street Station Luggage Storage: Prise for the Convenience
+            in Melbourne
+          </h2>
+          <p>
+            Carrying heavy bags is a challenge anytime one is sightseeing in
+            Melbourne. Whether you are navigating the busy streets, visiting
+            iconic attractions or waiting to catch a train, it is essential to
+            safely store your bags where you can trust. At
+            <a href="/" className="text-custom-teal-deep font-bold">
+              Urloker
+            </a>{" "}
+            we offer reliable flinders street station luggage storage - an easy
+            and hassle free solution for travellers to enjoy the city without
+            the burden of heavy bags.
+          </p>
+        </div>
         <div className="space-y-6 my-5">
           <h2 className="text-3xl font-bold">
             Why Flinders Street Station Luggage Storage is Worth It?
@@ -147,7 +266,9 @@ function FlindersPage() {
           </article>
         </div>
         <div className="space-y-6 my-5">
-          <h3 className="text-2xl font-bold">Exploring the Melbourne CBD</h3>
+          <h3 className="text-2xl font-bold">
+            Exploring the Flinders Street Station
+          </h3>
           <p>
             If you are looking for some out-of-the-city travel, the Southern
             Cross, Melbourne Central, and Flinders Street train stations located
@@ -354,7 +475,7 @@ const FaqCard = ({ t }) => {
             className="text-xl font-bold text-gray-700 cursor-pointer flex items-center justify-between"
             onClick={() => toggleFAQ(index)}
           >
-           Q: {faq.question}
+            Q: {faq.question}
             {openFAQ == index ? (
               <FontAwesomeIcon icon={faMinusCircle} />
             ) : (

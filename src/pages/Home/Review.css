@@ -1,20 +1,16 @@
 
 .custom-arrow {
-  /* position: absolute;
-  top: 50%; */
-  /* transform: translateY(-50%); */
   z-index: 1;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 1.5em;
   font-weight: 700;
   color: #058f7c;
-  background-color: #fefefe;
-  /* padding: 18px; */
+  background-color: #fefefe; 
   width: 2em;
   height: 2em;
   display: flex;
   justify-content: center;
-  border: 1px dotted #058f7c;
+  border: .15em solid #058f7c;
   align-items: center;
   border-radius: 50%;
   transition: all 0.3s ease;

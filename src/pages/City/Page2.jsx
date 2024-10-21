@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { Helmet } from "react-helmet-async";
 import cbd from "/city/airport/airport.png";
+import locImage from "/city/airport/locationMap.png";
 import NavbarComp from "../Home/NavbarComp";
 import { useTranslation } from "react-i18next";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Footer from "../Home/Footer";
+import AttractionBox from "./AttractionBox";
+import { useNavigate } from "react-router-dom";
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
+import config from "../../config";
+
+const libraries = ["places"];
+const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 
 function AirportPage() {
   const [currentLanguage, setCurrentLanguage] = useState(
@@ -13,10 +21,70 @@ function AirportPage() {
       ? "en"
       : localStorage.getItem("i18nextLng") || "en"
   );
-  const { i18n } = useTranslation();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const translate = t("home");
+  const [autocomplete, setAutocomplete] = useState(null);
+  const [selectedPlace, setSelectedPlace] = useState(null);
+  const [loadingLocation, setLoadingLocation] = useState(false);
+  const locationInputRef = useRef(null);
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+    libraries,
+  });
+
+  const onLoad = useCallback((autocompleteInstance) => {
+    setAutocomplete(autocompleteInstance);
+  }, []);
+  const onPlaceChanged = () => {
+    if (autocomplete !== null) {
+      const place = autocomplete.getPlace();
+      if (place.geometry) {
+        setSelectedPlace(place);
+        if (place && place.geometry) {
+          const location = {
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng(),
+          };
+          navigate("/luggage_locations", {
+            state: { location, inputLocation: locationInputRef.current.value },
+          });
+        } else {
+          console.log("Please select a valid place");
+        }
+      } else {
+        console.log("No geometry available for the selected place");
+      }
+    } else {
+      console.log("Autocomplete is not loaded yet!");
+    }
+  };
+
   const handleChangeLanguage = (lang) => {
     setCurrentLanguage(lang);
-    i18n.changeLanguage(lang);
+    t.changeLanguage(lang);
+  };
+
+  const handleNearMyLocationClick = () => {
+    if (navigator.geolocation) {
+      setLoadingLocation(true);
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          navigate("/luggage_locations", { state: { location, nearby: true } });
+          setLoadingLocation(false);
+        },
+        (error) => {
+          console.error("Error fetching location:", error);
+          setLoadingLocation(false);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
   };
   const data = [
     {
@@ -46,8 +114,9 @@ function AirportPage() {
         "We have prices that are relatively lower within the market, with discounts set for prolonged storage or the storage of many bags. Delivery and collection services provide additional benefits, and the duration of storage is flexible.",
     },
   ];
+  const { searchPlaceholder, findLocationsButton } = translate?.heroSection;
   return (
-    <div>
+    <div className="font-sans">
       <NavbarComp
         setLanguage={handleChangeLanguage}
         currentLanguage={currentLanguage}
@@ -59,7 +128,7 @@ function AirportPage() {
           property="og:title"
           content="Luggage Storage Melbourne Airport - Urloker"
         />
-        <meta name="description" content="Melbourne CBD" />
+        <meta name="description" content="Melbourne Airport" />
         <meta
           name="description"
           content="Secure, affordable luggage storage Melbourne Airport. Urlocker offers various sizes, flexible durations and easy booking for hassle free travel."
@@ -67,35 +136,82 @@ function AirportPage() {
         <meta name="keywords" content="luggage-storage-melbourne-airport" />
         <link rel="canonical" href="/luggage-storage-melbourne-airport" />
       </Helmet>
-
-      <header className="my-10 py-20 px-5">
-        <h1 className="text-4xl md:text-5xl font-bold my-4">
-          Luggage Storage Melbourne Airport
-        </h1>
-        <div className="">
+      <header className="mt-10 py-20 px-5 text-black/80 bg-white">
+        <div className="my-10 flex gap-10 flex-col lg:flex-row w-full max-w-screen-xl mx-auto">
+          <div className="space-y-6">
+            <p className="text-sm">Freedom in Every Journey</p>
+            <img
+              src={cbd}
+              width={800}
+              height={(800 * 9) / 16}
+              className="aspect-video object-cover rounded-md w-full lg:hidden flex-1"
+              alt="Luggage Storage Melbourne Airport"
+            />
+            <h1 className="text-4xl md:text-6xl font-bold my-4 text-green-800">
+              Luggage Storage Melbourne Airport
+            </h1>
+            <p>Looking For Luggage Services? We Are Here...</p>
+            <div className="flex flex-col sm:flex-row justify-center items-center relative">
+              {isLoaded && (
+                <Autocomplete
+                  onLoad={onLoad}
+                  onPlaceChanged={onPlaceChanged}
+                  className="flex items-center h-fit w-full"
+                >
+                  <input
+                    type="text"
+                    id="location"
+                    className="bg-white text-black placeholder:text-gray-700 rounded-full p-3 w-full h-fit"
+                    placeholder={searchPlaceholder}
+                    ref={locationInputRef}
+                    defaultValue={"Melbourne Airport VIC, Australia"}
+                  />
+                </Autocomplete>
+              )}
+              {/* <button
+                type="submit"
+                className="w-full rounded-full bg-custom-teal hover:bg-custom-teal-deep py-2 mt-2 hidden"
+              >
+                {searchButton}
+              </button> */}
+            </div>
+            <button
+              type="button"
+              onClick={handleNearMyLocationClick}
+              className={`bg-custom-teal hover:bg-custom-teal-deep text-white font-bold text-lg rounded-full shadow-md transition duration-300 ease-in-out mt-4 px-12 py-4 w-full md:w-fit ${
+                loadingLocation ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={loadingLocation}
+            >
+              {findLocationsButton}
+            </button>
+          </div>
           <img
             src={cbd}
             width={1280}
             height={720}
-            className="aspect-video"
-            alt="luggage storage melbourne airport"
+            className="aspect-video rounded-md max-w-2xl w-full hidden lg:block flex-1"
+            alt="Luggage Storage Melbourne Airport
+             "
           />
-          <div className="space-y-6 my-5">
-            <h2 className="text-3xl font-bold">
-              The most secure luggage storage Melbourne Airport - Urlocker
-            </h2>
-            <p>
-              UrLocker is a Melbourne Airport luggage storage company that
-              strives to offer affordable, safe, and practical solutions to
-              customers' needs. The service's goal is clear: to enrich your
-              experience. We have a cheap and secure space for all your things.
-              Whether you are transferring for another flight or simply
-              sightseeing for the day in Melbourne, we have covered your needs.
-            </p>
-          </div>
         </div>
       </header>
-      <main className="p-5 bg-white">
+
+      <AttractionBox locationImage={locImage} me={"Melbourne Airport"} />
+      <main className="p-5 bg-white xl:px-52 w-full mx-auto">
+        <div className="space-y-6 my-5">
+          <h2 className="text-3xl font-bold">
+            The most secure luggage storage Melbourne Airport - Urlocker
+          </h2>
+          <p>
+            UrLocker is a Melbourne Airport luggage storage company that strives
+            to offer affordable, safe, and practical solutions to customers'
+            needs. The service's goal is clear: to enrich your experience. We
+            have a cheap and secure space for all your things. Whether you are
+            transferring for another flight or simply sightseeing for the day in
+            Melbourne, we have covered your needs.
+          </p>
+        </div>
         <div className="space-y-6 my-5">
           <h2 className="text-3xl font-bold">
             Luggage Lockers Melbourne Airport at Urloker
@@ -136,8 +252,8 @@ function AirportPage() {
             them around.
           </p>
           <ul>
-            <h4 className="font-bold">Key Features:</h4>
-            <ul className="list-disc px-10">
+            <h4 className="font-bold text-black">Key Features:</h4>
+            <ul className="list-disc px-10 text-lg">
               <li>Positioned inside the airport terminal for easy access</li>
               <li>Clear and visible signage across all major airport roads</li>
               <li>
@@ -168,8 +284,8 @@ function AirportPage() {
               several bags too.
             </p>
             <ul>
-              <h4 className="font-bold">Storage Sized:</h4>
-              <ul className="list-disc px-10">
+              <h4 className="font-bold text-black">Storage Sized:</h4>
+              <ul className="list-disc px-10 text-lg">
                 <li>
                   Small lockers for personal items and carry-on bags. For
                   day-trippers or light packers
@@ -189,8 +305,8 @@ function AirportPage() {
               </ul>
             </ul>
             <ul>
-              <h4 className="font-bold">Duration Options:</h4>
-              <ul className="list-disc px-10">
+              <h4 className="font-bold text-black">Duration Options:</h4>
+              <ul className="list-disc px-10 text-lg">
                 <li>Hourly</li>
                 <li>Daily</li>
                 <li>Weekly</li>
@@ -215,8 +331,8 @@ function AirportPage() {
             out of danger.
           </p>
           <ul>
-            <h4 className="font-bold">Security Features:</h4>
-            <ul className="list-disc px-10">
+            <h4 className="font-bold text-black">Security Features:</h4>
+            <ul className="list-disc px-10 text-lg">
               <li>
                 Every single storage area is equipped with surveillance cameras,
                 regularly checked and recorded for monitoring purposes.
@@ -251,8 +367,8 @@ function AirportPage() {
             storage process that any person can use without difficulty.
           </p>
           <ul>
-            <h4 className="font-bold">Booking Options:</h4>
-            <ul className="list-disc px-10">
+            <h4 className="font-bold text-black">Booking Options:</h4>
+            <ul className="list-disc px-10 text-lg">
               <li>
                 Online booking takes place through our website, where particular
                 web-only offers are provided for those who wish to book storage
@@ -271,8 +387,8 @@ function AirportPage() {
             </ul>
           </ul>
           <ul>
-            <h4 className="font-bold">Storage Process:</h4>
-            <ul className="list-disc px-10">
+            <h4 className="font-bold text-black">Storage Process:</h4>
+            <ul className="list-disc px-10 text-lg">
               <li>
                 First, look at storage size and duration based on one's
                 particular needs.
@@ -300,7 +416,7 @@ function AirportPage() {
             Melbourne Airport
           </h3>
 
-          <ul className="px-10 list-disc">
+          <ul className="px-10 list-disc text-lg">
             <li>24/7 Online Support</li>
             <li>Multilingual Assistance</li>
             <li>Customer Satisfaction Surveys</li>
@@ -328,7 +444,7 @@ function AirportPage() {
             expectations.
           </p>
 
-          <ul className="list-disc px-10">
+          <ul className="list-disc px-10 text-lg">
             <li>
               A reliable luggage storage service offering years of experience to
               people travelling from different origins
@@ -367,36 +483,38 @@ const FaqCard = ({ t }) => {
     setOpenFAQ((p) => (p == index ? -1 : index));
   };
   return (
-    <div className="p-5">
+    <div className="p-5 container mx-auto xl:px-52">
       <h3 className="text-center font-bold text-2xl my-5">FAQs</h3>
-      {t.map((faq, index) => (
-        <div
-          key={index}
-          className={`p-4 min-h-full border-y border-gray-400 transition-all ease-out duration-1000 h-full ${
-            openFAQ == index ? "max-h-52 overflow-y-auto" : "max-h-20"
-          }`}
-        >
-          <h3
-            className="text-xl font-bold text-gray-700 cursor-pointer flex items-center justify-between"
-            onClick={() => toggleFAQ(index)}
+      <div className="space-y-5 divide-y-3 divide-slate-800">
+        {t.map((faq, index) => (
+          <div
+            key={index}
+            className={`p-4 min-h-full transition-all ease-out duration-500 h-full ${
+              openFAQ == index ? "max-h-52 overflow-y-auto" : "max-h-20"
+            }`}
           >
-            {faq.question}
-            {openFAQ == index ? (
-              <FontAwesomeIcon icon={faMinusCircle} />
-            ) : (
-              <FontAwesomeIcon icon={faPlusCircle} />
+            <h3
+              className="text-xl font-bold text-gray-700 cursor-pointer flex items-center justify-between"
+              onClick={() => toggleFAQ(index)}
+            >
+              {faq.question}
+              {openFAQ == index ? (
+                <FontAwesomeIcon icon={faMinusCircle} />
+              ) : (
+                <FontAwesomeIcon icon={faPlusCircle} />
+              )}
+            </h3>
+            {openFAQ == index && (
+              <div
+                className="text-gray-600 mt-2 overflow-x-hidden break-words text-justify px-5 font-medium"
+                dangerouslySetInnerHTML={{
+                  __html: faq.answer,
+                }}
+              />
             )}
-          </h3>
-          {openFAQ == index && (
-            <div
-              className="text-gray-600 mt-2 overflow-x-hidden break-words text-justify px-5 font-medium"
-              dangerouslySetInnerHTML={{
-                __html: faq.answer,
-              }}
-            />
-          )}
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

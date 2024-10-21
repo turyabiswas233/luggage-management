@@ -121,7 +121,7 @@ function HowItWorks() {
       <button
         type="button"
         onClick={handleNearMyLocationClick}
-        className={`bg-custom-teal hover:bg-custom-teal-deep text-white rounded-full shadow-md transition duration-100 ease-in-out -translate-x-1/2 relative left-1/2 mt-10 px-8 py-3 w-fit ${
+        className={`bg-custom-teal hover:bg-custom-teal-deep text-white text-xl font-bold rounded-full shadow-md transition duration-100 ease-in-out -translate-x-1/2 relative left-1/2 mt-10 px-8 py-3 w-fit ${
           loadingLocation ? "opacity-50 cursor-not-allowed" : ""
         }`}
         disabled={loadingLocation}

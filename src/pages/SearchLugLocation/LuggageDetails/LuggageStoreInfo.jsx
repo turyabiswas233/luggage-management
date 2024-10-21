@@ -59,6 +59,8 @@ const LuggageStoreInfo = ({
   const [averageRating, setAverageRating] = useState(4.5); // Default to 4.5
   const [reviewCount, setReviewCount] = useState(50); // Default to 50+
 
+  const isLoaded = useGoogleMapsApi(GOOGLE_MAPS_API_KEY);
+
   const fallbackReviews = [
     { _id: "1", rating: 5, comment: "Excellent service! Highly recommend." },
     { _id: "2", rating: 4, comment: "Very convenient and reliable." },
@@ -102,48 +104,42 @@ const LuggageStoreInfo = ({
     fetchReviews();
   }, [id]);
 
+  const initMap = async () => {
+    const location = { lat, lng };
+    const map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 15,
+      center: location,
+      disableDefaultUI: true,
+      mapId: "DemoMapId",
+      styles: [
+        {
+          featureType: "all",
+          elementType: "labels.text.fill",
+          stylers: [{ color: "#7c93a3" }, { lightness: "-10" }],
+        },
+        {
+          featureType: "administrative.country",
+          elementType: "geometry",
+          stylers: [{ visibility: "simplified" }],
+        },
+      ],
+    });
+    const { AdvancedMarkerElement  } = await google.maps.importLibrary("marker");
+    new AdvancedMarkerElement ({
+      position: location,
+      map: map,
+      title: title,
+      // icon: {
+      //   url: googleMapIcon,
+      // },
+    });
+  };
+
   useEffect(() => {
-    if (lat && lng) {
-      const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap`;
-      script.async = true;
-      script.defer = true;
-      document.body.appendChild(script);
-
-      window.initMap = function () {
-        const location = { lat, lng };
-        const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 15,
-          center: location,
-          disableDefaultUI: true,
-          styles: [
-            {
-              featureType: "all",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#7c93a3" }, { lightness: "-10" }],
-            },
-            {
-              featureType: "administrative.country",
-              elementType: "geometry",
-              stylers: [{ visibility: "simplified" }],
-            },
-          ],
-        });
-        new google.maps.Marker({
-          position: location,
-          map: map,
-          title: title,
-          icon: {
-            url: googleMapIcon,
-          },
-        });
-      };
-
-      return () => {
-        document.body.removeChild(script);
-      };
+    if (isLoaded) {
+      initMap();
     }
-  }, [lat, lng, GOOGLE_MAPS_API_KEY, title]);
+  }, [isLoaded]);
 
   const formatTime = (timeStr) => {
     const options = { hour: "numeric", minute: "numeric", hour12: true };
@@ -170,7 +166,10 @@ const LuggageStoreInfo = ({
       <p className="flex items-center mb-4 text-lg">
         <FontAwesomeIcon icon={faTag} className="text-[#1A73A7] mr-3" />
         <strong>Luggage Price:</strong>{" "}
-        <span className="ml-2"> starts from <b>$7.90 AUD bag/day</b></span>
+        <span className="ml-2">
+          {" "}
+          starts from <b>$7.90 AUD bag/day</b>
+        </span>
       </p>
       <p className="mb-4 text-lg">
         <FontAwesomeIcon icon={faStar} className="text-[#eab308] mr-2" />

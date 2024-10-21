@@ -52,6 +52,10 @@ function Blog() {
                   <a
                     href={"/blog-details/" + (index + 1)}
                     className="hover:text-blue-600 transition duration-300"
+                    about={post?.comments}
+                    title={post?.title}
+                    aria-description={post?.comments}
+                    aria-roledescription="blog url"
                   >
                     {post.title}
                   </a>
@@ -59,12 +63,9 @@ function Blog() {
                 <div className="mb-4">
                   <span className="text-gray-500">
                     By:
-                    <a
-                      href="#"
-                      className="inline-block bg-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white transition duration-300 px-2 py-1 rounded ml-2"
-                    >
+                    <span className="inline-block bg-blue-100 text-blue-600 hover:bg-blue-600 hover:text-white transition duration-300 px-2 py-1 rounded ml-2">
                       {post.author}
-                    </a>
+                    </span>
                   </span>
                 </div>
                 <div className="flex items-center justify-between mb-4 text-gray-500">
@@ -82,6 +83,7 @@ function Blog() {
                   to={"/blog-details/" + (index + 1)}
                   about={post?.comments}
                   title={post?.title}
+                  aria-description={post?.comments}
                   className="inline-flex items-center text-blue-600 hover:text-blue-700 transition duration-300 font-semibold"
                 >
                   Read More{" "}

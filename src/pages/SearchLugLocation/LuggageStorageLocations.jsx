@@ -64,7 +64,7 @@ const CustomPrevArrow = (props) => {
       className={`${className} custom-arrow custom-prev-arrow`}
       onClick={onClick}
     >
-      <MdKeyboardArrowLeft />
+      <MdKeyboardArrowLeft size={'1.5em'} />
     </button>
   );
 };
@@ -76,36 +76,12 @@ const CustomNextArrow = (props) => {
       className={`${className} custom-arrow custom-next-arrow`}
       onClick={onClick}
     >
-      <MdKeyboardArrowRight />
+      <MdKeyboardArrowRight size={'1.5em'} />
     </button>
   );
 };
 const LuggageStorageLocations = () => {
   const navigate = useNavigate();
-
-  const CustomPrevArrow = (props) => {
-    const { className, onClick } = props;
-    return (
-      <button
-        className={`${className} custom-arrow custom-prev-arrow`}
-        onClick={onClick}
-      >
-        <MdKeyboardArrowLeft />
-      </button>
-    );
-  };
-
-  const CustomNextArrow = (props) => {
-    const { className, onClick } = props;
-    return (
-      <button
-        className={`${className} custom-arrow custom-next-arrow`}
-        onClick={onClick}
-      >
-        <MdKeyboardArrowRight />
-      </button>
-    );
-  };
 
   const handleSearchLocation = (locationName) => {
     const geocoder = new window.google.maps.Geocoder();
@@ -132,28 +108,26 @@ const LuggageStorageLocations = () => {
   // const t = translations[currentLanguage]?.luggageStorageLocations;
 
   return (
-    <div className="bg-gradient-to-b from-gray-200 via-white to-gray-300 py-24">
+    <div className="bg-gradient-to-t from-white via-white to-custom-teal-deep/20 py-24">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-extrabold text-center mb-12 text-[#4A686A]">
           {t?.title}
         </h2>
         <Swiper
           modules={[Autoplay]}
-          spaceBetween={30}
-          slidesPerView={'auto'}
+          spaceBetween={10}
+          slidesPerView={"auto"}
           loop={true}
           speed={1000}
           autoplay={{
             delay: 2000,
             pauseOnMouseEnter: true,
           }}
-          onSwiper={(swiper) => console.log(swiper)}
-          onSlideChange={() => console.log("slide change")}
         >
           {locations.map((location, index) => (
             <SwiperSlide
               key={index}
-              className="mt-12 mx-auto p-4 mb-5 bg-white rounded-xl overflow-hidden transform transition-transform duration-300 w-full max-w-xl"
+              className="mt-12 mx-auto p-4 mb-5 bg-white rounded-xl overflow-hidden transform transition-transform duration-300 w-full max-w-md"
             >
               <img
                 className="aspect-video w-full object-cover rounded-xl"

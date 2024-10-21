@@ -24,16 +24,18 @@ const LuggageLocation = () => {
         `${config.API_BASE_URL}/api/v1/locations/nearest-locations`,
         {
           params: {
-            latitude: loc?.lat || -33.805,
-            longitude: loc?.lng || 151.805,
+            latitude: loc?.lat || -37.805,
+            longitude: loc?.lng || 144.805,
             maxDistance: 30000,
             limit: 30,
           },
         }
       );
       console.log(response.data);
-      setLocations(response.data);
-      setVisibleLocations(response.data);
+      setLocations(response.data?.filter((f) => f?.canStoreKeys === true));
+      setVisibleLocations(
+        response.data?.filter((f) => f?.canStoreKeys === true)
+      );
       setLoading(false);
       return;
     } catch (error) {

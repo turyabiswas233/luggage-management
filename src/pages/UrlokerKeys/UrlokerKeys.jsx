@@ -35,6 +35,9 @@ function UrlokerKeys() {
   const [pickUpPhone, setPickUpPhone] = useState("");
   const [pickUpDate, setPickUpDate] = useState(new Date());
   const [keysNum, setKeysNum] = useState(1);
+  const [promoCode, setPromoCode] = useState(""); // promo_code
+  const [isPromoApplied, setIsPromoApplied] = useState(false); // promo_code checker
+  const [promoAlert, setPromoAlert] = useState("");
   const [load, setLoad] = useState(false);
   // const [location, setLocation] = useState(sk.get("location") || "");
   const [locs, setLocs] = useState([]);
@@ -137,7 +140,30 @@ function UrlokerKeys() {
         setBookingId(response.data.booking?._id);
         // setBookingId(result.booking._id);
         console.log("AirBnB Key ID:", response.data);
-        setShowPaymentModal(true);
+        if (!isPromoApplied) setShowPaymentModal(true);
+        else if (isPromoApplied && response.data.booking?._id) {
+          const utilizeResponse = await axios.put(
+            `${url}/api/v1/promocode/utilize/${promoCode}`,
+            {}
+          );
+          if (
+            utilizeResponse.data.message ===
+            "Promo code is either already utilized or inactive"
+          ) {
+            alert("Promo code is either already utilized or inactive");
+            return;
+          }
+          const promoResponse = await axios.put(
+            `${url}/api/v1/airbnb-keys/bookings/${response.data.booking?._id}/discount`,
+            {
+              discountCode: promoCode,
+              discountPercentage: 100,
+              coversFullAmount: true,
+            }
+          );
+          console.log("Promo Response:", promoResponse.data);
+          setFinalMessage("PAYMENT SUCCESSFUL");
+        }
       }
     } catch (err) {
       console.log(err);
@@ -281,6 +307,76 @@ function UrlokerKeys() {
                 <span className="text-lg font-bold">{finalMessage}</span>
               </p>
             ))}
+          {!showPaymentModal && !finalMessage.includes("SUCCESSFUL") && (
+            <div>
+              {/* promo code input box */}
+              <label className="block mb-2 text-sm" htmlFor="promo_code">
+                Promo Code
+              </label>
+              <section className="flex gap-4">
+                <input
+                  className="border rounded-md px-3 py-2 w-full flex-1"
+                  placeholder="Enter Promo Code"
+                  id="promo_code"
+                  name="promo_code"
+                  value={promoCode}
+                  onChange={(e) => setPromoCode(e.target.value)}
+                />
+                <button
+                  className="bg-custom-teal text-white font-medium px-5 rounded-md hover:bg-custom-teal-deep transition-colors"
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (promoCode.length == 0) {
+                      alert("Please enter a promo code");
+                      return;
+                    } else {
+                      const url = config.API_BASE_URL;
+                      setLoad(true);
+                      axios
+                        .get(`${url}/api/v1/promocode/check/${promoCode}`)
+                        .then((res) => {
+                          console.log(res.data);
+                          if (res.data?.discountPercentage) {
+                            console.log(
+                              amount -
+                                (amount * res.data?.discountPercentage) / 100
+                            );
+                            setAmount((p) =>
+                              Number(
+                                p - (p * res.data?.discountPercentage) / 100
+                              )
+                            );
+                            setIsPromoApplied(true);
+                          } else {
+                            setAmount(15);
+                          }
+                          setPromoAlert(
+                            res.data?.message || "Invalid promo code"
+                          );
+                        })
+                        .catch((err) => {
+                          setIsPromoApplied(false);
+                          setPromoAlert(
+                            err.response?.data?.message || "Invalid promo code"
+                          );
+                        })
+                        .finally(() => {
+                          setLoad(false);
+                        });
+                    }
+                  }}
+                >
+                  Apply
+                </button>
+              </section>
+              {promoAlert && (
+                <p className="text-amber-700 font-semibold mt-2 text-base capitalize">
+                  *{promoAlert}
+                </p>
+              )}
+            </div>
+          )}
         </div>
 
         {bookingId && clientSecret ? null : (
@@ -357,6 +453,11 @@ function UrlokerKeys() {
                     <span className="text-lg font-bold">
                       ${amount.toFixed(2)} AUD
                     </span>
+                    {isPromoApplied && (
+                      <span className="text-sm font-thin">
+                        {"(using promo code)"}
+                      </span>
+                    )}
                   </Col>
                 </Card>
               </Col>

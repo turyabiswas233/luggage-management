@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
-import backgroundImage from "/img/home-two/hero1.jpg";
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api"; 
+import backgroundImage from "/img/home-two/luggage-1.png";
 import "./Banner.css";
 import config from "../../config";
 import { useTranslation } from "react-i18next";
@@ -20,7 +20,7 @@ function Banner() {
 
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
-    libraries,
+    libraries: libraries,
   });
 
   const onLoad = useCallback((autocompleteInstance) => {
@@ -111,10 +111,10 @@ function Banner() {
         <div className="p-10 max-w-screen-md">
           <img
             // className="rounded-2xl w-full max-w-md mx-auto aspect-auto skew-x-3 -skew-y-12 rotate-2 scale-x-90 mb-5"
-            className="rounded-2xl mx-auto"
+            className="mx-auto w-full aspect-video object-cover"
             src={backgroundImage}
-            width={500}
-            height={(500 * 9) / 16}
+            width={800}
+            height={(800 * 9) / 16}
             alt="bg-image"
             loading="lazy"
           />
@@ -138,7 +138,7 @@ function Banner() {
             aria-label="Location search form"
           > */}
             <div className="flex flex-col sm:flex-row justify-center items-center relative">
-              <Autocomplete
+              {isLoaded && <Autocomplete
                 onLoad={onLoad}
                 onPlaceChanged={onPlaceChanged}
                 className="flex items-center h-fit w-full"
@@ -150,7 +150,7 @@ function Banner() {
                   placeholder={searchPlaceholder}
                   ref={locationInputRef}
                 />
-              </Autocomplete>
+              </Autocomplete>}
               {/* <button
                 type="submit"
                 className="w-full rounded-full bg-custom-teal hover:bg-custom-teal-deep py-2 mt-2 hidden"

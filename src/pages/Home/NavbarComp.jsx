@@ -37,7 +37,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
     translations[currentLanguage] || translations["en"];
 
   return (
-    <div className="fixed top-0 w-full bg-white/70 backdrop-blur shadow-md z-50">
+    <div className="fixed top-0 w-full bg-white shadow-lg z-50">
       <div className="mx-auto flex justify-between items-center p-4 md:py-4 md:px-24 md:w-5/6">
         <nav className="flex items-center">
           <a href="/" className="flex items-center">

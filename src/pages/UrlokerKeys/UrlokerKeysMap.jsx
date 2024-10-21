@@ -22,14 +22,14 @@ const LuggageLocation = () => {
         `${config.API_BASE_URL}/api/v1/locations/nearest-locations`,
         {
           params: {
-            latitude: loc?.lat || -33.805,
-            longitude: loc?.lng || 151.805,
-            maxDistance: 29000,
+            latitude: loc?.lat || -37.805,
+            longitude: loc?.lng || 144.805,
+            maxDistance: 30000,
             limit: 30,
           },
         }
       );
-
+      console.log(response.data);
       setLocations(response.data?.filter((f) => f?.canStoreKeys === true));
       setVisibleLocations(
         response.data?.filter((f) => f?.canStoreKeys === true)
@@ -37,7 +37,7 @@ const LuggageLocation = () => {
       setLoading(false);
       return;
     } catch (error) {
-      if (error.response && error.response.status === 429 && retryCount < 5) {
+      if (error.response && error.response.status === 429 && retryCount < 3) {
         const retryAfter = (error.response.headers["retry-after"] || 1) * 1000;
         setTimeout(() => fetchLocations(loc, retryCount + 1), retryAfter);
       } else {
@@ -60,7 +60,7 @@ const LuggageLocation = () => {
     setCurrentLocation(location);
   };
 
-  const getNearestLocations = async (loc) => {
+  const getNearestLocations = async (loc = null) => {
     if (loc) {
       setCurrentLocation(loc);
       fetchLocations(loc);
@@ -81,7 +81,8 @@ const LuggageLocation = () => {
         },
         (error) => {
           console.error("Error fetching location:", error);
-        }
+          setLoading(false);
+        }, 
       );
       if (currentLocation) {
         return currentLocation;

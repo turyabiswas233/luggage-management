@@ -1,5 +1,4 @@
 import React from "react";
-import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 import review1 from "/img/home-two/team-1.jpg";
 import review2 from "/img/home-two/alisa.png";
@@ -13,7 +12,7 @@ import "./Review.css"; // Custom CSS for additional styling
 
 // swiper
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import { Navigation, Pagination, A11y, Autoplay } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 
 // Import Swiper styles
 import "swiper/css";
@@ -28,7 +27,7 @@ const CustomPrevArrow = (props) => {
       className={`${className} custom-arrow custom-prev-arrow`}
       onClick={onClick}
     >
-      <MdKeyboardArrowLeft />
+      <MdKeyboardArrowLeft size={'1.5em'} />
     </button>
   );
 };
@@ -40,7 +39,7 @@ const CustomNextArrow = (props) => {
       className={`${className} custom-arrow custom-next-arrow`}
       onClick={onClick}
     >
-      <MdKeyboardArrowRight />
+      <MdKeyboardArrowRight size={'1.5em'} />
     </button>
   );
 };
@@ -52,7 +51,7 @@ const Review = () => {
 
   const img = [review1, review2, review3, review4, review5];
   return (
-    <section className="py-12 bg-gray-200">
+    <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
           Millions of customers all over the world
@@ -65,20 +64,18 @@ const Review = () => {
           <Swiper
             modules={[Autoplay]}
             spaceBetween={30}
-            slidesPerView={3}
+            slidesPerView={"auto"}
             loop={true}
             speed={1000}
             autoplay={{
               delay: 3000,
               pauseOnMouseEnter: true,
             }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
           >
             {t.reviews.map((review, index) => (
               <SwiperSlide
                 key={index}
-                className="grid gap-2 min-h-fit h-80 bg-white shadow-md rounded-xl overflow-hidden border-2 border-teal-500 max-w-screen-md mx-auto p-6 mb-10 "
+                className="grid gap-2 min-h-fit max-w-md h-80 bg-white shadow-md rounded-xl overflow-hidden border-2 border-teal-500 mx-auto p-6 mb-10 "
               >
                 <div>
                   <p className="text-gray-500 text-sm">
