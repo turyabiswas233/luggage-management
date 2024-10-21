@@ -31,11 +31,8 @@ const LuggageLocation = () => {
           },
         }
       );
-      console.log(response.data);
-      setLocations(response.data?.filter((f) => f?.canStoreKeys === true));
-      setVisibleLocations(
-        response.data?.filter((f) => f?.canStoreKeys === true)
-      );
+      setLocations(response.data);
+      setVisibleLocations(response.data);
       setLoading(false);
       return;
     } catch (error) {

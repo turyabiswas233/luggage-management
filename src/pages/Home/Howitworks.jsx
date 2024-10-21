@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import book from "/img/home-two/book.jpg";
 import lock from "/img/home-two/lock.jpg";
-import enjoy from "/img/home-two/enjoy.jpg";
-import guideline from "/img/home-two/luggage-1.webp";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import enjoy from "/img/home-two/enjoy.jpg"; 
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
@@ -104,24 +101,6 @@ function HowItWorks() {
                   {t?.steps?.enjoy?.title}
                 </h3>
                 <p className="text-gray-600">{t?.steps?.enjoy?.description}</p>
-              </div>
-            </div>
-          </div>
-          {/* Video Section */}
-          <div className="w-full px-4 mt-12 lg:mt-0 hidden">
-            <div className="relative w-full h-96 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
-              <img
-                src={guideline}
-                alt={t?.video?.altText}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 group-hover:bg-opacity-60 transition-all duration-300">
-                <button
-                  onClick={openModal}
-                  className="bg-green-600 hover:bg-green-700 p-6 rounded-full text-white transition-colors duration-300"
-                >
-                  <FontAwesomeIcon icon={faPlay} className="text-4xl" />
-                </button>
               </div>
             </div>
           </div>

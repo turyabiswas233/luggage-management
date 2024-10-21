@@ -1,6 +1,6 @@
 import React from "react";
 import "./Choose.css"; // Import custom CSS for additional styling
-import luggage1 from "/img/home-two/luggage-1.webp";
+import luggage1 from "/img/home-two/luggage-1.svg";
 import luggage2 from "/img/home-two/luggage-2.jpg";
 import { useTranslation } from "react-i18next";
 

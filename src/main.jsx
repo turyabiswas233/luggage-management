@@ -5,6 +5,7 @@ import ThemeProvider from "./utils/ThemeContext";
 import App from "./App"; 
 import { HelmetProvider } from "react-helmet-async";
 import "./index.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import "./i18";
 ReactDOM.createRoot(document.getElementById("root")).render(

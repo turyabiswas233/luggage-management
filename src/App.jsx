@@ -15,7 +15,6 @@ import LuggageDetails from "./pages/Luggage/LuggageDetails";
 import AllCustomer from "./pages/Partner/AllCustomer";
 import PartnerAnalytics from "./pages/Partner/PartnerAnalytics";
 import AdminAnalytics from "./pages/SuperAdmin/AdminAnalytics";
-import SearchNearLocation from "./pages/SearchNearLocation";
 import AboutDetails from "./pages/About/AboutDetails";
 import Home from "./pages/Home/Home";
 import Service from "./pages/Home/Service";
@@ -49,7 +48,6 @@ import UnauthorizedPage from "./pages/UnauthorizedPage";
 import ClientRefundForm from "./pages/User/ClientRefundFOrm";
 import ClientHome from "./pages/User/ClientHome";
 import PaymentSuccess from "./pages/SearchLugLocation/LuggageDetails/PaymentSuccess";
-import GuidelineCom from "./pages/Static/GuidelineCom";
 import CreatePartnerLocation from "./pages/Partner/AddLocation/CreatePartnerLocation";
 import CreateAdminLocation from "./pages/SuperAdmin/AddLocation/CreateAdminLocation";
 import EditSpecialClosedDays from "./pages/Partner/EditSpecialClosedDays";
@@ -95,9 +93,7 @@ function App() {
         <Route exact path="/support" element={<Support />} />
         <Route exact path="/privacy-policy" element={<Privacy />} />
         <Route exact path="/terms-and-conditions" element={<Terms />} />
-
-        <Route exact path="/guideline" element={<GuidelineCom />} />
-
+ 
         <Route path="/logout" element={<Logout />} />
         <Route path="/urlokerKeys" element={<UrlokerKeys />} />
         <Route path="/urlokerKeysMap" element={<UrlokerKeysMap />} />
@@ -222,11 +218,7 @@ function App() {
           element={<UserServiceAgency />}
         />
         <Route exact path="/searchluggage" element={<SearchLuggage />} />
-        <Route
-          exact
-          path="/searchnearlocation"
-          element={<SearchNearLocation />}
-        />
+      
         <Route
           exact
           path="/superadmin/notification/add"

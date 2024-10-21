@@ -27,7 +27,7 @@ function MelbourneCBD() {
   const [autocomplete, setAutocomplete] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [loadingLocation, setLoadingLocation] = useState(false);
-  const locationInputRef  = useRef(null);
+  const locationInputRef = useRef(null);
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
     libraries,
@@ -168,7 +168,9 @@ function MelbourneCBD() {
         <header className="mt-10 py-20 px-5 text-black/80 bg-white">
           <div className="my-10 flex gap-10 flex-col lg:flex-row w-full max-w-screen-xl mx-auto">
             <div className="space-y-6">
-              <p className="text-sm">Freedom in Every Journey</p>
+              <p className="text-sm">
+                Your Trusted Luggage Storage Partner in Australia
+              </p>
               <img
                 src={cbd}
                 width={800}
@@ -179,28 +181,24 @@ function MelbourneCBD() {
               <h1 className="text-4xl md:text-6xl font-bold my-4 text-green-800">
                 Luggage Storage Melbourne CBD
               </h1>
-              <p>Looking For Luggage Services? We Are Here...</p>
+              <p>Freedom in every journey with Urloker</p>
               <div className="flex flex-col sm:flex-row justify-center items-center relative">
-               {isLoaded &&  <Autocomplete
-                  onLoad={onLoad}
-                  onPlaceChanged={onPlaceChanged}
-                  className="flex items-center h-fit w-full"
-                >
-                  <input
-                    type="text"
-                    id="location"
-                    className="bg-white text-black placeholder:text-gray-700 rounded-full p-3 w-full h-fit"
-                    placeholder={searchPlaceholder}
-                    ref={locationInputRef}
-                    defaultValue={"CBD Melbourne VIC, Australia"}
-                  />
-                </Autocomplete>}
-                {/* <button
-                type="submit"
-                className="w-full rounded-full bg-custom-teal hover:bg-custom-teal-deep py-2 mt-2 hidden"
-              >
-                {searchButton}
-              </button> */}
+                {isLoaded && (
+                  <Autocomplete
+                    onLoad={onLoad}
+                    onPlaceChanged={onPlaceChanged}
+                    className="flex items-center h-fit w-full"
+                  >
+                    <input
+                      type="text"
+                      id="location"
+                      className="bg-white text-black placeholder:text-gray-700 rounded-full p-3 w-full h-fit"
+                      placeholder={searchPlaceholder}
+                      ref={locationInputRef}
+                      defaultValue={"CBD Melbourne VIC, Australia"}
+                    />
+                  </Autocomplete>
+                )}
               </div>
               <button
                 type="button"
@@ -281,7 +279,9 @@ function MelbourneCBD() {
             </article>
           </div>
           <div className="space-y-6 my-5">
-            <h3 className="text-2xl font-bold text-black">Exploring the Melbourne CBD</h3>
+            <h3 className="text-2xl font-bold text-black">
+              Exploring the Melbourne CBD
+            </h3>
             <p>
               If you are looking for some out-of-the-city travel, the Southern
               Cross, Melbourne Central, and Flinders Street train stations

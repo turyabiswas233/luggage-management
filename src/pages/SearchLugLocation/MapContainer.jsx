@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import useGoogleMapsApi from "../Partner/AddLocation/useGoogleMapsApi";
 import config from "../../config";
 import googleMapIcon from "/img/home-two/gmi.svg";
-// import myLocIcon from "/img/home-two/mylocation.svg";
+import userLocation from "/img/home-two/userLocation.svg"; 
 
 const MapContainer = ({ locations, setVisibleLocations, center }) => {
   const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
@@ -22,8 +22,10 @@ const MapContainer = ({ locations, setVisibleLocations, center }) => {
     if (window.google && window.google.maps.Map) {
       const map = new google.maps.Map(document.getElementById("map"), {
         center: center || { lat: -36.8688, lng: 144.9093 },
-        mapId: "DemoMapId",
-        zoom: 5,
+        mapId: "mapId",
+        minZoom: 12,
+        zoom: 15,
+        maxZoom: 30,
       });
       if (!map) return;
 
@@ -31,40 +33,46 @@ const MapContainer = ({ locations, setVisibleLocations, center }) => {
       const { AdvancedMarkerElement } = await google.maps.importLibrary(
         "marker"
       );
-      locations.forEach((location) => {
-        const markerIcon = document.createElement("img");
-        markerIcon.src = googleMapIcon;
-        markerIcon.width = 30;
-        markerIcon.height = 30;
-        const marker = new AdvancedMarkerElement({
-          position: {
-            lat: location.coordinates.coordinates[1],
-            lng: location.coordinates.coordinates[0],
-          },
-          map: map,
-          // title: location.name,
-          content: markerIcon
-          // icon: {
-          //   url: googleMapIcon,
-          // },
-        });
-        bounds.extend(marker.position);
-      });
+      const userIcon = document.createElement("img");
+      userIcon.src = userLocation;
+      userIcon.width = 30;
+      userIcon.height = 30;
 
-      const marker = new AdvancedMarkerElement({
+      const userMarker = new AdvancedMarkerElement({
         position: {
           lat: center?.lat || -37.8295,
           lng: center?.lng || 144.905,
         },
         map: map,
         title: "You",
+        content: userIcon,
       });
-      bounds.extend(marker?.position);
+
+      locations.forEach((location) => {
+        const markerIcon = document.createElement("img");
+        markerIcon.src = googleMapIcon;
+        markerIcon.width = 30;
+        markerIcon.height = 30;
+
+        const marker = new AdvancedMarkerElement({
+          position: {
+            lat: location.coordinates.coordinates[1],
+            lng: location.coordinates.coordinates[0],
+          },
+          map: map,
+          title: location.name,
+
+          content: markerIcon,
+        });
+        bounds.extend(marker.position);
+      });
+
+      bounds.extend(userMarker.position);
 
       if (!center) {
         map.fitBounds(bounds);
       } else {
-        map.setZoom(12); // Adjust zoom level as needed
+        map.setZoom(15); // Adjust zoom level as needed
       }
 
       google.maps.event.addListener(map, "idle", () => {

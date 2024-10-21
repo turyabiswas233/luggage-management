@@ -4,6 +4,7 @@ import HowItWorks from "../Home/Howitworks";
 import Review from "../Home/Review";
 import { FaMapLocationDot, FaCity } from "react-icons/fa6";
 import {
+  MdArrowRight,
   MdKeyboardArrowLeft,
   MdKeyboardArrowRight,
   MdSecurity,
@@ -11,6 +12,8 @@ import {
 import { MdMedicalServices } from "react-icons/md";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function AttractionBox({ locationImage, me }) {
   return (
@@ -66,7 +69,7 @@ const CustomInfo = () => {
       <div className="flex flex-col lg:flex-row gap-10">
         <div>
           <h3 className="font-bold text-4xl">
-            Trusted by millions of customers worldwide
+            Secure and Hassle Free Luggage Storage
           </h3>
         </div>
         <div className="hidden lg:grid grid-cols-2 gap-5 overflow-x-auto p-5">
@@ -136,10 +139,53 @@ const CustomNextArrow = (props) => {
 };
 const SwipeButton = () => {
   const swipe = useSwiper();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
+  const translate = t("home");
+
+  const { findLocationsButton } = translate?.heroSection;
+
+  const handleNearMyLocationClick = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          navigate("/luggage_locations", { state: { location, nearby: true } });
+        },
+        (error) => {
+          console.error("Error fetching location:", error);
+
+          if (navigator.permissions) {
+            navigator.permissions
+              .query({ name: "geolocation" })
+              .then(function (result) {
+                if (result.state === "denied") {
+                  alert("Please enable location services to use this feature");
+                }
+              });
+          }
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  };
   return (
-    <div className="flex gap-3 items-center justify-end">
-      <CustomPrevArrow onClick={() => swipe.slidePrev()} />
-      <CustomNextArrow onClick={() => swipe.slideNext()} />
+    <div className="flex justify-between items-center mt-6">
+      <button
+        className="text-custom-teal-deep flex gap-1 items-center bg-white rounded-full px-3 py-2 group hover:bg-slate-50 transition-colors"
+        type="button"
+        onClick={handleNearMyLocationClick}
+      >
+        Book now <MdArrowRight className="transition-transform group-hover:translate-x-1 duration-500" />
+      </button>
+      <div className="flex gap-3 items-center justify-end">
+        <CustomPrevArrow onClick={() => swipe.slidePrev()} />
+        <CustomNextArrow onClick={() => swipe.slideNext()} />
+      </div>
     </div>
   );
 };

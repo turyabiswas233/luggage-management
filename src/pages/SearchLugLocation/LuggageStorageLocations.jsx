@@ -108,7 +108,7 @@ const LuggageStorageLocations = () => {
   // const t = translations[currentLanguage]?.luggageStorageLocations;
 
   return (
-    <div className="bg-gradient-to-t from-white via-white to-custom-teal-deep/20 py-24">
+    <div className="bg-gradient-to-t from-white via-white to-custom-teal-deep/20 py-16">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-extrabold text-center mb-12 text-[#4A686A]">
           {t?.title}
@@ -123,11 +123,12 @@ const LuggageStorageLocations = () => {
             delay: 2000,
             pauseOnMouseEnter: true,
           }}
+          className="relative flex gap-5 pb-12"
         >
           {locations.map((location, index) => (
             <SwiperSlide
               key={index}
-              className="mt-12 mx-auto p-4 mb-5 bg-white rounded-xl overflow-hidden transform transition-transform duration-300 w-full max-w-md"
+              className="grid gap-2 min-h-fit max-w-md h-80 bg-white shadow-md rounded-xl overflow-hidden md:mx-auto p-2 mb-14"
             >
               <img
                 className="aspect-video w-full object-cover rounded-xl"
@@ -159,7 +160,7 @@ const LuggageStorageLocations = () => {
 const SwipeButton = () => {
   const swipe = useSwiper();
   return (
-    <div className="flex gap-3 items-center justify-end">
+    <div className="absolute right-0 bottom-10 flex gap-3 items-center justify-end">
       <CustomPrevArrow onClick={() => swipe.slidePrev()} />
       <CustomNextArrow onClick={() => swipe.slideNext()} />
     </div>

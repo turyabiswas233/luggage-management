@@ -18,7 +18,7 @@ const BookingForm = ({
   locationid,
   clientId,
   clientDetails,
-  setClientDetails, 
+  setClientDetails,
   setQrcode,
   isAgree,
   setIsAgree,
@@ -203,7 +203,7 @@ const BookingForm = ({
     }
 
     try {
-      setQrcode(Boolean(search[0].get("isQrcode")) || false)
+      setQrcode(Boolean(search[0].get("isQrcode")) || false);
       await handleSubmit(
         {
           ...bookingData,
@@ -294,8 +294,9 @@ const BookingForm = ({
 
         <div className="Mb-4 flex gap-2 items-center mb-6 group w-fit">
           <input
-            type="checkbox"
+            className="hidden"
             hidden
+            type="checkbox"
             name="isAgree"
             id="isAgree"
             onChange={(e) => setIsAgree(e.target.checked)}
@@ -389,18 +390,14 @@ const BookingForm = ({
         <Button
           variant="primary"
           onClick={openUserDetailsModal}
-          className="w-full bg-[#1A73A7] text-white py-2 rounded hover:bg-blue-700 transition duration-300 mb-2"
+          className="w-full bg-[#1A73A7] text-white py-2 rounded hover:bg-blue-700 transition duration-300 mb-2 disabled:pointer-events-none disabled:grayscale disabled:bg-gray-500 disabled:opacity-60"
           disabled={!checkinTime || !checkoutTime || !isAgree}
         >
           Book Now
         </Button>
       </form>
 
-      <Modal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        className="modal-dialog-centered"
-      >
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton className="bg-[#1A73A7] text-white">
           <Modal.Title>User Details</Modal.Title>
         </Modal.Header>
@@ -459,7 +456,7 @@ const BookingForm = ({
                       htmlFor="clientPhone"
                       className="block font-semibold mb-1"
                     >
-                      Phone Number:
+                      Phone Number (optional):
                     </label>
                     <input
                       type="text"
@@ -495,13 +492,14 @@ const BookingForm = ({
                   onChange={handleFileChange}
                 />
               </div>
-              <Button
-                variant="primary"
-                type="submit"
-                className="w-full bg-[#1A73A7] text-white py-3 rounded-lg hover:bg-blue-500 transition duration-300"
-              >
-                Submit
-              </Button>
+              <Modal.Footer>
+                <button
+                  type="submit"
+                  className="w-full bg-[#1A73A7] text-white py-2 rounded-lg hover:bg-[#1a6397] transition duration-300"
+                >
+                  Submit
+                </button>
+              </Modal.Footer>
               {errorMessage && <p className="text-red-500">{errorMessage}</p>}{" "}
               {/* Show error message */}
             </form>

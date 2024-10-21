@@ -40,13 +40,13 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
     <div className="fixed top-0 w-full bg-white shadow-lg z-50">
       <div className="mx-auto flex justify-between items-center p-4 md:py-4 md:px-24 md:w-5/6">
         <nav className="flex items-center">
-          <a href="/" className="flex items-center">
+          <a href="/" className="flex items-center no-underline">
             <img src={logo} alt="logo1" className="h-16 w-40" />
           </a>
           <div className="md:hidden ml-4">
             <a
               href="/urlokerKeysMap"
-              className="flex items-center text-[#1a73a7] hover:text-[#2a9b84]"
+              className="flex items-center text-[#208873] hover:text-[#208873] no-underline"
             >
               <FontAwesomeIcon icon={faKey} className="mr-2" />{" "}
               {currentTranslations.header.urlokerKeys}
@@ -56,7 +56,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
         <div className="md:hidden">
           <button
             onClick={toggleMenu}
-            className="text-[#1a73a7] focus:outline-none"
+            className="text-[#208873] focus:outline-none"
           >
             <svg
               className="w-6 h-6"
@@ -75,19 +75,19 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
           </button>
         </div>
         <nav
-          className={`flex-col md:items-center gap-y-4 absolute top-24 left-0 w-screen md:w-fit md:static md:flex md:flex-row md:space-x-16 text-[#1a73a7] ${
+          className={`flex-col md:items-center gap-y-4 absolute top-24 left-0 w-screen md:w-fit md:static md:flex md:flex-row md:space-x-16 text-[#208873] ${
             isMenuOpen
               ? "flex bg-white md:bg-transparent shadow-xl shadow-slate-300 md:shadow-none rounded-md p-3"
               : "hidden"
           }`}
         >
           <div className="md:flex md:flex-row md:space-x-16">
-            <a href="/" className="hover:text-[#2a9b84] ">
+            <a href="/" className="text-[#208873] no-underline">
               {currentTranslations.header.home}
             </a>
             <a
               href="/urlokerKeysMap"
-              className="hidden md:block  hover:text-[#2a9b84] "
+              className="hidden md:block text-[#208873] no-underline"
             >
               {currentTranslations.header.urlokerKeys}
             </a>
@@ -96,7 +96,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
             <div className="relative group">
               <button
                 onClick={() => handleDropdownToggle("login")}
-                className="hover:text-[#2a9b84] flex items-center focus:outline-none"
+                className="hover:text-[#208873] flex items-center focus:outline-none"
               >
                 {currentTranslations.header.login}{" "}
                 <svg
@@ -147,7 +147,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
             <div className="relative group">
               <button
                 onClick={() => handleDropdownToggle("language")}
-                className="hover:text-[#2a9b84] flex items-center focus:outline-none"
+                className="hover:text-[#208873] flex items-center focus:outline-none"
               >
                 {currentTranslations.header.language}{" "}
                 <svg

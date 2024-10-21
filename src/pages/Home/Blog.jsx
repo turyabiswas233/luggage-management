@@ -6,7 +6,7 @@ import {
   faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 import furniture from "/img/home-two/furniture-1.jpg";
-import luggage from "/img/home-two/luggage-1.webp";
+import luggage from "/img/home-two/luggage-1.svg";
 import hospital from "/img/home-two/hospital-1.webp";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";

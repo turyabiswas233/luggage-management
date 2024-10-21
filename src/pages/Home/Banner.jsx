@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
-import backgroundImage from "/img/home-two/luggage-1.png";
+import backgroundImage from "/img/home-two/luggage-1.svg";
 import "./Banner.css";
 import config from "../../config";
 import { useTranslation } from "react-i18next";
@@ -111,9 +111,8 @@ function Banner() {
 
   return (
     <div
-      // className="banner bg-cover bg-center bg-no-repeat mt-28 h-screen flex items-center justify-center relative"
+       className="bg-custom-teal-deep/20 min-h-fit h-auto w-screen bg-cover backdrop-blur bg-no-repeat"
       // style={{ backgroundImage: `url(${backgroundImage})` }}
-      className="bg-custom-teal-deep/10 min-h-fit h-auto w-screen bg-cover backdrop-blur bg-no-repeat"
     >
       {/* <div className="absolute inset-0 bg-teal-100 opacity-80 backdrop-blur blur"></div> */}
       <div className=" grid grid-cols-1 min-h-[75vh] h-full mt-24 md:grid-cols-2 md:items-center divide-x-reverse max-w-screen-xl mx-auto py-20">

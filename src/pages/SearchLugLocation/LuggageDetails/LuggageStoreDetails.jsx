@@ -27,13 +27,12 @@ import BookingForm from "./BookingForm";
 import NavbarComp from "../../Home/NavbarComp";
 import { Button, Modal } from "react-bootstrap";
 import { FiAlertCircle } from "react-icons/fi";
-
 library.add(faMapMarkerAlt, faClock, faStar, faWifi, faShieldAlt, faTag);
 
 const LuggageStoreDetails = () => {
   const stripePromise = loadStripe(config.STRIPE_PUBLIC_KEY);
 
-  const location = useLocation();
+  const { state, pathname } = useLocation();
   const navigate = useNavigate();
 
   const [storeDetails, setStoreDetails] = useState(null);
@@ -64,53 +63,51 @@ const LuggageStoreDetails = () => {
   const [showBookingErrorModal, setShowBookingErrorModal] = useState(false);
   const [guestDetails, setGuestDetails] = useState(null);
 
-  const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
+  const fetchStoreDetails = async () => {
+    if (!state || !state.link) {
+      const pName = pathname.split("/").pop();
+      const url = `${config.API_BASE_URL}/api/v1/locations/url/${pName}`;
 
-  useEffect(() => {
-    const fetchStoreDetails = async () => {
-      if (!location.state || !location.state.link) {
-        const pathName = location.pathname.split("/").pop();
-        const url = `${config.API_BASE_URL}/api/v1/locations/url/${pathName}`;
-        console.log(pathName);
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
 
-        try {
-          const response = await fetch(url);
-          const data = await response.json();
-
-          if (response.ok) {
-            console.log(data?.overbooking);
-            setStoreDetails({
-              id: data._id,
-              title: data.name,
-              details: data.description,
-              price: data.regularPrice,
-              lat: data.coordinates.coordinates[1],
-              lng: data.coordinates.coordinates[0],
-              regularprice: data.regularPrice,
-              availableFrom: data.availableFrom,
-              availableTo: data.availableTo,
-              discountPercentage: data.discountPercentage,
-              openTime: data.openTime,
-              closeTime: data.closeTime,
-              notes: data.notes,
-              link: data.url,
-              isAllowd: data.overbooking,
-            });
-          } else {
-            console.error("Error fetching store details:", data);
-            navigate("/error"); // Redirect to an error page
-          }
-        } catch (error) {
-          console.error("Error:", error);
+        if (response.ok) {
+          setBookingAllowed(data?.overbooking);
+          console.log(isBookingAllowd)
+          setStoreDetails({
+            id: data._id,
+            title: data.name,
+            details: data.description,
+            price: data.regularPrice,
+            lat: data.coordinates.coordinates[1],
+            lng: data.coordinates.coordinates[0],
+            regularprice: data.regularPrice,
+            availableFrom: data.availableFrom,
+            availableTo: data.availableTo,
+            discountPercentage: data.discountPercentage,
+            openTime: data.openTime,
+            closeTime: data.closeTime,
+            notes: data.notes,
+            link: data.url,
+            isAllowd: data.overbooking,
+          });
+        } else {
+          console.error("Error fetching store details:", data);
           navigate("/error"); // Redirect to an error page
         }
-      } else {
-        setStoreDetails(location.state); // Use the data passed via location.state
+      } catch (error) {
+        console.error("Error:", error);
+        navigate("/error"); // Redirect to an error page
       }
-    };
+    } else {
+      setStoreDetails(state); // Use the data passed via location.state
+    }
+  };
 
+  useEffect(() => {
     fetchStoreDetails();
-  }, [location, navigate, setBookingAllowed]);
+  }, [state]);
 
   const handleSubmit = async (bookingData, guestDetails) => {
     console.log("Guest Details:", guestDetails); // Log guest details to the console
@@ -234,8 +231,7 @@ const LuggageStoreDetails = () => {
                     discountPercentage={storeDetails.discountPercentage}
                     openTime={storeDetails.openTime}
                     closeTime={storeDetails.closeTime}
-                    notes={storeDetails.notes}
-                    GOOGLE_MAPS_API_KEY={GOOGLE_MAPS_API_KEY}
+                    notes={storeDetails.notes} 
                   />
                 ) : (
                   <div>Loading...</div>
@@ -503,5 +499,3 @@ const PaymentFormModal = ({
 };
 
 export default LuggageStoreDetails;
-
-// payment_intent=pi_3PqJ7CBwcWogP8JA1yH52Xfv&payment_intent_client_secret=pi_3PqJ7CBwcWogP8JA1yH52Xfv_secret_T4scU5DtdkXij04toMwJqGLp7&redirect_status=succeeded

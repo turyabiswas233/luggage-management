@@ -148,7 +148,9 @@ function AirportPage() {
       <header className="mt-10 py-20 px-5 text-black/80 bg-white">
         <div className="my-10 flex gap-10 flex-col lg:flex-row w-full max-w-screen-xl mx-auto">
           <div className="space-y-6">
-            <p className="text-sm">Freedom in Every Journey</p>
+            <p className="text-sm">
+              Your Trusted Luggage Storage Partner in Australia
+            </p>
             <img
               src={cbd}
               width={800}
@@ -159,7 +161,7 @@ function AirportPage() {
             <h1 className="text-4xl md:text-6xl font-bold my-4 text-green-800">
               Luggage Storage Melbourne Airport
             </h1>
-            <p>Looking For Luggage Services? We Are Here...</p>
+            <p>Freedom in every journey with Urloker</p>
             <div className="flex flex-col sm:flex-row justify-center items-center relative">
               {isLoaded && (
                 <Autocomplete
@@ -177,12 +179,6 @@ function AirportPage() {
                   />
                 </Autocomplete>
               )}
-              {/* <button
-                type="submit"
-                className="w-full rounded-full bg-custom-teal hover:bg-custom-teal-deep py-2 mt-2 hidden"
-              >
-                {searchButton}
-              </button> */}
             </div>
             <button
               type="button"

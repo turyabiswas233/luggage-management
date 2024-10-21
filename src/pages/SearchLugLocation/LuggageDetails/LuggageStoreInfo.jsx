@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMapMarkerAlt,
@@ -7,9 +7,9 @@ import {
   faWifi,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
-
+import userLocation from "/img/home-two/userLocation.svg";
 import config from "../../../config";
-import googleMapIcon from "/img/home-two/gmi.svg";
+import { useJsApiLoader } from "@react-google-maps/api";
 // Function to generate random customer names
 const generateRandomName = () => {
   const firstNames = [
@@ -42,6 +42,21 @@ const generateRandomName = () => {
 
   return `${firstName} ${lastName}`;
 };
+const libraries = ["places"];
+const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
+
+class PinElement {
+  constructor(icon) {
+    this.icon = icon;
+    this.element = this.createPinElement();
+  }
+
+  createPinElement() {
+    const pinElement = document.createElement("span");
+    pinElement.innerHTML = this.icon;
+    return pinElement;
+  }
+}
 
 const LuggageStoreInfo = ({
   id,
@@ -51,7 +66,6 @@ const LuggageStoreInfo = ({
   lng,
   openTime,
   closeTime,
-  GOOGLE_MAPS_API_KEY,
   ov,
 }) => {
   // console.log("inside store details:", ov);
@@ -59,7 +73,10 @@ const LuggageStoreInfo = ({
   const [averageRating, setAverageRating] = useState(4.5); // Default to 4.5
   const [reviewCount, setReviewCount] = useState(50); // Default to 50+
 
-  const isLoaded = useGoogleMapsApi(GOOGLE_MAPS_API_KEY);
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+    libraries: libraries,
+  });
 
   const fallbackReviews = [
     { _id: "1", rating: 5, comment: "Excellent service! Highly recommend." },
@@ -111,27 +128,18 @@ const LuggageStoreInfo = ({
       center: location,
       disableDefaultUI: true,
       mapId: "DemoMapId",
-      styles: [
-        {
-          featureType: "all",
-          elementType: "labels.text.fill",
-          stylers: [{ color: "#7c93a3" }, { lightness: "-10" }],
-        },
-        {
-          featureType: "administrative.country",
-          elementType: "geometry",
-          stylers: [{ visibility: "simplified" }],
-        },
-      ],
+      gestureHandling: "none",
     });
-    const { AdvancedMarkerElement  } = await google.maps.importLibrary("marker");
-    new AdvancedMarkerElement ({
+    const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+    const userIcon = document.createElement("img");
+    userIcon.src = userLocation;
+    userIcon.width = 30;
+    userIcon.height = 30;
+    new AdvancedMarkerElement({
       position: location,
       map: map,
       title: title,
-      // icon: {
-      //   url: googleMapIcon,
-      // },
+      content: userIcon,
     });
   };
 
