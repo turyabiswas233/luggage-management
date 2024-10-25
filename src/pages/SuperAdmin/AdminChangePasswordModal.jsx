@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { ClipLoader } from 'react-spinners';
-import config from '../../config';
+import { LuLoader} from "react-icons/lu";
+import config from "../../config";
 
 const AdminChangePasswordModal = ({ isOpen, onClose }) => {
     const [oldPassword, setOldPassword] = useState('');
@@ -81,7 +81,7 @@ const AdminChangePasswordModal = ({ isOpen, onClose }) => {
                             onClick={handleChangePassword}
                             disabled={loading}
                         >
-                            {loading ? <ClipLoader size={20} color="#ffffff" /> : 'Change Password'}
+                            {loading ? <LuLoader size={20} color="#ffffff" /> : 'Change Password'}
                         </button>
                     </div>
                 </div>

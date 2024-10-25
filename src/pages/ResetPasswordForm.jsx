@@ -4,7 +4,7 @@ import { LuLoader } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import config from "../config";
 import axios from "axios";
-import logo from "/img/home-two/logo3.svg";
+import logo from "../assets/img/home-two/logo3.svg";
 
 function ResetPasswordForm() {
   const { tokenId } = useParams();

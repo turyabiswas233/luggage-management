@@ -4,7 +4,7 @@ import './AdminProfile.css';
 import SuperAdminSidebar from '../../partials/SuperAdminSidebar';
 import SuperAdminHeader from '../../partials/SuperAdminHeader';
 import AdminChangePasswordModal from './AdminChangePasswordModal'; // Import the modal
-import config from '../../config';
+import config from "../../config";
 
 const AdminProfile = () => {
     const [editMode, setEditMode] = useState(false);

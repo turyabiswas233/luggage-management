@@ -2,6 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-N7JQR4G7");
+    </script>
+    <!-- End Google Tag Manager -->
+
     <!-- Essential Meta Tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -19,13 +34,8 @@
       type="image/png"
     />
     <link rel="shortcut icon" href="/icons/favicon.ico" type="image/x-icon" />
-    <link rel="preload" href="/img/home-two/luggage-1.svg" as="image" />
-    <link rel="preload" href="/icons/favicon.ico" as="image" />
 
-    <meta
-      http-equiv="Cache-Control : public, max-age=5184000;"
-      content="public, max-age=86400"
-    />
+    <meta http-equiv="Cache-Control" content="max-age=31536000, public" />
     <!-- Meta Descriptions -->
     <meta
       name="description"
@@ -62,7 +72,6 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://urloker.com" />
     <link rel="manifest" href="/icons/site.webmanifest" />
-
     <!-- Schema.org Markup for SEO -->
     <script type="application/ld+json">
       {
@@ -83,53 +92,19 @@
         ]
       }
     </script>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>URLOKER</title>
-    <script>
-      if (localStorage.theme === "dark" || !("theme" in localStorage)) {
-        document.querySelector("html").classList.add("dark");
-        document.querySelector("html").style.colorScheme = "dark";
-      } else {
-        document.querySelector("html").classList.remove("dark");
-        document.querySelector("html").style.colorScheme = "light";
-      }
-    </script>
-
-    <!-- Google Tag Manager -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src =
-          "https://www.googletagmanager.com/gtm.js?id=GTM-P8PL2NSQ" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-P8PL2NSQ");
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js"
-      crossorigin
-    ></script>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js"
-      crossorigin
-    ></script>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/react-bootstrap@next/dist/react-bootstrap.min.js"
-      crossorigin
-    ></script>
   </head>
-  <body
-    class="font-inter antialiased bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400"
-  >
+  <body class="font-inter antialiased bg-slate-100 text-slate-600">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-N7JQR4G7"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
     <div id="root"></div>
@@ -142,19 +117,6 @@
       }
     </script>
 
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-6NF0VZZPTZ"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-6NF0VZZPTZ");
-    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

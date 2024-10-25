@@ -72,6 +72,7 @@ import UrlokerKeysMap from "./pages/UrlokerKeys/UrlokerKeysMap";
 import MelbourneCBD from "./pages/City/Page1";
 import AirportPage from "./pages/City/Page2";
 import FlindersPage from "./pages/City/Page3";
+import ErrorPage from "./pages/404";
 
 function App() {
   const location = useLocation();
@@ -104,7 +105,9 @@ function App() {
           path="/reset-password-form/:tokenId"
           element={<ResetPasswordForm />}
         />
-        <Route path="*" element={<UnauthorizedPage />} />
+        {/* for error or not found page */}
+        <Route exact path="/error" element={<ErrorPage />} />
+        <Route path="*" element={<ErrorPage />} />
 
         {/* admin  */}
 

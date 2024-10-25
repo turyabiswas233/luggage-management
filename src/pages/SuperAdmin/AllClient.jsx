@@ -6,7 +6,7 @@ import Modal from 'react-modal'; // Import the Modal component
 import SuperAdminSidebar from '../../partials/SuperAdminSidebar';
 import SuperAdminHeader from '../../partials/SuperAdminHeader';
 import WelcomeBanner from '../../partials/dashboard/WelcomeBanner';
-import config from '../../config';
+import config from "../../config";
 import ErrorModal from '../components/ErrorModal'; // Import the ErrorModal component
 
 Modal.setAppElement('#root'); // Ensure the app element is set for accessibility

@@ -8,7 +8,7 @@ import DatePicker from "../SearchLugLocation/LuggageDetails/DatePicker";
 import { HiCheckCircle, HiCurrencyDollar } from "react-icons/hi";
 import { LuLoader } from "react-icons/lu";
 import { MdClose, MdDownload } from "react-icons/md";
-import logo from "/img/home-two/logo3.svg";
+import logo from "../../assets/img/home-two/logo3.svg";
 // payment components
 import {
   Elements,
@@ -21,7 +21,8 @@ import { useTranslation } from "react-i18next";
 import NavbarComp from "../Home/NavbarComp";
 import { FaInfoCircle } from "react-icons/fa";
 
-import html2pdf from "html2pdf.js";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 function UrlokerKeys() {
   const stripePromise = loadStripe(config.STRIPE_PUBLIC_KEY);
@@ -58,16 +59,31 @@ function UrlokerKeys() {
     const element = contentRef.current;
     const originalClass = element.className;
 
-    element.className = `${originalClass} hide-button`;
-    const opt = {
-      margin: 1,
-      filename: "booking-info.pdf",
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
-    };
+    const paySlip = paymentSlip.current;
 
-    html2pdf().from(element).set(opt).save();
+    html2canvas(paySlip, { scale: 3 }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png"); // Use PNG for better quality
+      const pdf = new jsPDF("p", "mm", "a4");
+
+      // Calculate X and Y positions to center the content
+      const imgWidth = 210; // PDF width in mm
+      const pageHeight = 297;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width; // Keep aspect ratio
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 0, position + 5, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position + 5, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      pdf.save("payment-slip-booking.pdf");
+      element.className = originalClass;
+    });
   };
   const handleChangeLanguage = (lang) => {
     setCurrentLanguage(lang);

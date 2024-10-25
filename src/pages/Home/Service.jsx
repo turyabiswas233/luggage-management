@@ -1,8 +1,9 @@
 import React from "react";
 import { FcServices } from "react-icons/fc";
-import NavComp from './NavbarComp'
-import Footer from './Footer'
+import NavComp from "./NavbarComp";
+import Footer from "./Footer";
 import "./Service.css"; // Make sure to create and include this CSS file
+import { Helmet } from "react-helmet-async";
 
 function Service() {
   return (
@@ -10,6 +11,20 @@ function Service() {
       className="bg-gradient-to-br pt-44 from-gray-50  to-gray-300 py-16 scroll-mt-20 text-slate-700"
       id="services"
     >
+      <Helmet>
+        <title>Our Services</title>
+        <meta property="og:title" content="Our Services" />
+        <meta
+          name="description"
+          content="Our services include secure luggage storage, key storage for Airbnb hosts and guests, online booking platform, QR code booking at partner locations, flexible storage options, all-day access, real-time notifications, 24/7 customer support, unbeatable pricing, multiple storage locations, and insurance coverage."
+        />
+        <meta
+          property="og:description"
+          content="Our services include secure luggage storage, key storage for Airbnb hosts and guests, online booking platform, QR code booking at partner locations, flexible storage options, all-day access, real-time notifications, 24/7 customer support, unbeatable pricing, multiple storage locations, and insurance coverage."
+        />
+        <link rel="canonical" href="https://urloker.com/services" />
+
+      </Helmet>
       <NavComp />
       <h3 className="my-3 text-4xl font-semibold text-center">Our services</h3>
       <div className="flex justify-center items-center">
@@ -22,7 +37,8 @@ function Service() {
               className="p-10 rounded-md shadow-xl hover:bg-white transition-colors"
               key={eleId}
             >
-              <span className="text-xl font-bold">{ele?.title}: </span> <span>{ele?.desc}</span>
+              <span className="text-xl font-bold">{ele?.title}: </span>{" "}
+              <span>{ele?.desc}</span>
             </li>
           ))}
         </ul>

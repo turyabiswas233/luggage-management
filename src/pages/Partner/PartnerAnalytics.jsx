@@ -7,9 +7,10 @@ import { MdCheck, MdClose } from "react-icons/md";
 import PartnerNavbarComp from "./PartnerNavbarComp";
 import WelcomeBanner from "../../partials/dashboard/WelcomeBanner";
 import config from "../../config";
-import html2pdf from "html2pdf.js";
-import logo from "/img/home-two/logo3.svg";
-import { ClipLoader } from "react-spinners";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import logo from "../../assets/img/home-two/logo3.svg";
+import { LuLoader } from "react-icons/lu";
 const months = [
   "Jan",
   "Feb",
@@ -242,23 +243,18 @@ const PaymentDetailsByMonth = ({
 
   const handleDownloadPDF = () => {
     const paySlip = paymentSlip.current;
+    const scale = 3; // Increase this value to improve resolution
+    html2canvas(paySlip, { scale }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png"); // Use PNG for better quality
+      const pdf = new jsPDF();
 
-    const opt = {
-      margin: 1,
-      filename: "payment-slip.pdf",
-      image: { type: "jpeg", quality: 0.98 },
+      // Calculate X and Y positions to center the content
+      const imgWidth = 190; // PDF width in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width; // Keep aspect ratio
 
-      html2canvas: { scale: 4, dpi: 192, letterRendering: true },
-      jsPDF: { unit: "cm", format: "a4", orientation: "landscape" },
-    };
-    try {
-      setLoad(true);
-      html2pdf().from(paySlip).set(opt).save();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoad(false);
-    }
+      pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight); // Use 'PNG' format
+      pdf.save("payment-slip.pdf");
+    });
   };
   return (
     <div className="flex-1 h-fit text-black">
@@ -389,7 +385,7 @@ const PaymentDetailsByMonth = ({
               onClick={handleDownloadPDF}
               disabled={load}
             >
-              Download {load && <ClipLoader color="white" size={"1.5em"} />}
+              Download {load && <LuLoader color="white" size={"1.5em"} />}
             </button>
             <button
               className="w-fit px-5 py-2 rounded-md bg-red-700 text-red-100 my-5 hover:bg-red-600 shadow-md shadow-red-500/50 transition-colors flex items-center gap-3"
@@ -470,7 +466,7 @@ const PaymentDetailsByMonth = ({
                 </p>
               </div>
             </div>
-            <div className="html2pdf__page-break"></div>
+
             <div className="h-fit rounded-md w-full border">
               <div className="text-center w-full">
                 <p className="border border-black py-3 bg-white" colSpan={6}>
@@ -505,9 +501,6 @@ const PaymentDetailsByMonth = ({
                   if (b?.status == "paid")
                     return (
                       <>
-                        {bid > 0 && bid % 13 == 0 && (
-                          <div className="html2pdf__page-break"></div>
-                        )}
                         <div
                           className={`grid grid-cols-6 text-sm border border-black`}
                           key={`booking_${bid}`}

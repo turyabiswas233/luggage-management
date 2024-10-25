@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import cbd from "/city/cbd/cbd.svg";
-import locImage from "/city/cbd/locationMap.png";
+import cbd from "../../assets/city/cbd/book.png";
+import locImage from "../../assets/city/cbd/locationMap.png";
 import NavbarComp from "../Home/NavbarComp";
 import { useTranslation } from "react-i18next";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
@@ -162,7 +162,12 @@ function MelbourneCBD() {
           content="Secure luggage storage Melbourne CBD by Urloker. Affordable, convenient spots near attractions and transport. Explore the city hands-free"
         />
         <meta name="keywords" content="luggage-storage-melbourne-cbd" />
-        <link rel="canonical" href="/luggage-storage-melbourne-cbd" />
+        <meta property="og:url" content="https://urloker.com/luggage-storage-melbourne-cbd" />
+        <meta
+          property="og:description"
+          content="Secure luggage storage Melbourne CBD by Urloker. Affordable, convenient spots near attractions and transport. Explore the city hands-free"
+        />
+        <link rel="canonical" href="https://urloker.com/luggage-storage-melbourne-cbd" />
       </Helmet>
       <div className="content font-sans mx-auto w-full">
         <header className="mt-10 py-20 px-5 text-black/80 bg-white">
@@ -175,7 +180,7 @@ function MelbourneCBD() {
                 src={cbd}
                 width={800}
                 height={(800 * 9) / 16}
-                className="aspect-video object-cover rounded-md w-full lg:hidden flex-1"
+                className="aspect-video object-cover rounded-2xl w-full lg:hidden flex-1"
                 alt="Luggage Storage Melbourne CBD "
               />
               <h1 className="text-4xl md:text-6xl font-bold my-4 text-green-800">
@@ -215,7 +220,7 @@ function MelbourneCBD() {
               src={cbd}
               width={1280}
               height={720}
-              className="aspect-video rounded-md max-w-2xl w-full hidden lg:block flex-1"
+              className="aspect-video rounded-2xl max-w-2xl w-full hidden lg:block flex-1"
               alt="Luggage Storage Melbourne CBD "
             />
           </div>
@@ -476,7 +481,7 @@ const FaqCard = ({ t }) => {
         {t.map((faq, index) => (
           <div
             key={index}
-            className={`p-4 min-h-full transition-all ease-out duration-500 h-full ${
+            className={`p-2 md:p-4 min-h-fit transition-all ease-out duration-1000 h-full ${
               openFAQ == index ? "max-h-52 overflow-y-auto" : "max-h-20"
             }`}
           >
@@ -493,7 +498,7 @@ const FaqCard = ({ t }) => {
             </h3>
             {openFAQ == index && (
               <div
-                className="text-gray-600 mt-2 overflow-x-hidden break-words text-justify px-5 font-medium"
+                className="text-gray-600 mt-2 overflow-x-hidden break-words text-justify px-4 font-medium"
                 dangerouslySetInnerHTML={{
                   __html: faq.answer,
                 }}

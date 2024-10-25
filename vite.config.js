@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-// https://vitejs.dev/config/
+
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -15,13 +15,12 @@ export default defineConfig({
   },
   build: {
     cssMinify: true,
-    minify: "terser",
-    chunkSizeWarningLimit: 4000,
+    minify: "esbuild",
+    chunkSizeWarningLimit: 5000,
     commonjsOptions: {
       transformMixedEsModules: true,
     },
+    ssrManifest: true,
+    outDir: "build",
   },
-  // server:{
-  //   host: ['10.0.0.151']
-  // }
 });

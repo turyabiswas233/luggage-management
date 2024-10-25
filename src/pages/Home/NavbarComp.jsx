@@ -1,7 +1,7 @@
 import "./NavBarComp.css";
 import React, { useState } from "react";
 import LoginForm from "./LoginForm"; // Assuming LoginForm is in the same directory
-import logo from "/img/home-two/logo3.svg";
+import logo from "../../assets/img/home-two/logo3.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import translations from "./translations"; // Import your translations
@@ -55,6 +55,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
         </nav>
         <div className="md:hidden">
           <button
+          aria-label="action-button"
             onClick={toggleMenu}
             className="text-[#208873] focus:outline-none"
           >
@@ -95,6 +96,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
           <div className="md:flex md:flex-row md:space-x-4 grid gap-y-5">
             <div className="relative group">
               <button
+              aria-label="action-button"
                 onClick={() => handleDropdownToggle("login")}
                 className="hover:text-[#208873] flex items-center focus:outline-none"
               >
@@ -122,6 +124,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
                 }`}
               >
                 <button
+                aria-label="action-button"
                   onClick={(e) => {
                     e.preventDefault();
                     openLoginForm("Partner");
@@ -132,6 +135,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
                   Partner Login
                 </button>
                 <button
+                aria-label="action-button"
                   onClick={(e) => {
                     e.preventDefault();
                     openLoginForm("User");
@@ -146,6 +150,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
 
             <div className="relative group">
               <button
+              aria-label="action-button"
                 onClick={() => handleDropdownToggle("language")}
                 className="hover:text-[#208873] flex items-center focus:outline-none"
               >
@@ -174,6 +179,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
               >
                 {["en", "es", "zh"].map((language) => (
                   <button
+                  aria-label="action-button"
                     key={language}
                     className={`block w-full text-left px-4 py-2 hover:bg-blue-800 ${
                       language === currentLanguage &&

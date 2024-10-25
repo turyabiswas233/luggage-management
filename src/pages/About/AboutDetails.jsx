@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; 
 import NavComp from "../Home/NavbarComp";
 import Footer from "../Home/Footer";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet-async";
 const AboutDetails = () => {
   const [currentLanguage, setCurrentLanguage] = useState(
     localStorage.getItem("i18nextLng") == "en-US"
@@ -16,6 +17,14 @@ const AboutDetails = () => {
   };
   return (
     <div className="bg-white text-black">
+      <Helmet>
+        <title>{translate?.title}</title>
+        <meta name="description" content={translate?.info[0]} />
+        <meta property="og:title" content={translate?.title} />
+        <meta property="og:description" content={translate?.info[0]} />
+        <link rel="canonical" href="https://urloker.com/about" />
+
+      </Helmet>
       <NavComp
         currentLanguage={currentLanguage}
         setLanguage={handleChangeLanguage}
@@ -36,5 +45,4 @@ const AboutDetails = () => {
     </div>
   );
 };
-
-export default AboutDetails;
+ export default AboutDetails;

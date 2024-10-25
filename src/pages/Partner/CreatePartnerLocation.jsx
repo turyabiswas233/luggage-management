@@ -6,7 +6,7 @@ import { TextField, Button, Grid, Typography, Paper } from '@mui/material';
 import { GoogleMap, LoadScript, Marker, Autocomplete } from '@react-google-maps/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import config from '../../config';
+import config from "../../config";
 
 const locationSchema = Yup.object().shape({
   name: Yup.string().required('Required'),

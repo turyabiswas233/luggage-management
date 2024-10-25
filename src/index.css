@@ -4,77 +4,90 @@
 
 
 .quillText {
-    padding-left: 1em;
+  padding-left: 1em;
+}
+
+.quillText blockquote {
+  position: relative;
+  padding: 2pt 0;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 2px;
+}
+
+.quillText blockquote::before {
+  content: ".";
+  position: relative;
+  left: -2pt;
+  top: 0;
+  width: 4pt;
+  background: #58585899;
+  color: #0000;
+}
+
+.quillText ul,
+.quillText ol {
+  padding-left: 40px;
+}
+
+.quillText ul {
+  list-style-type: disc;
+}
+
+.quillText ol {
+  list-style-type: decimal;
+}
+
+.hide-button button {
+  display: none;
+}
+
+.pdfHead {
+  display: none;
+}
+
+.hide-button .pdfHead {
+  display: block;
+}
+
+.anim-rot {
+  animation: rot 0.8s infinite cubic-bezier(0, 0.5, 1, 1);
+}
+
+.paymentSlipSuper tr td:nth-child(1) {
+  font-weight: bold;
+  text-align: left;
+}
+
+.paymentSlipSuper td {
+  border: 1px solid teal;
+  text-align: center;
+  padding: 6px;
+}
+
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
   }
-  .quillText blockquote {
-    position: relative;
-    padding: 2pt 0;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 2px;
+
+  40% {
+    transform: rotate(180deg);
   }
-  .quillText blockquote::before {
-    content: ".";
-    position: relative;
-    left: -2pt;
-    top: 0;
-    width: 4pt;
-    background: #58585899;
-    color: #0000;
+
+  100% {
+    transform: rotate(360deg);
   }
-  
-  .quillText ul,
-  .quillText ol {
-    padding-left: 40px;
-  }
-  .quillText ul {
-    list-style-type: disc;
-  }
-  .quillText ol {
-    list-style-type: decimal;
-  }
-  .hide-button button {
-    display: none;
-  }
-  .pdfHead{
-      display: none;
-  }
-  .hide-button .pdfHead {
-      display: block;
-  }
-  .anim-rot {
-    animation: rot 0.8s infinite cubic-bezier(0, 0.5, 1, 1);
-  }
-  .paymentSlipSuper tr td:nth-child(1) {
-   font-weight: bold;
-   text-align: left;
-  }
-  .paymentSlipSuper td {
-    border: 1px solid teal;
-    text-align: center;
-    padding: 6px;
-  }
-  
-  @keyframes rot {
-    0% {
-      transform: rotate(0deg);
-    }
-    40% {
-      transform: rotate(180deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  
-  ::-webkit-scrollbar{
-    width: 5pt;
-    height: 5pt;
-  }
-  ::-webkit-scrollbar-thumb{
-    /* width: 5pt; */
-    height: 5pt;
-    background: #a0bdbd;
-    border-radius: 50px;
-  }
+}
+
+::-webkit-scrollbar {
+  width: 5pt;
+  height: 5pt;
+}
+
+::-webkit-scrollbar-thumb {
+  /* width: 5pt; */
+  height: 5pt;
+  background: #a0bdbd;
+  border-radius: 50px;
+}

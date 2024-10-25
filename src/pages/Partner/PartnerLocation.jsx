@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import PartnerNavbarComp from "./PartnerNavbarComp";
 import config from "../../config";
-import logo from "/img/home-two/logo3.svg"; // Import the logo
+import logo from "../../assets/img/home-two/logo3.svg"; // Import the logo
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import "./PartnerLocation.css";

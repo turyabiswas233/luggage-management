@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import useGoogleMapsApi from "../Partner/AddLocation/useGoogleMapsApi";
 import config from "../../config";
-import googleMapIcon from "/img/home-two/gmi.svg";
-import userLocation from "/img/home-two/userLocation.svg"; 
+import googleMapIcon from "../../assets/img/home-two/gmi.svg";
+import userLocation from "../../assets/img/home-two/userLocation.svg"; 
 
 const MapContainer = ({ locations, setVisibleLocations, center }) => {
   const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;

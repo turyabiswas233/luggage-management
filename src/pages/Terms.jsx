@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 
 const ourRole = [
   {
@@ -160,6 +161,11 @@ By accepting these Terms, you agree to be bound by these Terms.
 const Terms = () => {
   return (
     <div className="w-full p-10 text-black font-normal space-y-10">
+     <Helmet>
+        <title>Urloker | Terms and Conditions</title>
+        <meta name="description" content="Our Terms and Conditions" />
+        
+     </Helmet>
       <h2 className="text-center font-bold text-3xl">Our Terms and Conditions</h2>
       <ul className="w-3/4 mx-auto">
         <li className="uppercase font-bold text-2xl">1. our role</li>

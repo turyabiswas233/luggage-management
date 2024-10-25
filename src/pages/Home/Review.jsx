@@ -1,10 +1,10 @@
 import React from "react";
 import "react-slideshow-image/dist/styles.css";
-import review1 from "/img/home-two/team-1.jpg";
-import review2 from "/img/home-two/alisa.png";
-import review3 from "/img/home-two/jack.png";
-import review4 from "/img/home-two/jackson.jpeg";
-import review5 from "/img/home-two/robert.jpg";
+import review1 from "../../assets/img/home-two/team-1.jpg";
+import review2 from "../../assets/img/home-two/alisa.png";
+import review3 from "../../assets/img/home-two/jack.png";
+import review4 from "../../assets/img/home-two/jackson.jpeg";
+import review5 from "../../assets/img/home-two/robert.jpg";
 import { MdStar } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
@@ -24,7 +24,8 @@ const CustomPrevArrow = (props) => {
   const { className, onClick } = props;
   return (
     <button
-      className={`${className} custom-arrow custom-prev-arrow`}
+      aria-label="Previous"
+      className={`${className || ""} custom-arrow custom-prev-arrow`}
       onClick={onClick}
     >
       <MdKeyboardArrowLeft size={"1.5em"} />
@@ -36,7 +37,8 @@ const CustomNextArrow = (props) => {
   const { className, onClick } = props;
   return (
     <button
-      className={`${className} custom-arrow custom-next-arrow`}
+      aria-label="Forward"
+      className={`${className || ""} custom-arrow custom-next-arrow`}
       onClick={onClick}
     >
       <MdKeyboardArrowRight size={"1.5em"} />
@@ -70,12 +72,12 @@ const Review = () => {
             delay: 3000,
             pauseOnMouseEnter: true,
           }}
-          className="flex gap-3 relative pb-20"
+          className="flex gap-3 relative my-20 min-h-80"
         >
           {t.reviews.map((review, index) => (
             <SwiperSlide
               key={index}
-              className="grid gap-2 min-h-fit max-w-md h-80 bg-white shadow-md rounded-xl overflow-hidden border-2 border-teal-500 md:mx-auto p-6 mb-10"
+              className="grid gap-2 min-h-fit max-w-md h-80 bg-white shadow-md rounded-xl overflow-hidden border-2 border-teal-500 md:mx-auto p-6 mb-20"
             >
               <p className="text-gray-500 text-sm">
                 <svg
@@ -120,7 +122,7 @@ const Review = () => {
 const SwipeButton = () => {
   const swipe = useSwiper();
   return (
-    <div className="absolute right-0 bottom-10 flex gap-3 items-center justify-end">
+    <div className="absolute right-0 -bottom-0 flex gap-3 items-center justify-end">
       <CustomPrevArrow onClick={() => swipe.slidePrev()} />
       <CustomNextArrow onClick={() => swipe.slideNext()} />
     </div>

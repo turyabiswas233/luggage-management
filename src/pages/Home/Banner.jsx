@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
-import backgroundImage from "/img/home-two/luggage-1.svg";
+import backgroundImage from "../../assets/img/home-two/luggage-1.svg";
 import "./Banner.css";
 import config from "../../config";
 import { useTranslation } from "react-i18next";
@@ -171,7 +171,7 @@ function Banner() {
           <button
             type="button"
             onClick={handleNearMyLocationClick}
-            className={`bg-custom-teal hover:bg-custom-teal-deep text-white font-bold text-lg rounded-full shadow-md transition duration-300 ease-in-out mt-4 px-12 py-4 w-full md:w-fit ${
+            className={`bg-custom-teal hover:bg-custom-teal-deep text-white font-bold text-lg rounded-full shadow-md transition duration-300 ease-in-out mt-4 px-12 py-3 w-full md:w-fit ${
               loadingLocation ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={loadingLocation}

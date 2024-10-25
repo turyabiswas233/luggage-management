@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Checkbox, Label, TextInput, Spinner } from 'flowbite-react';
 import axios from 'axios';
-import config from '../../config'; 
+import config from "../../config"; 
 
 function AdminLoginForm() {
   const [email, setEmail] = useState('');

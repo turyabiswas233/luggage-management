@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import book from "/img/home-two/book.jpg";
-import lock from "/img/home-two/lock.jpg";
-import enjoy from "/img/home-two/enjoy.jpg"; 
+import book from "../../assets/img/home-two/book.jpg";
+import lock from "../../assets/img/home-two/lock.jpg";
+import enjoy from "../../assets/img/home-two/enjoy.jpg"; 
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 

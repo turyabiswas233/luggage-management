@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "urloker_icon",
+    "short_name": "icon",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",

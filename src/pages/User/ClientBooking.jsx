@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ClientNavbarComp from './ClientNavbarComp';
-import { ClipLoader } from 'react-spinners';
+import { LuLoader} from "react-icons/lu";
 
 const ClientBooking = () => {
   const [loading, setLoading] = useState(true);
@@ -23,7 +23,7 @@ const ClientBooking = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <ClipLoader size={50} color="#4A90E2" />
+        <LuLoader size={50} color="#4A90E2" />
       </div>
     );
   }

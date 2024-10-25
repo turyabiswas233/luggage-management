@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ClientProfile.css';
 import ClientNavbarComp from './ClientNavbarComp';
-import config from '../../config';
-import { ClipLoader } from 'react-spinners';
+import config from "../../config";
+import { LuLoader} from "react-icons/lu";
 import ClientChangePasswordModal from './ClientChangePasswordModal'; // Import the modal
 
 const ClientProfile = () => {
@@ -82,7 +82,7 @@ const ClientProfile = () => {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-screen">
-                <ClipLoader size={70} color="#4A90E2" />
+                <LuLoader size={70} color="#4A90E2" />
             </div>
         );
     }

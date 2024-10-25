@@ -42,6 +42,35 @@ function AttractionBox({ locationImage, me }) {
   );
 }
 const CustomInfo = () => {
+  const navigate = useNavigate();
+  const handleNearMyLocationClick = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          navigate("/luggage_locations", { state: { location, nearby: true } });
+        },
+        (error) => {
+          console.error("Error fetching location:", error);
+
+          if (navigator.permissions) {
+            navigator.permissions
+              .query({ name: "geolocation" })
+              .then(function (result) {
+                if (result.state === "denied") {
+                  alert("Please enable location services to use this feature");
+                }
+              });
+          }
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  };
   const data = [
     {
       icon: <FaMapLocationDot color="#2aaf88" size={"5em"} />,
@@ -71,7 +100,18 @@ const CustomInfo = () => {
           <h3 className="font-bold text-4xl">
             Secure and Hassle Free Luggage Storage
           </h3>
+          <div className="hidden lg:block py-20">
+            <button
+              className="text-custom-teal-deep flex gap-1 items-center bg-white rounded-full px-3 py-2 group hover:bg-slate-50 transition-colors"
+              type="button"
+              onClick={handleNearMyLocationClick}
+            >
+              Book now{" "}
+              <MdArrowRight className="transition-transform group-hover:translate-x-1 duration-500" />
+            </button>
+          </div>
         </div>
+
         <div className="hidden lg:grid grid-cols-2 gap-5 overflow-x-auto p-5">
           {data.map((d, i) => (
             <div key={i} className="space-y-5 max-w-md min-w-[12em]">
@@ -90,7 +130,7 @@ const CustomInfo = () => {
           <Swiper
             modules={[Autoplay]}
             spaceBetween={20}
-            slidesPerView={"3"}
+            slidesPerView={"auto"}
             loop={false}
             speed={600}
           >
@@ -118,7 +158,8 @@ const CustomPrevArrow = (props) => {
   const { className, onClick } = props;
   return (
     <button
-      className={`${className} custom-arrow custom-prev-arrow`}
+      aria-label="Previous"
+      className={`${className || ""} custom-arrow custom-prev-arrow`}
       onClick={onClick}
     >
       <MdKeyboardArrowLeft size={"1.5em"} />
@@ -130,7 +171,8 @@ const CustomNextArrow = (props) => {
   const { className, onClick } = props;
   return (
     <button
-      className={`${className} custom-arrow custom-next-arrow`}
+      aria-label="Forward"
+      className={`${className || ""} custom-arrow custom-next-arrow`}
       onClick={onClick}
     >
       <MdKeyboardArrowRight size={"1.5em"} />
@@ -140,11 +182,6 @@ const CustomNextArrow = (props) => {
 const SwipeButton = () => {
   const swipe = useSwiper();
   const navigate = useNavigate();
-  const { t } = useTranslation();
-  const translate = t("home");
-
-  const { findLocationsButton } = translate?.heroSection;
-
   const handleNearMyLocationClick = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -180,7 +217,8 @@ const SwipeButton = () => {
         type="button"
         onClick={handleNearMyLocationClick}
       >
-        Book now <MdArrowRight className="transition-transform group-hover:translate-x-1 duration-500" />
+        Book now{" "}
+        <MdArrowRight className="transition-transform group-hover:translate-x-1 duration-500" />
       </button>
       <div className="flex gap-3 items-center justify-end">
         <CustomPrevArrow onClick={() => swipe.slidePrev()} />

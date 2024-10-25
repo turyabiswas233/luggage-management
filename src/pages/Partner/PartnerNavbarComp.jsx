@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
-import logo from "/img/home-two/logo3.svg";
+import logo from "../../assets/img/home-two/logo3.svg";
 import { HiMiniBellAlert } from "react-icons/hi2";
 import Notifications from "../../components/DropdownNotifications";
 
@@ -66,7 +66,7 @@ const PartnerNavbarComp = () => {
   return (
     <div className="fixed top-0 w-full bg-white shadow-md z-50">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        <a href="/partner/home" className="flex items-center">
+        <a href="/partner/home" className="flex items-center no-underline">
           <img src={logo} alt="logo1" className="h-16 w-40" />
         </a>
 
@@ -76,7 +76,7 @@ const PartnerNavbarComp = () => {
           }`}
         >
           <div className="md:flex md:flex-row md:space-x-4">
-            <a href="/partner/home" className="hover:text-[#FDB139]">
+            <a href="/partner/home" className="hover:text-[#FDB139] no-underline">
               Home
             </a>
           </div>
@@ -108,44 +108,44 @@ const PartnerNavbarComp = () => {
                   </svg>
                 </button>
                 <div
-                  className={`absolute bg-blue-900 text-white shadow-lg mt-1 rounded-md overflow-hidden ${
+                  className={`absolute bg-teal-100 text-white shadow-lg mt-1 rounded-md overflow-hidden ${
                     activeDropdown === "partnerOptions" ? "block" : "hidden"
                   } md:group-hover:block w-48`}
                 >
                   <NavLink
                     to="/partner/bookings"
-                    className="block px-4 py-2 hover:bg-blue-800"
+                    className="block px-4 py-2 text-custom-teal-deep no-underline  hover:bg-blue-200"
                   >
                     Partner Bookings
                   </NavLink>
                   <NavLink
                     to="/partner/urlokerkeys"
-                    className="block px-4 py-2 hover:bg-blue-800"
+                    className="block px-4 py-2 text-custom-teal-deep no-underline  hover:bg-blue-200"
                   >
                     Partner Urloker Keys
                   </NavLink>
                   <NavLink
                     to="/partner/locations"
-                    className="block px-4 py-2 hover:bg-blue-800"
+                    className="block px-4 py-2 text-custom-teal-deep no-underline  hover:bg-blue-200"
                   >
                     Partner's Location
                   </NavLink>
                   <NavLink
                     to="/partner/analytics"
-                    className="block px-4 py-2 hover:bg-blue-800"
+                    className="block px-4 py-2 text-custom-teal-deep no-underline  hover:bg-blue-200"
                   >
                     Partner's Analytics
                   </NavLink>
-                  {/* <NavLink to="/partner/allcustomers" className="block px-4 py-2 hover:bg-blue-800">All Customers</NavLink> */}
+
                   <NavLink
                     to="/partner/profile"
-                    className="block px-4 py-2 hover:bg-blue-800"
+                    className="block px-4 py-2 text-custom-teal-deep no-underline  hover:bg-blue-200"
                   >
                     Partner Profile
                   </NavLink>
                 </div>
               </div>
-              <a href="/logout" className="hover:text-[#FDB139]">
+              <a href="/logout" className="hover:text-[#FDB139] no-underline">
                 Logout
               </a>
             </div>

@@ -27,7 +27,7 @@ const Home = () => {
     i18n.changeLanguage(lang);
   };
   return (
-    <div>
+    <>
       <NavbarComp
         currentLanguage={currentLanguage}
         setLanguage={handleChangeLanguage}
@@ -45,7 +45,7 @@ const Home = () => {
       <Blog />
       <Footer />
       {/* <ScrollToTopButton /> */}
-    </div>
+    </>
   );
 };
 const Demo = () => {
@@ -127,7 +127,11 @@ const CurrentCities = () => {
       <h4 className="text-xl font-bold">Newly added lcoations</h4>
       <div className="flex flex-wrap gap-3 my-5">
         {cities?.sort()?.map((loc) => (
-          <Link to={loc?.to} key={`city-${loc?.name}`} className="relative text-custom-teal-deep no-underline after:absolute after:w-full after:h-1 after:bg-custom-teal-deep after:left-0 after:-bottom-2 after:rounded-full hover:after:h-2 after:transition-all">
+          <Link
+            to={loc?.to}
+            key={`city-${loc?.name}`}
+            className="relative text-custom-teal-deep no-underline after:absolute after:w-full after:h-1 after:bg-custom-teal-deep after:left-0 after:-bottom-2 after:rounded-full hover:after:h-2 after:transition-all"
+          >
             {loc?.name}
           </Link>
         ))}

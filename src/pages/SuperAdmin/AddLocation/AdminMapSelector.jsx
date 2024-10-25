@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import debounce from 'lodash/debounce';
 import useGoogleMapsApi from './useGoogleMapsApi';
-import config from '../../../config';
+import config from "../../../config";
 
 const AdminMapSelector = ({ onSelect }) => {
     const isLoaded = useGoogleMapsApi(config.GOOGLE_API_KEY);

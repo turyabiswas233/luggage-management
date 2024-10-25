@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import AdminMapSelector from './AdminMapSelector';
 import AdminLocationForm from './AdminLocationForm';
-import config from '../../../config';
+import config from "../../../config";
 import SuperAdminSidebar from '../../../partials/SuperAdminSidebar';
 import SuperAdminHeader from '../../../partials/SuperAdminHeader';
 

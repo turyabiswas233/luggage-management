@@ -1,5 +1,5 @@
 import React from 'react';
-import team1 from '/img/home-two/team-1.jpg'
+import team1 from '../../assets/img/home-two/team-1.jpg'
 
 function Team() {
   const teamMembers = [

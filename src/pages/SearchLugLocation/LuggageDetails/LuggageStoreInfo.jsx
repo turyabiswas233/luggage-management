@@ -7,7 +7,7 @@ import {
   faWifi,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
-import userLocation from "/img/home-two/userLocation.svg";
+import userLocation from "../../../assets/img/home-two/userLocation.svg";
 import config from "../../../config";
 import { useJsApiLoader } from "@react-google-maps/api";
 // Function to generate random customer names

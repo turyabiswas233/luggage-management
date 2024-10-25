@@ -26,9 +26,9 @@ function FAQ() {
           {t?.title} <FontAwesomeIcon icon={faQuestionCircle} />
         </h2>
         <div className="flex flex-wrap -mx-4">
-          <div className="w-full lg:w-3/4 py-4 mx-auto h-full">
+          <div className="w-full lg:w-3/4 py-4 mx-auto h-full divide-y-3 divide-slate-700">
             {t.faqs.map((faq, index) => (
-              <div key={index} className={`p-4 min-h-full border-y border-gray-400 transition-all ease-out duration-1000 h-full ${openFAQ == index ? "max-h-52 overflow-y-auto" : 'max-h-20'}`}>
+              <div key={index} className={`p-4 min-h-fit transition-all ease-out duration-1000 h-full ${openFAQ == index ? "max-h-52 overflow-y-auto" : 'max-h-20'}`}>
                 <h3
                   className="text-xl font-bold text-gray-700 cursor-pointer flex items-center justify-between"
                   onClick={() => toggleFAQ(index)}
@@ -42,7 +42,7 @@ function FAQ() {
                 </h3>
                 {openFAQ == index && (
                   <div
-                    className="text-gray-600 mt-2 overflow-x-hidden break-words text-justify px-5 font-medium"
+                    className="text-gray-600 mt-2 overflow-x-hidden break-words text-justify px-4 font-medium"
                     dangerouslySetInnerHTML={{
                       __html: faq.answer,
                     }}

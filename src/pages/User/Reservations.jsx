@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ClientNavbarComp from './ClientNavbarComp';
 import { Card } from 'flowbite-react'; // Assuming you have a Card component similar to the example
-import { ClipLoader } from 'react-spinners';
 import { FaCalendarAlt, FaSuitcase, FaUser, FaMapMarkerAlt } from 'react-icons/fa';
+import { LuLoader } from 'react-icons/lu';
 
 // Dummy data (replace with actual fetched data from API)
 const dummyReservations = [
@@ -86,7 +86,7 @@ const Reservations = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <ClipLoader size={50} color="#4A90E2" />
+        <LuLoader size={50} color="#4A90E2" />
       </div>
     );
   }

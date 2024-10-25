@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ClipLoader } from "react-spinners";
+import { LuLoader} from "react-icons/lu";
 import PartnerNavbarComp from "./PartnerNavbarComp";
 import config from "../../config";
 import PartnerChangePasswordModal from "./PartnerChangePasswordModal"; // Import the modal
@@ -153,7 +153,7 @@ const PartnerProfile = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <ClipLoader size={70} color="#4A90E2" />
+        <LuLoader size={70} color="#4A90E2" />
       </div>
     );
   }

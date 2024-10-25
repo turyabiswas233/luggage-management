@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Transition from "../utils/Transition";
-import config from "../config";
 import axios from "axios";
 import { MdArrowRightAlt } from "react-icons/md";
-function DropdownNotifications({ align , hasNewNoti }) {
+import config from "../config";
+function DropdownNotifications({ align, hasNewNoti }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const [list, setList] = useState([]);
@@ -118,7 +118,7 @@ function DropdownNotifications({ align , hasNewNoti }) {
               return (
                 <li
                   key={nid}
-                  className={`border-b border-slate-200 dark:border-slate-700 last:border-0`}
+                  className="border-b border-slate-200 dark:border-slate-700 last:border-0"
                   onClick={() => {
                     localStorage.setItem(nt?._id, "seen");
                     navigate("/partner/notification", {

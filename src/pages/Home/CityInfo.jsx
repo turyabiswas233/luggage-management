@@ -40,8 +40,8 @@ function CityInfo() {
         </div>
       </div>
 
-      <div className="mt-5 p-5 md:p-14 bg-gradient-to-br from-white to-custom-gray">
-        <header className="p-5">
+      <div className="mt-5 md:p-14 bg-gradient-to-br from-white to-custom-gray">
+        <header className="p-4 md:p-5">
           <h1 className="text-3xl md:text-4xl font-bold text-custom-teal-deep">
             Why UrLoker is Your Best Luggage Storage Provider
           </h1>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import logo from "/img/home-two/logo3.svg";
+import logo from "../../assets/img/home-two/logo3.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AiFillCreditCard } from "react-icons/ai";
 import {
@@ -15,7 +15,8 @@ import { LuLoader } from "react-icons/lu";
 import config from "../../config";
 import SuperAdminSidebar from "../../partials/SuperAdminSidebar";
 import SuperAdminHeader from "../../partials/SuperAdminHeader";
-import html2pdf from "html2pdf.js";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 const PartnerDetails = () => {
   const { id } = useParams();
@@ -530,22 +531,29 @@ const PaymentSlip = ({ paymentSlip, qrBonus }) => {
   const [load, setLoad] = useState(false);
   const handleDownloadPDF = () => {
     const paySlip = slipref.current;
-    setLoad(true);
-    const opt = {
-      margin: 0.5,
-      filename: "payment-slip-location.pdf",
-      image: { type: "jpeg", quality: 0.98 },
 
-      html2canvas: { scale: 4, dpi: 192, letterRendering: true },
-      jsPDF: { unit: "cm", format: "a4", orientation: "landscape" },
-    };
-    try {
-      html2pdf().from(paySlip).set(opt).save();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoad(false);
-    }
+    html2canvas(paySlip, { scale: 3 }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png"); // Use PNG for better quality
+      const pdf = new jsPDF("p", "mm", "a4");
+
+      // Calculate X and Y positions to center the content
+      const imgWidth = 210; // PDF width in mm
+      const pageHeight = 297;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width; // Keep aspect ratio
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 0, position + 5, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position + 5, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      pdf.save("payment-slip-location.pdf");
+    });
   };
 
   if (!paymentSlip) return;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import logo from "/img/home-two/logo3.svg";
+import logo from "../assets/img/home-two/logo3.svg";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import {
   HiBell,
@@ -192,13 +192,13 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                         </div>
                       </a>
                       <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                        <ul className={`pl-9 mt-1 ${!open && "hidden"}`}>
+                        <ul className={`pl-5 mt-1 ${!open && "hidden"}`}>
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
                               to="/superadmin/partner-analytics"
                               className={({ isActive }) =>
-                                "block transition duration-150 truncate p-2 " +
+                                "no-underline block transition duration-150 truncate p-2 " +
                                 (isActive
                                   ? "text-indigo-400 bg-indigo-800/50"
                                   : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50")
@@ -286,13 +286,13 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                         </div>
                       </a>
                       <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                        <ul className={`pl-9 mt-1 ${!open && "hidden"}`}>
+                        <ul className={`pl-5 mt-1 ${!open && "hidden"}`}>
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
                               to="/superadmin/clients"
                               className={({ isActive }) =>
-                                "block transition duration-150 truncate p-2 " +
+                                "no-underline block transition duration-150 truncate p-2 " +
                                 (isActive
                                   ? "text-indigo-400 bg-indigo-800/50"
                                   : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50")
@@ -306,13 +306,13 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                         </ul>
                       </div>
                       <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                        <ul className={`pl-9 mt-1 ${!open && "hidden"}`}>
+                        <ul className={`pl-5 mt-1 ${!open && "hidden"}`}>
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
                               to="/superadmin/partners"
                               className={({ isActive }) =>
-                                "block transition duration-150 truncate p-2 " +
+                                "no-underline block transition duration-150 truncate p-2 " +
                                 (isActive
                                   ? "text-indigo-400 bg-indigo-800/50"
                                   : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50")
@@ -328,7 +328,7 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                               end
                               to="/superadmin/partners-payment"
                               className={({ isActive }) =>
-                                "block transition duration-150 truncate p-2 " +
+                                "no-underline block transition duration-150 truncate p-2 " +
                                 (isActive
                                   ? "text-indigo-400 bg-indigo-800/50"
                                   : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50")
@@ -344,7 +344,7 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                               end
                               to="/superadmin/locations"
                               className={({ isActive }) =>
-                                "block transition duration-150 truncate p-2 " +
+                                "no-underline block transition duration-150 truncate p-2 " +
                                 (isActive
                                   ? "text-indigo-400 bg-indigo-800/50"
                                   : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50")
@@ -360,7 +360,7 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                               end
                               to="/superadmin/bookings"
                               className={({ isActive }) =>
-                                "block transition duration-150 truncate p-2 " +
+                                "no-underline block transition duration-150 truncate p-2 " +
                                 (isActive
                                   ? "text-indigo-400 bg-indigo-800/50"
                                   : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50")
@@ -376,7 +376,7 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                               end
                               to="/superadmin/urlokerkey"
                               className={({ isActive }) =>
-                                "block transition duration-150 truncate p-2 " +
+                                "no-underline block transition duration-150 truncate p-2 " +
                                 (isActive
                                   ? "text-indigo-400 bg-indigo-800/50"
                                   : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50")
@@ -393,7 +393,7 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                               end
                               to="/superadmin/profile"
                               className={({ isActive }) =>
-                                "block transition duration-150 truncate p-2 " +
+                                "no-underline block transition duration-150 truncate p-2 " +
                                 (isActive
                                   ? "text-indigo-400 bg-indigo-800/50"
                                   : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50")
@@ -462,13 +462,13 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                         </div>
                       </a>
                       <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                        <ul className={`pl-9 mt-1 ${!open && "hidden"}`}>
+                        <ul className={`pl-5 mt-1 ${!open && "hidden"}`}>
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
                               to="/superadmin/notification/add"
                               className={({ isActive }) =>
-                                "block transition duration-150 truncate rounded-sm " +
+                                "no-underline block transition duration-150 truncate rounded-sm " +
                                 (isActive
                                   ? "text-indigo-400 bg-indigo-800/50"
                                   : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50")
@@ -484,7 +484,7 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                               end
                               to="/superadmin/notification/all"
                               className={({ isActive }) =>
-                                "block transition duration-150 truncate rounded-sm " +
+                                "no-underline block transition duration-150 truncate rounded-sm " +
                                 (isActive
                                   ? "text-indigo-400 bg-indigo-800/50"
                                   : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50")

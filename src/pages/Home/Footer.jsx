@@ -28,19 +28,19 @@ function Footer() {
                 height={100}
               />
             </a>
-            <p className="hover:text-teal-200 transition-colors duration-300">
+            <p className="text-white no-underline hover:text-teal-200 transition-colors duration-300">
               {t.companyDescription}
             </p>
           </div>
           <div className="w-full md:w-1/2 lg:w-1/5 px-6 mb-8">
-            <h3 className="text-lg font-bold mb-4 hover:text-teal-200 transition-colors duration-300">
+            <h3 className="text-lg font-bold mb-4 text-white no-underline hover:text-teal-200 transition-colors duration-300">
               {t.company}
             </h3>
             <ul className="space-y-2">
               <li>
                 <a
                   href="/about"
-                  className="hover:underline hover:text-teal-200 transition-colors duration-300"
+                  className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
                 >
                   {t.about}
                 </a>
@@ -48,7 +48,8 @@ function Footer() {
               <li>
                 <a
                   href="/services"
-                  className="hover:underline hover:text-teal-200 transition-colors duration-300"
+                  className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
+                  title="Services"
                 >
                   {t.services}
                 </a>
@@ -56,7 +57,8 @@ function Footer() {
               <li>
                 <a
                   href="/#projects"
-                  className="hover:underline hover:text-teal-200 transition-colors duration-300"
+                  className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
+                  title="Projects"
                 >
                   {t.projects}
                 </a>
@@ -64,7 +66,8 @@ function Footer() {
               <li>
                 <a
                   href="/#team"
-                  className="hover:underline hover:text-teal-200 transition-colors duration-300"
+                  className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
+                  title="Team"
                 >
                   {t.team}
                 </a>
@@ -72,7 +75,8 @@ function Footer() {
               <li>
                 <a
                   href="/#blog"
-                  className="hover:underline hover:text-teal-200 transition-colors duration-300"
+                  className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
+                  title="Blog"
                 >
                   {t.blog}
                 </a>
@@ -80,14 +84,15 @@ function Footer() {
             </ul>
           </div>
           <div className="w-full md:w-1/2 lg:w-1/5 px-4 mb-8">
-            <h3 className="text-lg font-bold mb-4 hover:text-teal-200 transition-colors duration-300">
+            <h3 className="text-lg font-bold mb-4 text-white no-underline hover:text-teal-200 transition-colors duration-300">
               {t.support}
             </h3>
             <ul className="space-y-2">
               <li>
                 <a
                   href="/#faq"
-                  className="hover:underline hover:text-teal-200 transition-colors duration-300"
+                  className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
+                  title="FAQ"
                 >
                   {t.faq}
                 </a>
@@ -95,7 +100,8 @@ function Footer() {
               <li>
                 <a
                   href="/privacy-policy"
-                  className="hover:underline hover:text-teal-200 transition-colors duration-300"
+                  className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
+                  title="Privacy Policy"
                 >
                   {t.privacyPolicy}
                 </a>
@@ -103,7 +109,8 @@ function Footer() {
               <li>
                 <a
                   href="/terms-and-conditions"
-                  className="hover:underline hover:text-teal-200 transition-colors duration-300"
+                  className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
+                  title="Terms and Conditions"
                 >
                   {t.terms}
                 </a>
@@ -111,7 +118,8 @@ function Footer() {
               <li>
                 <a
                   href="#"
-                  className="hover:underline hover:text-teal-200 transition-colors duration-300"
+                  className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
+                  title="Community"
                 >
                   {t.community}
                 </a>
@@ -119,7 +127,8 @@ function Footer() {
               <li>
                 <a
                   href="/contact"
-                  className="hover:underline hover:text-teal-200 transition-colors duration-300"
+                  className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
+                  title="Contact"
                 >
                   {t.contact}
                 </a>
@@ -127,7 +136,8 @@ function Footer() {
               <li>
                 <a
                   href="/support"
-                  className="hover:underline hover:text-teal-200 transition-colors duration-300"
+                  className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
+                  title="Support"
                 >
                   {t.support}
                 </a>
@@ -135,7 +145,7 @@ function Footer() {
             </ul>
           </div>
           <div className="w-full md:w-1/2 lg:w-1/5 px-4 mb-8">
-            <h3 className="text-lg font-bold mb-4 hover:text-teal-200 transition-colors duration-300">
+            <h3 className="text-lg font-bold mb-4 text-white no-underline hover:text-teal-200 transition-colors duration-300">
               {t.contactInfo}
             </h3>
             <ul className="space-y-2">
@@ -144,23 +154,22 @@ function Footer() {
                   Email:{" "}
                   <a
                     href="mailto:admin@Urloker.com"
-                    className="hover:underline hover:text-teal-200 transition-colors duration-300"
+                    className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
+                    title="Email"
                   >
                     admin@Urloker.com
                   </a>
                 </span>
               </li>
-              {/* <li>
-                <span>{t.phone}</span>
-              </li> */}
             </ul>
           </div>
           <div className="w-full md:w-1/2 lg:w-1/5 px-4 mb-8">
-            <h4 className="text-lg font-bold mb-4 hover:text-teal-200 transition-colors duration-300">
+            <h4 className="text-lg font-bold mb-4 text-white no-underline hover:text-teal-200 transition-colors duration-300">
               {t.followUs}
             </h4>
             <div className="flex flex-wrap gap-3">
               <a
+              aria-label="Urloker Facebook Page"
                 href="https://www.facebook.com/profile.php?id=61564185476772"
                 target="_blank"
                 className="text-white hover:text-blue-600 transition-colors duration-300 text-3xl p-2"
@@ -168,18 +177,21 @@ function Footer() {
                 <FontAwesomeIcon icon={faFacebookF} />
               </a>
               <a
+              aria-label="Urloker Instagram Page"
                 href="#"
                 className="text-white hover:text-pink-600 transition-colors duration-300 text-3xl p-2"
               >
                 <FontAwesomeIcon icon={faInstagram} />
               </a>
               <a
+              aria-label="Urloker Twitter Page"
                 href="#"
                 className="text-white hover:text-blue-600 transition-colors duration-300 text-3xl p-2"
               >
                 <FontAwesomeIcon icon={faTwitter} />
               </a>
               <a
+              aria-label="Urloker LinkedIn Page"
                 href="#"
                 className="text-white hover:text-blue-600 transition-colors duration-300 text-3xl  p-2"
               >
@@ -189,8 +201,8 @@ function Footer() {
           </div>
         </div>
         <div className="text-center mt-8">
-        <ScrollToTopButton />
-          <p className="hover:text-teal-200 transition-colors duration-300">
+          <ScrollToTopButton />
+          <p className="text-white no-underline hover:text-teal-200 transition-colors duration-300">
             &copy;
             {t.copyright.replace("{year}", new Date().getFullYear())}
           </p>

@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import cbd from "/city/flinders/flinders.png";
-import locImage from "/city/flinders/locationMap.png";
+import cbd from "../../assets/city/flinders/flinders.png";
+import locImage from "../../assets/city/flinders/locationMap.png";
 import NavbarComp from "../Home/NavbarComp";
 import { useTranslation } from "react-i18next";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
@@ -133,6 +133,10 @@ function FlindersPage() {
           property="og:title"
           content="Flinders Street Station Luggage Storage - Urloker"
         />
+        <meta
+          property="og:description"
+          content="Urloker: Flinders Street Station luggage storage made easy. Secure, affordable options in Melbourne's heart. Drop your bags and explore freely"
+        />
         <meta name="description" content="Flinders Station" />
         <meta
           name="description"
@@ -142,7 +146,11 @@ function FlindersPage() {
           name="keywords"
           content="flinders-street-station-luggage-storage"
         />
-        <link rel="canonical" href="/flinders-street-station-luggage-storage" />
+        <meta
+          property="og:url"
+          href="https://urloker.com/flinders-street-station-luggage-storage"
+        />
+        <link rel="canonical" href="https://urloker.com/flinders-street-station-luggage-storage" />
       </Helmet>
       <header className="mt-10 py-20 px-5 text-black/80 bg-white">
         <div className="my-10 flex gap-10 flex-col lg:flex-row w-full max-w-screen-xl mx-auto">
@@ -154,7 +162,7 @@ function FlindersPage() {
               src={cbd}
               width={800}
               height={(800 * 9) / 16}
-              className="aspect-video object-cover rounded-md w-full lg:hidden flex-1"
+              className="aspect-video object-cover rounded-2xl w-full lg:hidden flex-1"
               alt="flinders street station luggage storage"
             />
             <h1 className="text-4xl md:text-6xl font-bold my-4 text-green-800">
@@ -182,7 +190,7 @@ function FlindersPage() {
             <button
               type="button"
               onClick={handleNearMyLocationClick}
-              className={`bg-custom-teal hover:bg-custom-teal-deep text-white font-bold text-lg rounded-full shadow-md transition duration-300 ease-in-out mt-4 px-12 py-4 w-full md:w-fit ${
+              className={`bg-custom-teal hover:bg-custom-teal-deep text-white font-bold text-lg rounded-full shadow-md transition duration-300 ease-in-out mt-4 px-6 md:px-12 py-4 w-full md:w-fit ${
                 loadingLocation ? "opacity-50 cursor-not-allowed" : ""
               }`}
               disabled={loadingLocation}
@@ -194,7 +202,7 @@ function FlindersPage() {
             src={cbd}
             width={1280}
             height={720}
-            className="aspect-video rounded-md max-w-2xl w-full hidden lg:block flex-1"
+            className="aspect-video rounded-2xl max-w-2xl w-full hidden lg:block flex-1"
             alt="Luggage Storage Flinders Street Station "
           />
         </div>
@@ -472,7 +480,7 @@ const FaqCard = ({ t }) => {
       {t.map((faq, index) => (
         <div
           key={index}
-          className={`p-4 min-h-full border-y border-gray-400 transition-all ease-out duration-1000 h-full ${
+          className={`p-2 md:p-4 min-h-fit border-y border-gray-400 transition-all ease-out duration-1000 h-full ${
             openFAQ == index ? "max-h-52 overflow-y-auto" : "max-h-20"
           }`}
         >
@@ -489,7 +497,7 @@ const FaqCard = ({ t }) => {
           </h3>
           {openFAQ == index && (
             <div
-              className="text-gray-600 mt-2 overflow-x-hidden break-words text-justify px-5 font-medium"
+              className="text-gray-600 mt-2 overflow-x-hidden break-words text-justify px-4 font-medium"
               dangerouslySetInnerHTML={{
                 __html: faq.answer,
               }}

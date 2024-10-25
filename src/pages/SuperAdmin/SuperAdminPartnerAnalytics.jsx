@@ -9,11 +9,10 @@ import SuperAdminSidebar from "../../partials/SuperAdminSidebar";
 import SuperAdminHeader from "../../partials/SuperAdminHeader";
 import WelcomeBanner from "../../partials/dashboard/WelcomeBanner";
 import config from "../../config";
-import html2pdf from "html2pdf.js";
-import logo from "/img/home-two/logo3.svg";
-import { ClipLoader } from "react-spinners";
-import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
+import logo from "../../assets/img/home-two/logo3.svg";
+import { LuLoader } from "react-icons/lu";
 const months = [
   "Jan",
   "Feb",
@@ -361,26 +360,28 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
   const handleDownloadPDF = () => {
     const paySlip = paymentSlip.current;
 
-    // old codes
+    html2canvas(paySlip, { scale: 3 }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png"); // Use PNG for better quality
+      const pdf = new jsPDF("p", "mm", "a4");
 
-    try {
-      setLoad(true);
-      html2pdf()
-        .from(paySlip)
-        .set({
-          margin: 1,
-          filename: "payment-slip-booking.pdf",
-          image: { type: "jpeg", quality: 1 },
+      // Calculate X and Y positions to center the content
+      const imgWidth = 210; // PDF width in mm
+      const pageHeight = 297;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width; // Keep aspect ratio
+      let heightLeft = imgHeight;
+      let position = 0;
 
-          html2canvas: { scale: 4, dpi: 180 },
-          jsPDF: { unit: "cm", format: "a4", orientation: "portrait" }, //landscape
-        })
-        .save();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoad(false);
-    }
+      pdf.addImage(imgData, "PNG", 0, position + 5, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position + 5, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      pdf.save("payment-slip-booking.pdf");
+    });
   };
   return (
     <div className="flex-1 h-fit text-black">
@@ -505,7 +506,7 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
               onClick={handleDownloadPDF}
               disabled={load}
             >
-              Download {load && <ClipLoader color="white" size={"1.5em"} />}
+              Download {load && <LuLoader color="white" size={"1.5em"} />}
             </button>
             <button
               className="w-fit px-5 py-2 rounded-md bg-red-700 text-red-100 my-5 hover:bg-red-600 shadow-md shadow-red-500/50 transition-colors flex items-center gap-3"
@@ -517,7 +518,7 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
           </div>
           <div
             ref={paymentSlip}
-            className="grid gap-2 bg-white text-black inset-0 rounded-md p-2 border w-full max-w-screen-lg mx-auto h-full overflow-y-scroll"
+            className="grid gap-2 bg-white text-black inset-0 rounded-md p-2 border w-full max-w-screen-lg mx-auto h-fit overflow-y-scroll"
           >
             <img
               className="aspect-square mx-10 mt-10"
@@ -533,7 +534,7 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
             <table className="table h-fit rounded-md w-full border border-black mx-auto">
               <thead className="table-header-group text-center">
                 <tr>
-                  <th className="border border-black" colSpan={2}>
+                  <th className="border border-black pb-5 px-2" colSpan={2}>
                     PAYMENT DETAILS
                   </th>
                 </tr>
@@ -541,23 +542,25 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
               {/* BODY */}
               <tbody>
                 <tr>
-                  <td className="border border-black">Month</td>
-                  <td className="border border-black">{data.month}</td>
+                  <td className="border border-black pb-5 px-2">Month</td>
+                  <td className="border border-black pb-5 px-2">
+                    {data.month}
+                  </td>
                 </tr>
                 <tr>
-                  <td className="border border-black">
+                  <td className="border border-black pb-5 px-2">
                     Total Booking in QR-CODE
                   </td>
-                  <td className="border border-black">
+                  <td className="border border-black pb-5 px-2">
                     {data?.bookings?.filter((f) => f?.source == "qr_code")
                       ?.length || 0}
                   </td>
                 </tr>
                 <tr>
-                  <td className="border border-black">
+                  <td className="border border-black pb-5 px-2">
                     Earning from IN-Store (QR-CODE) Booking
                   </td>
-                  <td className="border border-black">
+                  <td className="border border-black pb-5 px-2">
                     ${" "}
                     {isNaN(data.earned)
                       ? 0
@@ -565,10 +568,10 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
                   </td>
                 </tr>
                 <tr>
-                  <td className="border border-black">
+                  <td className="border border-black pb-5 px-2">
                     Earning from ONLINE Booking
                   </td>
-                  <td className="border border-black">
+                  <td className="border border-black pb-5 px-2">
                     ${" "}
                     {isNaN(data.earned)
                       ? 0
@@ -585,16 +588,16 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
               </tbody>
               <tfoot>
                 <tr>
-                  <th className="border border-black">Total Earning</th>
-                  <th className="border border-black">
+                  <th className="border border-black pb-5 px-2">
+                    Total Earning
+                  </th>
+                  <th className="border border-black pb-5 px-2">
                     $ {convertToDollars(data?.earned)}
                   </th>
                 </tr>
               </tfoot>
             </table>
-            {data?.bookings?.length > 5 && (
-              <div className="html2pdf__page-break"></div>
-            )}
+
             <table className="h-fit w-full">
               <thead className="table-header-group text-center">
                 <tr>
@@ -621,9 +624,6 @@ const PaymentDetailsByMonthB = ({ data, convertToDollars }) => {
                   if (b.status == "paid")
                     return (
                       <>
-                        {bid > 0 && bid % 13 == 0 && (
-                          <div className="html2pdf__page-break"></div>
-                        )}
                         <tr
                           className={`px-3  border border-black ${
                             bid % 2 == 0 ? "bg-gray-200" : "bg-gray-100"
@@ -691,22 +691,28 @@ const PaymentDetailsByMonthL = ({ data, convertToDollars }) => {
   const handleDownloadPDF = () => {
     const paySlip = paymentSlip.current;
 
-    const opt = {
-      margin: 1,
-      filename: "payment-slip-location.pdf",
-      image: { type: "jpeg", quality: 0.98 },
+    html2canvas(paySlip, { scale: 3 }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png"); // Use PNG for better quality
+      const pdf = new jsPDF("p", "mm", "a4");
 
-      html2canvas: { scale: 4, dpi: 192, letterRendering: true },
-      jsPDF: { unit: "cm", format: "a4", orientation: "landscape" },
-    };
-    try {
-      setLoad(true);
-      html2pdf().from(paySlip).set(opt).save();
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoad(false);
-    }
+      // Calculate X and Y positions to center the content
+      const imgWidth = 210; // PDF width in mm
+      const pageHeight = 297;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width; // Keep aspect ratio
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 0, position + 5, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position + 5, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      pdf.save("payment-slip-location.pdf");
+    });
   };
   return (
     <div className="flex-1 h-fit text-black">
@@ -807,11 +813,11 @@ const PaymentDetailsByMonthL = ({ data, convertToDollars }) => {
 
       {showModal && (
         <div
-          className={`z-50 bg-white fixed top-0 left-0 w-screen h-screen delay-500 p-5 overflow-y-scroll`}
+          className={`z-50 bg-white fixed top-0 left-0 w-screen h-screen delay-500 p-5 overflow-auto`}
         >
           <div
             ref={paymentSlip}
-            className="grid gap-5 bg-white text-black inset-0 rounded-md p-2 border w-full"
+            className="grid gap-5 bg-white text-black inset-0 rounded-md p-2 border w-full h-fit overflow-x-auto"
           >
             <img
               className="aspect-square mx-10 mt-10"
@@ -824,10 +830,10 @@ const PaymentDetailsByMonthL = ({ data, convertToDollars }) => {
             <h2 className="font-bold text-4xl text-center underline">
               Payment Status by Location in {data.month}
             </h2>
-            <table className="table h-fit rounded-md w-full ring-2 ring-black">
+            <table className="table h-fit rounded-md w-full ring-2 ring-black border border-black">
               <thead className="table-header-group text-center">
                 <tr>
-                  <th className="border border-black" colSpan={2}>
+                  <th className="border border-black pb-5 px-2" colSpan={2}>
                     PAYMENT DETAILS
                   </th>
                 </tr>
@@ -835,14 +841,16 @@ const PaymentDetailsByMonthL = ({ data, convertToDollars }) => {
               {/* BODY */}
               <tbody>
                 <tr>
-                  <td className="border border-black">Month</td>
-                  <td className="border border-black">{data.month}</td>
+                  <td className="border border-black pb-5 px-2">Month</td>
+                  <td className="border border-black pb-5 px-2">
+                    {data.month}
+                  </td>
                 </tr>
                 <tr>
-                  <td className="border border-black">
+                  <td className="border border-black pb-5 px-2">
                     Earning from IN-Store (QR-CODE) Booking
                   </td>
-                  <td className="border border-black">
+                  <td className="border border-black pb-5 px-2">
                     ${" "}
                     {isNaN(data.earned)
                       ? 0
@@ -850,10 +858,10 @@ const PaymentDetailsByMonthL = ({ data, convertToDollars }) => {
                   </td>
                 </tr>
                 <tr>
-                  <td className="border border-black">
+                  <td className="border border-black pb-5 px-2">
                     Earning from ONLINE Booking
                   </td>
-                  <td className="border border-black">
+                  <td className="border border-black pb-5 px-2">
                     ${" "}
                     {isNaN(data.earned)
                       ? 0
@@ -870,14 +878,16 @@ const PaymentDetailsByMonthL = ({ data, convertToDollars }) => {
               </tbody>
               <tfoot>
                 <tr>
-                  <th className="border border-black">Total Earning</th>
-                  <th className="border border-black">
+                  <th className="border border-black pb-5 px-2">
+                    Total Earning
+                  </th>
+                  <th className="border border-black pb-5 px-2">
                     $ {convertToDollars(data?.earned)}
                   </th>
                 </tr>
               </tfoot>
             </table>
-            <div className="html2pdf__page-break"></div>
+
             <table className="h-fit rounded-md w-full ring-2 ring-black">
               <thead className="table-header-group text-center">
                 <tr>
@@ -899,9 +909,6 @@ const PaymentDetailsByMonthL = ({ data, convertToDollars }) => {
                 {data?.locationBreakdown?.map((b, bid) => {
                   return (
                     <>
-                      {bid > 0 && bid % 10 == 0 && (
-                        <div className="html2pdf__page-break"></div>
-                      )}
                       <tr
                         className={`px-3  border border-black ${
                           bid % 2 == 0 ? "bg-gray-200" : "bg-gray-100"
@@ -933,7 +940,7 @@ const PaymentDetailsByMonthL = ({ data, convertToDollars }) => {
               onClick={handleDownloadPDF}
               disabled={load}
             >
-              Download {load && <ClipLoader color="white" size={"1.5em"} />}
+              Download {load && <LuLoader color="white" size={"1.5em"} />}
             </button>
             <button
               className="w-fit px-5 py-2 rounded-md bg-red-700 text-red-100 my-5 hover:bg-red-600 shadow-md shadow-red-500/50 transition-colors flex items-center gap-3"

@@ -1,8 +1,13 @@
 import React from "react";
-import logo from "/img/home-two/logo3.svg";
+import logo from "../assets/img/home-two/logo3.svg";
+import { Helmet } from "react-helmet-async";
 function Privacy() {
   return (
     <div className="w-full m-0 bg-white p-2">
+      <Helmet>
+        <title>Privacy Policy - Urloker</title>
+        <meta name="description" content="Privacy Policy for Urloker" />
+      </Helmet>
       <div id="logo">
         <a href="/">
           <img

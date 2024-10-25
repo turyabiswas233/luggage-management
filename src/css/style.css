@@ -6,3 +6,9 @@
 .lightShade {
     text-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.1);
 }
+
+a:active {
+    text-decoration: none;
+    text-decoration-line: none;
+    color: #288383;
+}
