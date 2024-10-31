@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react"; 
 import { useNavigate } from "react-router-dom";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 import backgroundImage from "../../assets/img/home-two/luggage-1.svg";
@@ -7,8 +7,7 @@ import config from "../../config";
 import { useTranslation } from "react-i18next";
 
 const libraries = ["places"];
-const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
-
+const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY; 
 function Banner() {
   const navigate = useNavigate();
   const [autocomplete, setAutocomplete] = useState(null);
@@ -97,35 +96,26 @@ function Banner() {
     }
   };
 
-  if (loadError) return <div>Error loading maps</div>;
-  if (!isLoaded) return <div>Loading Maps</div>;
-
   // Fetch translations for the current language
-  const {
-    title,
-    subtitle,
-    searchPlaceholder,
-    searchButton,
-    findLocationsButton,
-  } = translate?.heroSection;
-
+  const { title, subtitle, searchPlaceholder, findLocationsButton } =
+    translate?.heroSection;
+ 
   return (
-    <div
-       className="bg-custom-teal-deep/20 min-h-fit h-auto w-screen bg-cover backdrop-blur bg-no-repeat"
-      // style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
-      {/* <div className="absolute inset-0 bg-teal-100 opacity-80 backdrop-blur blur"></div> */}
+    <div className="bg-custom-teal-deep/20 min-h-screen h-fit w-screen">
       <div className=" grid grid-cols-1 min-h-[75vh] h-full mt-24 md:grid-cols-2 md:items-center divide-x-reverse max-w-screen-xl mx-auto py-20">
-        <div className="p-10 max-w-screen-md">
-          <img
-            // className="rounded-2xl w-full max-w-md mx-auto aspect-auto skew-x-3 -skew-y-12 rotate-2 scale-x-90 mb-5"
-            className="mx-auto w-full aspect-video object-cover"
-            src={backgroundImage}
-            width={800}
-            height={(800 * 9) / 16}
-            alt="bg-image"
-            loading="lazy"
-          />
+        <div className="p-10 max-w-screen-md  ">
+          {backgroundImage && (
+            <img
+              // className="rounded-2xl w-full max-w-md mx-auto aspect-auto skew-x-3 -skew-y-12 rotate-2 scale-x-90 mb-5"
+              className="mx-auto w-full aspect-video object-cover"
+              src={backgroundImage}
+              width={800}
+              height={(800 * 9) / 16}
+              alt="bg-image"
+              loading="eager"
+              preload="auto"
+            />
+          )}
         </div>
         <div className="relative z-10 text-white px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold drop-shadow-lg capitalize text-center">
@@ -139,14 +129,8 @@ function Banner() {
             {subtitle}
           </p>
 
-          {/* <form
-            id="locationForm"
-            className="mt-4"
-            onSubmit={handleSubmit}
-            aria-label="Location search form"
-          > */}
           <div className="flex flex-col sm:flex-row justify-center items-center relative">
-            {isLoaded && (
+            {isLoaded ? (
               <Autocomplete
                 onLoad={onLoad}
                 onPlaceChanged={onPlaceChanged}
@@ -160,13 +144,14 @@ function Banner() {
                   ref={locationInputRef}
                 />
               </Autocomplete>
+            ) : (
+              <input
+                type="text"
+                placeholder={searchPlaceholder}
+                className="bg-white text-black placeholder:text-gray-700 rounded-full p-3 w-full h-fit"
+                ref={locationInputRef}
+              />
             )}
-            {/* <button
-                type="submit"
-                className="w-full rounded-full bg-custom-teal hover:bg-custom-teal-deep py-2 mt-2 hidden"
-              >
-                {searchButton}
-              </button> */}
           </div>
           <button
             type="button"
@@ -178,7 +163,6 @@ function Banner() {
           >
             {findLocationsButton}
           </button>
-          {/* </form> */}
         </div>
       </div>
     </div>

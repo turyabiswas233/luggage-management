@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { lazy, Suspense, useState } from "react";
 
 import NavbarComp from "./NavbarComp";
 import Banner from "./Banner";
@@ -32,7 +32,8 @@ const Home = () => {
         currentLanguage={currentLanguage}
         setLanguage={handleChangeLanguage}
       />
-      <Banner />
+    
+        <Banner /> 
       <LuggageStorageLocations />
       <HowItWorks />
 
@@ -49,7 +50,7 @@ const Home = () => {
   );
 };
 const Demo = () => {
-  const [openFAQ, setOpenFAQ] = useState(0);
+  const [openFAQ, setOpenFAQ] = useState(-1);
   const { t: tl } = useTranslation();
   const t = tl("home")?.demo;
 
@@ -59,7 +60,7 @@ const Demo = () => {
   return (
     <section
       className="py-16 bg-gradient-to-r from-gray-200 to-custom-gray scroll-mt-20"
-      id="faq"
+      id="hassle"
     >
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl text-left font-extrabold md:text-center text-custom-teal mb-12 transition duration-500 ease-in-out hover:text-custom-teal-deep">

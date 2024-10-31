@@ -199,6 +199,8 @@ const EditLocationForm = ({ onSubmit, location, loading, errors }) => {
                       src={src}
                       alt={`Preview ${index}`}
                       className="h-20 w-20 object-cover rounded-lg shadow-md"
+                      width={80}
+                      height={80}
                     />
                   ))}
                 </div>

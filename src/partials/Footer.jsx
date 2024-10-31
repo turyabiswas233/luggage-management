@@ -9,7 +9,7 @@ const Footer = () => {
             <div className="footer-item">
               <div className="footer-logo2 mb-4">
                 <a href="/">
-                  <img src="./img/logo2.png" alt="logo2" className="w-32" />
+                  <img src="./img/logo2.png" alt="logo2"  width={128} height={128} />
                 </a>
                 <p className="text-gray-600 mt-4">
                   Lorem Ipsum is simply dummy text of the printing and

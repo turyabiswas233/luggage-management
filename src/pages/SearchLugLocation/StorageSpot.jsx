@@ -20,6 +20,8 @@ const StorageSpot = ({
   closeTime,
   notes,
   address,
+  canStoreLuggage,
+  overbooking,
 }) => {
   const defaultImage = "https://via.placeholder.com/150"; // Placeholder image URL
   const navigate = useNavigate();
@@ -53,6 +55,8 @@ const StorageSpot = ({
           className="w-20 object-cover aspect-square rounded-lg h-20"
           src={image || defaultImage}
           alt={title}
+          width={80}
+          height={80}
         />
         <div className="spot-details text-balance">
           <h3 className="text-xl font-bold">{title}</h3>
@@ -60,15 +64,15 @@ const StorageSpot = ({
         </div>
       </div>
       <div className=" px-4 mb-4">
-
-      <p className="text-gray-700 text-sm flex gap-1">
-        <GiPathDistance size={"1.5em"} width={25} height={25} /> {distanceConvert(distance)}
-      </p>
-      <p className="text-sm flex gap-1">
-        <MdLocationOn size={"1.5em"} />
-        {address?.street},{address?.city},{address?.state}-{address?.zipCode},
-        {address?.country}
-      </p>
+        <p className="text-gray-700 text-sm flex gap-1">
+          <GiPathDistance size={"1.5em"} width={25} height={25} />{" "}
+          {distanceConvert(distance)}
+        </p>
+        <p className="text-sm flex gap-1">
+          <MdLocationOn size={"1.5em"} />
+          {address?.street},{address?.city},{address?.state}-{address?.zipCode},
+          {address?.country}
+        </p>
       </div>
       <div className="spot-price py-2 mt-2 flex justify-between items-center border-t p-4">
         <p className="font-semibold text-green-600 text-base">
@@ -79,22 +83,33 @@ const StorageSpot = ({
         </p>
         {/* <p>{link}</p> */}
         {/* {link && <a href={link} className="text-blue-600">More Info</a>} */}
-        <button
-          onClick={handleDetailsClick}
-          className="bg-teal-600 hover:bg-teal-500 text-white font-bold py-2 px-4 text-xs rounded-full transition-colors"
-        >
-          Book Now
-        </button>
+        {!canStoreLuggage || !overbooking ? (
+          <button
+            className="bg-gray-300 text-gray-500 cursor-not-allowed font-bold py-2 px-4 text-xs rounded-full transition-colors select-none"
+            type="button"
+            disabled
+          >
+            Currently Unavailable
+          </button>
+        ) : (
+          <button
+            className="bg-teal-600 hover:bg-teal-500 text-white font-bold py-2 px-4 text-xs rounded-full transition-colors"
+            onClick={handleDetailsClick}
+            type="button"
+          >
+            Book Now
+          </button>
+        )}
       </div>
     </div>
   );
 };
 
 const distanceConvert = (distance = 0) => {
-  const distanceToString = `${(distance >=1000
+  const distanceToString = `${(distance >= 1000
     ? distance / 1000
     : distance
-  ).toFixed(2)} ${distance >=1000 ? "KM" : "meter"}`;
+  ).toFixed(2)} ${distance >= 1000 ? "KM" : "meter"}`;
   return distanceToString;
 };
 export default StorageSpot;

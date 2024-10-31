@@ -144,6 +144,8 @@ const LocationForm = ({ onSubmit, location, loading }) => {
                       src={src}
                       alt={`Preview ${index}`}
                       className="h-20 w-20 object-cover mr-2 mb-2 rounded"
+                      width={80}
+                      height={80}
                     />
                   ))}
                 </div>

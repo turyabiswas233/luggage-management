@@ -164,7 +164,8 @@ const Terms = () => {
      <Helmet>
         <title>Urloker | Terms and Conditions</title>
         <meta name="description" content="Our Terms and Conditions" />
-        
+        {/* canonical link */}
+        <link rel="canonical" href="https://urloker.com/terms-and-conditions" />
      </Helmet>
       <h2 className="text-center font-bold text-3xl">Our Terms and Conditions</h2>
       <ul className="w-3/4 mx-auto">

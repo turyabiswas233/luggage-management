@@ -84,7 +84,7 @@ function Blog() {
                   title={post?.title}
                   className="inline-flex items-center text-blue-600 hover:text-blue-700 transition duration-300 font-semibold"
                 >
-                  Read More{" "}
+                  Read More on {post?.title}
                   <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
                 </Link>
               </div>

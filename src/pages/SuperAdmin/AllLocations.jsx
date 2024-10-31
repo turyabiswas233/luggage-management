@@ -488,7 +488,13 @@ const AllLocations = () => {
                 <div className="text-red-500">{qrCodeError}</div>
               ) : (
                 <div className="text-center">
-                  <img src={qrCode} alt="QR Code" className="mb-4 mx-auto" />
+                  <img
+                    src={qrCode}
+                    alt="QR Code"
+                    className="mb-4 mx-auto"
+                    width={400}
+                    height={400}
+                  />
                   <button
                     onClick={() => setShowModal(false)}
                     className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition duration-150"
@@ -522,12 +528,16 @@ const AllLocations = () => {
                     src={logo}
                     alt="Logo"
                     className="-mt-4 mb-4 w-48 mx-auto"
+                    width={190}
+                    height={190}
                   />{" "}
                   {/* Larger logo */}
                   <img
                     src={qrCode}
                     alt="QR Code"
                     className="mb-4 w-48 mx-auto rounded-md"
+                    width={190}
+                    height={190}
                   />{" "}
                   {/* Smaller QR Code */}
                   {qrCodeDetails && (

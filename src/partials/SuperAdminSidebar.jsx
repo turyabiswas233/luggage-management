@@ -96,7 +96,7 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
           </button>
           {/* Logo */}
           <NavLink end to="/" className="block">
-            <img src={logo} className="h-20" alt="" />
+            <img src={logo} className="h-20" alt="img" width={80} height={80} />
           </NavLink>
         </div>
 

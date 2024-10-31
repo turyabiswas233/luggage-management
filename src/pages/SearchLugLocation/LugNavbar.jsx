@@ -52,7 +52,7 @@ const LugNavbar = ({ onLocationSelected, updateLocations }) => {
           onClick={() => (window.location.href = "/")}
           className="focus:outline-none"
         >
-          <img src={urlockerLogo} alt="Urloker Logo" className="h-16 w-auto" />
+          <img src={urlockerLogo} alt="Urloker Logo" width={80} height={80} />
         </button>
       </div>
       <div className="relative flex-grow max-w-md">

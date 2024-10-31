@@ -67,7 +67,13 @@ const PartnerNavbarComp = () => {
     <div className="fixed top-0 w-full bg-white shadow-md z-50">
       <div className="container mx-auto flex justify-between items-center py-4 px-6">
         <a href="/partner/home" className="flex items-center no-underline">
-          <img src={logo} alt="logo1" className="h-16 w-40" />
+          <img
+            src={logo}
+            alt="logo1"
+            className="h-16 w-40"
+            width={150}
+            height={150}
+          />
         </a>
 
         <nav
@@ -76,7 +82,10 @@ const PartnerNavbarComp = () => {
           }`}
         >
           <div className="md:flex md:flex-row md:space-x-4">
-            <a href="/partner/home" className="hover:text-[#FDB139] no-underline">
+            <a
+              href="/partner/home"
+              className="hover:text-[#FDB139] no-underline"
+            >
               Home
             </a>
           </div>

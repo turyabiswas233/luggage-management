@@ -14,8 +14,19 @@ const Choose = () => {
           <div className="p-4">
             <div className="choose-content bg-white rounded-lg overflow-hidden shadow-lg w-auto max-w-fit mx-auto">
               <div className="p-4 grid grid-cols-2 justify-center gap-3">
-                <img src={luggage1} width={400} alt="Luggage" className="rounded-lg mx-auto object-fill h-full" />
-                <img src={luggage2} width={400} alt="Luggage" className="rounded-lg mx-auto object-fill h-full" />
+                <img
+                  src={luggage1}
+                  width={400}
+                  alt="Luggage"
+                  className="rounded-lg mx-auto object-fill h-full"
+                />
+                <img
+                  src={luggage2}
+                  width={400}
+                  alt="Luggage"
+                  className="rounded-lg mx-auto object-fill h-full"
+                />
+                
               </div>
             </div>
           </div>

@@ -363,12 +363,16 @@ const PartnerLocations = () => {
                   src={logo}
                   alt="Logo"
                   className="-mt-4 mb-4 w-48 mx-auto"
+                  width={150}
+                  height={150}
                 />
                 {/* Larger logo */}
                 <img
                   src={qrCode}
                   alt="QR Code"
                   className="mb-4 w-48 mx-auto rounded-md"
+                  width={150}
+                  height={150}
                 />
                 {/* Smaller QR Code */}
                 {qrCodeDetails && (

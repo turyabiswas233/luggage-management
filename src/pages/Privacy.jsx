@@ -7,6 +7,15 @@ function Privacy() {
       <Helmet>
         <title>Privacy Policy - Urloker</title>
         <meta name="description" content="Privacy Policy for Urloker" />
+        {/* canonical link */}
+        <link rel="canonical" href="https://urloker.com/privacy-policy" />
+        {/*  Robots meta tag */}
+        <meta name="robots" content="index, follow" />
+        <meta name="googlebot" content="index, follow" />
+        <meta
+          name="keywords"
+          content="Urloker, Privacy Policy, Privacy Notice, Privacy Consent"
+        />
       </Helmet>
       <div id="logo">
         <a href="/">

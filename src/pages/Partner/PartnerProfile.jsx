@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { LuLoader} from "react-icons/lu";
+import { LuLoader } from "react-icons/lu";
 import PartnerNavbarComp from "./PartnerNavbarComp";
 import config from "../../config";
 import PartnerChangePasswordModal from "./PartnerChangePasswordModal"; // Import the modal
@@ -176,6 +176,8 @@ const PartnerProfile = () => {
                       className="rounded-full h-32 w-32 mt-5 border-4 border-indigo-500 shadow-lg"
                       src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
                       alt="Profile"
+                      width={128}
+                      height={128}
                     />
                     <h2 className="text-2xl font-bold mt-4 text-gray-800">
                       {profile.username}

@@ -20,7 +20,6 @@ export default defineConfig({
     commonjsOptions: {
       transformMixedEsModules: true,
     },
-    ssrManifest: true,
-    outDir: "build",
+    ssrManifest: true, 
   },
 });

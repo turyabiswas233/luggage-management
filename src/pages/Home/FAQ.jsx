@@ -8,7 +8,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 function FAQ() {
-  const [openFAQ, setOpenFAQ] = useState(0);
+  const [openFAQ, setOpenFAQ] = useState(-1);
   const { t: tl } = useTranslation();
   const t = tl("home")?.faqSection;
 

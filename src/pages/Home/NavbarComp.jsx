@@ -41,7 +41,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
       <div className="mx-auto flex justify-between items-center p-4 md:py-4 md:px-24 md:w-5/6">
         <nav className="flex items-center">
           <a href="/" className="flex items-center no-underline">
-            <img src={logo} alt="logo1" className="h-16 w-40" />
+            <img src={logo} alt="logo1" width={75} height={45}/>
           </a>
           <div className="md:hidden ml-4">
             <a

@@ -18,7 +18,7 @@ const AboutDetails = () => {
   return (
     <div className="bg-white text-black">
       <Helmet>
-        <title>{translate?.title}</title>
+        <title>Urloker | {translate?.title}</title>
         <meta name="description" content={translate?.info[0]} />
         <meta property="og:title" content={translate?.title} />
         <meta property="og:description" content={translate?.info[0]} />

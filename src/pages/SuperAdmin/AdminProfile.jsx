@@ -91,6 +91,8 @@ const AdminProfile = () => {
                                 className="rounded-full h-32 w-32 mt-5"
                                 src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
                                 alt="Profile"
+                                width={125}
+                                height={125}
                             />
                             <h2 className="text-xl font-bold mt-4">{profile.name}</h2>
                             <p className="text-gray-600">{profile.email}</p>

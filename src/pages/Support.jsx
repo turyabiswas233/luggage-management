@@ -10,7 +10,7 @@ const Support = () => {
       </p>
 
       <p>
-        <span className="font-bold">Email: </span> <span className="underline">admn@urloker.com</span>
+        <span className="font-bold">Email: </span> <span className="underline">admin@urloker.com</span>
       </p>
       <p className="text-lg font-bold">
         We aim to respond to all inquiries within 24 hours.

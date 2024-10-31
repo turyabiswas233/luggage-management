@@ -143,7 +143,8 @@ const PaymentSuccess = () => {
                 src={urlockerLogo}
                 alt="Logo"
                 className="mx-auto mb-6"
-                style={{ width: "150px", height: "auto" }}
+                width={150}
+                height={150}
               />
             </div>
             <h1 className="text-success font-bold mb-4 text-3xl">

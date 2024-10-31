@@ -116,6 +116,8 @@ const Sidebar = ({
               closeTime={spot.closeTime}
               notes={spot.notes}
               address={spot?.address}
+              canStoreLuggage={spot?.canStoreLuggage}
+              overbooking={true}
             />
           ))
         ) : (

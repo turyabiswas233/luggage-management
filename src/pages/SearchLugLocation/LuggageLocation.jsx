@@ -16,8 +16,6 @@ const LuggageLocation = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchLocations = async (loc, retryCount = 0) => {
-    console.log("loc", loc);
-
     try {
       setLoading(true);
       const response = await axios.get(
@@ -31,6 +29,7 @@ const LuggageLocation = () => {
           },
         }
       );
+      console.log(response.data);
       setLocations(response.data);
       setVisibleLocations(response.data);
       setLoading(false);

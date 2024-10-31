@@ -56,10 +56,9 @@ function UrlokerKeys() {
   const contentRef = useRef(null);
 
   const handleDownload = async () => {
-    const element = contentRef.current;
-    const originalClass = element.className;
+    const paySlip = contentRef.current;
 
-    const paySlip = paymentSlip.current;
+    const originalClass = paySlip.className;
 
     html2canvas(paySlip, { scale: 3 }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png"); // Use PNG for better quality
@@ -81,8 +80,8 @@ function UrlokerKeys() {
         pdf.addImage(imgData, "PNG", 0, position + 5, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-      pdf.save("payment-slip-booking.pdf");
-      element.className = originalClass;
+      pdf.save("keys-booking-invoice.pdf");
+      paySlip.className = originalClass;
     });
   };
   const handleChangeLanguage = (lang) => {
@@ -120,7 +119,10 @@ function UrlokerKeys() {
     e.preventDefault();
     // Here, you would send the collected data to your backend for processing
     const url = config.API_BASE_URL;
-
+    if(pickUpDate.getTime() <= dropOffDate.getTime()){
+      alert("Pick-up date and time should be greater than drop-off date and time");
+      return;
+    }
     try {
       setLoad(true);
       const response = await axios.post(`${url}/api/v1/airbnb-keys/bookings`, {
@@ -203,7 +205,10 @@ function UrlokerKeys() {
         onSubmit={handleSubmit}
       >
         {/* left part */}
-        <div>
+        <div
+          className="aria-hidden:hidden lg:block"
+          hidden={finalMessage.includes("SUCCESSFUL") == true}
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className=" border border-gray-600 p-2 rounded-md">
               <label className="block mb-2 text-sm">
@@ -214,7 +219,7 @@ function UrlokerKeys() {
                 className="border rounded-md px-3 py-2 w-full"
                 placeholder="Name"
                 required
-                minLength={5}
+                minlength={3}
                 value={dropOffName}
                 onChange={(e) => setDropOffName(e.target.value)}
               />
@@ -234,7 +239,7 @@ function UrlokerKeys() {
                 className="border rounded-md px-3 py-2 w-full"
                 placeholder="Name"
                 required
-                minLength={5}
+                minlength={3}
                 value={pickUpName}
                 onChange={(e) => setPickUpName(e.target.value)}
               />
@@ -407,10 +412,20 @@ function UrlokerKeys() {
       </form>
 
       <div
-        className="w-full mx-auto px-3"
+        className="w-5/6 bg-white rounded-lg mx-auto px-3 mb-20 pt-3"
         hidden={finalMessage.includes("SUCCESSFUL") == false}
       >
-        <Card className="p-6 rounded-lg" ref={contentRef}>
+        <button
+          className={`flex gap-2 w-full items-center p-2 mt-5 bg-custom-teal hover:bg-custom-teal-deep text-green-100 transition-colors justify-center rounded-md`}
+          type="button"
+          onClick={handleDownload}
+        >
+          <span>
+            <MdDownload />
+          </span>
+          <span className="text-lg font-bold">Download Billing Invoice</span>
+        </button>
+        <Card className="p-6 rounded-lg pointer-events-none" ref={contentRef}>
           <Card.Body>
             <div className="text-center mt-8">
               <img
@@ -497,19 +512,6 @@ function UrlokerKeys() {
             </Row>
           </Card.Body>
         </Card>
-
-        {finalMessage.includes("SUCCESSFUL") && (
-          <button
-            className={`flex gap-2 w-full items-center p-2 my-10 bg-green-300 text-green-600 hover:bg-green-500 hover:text-green-100 transition-colors justify-center`}
-            type="button"
-            onClick={handleDownload}
-          >
-            <span>
-              <MdDownload />
-            </span>
-            <span className="text-lg font-bold">Download PaySlip</span>
-          </button>
-        )}
       </div>
     </div>
   );

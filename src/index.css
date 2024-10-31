@@ -2,7 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-
+html, body{
+  scroll-behavior: smooth;
+  transition: all 0.75s linear;
+}
 .quillText {
   padding-left: 1em;
 }

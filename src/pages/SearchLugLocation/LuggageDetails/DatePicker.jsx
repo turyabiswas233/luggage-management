@@ -149,13 +149,6 @@ const DatePicker = ({
 
   return (
     <div className="w-full mx-auto space-y-4">
-      {/* <p>
-        {dropOff.toLocaleDateString()}:{dropOff.toLocaleTimeString()}
-      </p>
-      <p>
-        {pickUp.toLocaleDateString()}:{pickUp.toLocaleTimeString()}
-      </p> */}
-
       {/* drop off box */}
       <div className="flex lg:flex-row flex-col items-start justify-between gap-2">
         {/* drop off date */}
@@ -163,7 +156,7 @@ const DatePicker = ({
           <label className="block text-gray-700 text-xs">DROP-OFF DATE</label>
           <div className="mt-1 block w-full px-2 py-0 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
             {toggleDateDrop ? (
-              <div>
+              <div key={"dropoff-box-date"}>
                 <select
                   name="year"
                   id="yead"
@@ -326,7 +319,7 @@ const DatePicker = ({
                         } ${
                           dropOff.getHours() === tr.startTime.h &&
                           dropOff.getMinutes() === tr.startTime.m &&
-                          "bg-teal-600"
+                          "bg-teal-600 text-white"
                         }`}
                         key={`timed_${tid}`}
                         onClick={() => {
@@ -353,7 +346,7 @@ const DatePicker = ({
           <label className="block text-gray-700 text-xs">PICK-UP DATE</label>
           <div className="mt-1 block w-full px-2 py-0 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
             {toggleDatePick ? (
-              <div>
+              <div key={"pickup-box-date"}>
                 <select
                   name="year"
                   id="yead"
@@ -440,7 +433,7 @@ const DatePicker = ({
                             <span
                               className={`text-center hover:bg-teal-400 rounded-sm ${
                                 d === pdateId && mi === pmid
-                                  ? "bg-teal-500"
+                                  ? "bg-teal-500 text-white"
                                   : ""
                               }  ${
                                 today.getTime() >
@@ -516,7 +509,7 @@ const DatePicker = ({
                         } ${
                           selectedPTime.startTime.h === tr.startTime.h &&
                           selectedPTime.startTime.m === tr.startTime.m &&
-                          "bg-teal-600"
+                          "bg-teal-600 text-white"
                         } `}
                         key={`time_${tid}`}
                         onClick={() => {

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import book from "../../assets/img/home-two/book.jpg";
 import lock from "../../assets/img/home-two/lock.jpg";
-import enjoy from "../../assets/img/home-two/enjoy.jpg"; 
+import enjoy from "../../assets/img/home-two/enjoy.jpg";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-
+import { MdPlayCircleFilled } from "react-icons/md";
 function HowItWorks() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loadingLocation, setLoadingLocation] = useState(false);
@@ -59,10 +59,10 @@ function HowItWorks() {
             <div className="group relative bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl ">
               <div className="flex flex-col items-center text-center">
                 <div className="bg-gradient-to-r from-gray-500 to-green-500 rounded-full p-4 mb-4">
-                  <img
+                  <img width={90} height={90}
                     src={book}
                     alt="Book Icon"
-                    className="h-20 w-20 object-contain"
+                    className="object-contain"
                   />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-blue-600 transition-colors duration-300">
@@ -75,10 +75,10 @@ function HowItWorks() {
             <div className="group relative bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl ">
               <div className="flex flex-col items-center text-center">
                 <div className="bg-gradient-to-r from-gray-500 to-green-400 rounded-full p-4 mb-4">
-                  <img
+                  <img width={90} height={90}
                     src={lock}
                     alt="Lock Icon"
-                    className="h-20 w-20 object-contain"
+                    className="object-contain"
                   />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-blue-600 transition-colors duration-300">
@@ -91,10 +91,10 @@ function HowItWorks() {
             <div className="group relative bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl ">
               <div className="flex flex-col items-center text-center">
                 <div className="bg-gradient-to-r from-gray-500 to-green-500 rounded-full p-4 mb-4">
-                  <img
+                  <img width={90} height={90}
                     src={enjoy}
                     alt="Enjoy Icon"
-                    className="h-20 w-20 object-contain"
+                    className="object-contain"
                   />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-blue-600 transition-colors duration-300">
@@ -104,6 +104,25 @@ function HowItWorks() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="relative w-full md:w-3/4 2xl:w-1/2 mx-auto my-20 h-full rounded-lg overflow-hidden group">
+        <video
+          className="w-full h-auto object-cover aspect-video"
+          controls={false}
+        >
+          <source src="/videos/urloker.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition duration-300"></div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-white">
+          <button
+            className="bg-transparent bg-custom-teal-deep hover:text-black px-4 py-2 rounded-full"
+            type="button"
+            onClick={openModal}
+          >
+            <MdPlayCircleFilled size={54} color="white" />
+          </button>
         </div>
       </div>
       <button
@@ -117,26 +136,27 @@ function HowItWorks() {
         {findLocationsButton}
       </button>
 
-      {false && isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-          <div className="relative w-full max-w-4xl p-8 bg-white rounded-lg shadow-lg">
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 ">
+          <div className="relative w-full max-w-4xl p-8 bg-white rounded-lg shadow-xl ring ring-custom-teal-deep">
             <button
               onClick={closeModal}
               className="absolute top-4 right-4 text-2xl text-gray-700 hover:text-gray-900 transition-colors duration-300"
             >
               &times;
             </button>
-            <div
-              className="relative"
-              style={{ paddingBottom: "56.25%", height: 0 }}
-            >
-              <iframe
-                src="https://www.youtube.com/embed/video_id"
-                title={t.video.title}
-                className="absolute top-0 left-0 w-full h-full rounded-lg"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
+            <div className="relative max-h-fit">
+              <div className="relative w-full h-fit rounded-xl overflow-hidden">
+                <video
+                  className="w-full h-fit object-fill aspect-video rounded-2xl "
+                  controls
+                  autoPlay
+                  controlsList="nodownload"
+                >
+                  <source src="/videos/urloker.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import axios from "axios";
 import config from "../../config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import moment from "moment-timezone";
 
 function PartnerKeyDetails() {
   const { id } = useParams();
@@ -39,7 +40,7 @@ function PartnerKeyDetails() {
 
   const handleSearchKey = (e) => {
     let searchKey = String(e.target.value).toLowerCase();
-    if (searchKey.length == 0) setFilterList(bookingList);
+    if (!searchKey || searchKey?.length == 0) setFilterList(bookingList);
     else
       setFilterList(
         bookingList?.filter((p) =>
@@ -138,31 +139,29 @@ function PartnerKeyDetails() {
           </div>
           <div className="overflow-x-auto w-full">
             {filteredList.length > 0 ? (
-              <table className="p-2 w-fit mx-auto">
-                <thead className="table-header-group">
-                  <tr>
-                    <td className="text-gray-200 font-bold text-center border border-black bg-gray-800 p-1 rounded-sm">
-                      Guest Details
-                    </td>
-                    <td className="text-gray-200 font-bold text-center border border-black bg-gray-800 p-1 rounded-sm">
-                      Location
-                    </td>
-                    <td className="text-gray-200 font-bold text-center border border-black bg-gray-800 p-1 rounded-sm">
-                      Booking Details
-                    </td>
-                    <td className="text-gray-200 font-bold text-center border border-black bg-gray-800 p-1 rounded-sm">
-                      Key Details
-                    </td>
-                  </tr>
-                </thead>
-                <tbody>
+              <div className="p-2 w-fit mx-auto">
+                <div className="grid grid-cols-4 gap-0">
+                  <section className="text-gray-200 font-bold text-center border border-black bg-gray-800 p-1 rounded-sm">
+                    Guest Details
+                  </section>
+                  <section className="text-gray-200 font-bold text-center border border-black bg-gray-800 p-1 rounded-sm">
+                    Location
+                  </section>
+                  <section className="text-gray-200 font-bold text-center border border-black bg-gray-800 p-1 rounded-sm">
+                    Booking Details
+                  </section>
+                  <section className="text-gray-200 font-bold text-center border border-black bg-gray-800 p-1 rounded-sm">
+                    Key Details
+                  </section>
+                </div>
+                <div>
                   {filteredList.map((b) => {
                     return (
-                      <BookingCard key={b?._id} bookingData={b} pid={partner} />
+                      <BookingCard key={b?._id} bookingData={b} _id={b?._id} />
                     );
                   })}
-                </tbody>
-              </table>
+                </div>
+              </div>
             ) : (
               <p className="text-center font-bold">No Data Found</p>
             )}
@@ -173,7 +172,7 @@ function PartnerKeyDetails() {
     </div>
   );
 }
-const BookingCard = ({ bookingData }) => {
+const BookingCard = ({ bookingData, _id }) => {
   const {
     guest,
     payment,
@@ -182,25 +181,44 @@ const BookingCard = ({ bookingData }) => {
     startDate,
     startTime,
     luggageCount,
-    status
   } = bookingData;
 
-  const formattedStartDate = new Date(startDate).toLocaleDateString();
-  console.log(bookingData);
+  const formattedStartDate = new Date(startDate);
+  formattedStartDate.setHours(startTime?.split(":")[0]);
+  formattedStartDate.setMinutes(startTime?.split(":")[1]);
+
+  // delete booking by id
+  const deleteBookingById = async () => {
+    const url = `${config.API_BASE_URL}/api/v1/bookings/system/hard-delete-booking?bookingId=${_id}`;
+    const token = `Bearer ${localStorage.getItem("token")}`;
+    try {
+      const response = await axios.delete(url, {
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      alert("Booking Deleted Successfully");
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+      alert("Failed to delete booking");
+    }
+  };
   return (
-    <tr className="hover:bg-green-50 transition-colors text-sm">
-      <td className="text-gray-700 px-4 border-b border border-black">
+    <div className="hover:bg-green-50 transition-colors text-sm grid grid-cols-4 gap-0">
+      <section className="text-gray-700 px-4 border-b border border-black overflow-x-auto break-keep">
         <h2 className="font-medium text-gray-900">{`Booking ID: ${bookingData._id}`}</h2>
 
-        <ul className="list-disc pl-4 ">
+        <ul className="grid">
           <li>{`Name: ${guest.name}`}</li>
           <li>{`Email: ${guest.email}`}</li>
           {guest.phone && <li>{`Phone: ${guest.phone}`}</li>}
         </ul>
-      </td>
-      <td className="text-gray-700 px-4 border-b border border-black">
-        <ul className="list-disc pl-4 ">
-          <li>{location}</li>
+      </section>
+      <section className="text-gray-700 px-4 border-b border border-black overflow-x-auto break-keep">
+        <ul className="grid">
+          <li>{location.name}</li>
           {keyStorage.isKeyStorage && (
             <li>
               Key Storage Fee:{" "}
@@ -211,35 +229,39 @@ const BookingCard = ({ bookingData }) => {
             </li>
           )}
         </ul>
-      </td>
-      <td className="text-gray-700 px-4 border-b border border-black">
-        <ul className="list-disc pl-4">
-          <li>Payment Status: {status}</li>
-          <li>{`Drop off Time: ${formattedStartDate} - ${startTime}`}</li>
-          <li className="hidden">{`Keys Count: ${luggageCount}`}</li>
+      </section>
+      <section className="text-gray-700 px-4 border-b border border-black overflow-x-auto break-keep">
+        <ul className="grid">
+          <li>{`Drop off Time: ${formattedStartDate.toLocaleString()}`}</li>
+          <li className="hidden">{`Kyes Count: ${luggageCount}`}</li>
           {/* <li>{`Payment Status: ${payment.status}`}</li> */}
           <li>{`Payment Method: ${payment.method}`}</li>
           {payment.transactionId && (
             <li className="break-keep">{`Transaction ID: ${payment.transactionId}`}</li>
           )}
         </ul>
-      </td>
+      </section>
       {keyStorage.isKeyStorage && (
-        <td className="text-gray-700 px-4 border-b border border-black">
-          <ul className="list-disc pl-4 ">
+        <section className="text-gray-700 px-4 border-b border border-black overflow-x-auto break-keep">
+          <ul className="grid">
             <li>{`Drop Off by Agent: ${keyStorage.keyOwner.name}`}</li>
             <li>{`Pickup By: ${keyStorage.keyPickUpBy.name}`}</li>
             {keyStorage.keyPickUpBy.phone && (
               <li>{`Pickup Phone: ${keyStorage.keyPickUpBy.phone}`}</li>
             )}
-            <li>{`Pickup Time: ${new Date(
-              keyStorage.keyPickUpTime
-            ).toLocaleString()}`}</li>
+
+            <li className="break-keep">{`Pickup Time: ${getFormattedUTCTime(
+              keyStorage?.keyPickUpTime
+            )}`}</li>
           </ul>
-        </td>
+        </section>
       )}
-    </tr>
+    </div>
   );
 };
 
+const getFormattedUTCTime = (time) => {
+  const now = new Date(time);
+  return now.toLocaleString("en-US");
+};
 export default PartnerKeyDetails;

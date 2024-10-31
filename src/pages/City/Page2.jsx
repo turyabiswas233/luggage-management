@@ -484,7 +484,7 @@ function AirportPage() {
   );
 }
 const FaqCard = ({ t }) => {
-  const [openFAQ, setOpenFAQ] = useState(0);
+  const [openFAQ, setOpenFAQ] = useState(-1);
 
   const toggleFAQ = (index) => {
     setOpenFAQ((p) => (p == index ? -1 : index));

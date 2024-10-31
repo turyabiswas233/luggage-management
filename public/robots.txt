@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /superadmin/
+Disallow: /partner/
+Disallow: /admin/
+Allow: /
+
+# Sitemap location
+Sitemap: https://urloker.com/sitemap.xml
