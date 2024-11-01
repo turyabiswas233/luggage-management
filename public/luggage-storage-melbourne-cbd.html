@@ -15,6 +15,17 @@
   <meta property="og:description"
     content="Secure luggage storage Melbourne CBD by Urloker. Affordable, convenient spots near attractions and transport. Explore the city hands-free" />
   <link rel="canonical" href="https://urloker.com/luggage-storage-melbourne-cbd" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+
   <style>
     header.nav {
       color: #232323;
@@ -41,10 +52,11 @@
       color: #08898d;
     }
   </style>
-  <link rel="stylesheet" href="../src/index.css" />
+  <link rel="stylesheet" href="/output.css" />
+
 </head>
 
-<body>
+<body class="font-sans">
   <header class="nav">
     <nav>
       <img src="/icons/favicon.ico" />
@@ -59,7 +71,7 @@
             <p class="text-sm">
               Your Trusted Luggage Storage Partner in Australia
             </p>
-            <img src="/src/assets/city/cbd/book.png" width="800" height="450"
+            <img src="/city/cbd/book.png" width="800" height="450"
               class="aspect-video object-cover rounded-2xl w-full lg:hidden flex-1"
               alt="Luggage Storage Melbourne CBD " />
             <h1 class="text-4xl md:text-6xl font-bold my-4 text-green-800">
@@ -72,7 +84,7 @@
               Find Closest Location
             </button>
           </div>
-          <img src="/src/assets/city/cbd/book.png" width="1280" height="720"
+          <img src="/city/cbd/book.png" width="1280" height="720"
             class="aspect-video rounded-2xl max-w-2xl w-full hidden lg:block flex-1"
             alt="Luggage Storage Melbourne CBD " />
         </div>
@@ -295,7 +307,9 @@
   </main>
 
   <script>
-    window.location.href = "/luggage-storage-melbourne-cbd";
+    function handleNearMyLocationClick() {
+      window.location.href = "/luggage-locations";
+    }
   </script>
 </body>
 

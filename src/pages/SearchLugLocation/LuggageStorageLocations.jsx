@@ -93,7 +93,7 @@ const LuggageStorageLocations = () => {
           lat: results[0].geometry.location.lat(),
           lng: results[0].geometry.location.lng(),
         };
-        navigate("/luggage_locations", {
+        navigate("/luggage-locations", {
           state: { location, inputLocation: locationName },
         });
       } else {

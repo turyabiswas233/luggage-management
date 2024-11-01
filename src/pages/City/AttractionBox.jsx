@@ -51,7 +51,7 @@ const CustomInfo = () => {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          navigate("/luggage_locations", { state: { location, nearby: true } });
+          navigate("/luggage-locations", { state: { location, nearby: true } });
         },
         (error) => {
           console.error("Error fetching location:", error);
@@ -190,7 +190,7 @@ const SwipeButton = () => {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          navigate("/luggage_locations", { state: { location, nearby: true } });
+          navigate("/luggage-locations", { state: { location, nearby: true } });
         },
         (error) => {
           console.error("Error fetching location:", error);

@@ -114,7 +114,7 @@ const routerConfig = createBrowserRouter([
       },
       // lugage and keys
       {
-        path: "/luggage_locations",
+        path: "/luggage-locations",
         element: <LuggageLocation />,
       },
       {

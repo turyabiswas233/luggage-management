@@ -2,7 +2,7 @@
 import plugin from "tailwindcss/plugin";
 import flowbite from "flowbite-react/tailwind";
 export default {
-  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}", flowbite.content()],
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}", "./public/*.html", flowbite.content()],
   theme: {
     extend: {
       boxShadow: {

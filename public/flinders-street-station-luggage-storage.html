@@ -11,10 +11,19 @@
   <meta name="description" content="Flinders Station" />
   <meta name="description"
     content="Urloker: Flinders Street Station luggage storage made easy. Secure, affordable options in Melbourne's heart. Drop your bags and explore freely" />
-  <meta name="keywords" content="flinders-street-station-luggage-storage" />
-  <meta property="og:url" href="https://urloker.com/flinders-street-station-luggage-storage" />
-  <link rel="canonical" href="https://urloker.com/flinders-street-station-luggage-storage" />
+  <meta name="keywords"
+    content="flinders-street-station-luggage-storage, flinders, street, station, luggage, storage" />
+  <meta property="og:url" href="https://urloker.com/flinders-street-station-luggage-storage.html" />
+  <link rel="canonical" href="https://urloker.com/flinders-street-station-luggage-storage.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
 
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
   <style>
     header.nav {
       color: #232323;
@@ -41,10 +50,11 @@
       color: #08898d;
     }
   </style>
-  <link rel="stylesheet" href="../src/index.css" />
+  <link rel="stylesheet" href="/output.css" />
+
 </head>
 
-<body>
+<body class="font-sans">
   <header class="nav">
     <nav>
       <img src="/icons/favicon.ico" />
@@ -52,14 +62,14 @@
     </nav>
   </header>
   <main>
-    <div class="content font-sans mx-auto w-full">
+    <div class="font-sans mx-auto w-full">
       <header class="py-20 px-5 text-black/80 bg-white">
         <div class="my-10 flex gap-10 flex-col lg:flex-row w-full max-w-screen-xl mx-auto">
           <div class="space-y-6">
             <p class="text-sm">
               Your Trusted Luggage Storage Partner in Australia
             </p>
-            <img src="/src/assets/city/flinders/flinders.png" width="800" height="450"
+            <img src="/city/flinders/flinders.png" width="800" height="450"
               class="aspect-video object-cover rounded-2xl w-full lg:hidden flex-1"
               alt="flinders street station luggage storage" />
             <h1 class="text-4xl md:text-6xl font-bold my-4 text-green-800">
@@ -67,13 +77,13 @@
             </h1>
             <p>Freedom in every journey with Urloker</p>
 
-            <button type="button" onClick={handleNearMyLocationClick} class="bg-custom-teal
+            <button type="button" onclick={handleNearMyLocationClick()} class="bg-custom-teal
               hover:bg-custom-teal-deep text-white font-bold text-lg rounded-full shadow-md transition duration-300
               ease-in-out mt-4 px-6 md:px-12 py-4 w-full md:w-fit">
               Find Closest Location
             </button>
           </div>
-          <img src="/src/assets/city/flinders/flinders.png" width="1280" height="720"
+          <img src="/city/flinders/flinders.png" width="1280" height="720"
             class="aspect-video rounded-2xl max-w-2xl w-full hidden lg:block flex-1"
             alt="Luggage Storage Flinders Street Station " />
         </div>
@@ -332,9 +342,10 @@
       </main>
     </div>
   </main>
-
   <script>
-    window.location.href = "/flinders-street-station-luggage-storage";
+    function handleNearMyLocationClick() {
+      window.location.href = "/luggage-locations";
+    }
   </script>
 </body>
 

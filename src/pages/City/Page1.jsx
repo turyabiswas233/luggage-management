@@ -46,7 +46,7 @@ function MelbourneCBD() {
             lat: place.geometry.location.lat(),
             lng: place.geometry.location.lng(),
           };
-          navigate("/luggage_locations", {
+          navigate("/luggage-locations", {
             state: { location, inputLocation: locationInputRef.current.value },
           });
         } else {
@@ -74,7 +74,7 @@ function MelbourneCBD() {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          navigate("/luggage_locations", { state: { location, nearby: true } });
+          navigate("/luggage-locations", { state: { location, nearby: true } });
           setLoadingLocation(false);
         },
         (error) => {
