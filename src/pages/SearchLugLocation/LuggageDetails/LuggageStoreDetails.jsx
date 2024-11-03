@@ -241,7 +241,7 @@ const LuggageStoreDetails = () => {
                   {bookingError && (
                     <div className="alert alert-danger">{bookingError}</div>
                   )}
-                  {storeDetails && isBookingAllowd ? (
+                  {storeDetails ? (
                     <BookingForm
                       locationid={storeDetails?.id}
                       handleSubmit={handleSubmit}
