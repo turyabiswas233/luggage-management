@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import cbd from "../../assets/city/cbd/book.png";
+import cbd from "../../assets/city/cbd/cbd.jpeg";
 import locImage from "../../assets/city/cbd/locationMap.png";
 import NavbarComp from "../Home/NavbarComp";
 import { useTranslation } from "react-i18next";
@@ -170,7 +170,7 @@ function MelbourneCBD() {
         <link rel="canonical" href="https://urloker.com/luggage-storage-melbourne-cbd" />
       </Helmet>
       <div className="content font-sans mx-auto w-full">
-        <header className="mt-10 py-20 px-5 text-black/80 bg-white">
+        <header className="py-10 px-5 text-black/80 bg-white">
           <div className="my-10 flex gap-10 flex-col lg:flex-row w-full max-w-screen-xl mx-auto">
             <div className="space-y-6">
               <p className="text-sm">
@@ -463,8 +463,7 @@ function MelbourneCBD() {
           </div>
         </main>
         <FaqCard t={data} />
-      </div>
-      <Footer />
+      </div> 
     </div>
   );
 }

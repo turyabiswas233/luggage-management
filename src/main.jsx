@@ -1,4 +1,4 @@
-import React from "react";
+import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
@@ -22,6 +22,7 @@ import UrlokerKeysMap from "./pages/UrlokerKeys/UrlokerKeysMap";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import ComingSoon from "./pages/CominSoon";
 import SearchLuggage from "./pages/SearchLuggage";
+import PartnerAgreement from "./pages/legal/PartnerAgreement";
 import UserServiceAgency from "./pages/UserServiceAgency";
 import AllPartner from "./pages/SuperAdmin/AllPartner";
 import AllUser from "./pages/SuperAdmin/AllUser";
@@ -108,6 +109,10 @@ const routerConfig = createBrowserRouter([
         path: "/terms-and-conditions",
         element: <Terms />,
       },
+      // {
+      //   path: "/legal/partner-agreement",
+      //   element: <PartnerAgreement />,
+      // },
       {
         path: "/blog-details/:blogid",
         element: <BlogDetails />,
@@ -385,11 +390,13 @@ const routerConfig = createBrowserRouter([
 ]);
 
 createRoot(root).render(
-  <HelmetProvider>
-    {/* <Router> */}
-    <ThemeProvider>
-      <RouterProvider router={routerConfig} />
-    </ThemeProvider>
-    {/* </Router> */}
-  </HelmetProvider>
+  <StrictMode>
+    <HelmetProvider>
+      {/* <Router> */}
+      <ThemeProvider>
+        <RouterProvider router={routerConfig} />
+      </ThemeProvider>
+      {/* </Router> */}
+    </HelmetProvider>
+  </StrictMode>
 );

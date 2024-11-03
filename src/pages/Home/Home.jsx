@@ -44,7 +44,6 @@ const Home = () => {
       <CurrentCities />
       <FAQ />
       <Blog />
-      <Footer />
       {/* <ScrollToTopButton /> */}
     </>
   );

@@ -5,6 +5,7 @@ import enjoy from "../../assets/img/home-two/enjoy.jpg";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { MdPlayCircleFilled } from "react-icons/md";
+import vidFile from "../../assets/videos/urloker.mp4";
 function HowItWorks() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loadingLocation, setLoadingLocation] = useState(false);
@@ -111,7 +112,7 @@ function HowItWorks() {
           className="w-full h-auto object-cover aspect-video"
           controls={false}
         >
-          <source src="/videos/urloker.mp4" type="video/mp4" />
+          <source src={vidFile} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition duration-300"></div>
@@ -153,7 +154,7 @@ function HowItWorks() {
                   autoPlay
                   controlsList="nodownload"
                 >
-                  <source src="/videos/urloker.mp4" type="video/mp4" />
+                  <source src={vidFile} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </div>

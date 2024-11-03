@@ -8,7 +8,7 @@ import { Helmet } from "react-helmet-async";
 function Service() {
   return (
     <section
-      className="bg-gradient-to-br pt-44 from-gray-50  to-gray-300 py-16 scroll-mt-20 text-slate-700"
+      className="bg-gradient-to-b from-gray-50 from-70% to-custom-teal/20 text-slate-700"
       id="services"
     >
       <Helmet>
@@ -42,10 +42,8 @@ function Service() {
             </li>
           ))}
         </ul>
-      </div>
-      <br />
-      <Footer />
-    </section>
+      </div> 
+     </section>
   );
 }
 const serviceList = [

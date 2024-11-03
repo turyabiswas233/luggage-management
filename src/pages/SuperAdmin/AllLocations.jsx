@@ -11,6 +11,7 @@ import AssignPartnerModal from "./AssignPartnerModal";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { MdDelete, MdEdit } from "react-icons/md";
 
 const AllLocations = () => {
   const [locations, setLocations] = useState([]);
@@ -181,6 +182,9 @@ const AllLocations = () => {
       )
     );
     setIsEditing(false);
+  };
+  const updateImage = (imageFile) => {
+    // i will update image here
   };
 
   const assignPartner = async (locationId, partnerId) => {
@@ -387,23 +391,23 @@ const AllLocations = () => {
                               </button>
                             )}
                           </td>
-                          <td className="py-3 px-6 border-b text-center">
+                          <td className="py-3 px-6 border-b text-center grid grid-cols-1 gap-1">
                             <button
                               onClick={() => {
                                 setIsEditing(true);
                                 setCurrentLocation(location);
                               }}
-                              className="px-4 py-2 rounded-lg bg-yellow-500 text-white transition duration-150 mr-2"
+                              className="p-2 w-fit mx-auto rounded-lg bg-yellow-500 text-white transition duration-150 flex justify-center items-center"
                             >
-                              Edit
+                              <MdEdit size={20} />
                             </button>
                             <button
                               onClick={() =>
                                 confirmDeleteLocation(location._id, "hard")
                               }
-                              className="px-4 py-2 rounded-lg bg-red-500 text-white transition duration-150"
+                              className="p-2 w-fit mx-auto rounded-lg bg-red-500 text-white transition duration-150 flex justify-center items-center"
                             >
-                              Delete
+                              <MdDelete size={20} />
                             </button>
                           </td>
                           <td className="py-3 px-6 border-b text-center hidden">
@@ -460,6 +464,7 @@ const AllLocations = () => {
             location={currentLocation}
             onClose={() => setIsEditing(false)}
             onUpdate={updateLocation}
+            onUpdateImage={updateImage}
           />
         )}
         {isAssigning && (

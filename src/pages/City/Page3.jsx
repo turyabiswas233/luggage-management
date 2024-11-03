@@ -152,7 +152,7 @@ function FlindersPage() {
         />
         <link rel="canonical" href="https://urloker.com/flinders-street-station-luggage-storage" />
       </Helmet>
-      <header className="mt-10 py-20 px-5 text-black/80 bg-white">
+      <header className="py-10 px-5 text-black/80 bg-white">
         <div className="my-10 flex gap-10 flex-col lg:flex-row w-full max-w-screen-xl mx-auto">
           <div className="space-y-6">
             <p className="text-sm">
@@ -462,7 +462,7 @@ function FlindersPage() {
         </div>
       </main>
       <FaqCard t={data} />
-      <Footer />
+       
     </div>
   );
 }

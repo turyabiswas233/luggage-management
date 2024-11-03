@@ -49,9 +49,6 @@ function BlogDetails() {
           })}
         </div>
       </div>
-
-      {/* footer */}
-      <Footer currentLanguage={currentLanguage} />
     </div>
   );
 }

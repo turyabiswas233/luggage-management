@@ -41,8 +41,7 @@ const AboutDetails = () => {
 
         <p>{translate?.info[3]} </p>
       </div>
-      <Footer />
-    </div>
+     </div>
   );
 };
  export default AboutDetails;

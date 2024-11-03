@@ -124,7 +124,9 @@ const LuggageStoreInfo = ({
   const initMap = async () => {
     const location = { lat, lng };
     const map = new google.maps.Map(document.getElementById("map"), {
+      minZoom: 15,
       zoom: 15,
+      maxZoom: 15,
       center: location,
       disableDefaultUI: true,
       mapId: "DemoMapId",

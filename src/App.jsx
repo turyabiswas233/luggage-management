@@ -3,6 +3,8 @@ import "./css/style.css";
 
 import TawkTo from "./TawkTo";
 import { Outlet, useLocation } from "react-router-dom";
+import Schema from "./Schema";
+import Footer from "./pages/Home/Footer";
 
 function App() {
   const { pathname } = useLocation();
@@ -13,6 +15,8 @@ function App() {
     <>
       <TawkTo />
       <Outlet />
+      <Schema />
+      <Footer />
     </>
   );
 }

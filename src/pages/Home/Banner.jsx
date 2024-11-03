@@ -1,13 +1,15 @@
-import React, { useState, useRef, useCallback, useEffect } from "react"; 
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
-import backgroundImage from "../../assets/img/home-two/luggage-1.svg";
+// import backgroundImage from "../../assets/img/home-two/luggage-1.svg";
+import backgroundImage from "../../assets/img/home-two/home-banner.jpeg";
+
 import "./Banner.css";
 import config from "../../config";
 import { useTranslation } from "react-i18next";
 
 const libraries = ["places"];
-const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY; 
+const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 function Banner() {
   const navigate = useNavigate();
   const [autocomplete, setAutocomplete] = useState(null);
@@ -99,23 +101,21 @@ function Banner() {
   // Fetch translations for the current language
   const { title, subtitle, searchPlaceholder, findLocationsButton } =
     translate?.heroSection;
- 
+
   return (
     <div className="bg-custom-teal-deep/20 min-h-screen h-fit w-screen">
-      <div className=" grid grid-cols-1 min-h-[75vh] h-full mt-24 md:grid-cols-2 md:items-center divide-x-reverse max-w-screen-xl mx-auto py-20">
+      <div className=" grid grid-cols-1 min-h-[75vh] h-full md:grid-cols-2 md:items-center divide-x-reverse max-w-screen-xl mx-auto">
         <div className="p-10 max-w-screen-md  ">
-          {backgroundImage && (
-            <img
-              // className="rounded-2xl w-full max-w-md mx-auto aspect-auto skew-x-3 -skew-y-12 rotate-2 scale-x-90 mb-5"
-              className="mx-auto w-full aspect-video object-cover"
-              src={backgroundImage}
-              width={800}
-              height={(800 * 9) / 16}
-              alt="bg-image"
-              loading="eager"
-              preload="auto"
-            />
-          )}
+          <img
+            // className="rounded-2xl w-full max-w-md mx-auto aspect-auto skew-x-3 -skew-y-12 rotate-2 scale-x-90 mb-5"
+            className="mx-auto w-full aspect-video object-cover rounded-lg shadow-xl shadow-custom-teal/30"
+            src={backgroundImage}
+            width={800}
+            height={(800 * 9) / 16}
+            alt="Luggage storage Melbourne"
+            loading="eager"
+            preload="auto"
+          />
         </div>
         <div className="relative z-10 text-white px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold drop-shadow-lg capitalize text-center">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Spinner } from "react-bootstrap";
-import { FiAlertCircle, FiCheck } from "react-icons/fi";
+import { FiAlertCircle } from "react-icons/fi";
 import DatePicker from "./DatePicker";
 import moment from "moment-timezone";
 import { useSearchParams } from "react-router-dom";
@@ -20,8 +20,6 @@ const BookingForm = ({
   clientDetails,
   setClientDetails,
   setQrcode,
-  isAgree,
-  setIsAgree,
 }) => {
   const search = useSearchParams();
 
@@ -219,293 +217,195 @@ const BookingForm = ({
     }
   };
 
-  const openUserDetailsModal = () => {
-    if (validateDateTime(checkinTime, checkoutTime)) {
-      setShowModal(true);
-    } else {
-      setErrorMessage("Please fill out all required fields before proceeding.");
-    }
-  };
-
   return (
     <div className="bg-white text-slate-900 shadow-md rounded-lg p-6">
       <h5 className="text-2xl font-bold mb-4">Your Booking</h5>
       {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
       <form id="booking-form" onSubmit={handleFormSubmit}>
-        <DatePicker
-          setCheckinTime={setCheckinTime}
-          setCheckoutTime={setCheckoutTime}
-          setLuggageQuantity={setLuggageQuantity}
-        />
-
-        <div className="mb-4">
-          <label htmlFor="promoCode" className="block font-bold mb-1">
-            Promo Code:
-          </label>
-          <div className="flex items-center">
+        <div className="space-y-4">
+          <DatePicker
+            setCheckinTime={setCheckinTime}
+            setCheckoutTime={setCheckoutTime}
+            setLuggageQuantity={setLuggageQuantity}
+          />
+          <div>
+            <label htmlFor="clientName" className="block font-semibold mb-1">
+              Name:
+            </label>
             <input
               type="text"
-              className="w-full p-2 border border-gray-300 rounded"
-              id="promoCode"
-              name="promoCode"
-              value={promoCode}
-              onChange={(e) => setPromoCode(e.target.value)}
-              disabled={promoApplied}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              id="clientName"
+              name="name"
+              value={guestDetails.name}
+              onChange={handleInputChange}
+              required
             />
-            {promoApplied ? (
-              <button
-                type="button"
-                className="ml-2 bg-red-500 text-white py-1 px-3 rounded hover:bg-red-700 transition duration-300"
-                onClick={handleRemovePromo}
-              >
-                Remove
-              </button>
-            ) : (
-              <button
-                type="button"
-                className="ml-2 bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-700 transition duration-300"
-                onClick={handleApplyPromo}
-              >
-                Apply
-              </button>
-            )}
+            {errors.name && <p className="text-red-500">{errors.name}</p>}
           </div>
-        </div>
-
-        <div className="mb-4">
-          <h4 className="font-bold text-sm">
-            Have you reached us through a QR Code?
-          </h4>
-          <div className="grid gap-4">
-            <section className="p-1 flex justify-start items-center gap-2 border rounded-md mt-1">
+          <div>
+            <label htmlFor="clientEmail" className="block font-semibold mb-1">
+              Email:
+            </label>
+            <input
+              type="email"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              id="clientEmail"
+              name="email"
+              value={guestDetails.email}
+              onChange={handleInputChange}
+              required
+            />
+            {errors.email && <p className="text-red-500">{errors.email}</p>}
+          </div>
+          <div>
+            <label htmlFor="clientPhone" className="block font-semibold mb-1">
+              Phone Number (optional):
+            </label>
+            <input
+              type="text"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              id="clientPhone"
+              name="phone"
+              value={guestDetails.phone}
+              onChange={handleInputChange}
+              
+            />
+            {errors.phone && <p className="text-red-500">{errors.phone}</p>}
+          </div>
+          <div>
+            <label htmlFor="luggagePhotos" className="block font-semibold mb-1">
+              Luggage Photos (optional):
+            </label>
+            <input
+              type="file"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              id="luggagePhotos"
+              name="luggagePhotos"
+              multiple
+              onChange={handleFileChange}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="promoCode" className="block font-bold mb-1">
+              Promo Code:
+            </label>
+            <div className="flex items-center">
               <input
-                disabled
-                type="radio"
-                name="qrChecker"
-                id="qrCheckerYes"
-                defaultChecked={Boolean(search[0].get("isQrcode")) || false}
+                type="text"
+                className="w-full p-2 border border-gray-300 rounded"
+                id="promoCode"
+                name="promoCode"
+                value={promoCode}
+                onChange={(e) => setPromoCode(e.target.value)}
+                disabled={promoApplied}
               />
-              <label className="flex-1" htmlFor="qrCheckerYes">
-                {Boolean(search[0].get("isQrcode")) ? "Yes" : "No"}
-              </label>
-            </section>
+              {promoApplied ? (
+                <button
+                  type="button"
+                  className="ml-2 bg-red-500 text-white py-1 px-3 rounded hover:bg-red-700 transition duration-300"
+                  onClick={handleRemovePromo}
+                >
+                  Remove
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="ml-2 bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-700 transition duration-300"
+                  onClick={handleApplyPromo}
+                >
+                  Apply
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-
-        <div className="Mb-4 flex gap-2 items-center mb-6 group w-fit">
-          <input
+          <div className="Mb-4 flex gap-2 items-center mb-6 group w-fit">
+            {/* <input
             className="hidden"
             hidden
             type="checkbox"
             name="isAgree"
             id="isAgree"
             onChange={(e) => setIsAgree(e.target.checked)}
-          />
-          <label htmlFor="isAgree" className="text-base">
-            <div
-              className={`bg-gray-300 w-fit transition-colors duration-500 inline-block mr-2 rounded-sm ${
-                isAgree ? "bg-teal-400/80" : "bg-gray-100"
-              }`}
-            >
-              <FiCheck
-                className={`p-px transition-colors ${!isAgree && "opacity-30"}`}
-                enableBackground={"true"}
-                color={"black"}
-              />
-            </div>
-            I have read and agree to{" "}
-            <a
+          /> */}
+            <label htmlFor="isAgree" className="text-base">
+              By continuing the booking you are agreeing to our terms and
+              conditions.
+              {/* <a
               className="text-teal-500 font-medium hover:underline"
               href="/terms-and-conditions"
             >
               Terms and Conditions
-            </a>{" "}
-          </label>
-        </div>
-
-        <div className="border-t border-gray-300 pt-4">
-          <h6 className="font-bold mb-2">Price details</h6>
-
-          <div className="flex justify-between">
-            <span>
-              {luggageQuantity} Checked bag{luggageQuantity > 1 ? "s" : ""} (A$
-              {(7.9).toFixed(2)}) x{" "}
-              {calculateDuration(checkinTime, checkoutTime)} day
-              {calculateDuration(checkinTime, checkoutTime) > 1 ? "s" : ""}
-            </span>
-            <span>
-              A$
-              {(
-                luggageQuantity *
-                7.9 *
-                calculateDuration(checkinTime, checkoutTime)
-              ).toFixed(2)}
-            </span>
+            </a>{" "} */}
+            </label>
           </div>
+          <div className="border-t border-gray-300 pt-4">
+            <h6 className="font-bold mb-2">Price details</h6>
 
-          {/* <div className="flex justify-between">
+            <div className="flex justify-between">
+              <span>
+                {luggageQuantity} Checked bag
+                {luggageQuantity > 1 ? "s" : ""} (A$
+                {(7.9).toFixed(2)}) x{" "}
+                {calculateDuration(checkinTime, checkoutTime)} day
+                {calculateDuration(checkinTime, checkoutTime) > 1 ? "s" : ""}
+              </span>
+              <span>
+                A$
+                {(
+                  luggageQuantity *
+                  7.9 *
+                  calculateDuration(checkinTime, checkoutTime)
+                ).toFixed(2)}
+              </span>
+            </div>
+
+            {/* <div className="flex justify-between">
   <span>Service Charge per day</span>
   <span>A${(2.60).toFixed(2)}</span>
 </div> */}
 
-          <div className="flex justify-between pt-2">
-            <span>
-              Total Service Charge per day (A$2.60 x{" "}
-              {calculateDuration(checkinTime, checkoutTime)} day
-              {calculateDuration(checkinTime, checkoutTime) > 1
-                ? "s"
-                : ""} x {luggageQuantity} bag{luggageQuantity > 1 ? "s" : ""})
-            </span>
-            <span>
-              A$
-              {(
-                2.6 *
-                luggageQuantity *
-                calculateDuration(checkinTime, checkoutTime)
-              ).toFixed(2)}
-            </span>
-          </div>
-
-          <div className="flex justify-between font-bold text-xl mt-4">
-            <span>Total</span>
-            <span>A${totalPrice.toFixed(2)}</span>
-          </div>
-        </div>
-        {false && (
-          <div
-            className="bg-yellow-100 flex items-center gap-2 border border-yellow-400 my-3 text-yellow-700 px-4 py-3 rounded"
-            role="alert"
-          >
-            <span>
-              <FiAlertCircle />{" "}
-            </span>
-            <p>
-              <strong className="font-bold">
-                Service Temporarily Blocked.
-              </strong>{" "}
-              Try another location.
-            </p>
-          </div>
-        )}
-        <Button
-          variant="primary"
-          onClick={openUserDetailsModal}
-          className="w-full bg-[#1A73A7] text-white py-2 rounded hover:bg-blue-700 transition duration-300 mb-2 disabled:pointer-events-none disabled:grayscale disabled:bg-gray-500 disabled:opacity-60"
-          disabled={!checkinTime || !checkoutTime || !isAgree}
-        >
-          Book Now
-        </Button>
-      </form>
-
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton className="bg-[#1A73A7] text-white">
-          <Modal.Title>User Details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="bg-gray-100 p-6 rounded-lg">
-          {loading ? (
-            <div className="flex justify-center items-center h-32">
-              <Spinner animation="border" variant="primary" />
-              <span className="ml-3 text-gray-500">Submitting...</span>
+            <div className="flex justify-between pt-2">
+              <span>
+                Total Service Charge per day (A$2.60 x{" "}
+                {calculateDuration(checkinTime, checkoutTime)} day
+                {calculateDuration(checkinTime, checkoutTime) > 1
+                  ? "s"
+                  : ""} x {luggageQuantity} bag{luggageQuantity > 1 ? "s" : ""})
+              </span>
+              <span>
+                A$
+                {(
+                  2.6 *
+                  luggageQuantity *
+                  calculateDuration(checkinTime, checkoutTime)
+                ).toFixed(2)}
+              </span>
             </div>
-          ) : (
-            <form onSubmit={handleFormSubmit} className="space-y-4">
-              {!clientId && (
-                <>
-                  <div>
-                    <label
-                      htmlFor="clientName"
-                      className="block font-semibold mb-1"
-                    >
-                      Name:
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                      id="clientName"
-                      name="name"
-                      value={guestDetails.name}
-                      onChange={handleInputChange}
-                      required
-                    />
-                    {errors.name && (
-                      <p className="text-red-500">{errors.name}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="clientEmail"
-                      className="block font-semibold mb-1"
-                    >
-                      Email:
-                    </label>
-                    <input
-                      type="email"
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                      id="clientEmail"
-                      name="email"
-                      value={guestDetails.email}
-                      onChange={handleInputChange}
-                      required
-                    />
-                    {errors.email && (
-                      <p className="text-red-500">{errors.email}</p>
-                    )}
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="clientPhone"
-                      className="block font-semibold mb-1"
-                    >
-                      Phone Number (optional):
-                    </label>
-                    <input
-                      type="text"
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                      id="clientPhone"
-                      name="phone"
-                      value={guestDetails.phone}
-                      onChange={handleInputChange}
-                      //required
-                    />
-                    <p className="text-sm text-rose-500">
-                      *phone number at least 10 digit long
-                    </p>
-                    {errors.phone && (
-                      <p className="text-red-500">{errors.phone}</p>
-                    )}
-                  </div>
-                </>
-              )}
-              <div>
-                <label
-                  htmlFor="luggagePhotos"
-                  className="block font-semibold mb-1"
-                >
-                  Luggage Photos (optional):
-                </label>
-                <input
-                  type="file"
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                  id="luggagePhotos"
-                  name="luggagePhotos"
-                  multiple
-                  onChange={handleFileChange}
-                />
-              </div>
-              <Modal.Footer>
-                <button
-                  type="submit"
-                  className="w-full bg-[#1A73A7] text-white py-2 rounded-lg hover:bg-[#1a6397] transition duration-300"
-                >
-                  Submit
-                </button>
-              </Modal.Footer>
-              {errorMessage && <p className="text-red-500">{errorMessage}</p>}{" "}
-              {/* Show error message */}
-            </form>
-          )}
-        </Modal.Body>
-      </Modal>
+
+            <div className="flex justify-between font-bold text-xl mt-4">
+              <span>Total</span>
+              <span>A${totalPrice.toFixed(2)}</span>
+            </div>
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-[#1A73A7] text-white py-2 rounded-lg hover:bg-[#1a6397] transition duration-300"
+          >
+            Submit
+          </button>
+          {errorMessage && <p className="text-red-500">{errorMessage}</p>}{" "}
+          {/* Show error message */}
+        </div>
+        {loading ? (
+          <div className="flex justify-center items-center h-32">
+            <Spinner animation="border" variant="primary" />
+            <span className="ml-3 text-gray-500">Submitting...</span>
+          </div>
+        ) : (
+          <div></div>
+        )}
+      </form>
     </div>
   );
 };

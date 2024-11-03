@@ -9,6 +9,15 @@ html, body{
 .quillText {
   padding-left: 1em;
 }
+.partnerAgree section h3  {
+  @apply font-bold text-xl mt-10;
+}
+.partnerAgree section ol  {
+  @apply space-y-5;
+}
+.partnerAgree section ol li  {
+  @apply font-normal text-lg;
+}
 
 .quillText blockquote {
   position: relative;
