@@ -5,7 +5,6 @@ import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 // import backgroundImage from "/files/img/home-two/home-banner.jpeg";
 import backgroundImage from "/files/img/location_common/home-banner.jpeg";
 
-
 import "./Banner.css";
 import config from "../../config";
 import { useTranslation } from "react-i18next";
@@ -111,7 +110,9 @@ function Banner() {
           <img
             // className="rounded-2xl w-full max-w-md mx-auto aspect-auto skew-x-3 -skew-y-12 rotate-2 scale-x-90 mb-5"
             className="mx-auto w-full aspect-video object-cover rounded-lg shadow-xl shadow-custom-teal/30"
-            src={backgroundImage}
+            src={
+              "https://s3.ap-southeast-2.amazonaws.com/s3.urlocker.io/public/files/img/location_common/home-banner.jpeg"
+            }
             width={800}
             height={(800 * 9) / 16}
             alt="Luggage storage Melbourne"
