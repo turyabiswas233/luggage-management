@@ -2,7 +2,9 @@ import React, { useState, useRef, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 // import backgroundImage from "/files/img/home-two/luggage-1.svg";
-import backgroundImage from "/files/img/home-two/home-banner.jpeg";
+// import backgroundImage from "/files/img/home-two/home-banner.jpeg";
+import backgroundImage from "/files/img/location_common/home-banner.jpeg";
+
 
 import "./Banner.css";
 import config from "../../config";

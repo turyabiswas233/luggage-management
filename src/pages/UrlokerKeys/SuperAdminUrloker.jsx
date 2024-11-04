@@ -164,7 +164,7 @@ const BookingCard = ({ bookingData, _id }) => {
       });
 
       alert("Booking Deleted Successfully");
-      window.location.reload();
+      window.location?.reload();
     } catch (err) {
       console.log(err);
       alert("Failed to delete booking");
@@ -176,19 +176,19 @@ const BookingCard = ({ bookingData, _id }) => {
         <h2 className="font-medium text-gray-900">{`Booking ID: ${bookingData._id}`}</h2>
 
         <ul className="grid">
-          <li>{`Name: ${guest.name}`}</li>
-          <li>{`Email: ${guest.email}`}</li>
-          {guest.phone && <li>{`Phone: ${guest.phone}`}</li>}
+          <li>{`Name: ${guest?.name}`}</li>
+          <li>{`Email: ${guest?.email}`}</li>
+          {guest?.phone && <li>{`Phone: ${guest?.phone}`}</li>}
         </ul>
       </section>
       <section className="text-gray-700 px-4 border-b border border-black overflow-x-auto break-keep">
         <ul className="grid">
-          <li>{location.name}</li>
-          {keyStorage.isKeyStorage && (
+          <li>{location?.name}</li>
+          {keyStorage?.isKeyStorage && (
             <li>
               Key Storage Fee:{" "}
               <span className="math-inline">
-                {Number(keyStorage.keyStorageFee).toFixed(2)}
+                {Number(keyStorage?.keyStorageFee).toFixed(2)}
               </span>{" "}
               AUD
             </li>
@@ -206,13 +206,13 @@ const BookingCard = ({ bookingData, _id }) => {
           )}
         </ul>
       </section>
-      {keyStorage.isKeyStorage && (
+      {keyStorage?.isKeyStorage && (
         <section className="text-gray-700 px-4 border-b border border-black overflow-x-auto break-keep">
           <ul className="grid">
-            <li>{`Drop Off by Agent: ${keyStorage.keyOwner.name}`}</li>
-            <li>{`Pickup By: ${keyStorage.keyPickUpBy.name}`}</li>
-            {keyStorage.keyPickUpBy.phone && (
-              <li>{`Pickup Phone: ${keyStorage.keyPickUpBy.phone}`}</li>
+            <li>{`Drop Off by Agent: ${keyStorage?.keyOwner?.name}`}</li>
+            <li>{`Pickup By: ${keyStorage?.keyPickUpBy?.name}`}</li>
+            {keyStorage?.keyPickUpBy?.phone && (
+              <li>{`Pickup Phone: ${keyStorage?.keyPickUpBy?.phone}`}</li>
             )}
 
             <li className="break-keep">{`Pickup Time: ${getFormattedUTCTime(
