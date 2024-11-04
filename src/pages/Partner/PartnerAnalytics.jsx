@@ -9,7 +9,7 @@ import WelcomeBanner from "../../partials/dashboard/WelcomeBanner";
 import config from "../../config";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import logo from "../../assets/img/home-two/logo3.svg";
+import logo from "/files/img/home-two/logo3.svg";
 import { LuLoader } from "react-icons/lu";
 const months = [
   "Jan",

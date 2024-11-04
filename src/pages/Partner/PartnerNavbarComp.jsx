@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
-import logo from "../../assets/img/home-two/logo3.svg";
+import logo from "/files/img/home-two/logo3.svg";
 import { HiMiniBellAlert } from "react-icons/hi2";
 import Notifications from "../../components/DropdownNotifications";
 

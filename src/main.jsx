@@ -139,7 +139,7 @@ const routerConfig = createBrowserRouter([
         element: <UrlokerKeys />,
       },
       {
-        path: "/urlokerKeysMap",
+        path: "/urlokerkeysmap",
         element: <UrlokerKeysMap />,
       },
       {

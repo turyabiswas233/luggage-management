@@ -1,7 +1,7 @@
 import "./NavBarComp.css";
 import React, { useState } from "react";
 import LoginForm from "./LoginForm"; // Assuming LoginForm is in the same directory
-import logo from "../../assets/img/home-two/logo3.svg";
+import logo from "/files/img/home-two/logo3.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import translations from "./translations"; // Import your translations
@@ -45,7 +45,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
           </a>
           <div className="md:hidden ml-4">
             <a
-              href="/urlokerKeysMap"
+              href="/urlokerkeysmap"
               className="flex items-center text-[#208873] hover:text-[#208873] no-underline"
             >
               <FontAwesomeIcon icon={faKey} className="mr-2" />{" "}
@@ -87,7 +87,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
               {currentTranslations.header.home}
             </a>
             <a
-              href="/urlokerKeysMap"
+              href="/urlokerkeysmap"
               className="hidden md:block text-[#208873] no-underline"
             >
               {currentTranslations.header.urlokerKeys}

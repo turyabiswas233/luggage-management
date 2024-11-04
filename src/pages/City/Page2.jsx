@@ -1,12 +1,11 @@
 import React, { useState, useRef, useCallback } from "react";
 import { Helmet } from "react-helmet-async";
-import cbd from "../../assets/city/airport/airport.png";
-import locImage from "../../assets/city/airport/locationMap.png";
+import cbd from "/files/city/airport/airport.png";
+import locImage from "/files/city/airport/locationMap.png";
 import NavbarComp from "../Home/NavbarComp";
 import { useTranslation } from "react-i18next";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Footer from "../Home/Footer";
 import AttractionBox from "./AttractionBox";
 import { useNavigate } from "react-router-dom";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";

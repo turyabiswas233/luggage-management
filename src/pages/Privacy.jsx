@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/img/home-two/logo3.svg";
+import logo from "/files/img/home-two/logo3.svg";
 import { Helmet } from "react-helmet-async";
 function Privacy() {
   return (

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Transition from '../utils/Transition';
-import logo from '../assets/img/home-two/logo3.svg';
+import logo from '/files/img/home-two/logo3.svg';
 
 function DropdownProfile({
   align

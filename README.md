@@ -1,4 +1,4 @@
-Use it for whatever you want, and be sure to reach us out on Our Website if you build anything cool/useful with it.
+Use it for whatever you want, and be sure to reach us out on Our Website if you build anything cool/useful with it
 
 Created and maintained with ❤️ by [EasytechInnovation.com](https://easytechinnovation.com/).
 

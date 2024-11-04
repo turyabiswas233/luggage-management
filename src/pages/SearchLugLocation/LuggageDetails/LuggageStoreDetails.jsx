@@ -140,6 +140,7 @@ const LuggageStoreDetails = () => {
         setShowPaymentModal(true);
       } else {
         console.error("Booking error:", result);
+        setBookingError("Lorem ipsum " + result?.message);
 
         // Check for specific error messages and set them in the state
         if (result.message.includes("Location is not available")) {
@@ -154,14 +155,16 @@ const LuggageStoreDetails = () => {
           setShowBookingErrorModal(true);
         } else {
           setBookingError(
-            "An unexpected error occurred. Please try again later."
+            "An unexpected error occurred. Please try again later. Important: If you have Phone number, it should be greater than 5"
           );
           setShowBookingErrorModal(true);
         }
       }
     } catch (error) {
       console.error("Error:", error);
-      setBookingError("An unexpected error occurred. Please try again later.");
+      setBookingError(
+        "An unexpected error occurred. Please try again later. Important: If you have Phone number, it should be greater than 5"
+      );
       setShowBookingErrorModal(true);
     }
   };
@@ -205,7 +208,6 @@ const LuggageStoreDetails = () => {
 
   const handleBookingErrorModalClose = () => {
     setShowBookingErrorModal(false);
-    window.location.reload(); // Refresh the page when OK is clicked
   };
 
   return (
@@ -295,24 +297,23 @@ const LuggageStoreDetails = () => {
             </Elements>
           )}
           {/* Booking Error Modal */}
-          <Modal
-            show={showBookingErrorModal}
-            onHide={handleBookingErrorModalClose}
-            className="modal-dialog-centered"
-          >
-            <Modal.Header closeButton>
-              <Modal.Title className="bg-gray-200 text-red-500">
-                Booking Error
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <p>{bookingError}</p>{" "}
-              {/* Display the dynamic booking error message here */}
-              <Button variant="primary" onClick={handleBookingErrorModalClose}>
-                OK
-              </Button>
-            </Modal.Body>
-          </Modal>
+          {showBookingErrorModal && (
+            <div className="fixed z-50 top-3 left-1/2 -translate-x-1/2 bg-white shadow-xl shadow-custom-teal-deep/20 rounded-md px-10 py-5 max-w-md w-full min-h-32">
+              <header>
+                <div className="title font-bold text-lg">Booking Error</div>
+              </header>
+              <main>
+                <p className="text-wrap">{bookingError || "Lorem ipsum"}</p>
+                <button
+                  className="bg-red-500 text-white rounded-md px-4 py-2 mx-auto mt-5"
+                  type="button"
+                  onClick={handleBookingErrorModalClose}
+                >
+                  OK
+                </button>
+              </main>
+            </div>
+          )}
         </div>
       }
     </div>
@@ -417,8 +418,8 @@ const PaymentFormModal = ({
 
   if (bookingId !== "" && clientSecret !== "")
     return (
-      <div className="my-3">
-        <header closeButton className="bg-[#1A73A7] text-white p-3">
+      <div className="my-3 max-w-md mx-auto rounded-md p-2 bg-white">
+        <header className="bg-custom-teal-deep rounded-md text-white p-3">
           <h3 className="text-lg font-semibold">Complete Your Payment</h3>
         </header>
         <div className="bg-gray-100 p-2 rounded-lg">
@@ -475,7 +476,7 @@ const PaymentFormModal = ({
               <Button
                 variant="primary"
                 type="submit"
-                className="w-full bg-[#1A73A7] text-white py-3 rounded-lg hover:bg-blue-600 transition duration-300 font-semibold"
+                className="w-full bg-custom-teal text-white py-3 rounded-lg hover:bg-custom-teal-deep transition duration-300 font-semibold"
                 disabled={loading}
               >
                 {loading ? "loading..." : "Pay Now"}
@@ -483,8 +484,15 @@ const PaymentFormModal = ({
               <Button
                 variant="primary"
                 type="reset"
-                onClick={() => window?.location?.reload()}
-                className="w-full bg-gray-700 text-white py-3 rounded-lg hover:bg-gray-800 transition duration-300 font-semibold"
+                onClick={() => {
+                  const check = window.confirm(
+                    "Your booking has not yet confirmed. Will you cancel it?"
+                  );
+                  if (check) {
+                    window?.location?.reload();
+                  }
+                }}
+                className="w-full bg-rose-700 text-white py-3 rounded-lg hover:bg-rose-800 transition duration-300 font-semibold"
               >
                 {loading ? "loading..." : "Cancel"}
               </Button>

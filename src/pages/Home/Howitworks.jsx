@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import book from "../../assets/img/home-two/book.jpg";
-import lock from "../../assets/img/home-two/lock.jpg";
-import enjoy from "../../assets/img/home-two/enjoy.jpg";
+import book from "/files/img/home-two/book.jpg";
+import lock from "/files/img/home-two/lock.jpg";
+import enjoy from "/files/img/home-two/enjoy.jpg";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { MdPlayCircleFilled } from "react-icons/md";
-import vidFile from "../../assets/videos/urloker.mp4";
+import vidFile from "/files/videos/urloker.mp4";
 function HowItWorks() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loadingLocation, setLoadingLocation] = useState(false);

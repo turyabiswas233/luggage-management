@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import logo from "../../assets/img/home-two/logo3.svg"; // Import the logo
+import logo from "/files/img/home-two/logo3.svg"; // Import the logo
 import config from "../../config";
 import SuperAdminSidebar from "../../partials/SuperAdminSidebar";
 import SuperAdminHeader from "../../partials/SuperAdminHeader";

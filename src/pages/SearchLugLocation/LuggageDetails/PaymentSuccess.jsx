@@ -6,7 +6,7 @@ import ClientNavbarComp from "../../User/ClientNavbarComp";
 import { useLocation } from "react-router-dom";
 
 import config from "../../../config";
-import urlockerLogo from "../../../assets/img/home-two/logo3.svg"; // Import the logo
+import urlockerLogo from "/files/img/home-two/logo3.svg"; // Import the logo
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 

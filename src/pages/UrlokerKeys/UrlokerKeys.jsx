@@ -8,7 +8,7 @@ import DatePicker from "../SearchLugLocation/LuggageDetails/DatePicker";
 import { HiCheckCircle, HiCurrencyDollar } from "react-icons/hi";
 import { LuLoader } from "react-icons/lu";
 import { MdClose, MdDownload } from "react-icons/md";
-import logo from "../../assets/img/home-two/logo3.svg";
+import logo from "/files/img/home-two/logo3.svg";
 // payment components
 import {
   Elements,
@@ -194,7 +194,7 @@ function UrlokerKeys() {
     <div
       className={`${
         finalMessage.includes("SUCCESSFUL") && "lg:grid lg:grid-cols-2"
-      } gap-2 pt-48`}
+      } gap-2`}
     >
       <NavbarComp
         currentLanguage={currentLanguage}

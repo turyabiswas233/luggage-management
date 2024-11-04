@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import logo from "../../assets/img/home-two/logo3.svg";
+import logo from "/files/img/home-two/logo3.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AiFillCreditCard } from "react-icons/ai";
 import {

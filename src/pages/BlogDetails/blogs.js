@@ -1,6 +1,6 @@
-import furniture from "../../assets/img/home-two/furniture-1.jpg";
-import luggage from "../../assets/img/home-two/luggage-1.webp";
-import hospital from "../../assets/img/home-two/hospital-1.webp";
+import furniture from "/files/img/home-two/furniture-1.jpg";
+import luggage from "/files/img/home-two/luggage-1.webp";
+import hospital from "/files/img/home-two/hospital-1.webp";
 
 const blogs = {
   en: {
