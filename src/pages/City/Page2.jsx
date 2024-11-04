@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet-async";
 import config from "../../config";
 const cbd = config.BUCKET_URL + "/files/city/airport/airport.png";
 const locImage = config.BUCKET_URL + "/files/city/airport/locationMap.png";
-import NavbarComp from "../Home/NavbarComp";
 import { useTranslation } from "react-i18next";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,11 +14,7 @@ const libraries = ["places"];
 const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 
 function AirportPage() {
-  const [currentLanguage, setCurrentLanguage] = useState(
-    localStorage.getItem("i18nextLng") == "en-US"
-      ? "en"
-      : localStorage.getItem("i18nextLng") || "en"
-  );
+  
   const navigate = useNavigate();
   const { t } = useTranslation();
   const translate = t("home");
@@ -57,11 +52,6 @@ function AirportPage() {
     } else {
       console.log("Autocomplete is not loaded yet!");
     }
-  };
-
-  const handleChangeLanguage = (lang) => {
-    setCurrentLanguage(lang);
-    t.changeLanguage(lang);
   };
 
   const handleNearMyLocationClick = () => {
@@ -125,10 +115,6 @@ function AirportPage() {
   const { searchPlaceholder, findLocationsButton } = translate?.heroSection;
   return (
     <div className="font-sans">
-      <NavbarComp
-        setLanguage={handleChangeLanguage}
-        currentLanguage={currentLanguage}
-      />
       {/*  SEO Header */}
       <Helmet>
         <title>Luggage Storage Melbourne Airport - Urloker</title>

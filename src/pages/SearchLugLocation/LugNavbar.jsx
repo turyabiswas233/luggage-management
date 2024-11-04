@@ -3,7 +3,7 @@ import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 import config from "../../config";
 import urlockerLogo from "/files/img/home-two/logo3.svg"; // Adjust the path as needed
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch  } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const libraries = ["places"];
 
@@ -47,15 +47,15 @@ const LugNavbar = ({ onLocationSelected, updateLocations }) => {
 
   return (
     <nav className="bg-white shadow-md p-4 flex justify-between items-center flex-shrink-0">
-      <div className="flex items-center">
+      {/* <div className="flex items-center">
         <button
           onClick={() => (window.location.href = "/")}
           className="focus:outline-none"
         >
           <img src={urlockerLogo} alt="Urloker Logo" width={80} height={80} />
         </button>
-      </div>
-      <div className="relative flex-grow max-w-md">
+      </div> */}
+      <div className="relative flex-grow w-full ring-custom-teal-deep ring-1 rounded-sm">
         <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
           <div className="relative">
             <span className="absolute inset-y-0 left-0 flex items-center pl-3">

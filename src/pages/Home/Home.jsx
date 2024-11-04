@@ -27,10 +27,10 @@ const Home = () => {
   };
   return (
     <>
-      <NavbarComp
+      {/* <NavbarComp
         currentLanguage={currentLanguage}
         setLanguage={handleChangeLanguage}
-      />
+      /> */}
     
         <Banner /> 
       <LuggageStorageLocations />
@@ -42,7 +42,7 @@ const Home = () => {
       <CityInfo />
       <CurrentCities />
       <FAQ />
-      <Blog />
+      {/* <Blog /> */}
       {/* <ScrollToTopButton /> */}
     </>
   );

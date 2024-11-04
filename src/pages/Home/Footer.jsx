@@ -9,6 +9,7 @@ import {
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 function Footer() {
   const { t: tl } = useTranslation();
@@ -73,13 +74,13 @@ function Footer() {
                 </a>
               </li>
               <li>
-                <a
-                  href="/#blog"
+                <Link
+                  to="/blog"
                   className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
                   title="Blog"
                 >
                   {t.blog}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -169,7 +170,7 @@ function Footer() {
             </h4>
             <div className="flex flex-wrap gap-3">
               <a
-              aria-label="Urloker Facebook Page"
+                aria-label="Urloker Facebook Page"
                 href="https://www.facebook.com/profile.php?id=61564185476772"
                 target="_blank"
                 className="text-white hover:text-blue-600 transition-colors duration-300 text-3xl p-2"
@@ -177,21 +178,21 @@ function Footer() {
                 <FontAwesomeIcon icon={faFacebookF} />
               </a>
               <a
-              aria-label="Urloker Instagram Page"
+                aria-label="Urloker Instagram Page"
                 href="#"
                 className="text-white hover:text-pink-600 transition-colors duration-300 text-3xl p-2"
               >
                 <FontAwesomeIcon icon={faInstagram} />
               </a>
               <a
-              aria-label="Urloker Twitter Page"
+                aria-label="Urloker Twitter Page"
                 href="#"
                 className="text-white hover:text-blue-600 transition-colors duration-300 text-3xl p-2"
               >
                 <FontAwesomeIcon icon={faTwitter} />
               </a>
               <a
-              aria-label="Urloker LinkedIn Page"
+                aria-label="Urloker LinkedIn Page"
                 href="#"
                 className="text-white hover:text-blue-600 transition-colors duration-300 text-3xl  p-2"
               >

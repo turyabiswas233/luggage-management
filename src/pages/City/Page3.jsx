@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet-async";
 import config from "../../config";
 const cbd = config.BUCKET_URL + "/files/city/flinders/flinders.png";
 const locImage = config.BUCKET_URL + "/files/city/flinders/locationMap.png";
-import NavbarComp from "../Home/NavbarComp";
 import { useTranslation } from "react-i18next";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,11 +14,7 @@ const libraries = ["places"];
 const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 
 function FlindersPage() {
-  const [currentLanguage, setCurrentLanguage] = useState(
-    localStorage.getItem("i18nextLng") == "en-US"
-      ? "en"
-      : localStorage.getItem("i18nextLng") || "en"
-  );
+  
   const navigate = useNavigate();
   const { t } = useTranslation();
   const translate = t("home");
@@ -57,11 +52,6 @@ function FlindersPage() {
     } else {
       console.log("Autocomplete is not loaded yet!");
     }
-  };
-
-  const handleChangeLanguage = (lang) => {
-    setCurrentLanguage(lang);
-    t.changeLanguage(lang);
   };
 
   const handleNearMyLocationClick = () => {
@@ -121,10 +111,7 @@ function FlindersPage() {
 
   return (
     <div>
-      <NavbarComp
-        setLanguage={handleChangeLanguage}
-        currentLanguage={currentLanguage}
-      />
+      
       {/*  SEO Header */}
       <Helmet>
         <title>Flinders Street Station Luggage Storage - Urloker</title>

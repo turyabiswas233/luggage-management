@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet-async";
 import config from "../../config";
 const cbd = config.BUCKET_URL + "/files/city/cbd/cbd.jpeg";
 const locImage = config.BUCKET_URL + "/files/city/cbd/locationMap.png";
-import NavbarComp from "../Home/NavbarComp";
 import { useTranslation } from "react-i18next";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,11 +14,6 @@ const libraries = ["places"];
 const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 
 function MelbourneCBD() {
-  const [currentLanguage, setCurrentLanguage] = useState(
-    localStorage.getItem("i18nextLng") == "en-US"
-      ? "en"
-      : localStorage.getItem("i18nextLng") || "en"
-  );
   const navigate = useNavigate();
   const { t } = useTranslation();
   const translate = t("home");
@@ -57,11 +51,6 @@ function MelbourneCBD() {
     } else {
       console.log("Autocomplete is not loaded yet!");
     }
-  };
-
-  const handleChangeLanguage = (lang) => {
-    setCurrentLanguage(lang);
-    t.changeLanguage(lang);
   };
 
   const handleNearMyLocationClick = () => {
@@ -144,10 +133,7 @@ function MelbourneCBD() {
   const { searchPlaceholder, findLocationsButton } = translate?.heroSection;
   return (
     <div>
-      <NavbarComp
-        setLanguage={handleChangeLanguage}
-        currentLanguage={currentLanguage}
-      />
+      
       {/*  SEO Header */}
       <Helmet>
         <title>Luggage Storage Melbourne CBD - Urloker</title>

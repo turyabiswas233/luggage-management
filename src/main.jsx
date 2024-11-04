@@ -14,6 +14,7 @@ import Home from "./pages/Home/Home";
 import Service from "./pages/Home/Service";
 import Support from "./pages/Support";
 import Terms from "./pages/Terms";
+import Blog from "./pages/Home/Blog";
 import BlogDetails from "./pages/BlogDetails";
 import Privacy from "./pages/Privacy";
 import UrlokerKeys from "./pages/UrlokerKeys/UrlokerKeys";
@@ -113,6 +114,10 @@ const routerConfig = createBrowserRouter([
       //   path: "/legal/partner-agreement",
       //   element: <PartnerAgreement />,
       // },
+      {
+        path: "/blog",
+        element: <Blog />,
+      },
       {
         path: "/blog-details/:blogid",
         element: <BlogDetails />,

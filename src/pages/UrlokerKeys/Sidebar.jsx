@@ -61,12 +61,12 @@ const Sidebar = ({
         updateLocations={seeOnMyLocation}
       />
       <div className="filters border-b border-b-green-800 p-4 sticky top-0 left-0">
-        <div className="flex flex-col lg:flex-row justify-between">
+        <div className="flex gap-2 justify-between text-sm md:text-base">
           <label className="w-full lg:w-1/2 lg:pr-2 mb-2 lg:mb-0">
             Drop off:
             <input
               type="datetime-local"
-              className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
+              className="w-full p-2 text-sm mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
               value={dropOffTime}
               onChange={(e) => setDropOffTime(e.target.value)}
             />
@@ -75,7 +75,7 @@ const Sidebar = ({
             Pick up:
             <input
               type="datetime-local"
-              className="w-full p-2 mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
+              className="w-full p-2 text-sm mt-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
               value={pickUpTime}
               onChange={(e) => setPickUpTime(e.target.value)}
             />
