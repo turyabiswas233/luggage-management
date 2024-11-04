@@ -2,7 +2,7 @@ Use it for whatever you want, and be sure to reach us out on Our Website if you 
 
 Created and maintained with ❤️ by [EasytechInnovation.com](https://easytechinnovation.com/).
 
-## Live demo
+## Live
 Check the live demo here 👉️ [https://urloker.com/](https://urloker.com/)
 
 ## Urloker
