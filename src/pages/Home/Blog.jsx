@@ -5,9 +5,10 @@ import {
   faEye,
   faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
-import furniture from "/files/img/home-two/furniture-1.jpg";
-import luggage from "/files/img/home-two/luggage-1.webp";
-import hospital from "/files/img/home-two/hospital-1.webp";
+import config from "../../config";
+const furniture = config.BUCKET_URL + "/files/img/home-two/furniture-1.jpg";
+const luggage = config.BUCKET_URL + "/files/img/home-two/luggage-1.webp";
+const hospital = config.BUCKET_URL + "/files/img/home-two/hospital-1.webp";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -45,19 +46,20 @@ function Blog() {
                 alt="Blog"
                 width={500}
                 height={500}
+                loading="lazy"
               />
 
               <div className="p-6">
                 <h3 className="font-semibold text-xl leading-tight truncate mb-2">
-                  <a
-                    href={"/blog-details/" + (index + 1)}
+                  <Link
+                    to={"/blog-details/" + post?.detailsUrl}
                     className="hover:text-blue-600 transition duration-300"
                     about={post?.comments}
                     title={post?.title}
                     aria-roledescription="blog url"
                   >
                     {post.title}
-                  </a>
+                  </Link>
                 </h3>
                 <div className="mb-4">
                   <span className="text-gray-500">
@@ -79,7 +81,7 @@ function Blog() {
                 </div>
                 <p className="text-gray-600 mb-4">{post.excerpt}</p>
                 <Link
-                  to={"/blog-details/" + (index + 1)}
+                  to={"/blog-details/" + post?.detailsUrl}
                   about={post?.comments}
                   title={post?.title}
                   className="inline-flex items-center text-blue-600 hover:text-blue-700 transition duration-300 font-semibold"

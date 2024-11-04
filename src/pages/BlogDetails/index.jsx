@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import NavbarComp from "../Home/NavbarComp";
-import Footer from "../Home/Footer";
 import { useTranslation } from "react-i18next";
 const lng = localStorage.getItem("i18nextLng");
 function BlogDetails() {
@@ -14,7 +13,7 @@ function BlogDetails() {
     setCurrentLanguage(lang);
     i18n.changeLanguage(lang);
   };
-  const blog = t("blogs").blogs[blogid - 1];
+  const blog = t("blogs").blogs.find((ele) => ele.id === blogid);
 
   const { head, desc, img, othersInfo } = blog;
   return (

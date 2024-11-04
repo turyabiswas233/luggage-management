@@ -127,7 +127,7 @@ const translations = {
           imageUrl: "furniture",
           excerpt:
             "The Sydney Harbour Bridge, an iconic steel arch, connects Sydney's CBD to the North Shore, offering stunning harbour views. Opened in 1932, it's a major transportation link and a symbol of Australia's engineering prowess",
-          detailsUrl: "/blog/?id=1",
+          detailsUrl: "sydney-harbour-bridge",
         },
         {
           title: "Taronga Zoo Sydney",
@@ -137,7 +137,7 @@ const translations = {
           imageUrl: "hospital",
           excerpt:
             "Situated on Sydney Harbour, this zoo offers diverse wildlife exhibits and stunning views of the city skyline.",
-          detailsUrl: "/blog/?id=2",
+          detailsUrl: "tarongo-zoo-sydney",
         },
         {
           title: "Great Ocean Road",
@@ -147,7 +147,7 @@ const translations = {
           imageUrl: "luggage",
           excerpt:
             "A scenic coastal drive near Melbourne, featuring stunning ocean views, the Twelve Apostles, and charming seaside towns.",
-          detailsUrl: "/blog/?id=2",
+          detailsUrl: "great-ocean-road",
         },
       ],
     },

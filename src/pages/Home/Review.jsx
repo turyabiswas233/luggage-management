@@ -1,10 +1,11 @@
 import React from "react";
 import "react-slideshow-image/dist/styles.css";
-import review1 from "/files/img/home-two/team-1.jpg";
-import review2 from "/files/img/home-two/alisa.png";
-import review3 from "/files/img/home-two/jack.png";
-import review4 from "/files/img/home-two/jackson.jpeg";
-import review5 from "/files/img/home-two/robert.jpg";
+import config from "../../config";
+const review1 = config.BUCKET_URL + "/files/img/home-two/team-1.jpg";
+const review2 = config.BUCKET_URL + "/files/img/home-two/alisa.png";
+const review3 = config.BUCKET_URL + "/files/img/home-two/jack.png";
+const review4 = config.BUCKET_URL + "/files/img/home-two/jackson.jpeg";
+const review5 = config.BUCKET_URL + "/files/img/home-two/robert.jpg";
 import { MdStar } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
@@ -103,6 +104,7 @@ const Review = () => {
                   width={80}
                   height={80}
                   alt={review.name}
+                  loading="lazy"
                 />
                 <div>
                   <h3 className="text-lg font-semibold text-gray-800">

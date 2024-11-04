@@ -1,4 +1,5 @@
 const config = {
+  BUCKET_URL: 'https://s3.ap-southeast-2.amazonaws.com/s3.urlocker.io/public',
   API_BASE_URL: 'https://urlocker-api.onrender.com',
   // API_BASE_URL: 'http://localhost:3000',
 

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import book from "/files/img/home-two/book.jpg";
-import lock from "/files/img/home-two/lock.jpg";
-import enjoy from "/files/img/home-two/enjoy.jpg";
+import config from "../../config";
+const book = config.BUCKET_URL + "/files/img/home-two/book.jpg";
+const lock = config.BUCKET_URL + "/files/img/home-two/lock.jpg";
+const enjoy = config.BUCKET_URL + "/files/img/home-two/enjoy.jpg";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { MdPlayCircleFilled } from "react-icons/md";
-import vidFile from "/files/videos/urloker.mp4";
+const vidFile = config.BUCKET_URL + "/files/videos/urloker.mp4";
 function HowItWorks() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loadingLocation, setLoadingLocation] = useState(false);
@@ -60,7 +61,9 @@ function HowItWorks() {
             <div className="group relative bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl ">
               <div className="flex flex-col items-center text-center">
                 <div className="bg-gradient-to-r from-gray-500 to-green-500 rounded-full p-4 mb-4">
-                  <img width={90} height={90}
+                  <img
+                    width={90}
+                    height={90}
                     src={book}
                     alt="Book Icon"
                     className="object-contain"
@@ -76,7 +79,9 @@ function HowItWorks() {
             <div className="group relative bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl ">
               <div className="flex flex-col items-center text-center">
                 <div className="bg-gradient-to-r from-gray-500 to-green-400 rounded-full p-4 mb-4">
-                  <img width={90} height={90}
+                  <img
+                    width={90}
+                    height={90}
                     src={lock}
                     alt="Lock Icon"
                     className="object-contain"
@@ -92,7 +97,9 @@ function HowItWorks() {
             <div className="group relative bg-white p-10 rounded-xl shadow-lg hover:shadow-2xl ">
               <div className="flex flex-col items-center text-center">
                 <div className="bg-gradient-to-r from-gray-500 to-green-500 rounded-full p-4 mb-4">
-                  <img width={90} height={90}
+                  <img
+                    width={90}
+                    height={90}
                     src={enjoy}
                     alt="Enjoy Icon"
                     className="object-contain"

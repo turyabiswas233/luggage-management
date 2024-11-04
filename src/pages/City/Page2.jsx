@@ -1,7 +1,8 @@
 import React, { useState, useRef, useCallback } from "react";
 import { Helmet } from "react-helmet-async";
-import cbd from "/files/city/airport/airport.png";
-import locImage from "/files/city/airport/locationMap.png";
+import config from "../../config";
+const cbd = config.BUCKET_URL + "/files/city/airport/airport.png";
+const locImage = config.BUCKET_URL + "/files/city/airport/locationMap.png";
 import NavbarComp from "../Home/NavbarComp";
 import { useTranslation } from "react-i18next";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
@@ -9,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AttractionBox from "./AttractionBox";
 import { useNavigate } from "react-router-dom";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
-import config from "../../config";
 
 const libraries = ["places"];
 const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
@@ -143,8 +143,14 @@ function AirportPage() {
         />
         <meta name="keywords" content="luggage-storage-melbourne-airport" />
         <meta property="og:description" content="Melbourne Airport" />
-        <meta property="og:url" href="https://urloker.com/luggage-storage-melbourne-airport" />
-        <link rel="canonical" href="https://urloker.com/luggage-storage-melbourne-airport" />
+        <meta
+          property="og:url"
+          href="https://urloker.com/luggage-storage-melbourne-airport"
+        />
+        <link
+          rel="canonical"
+          href="https://urloker.com/luggage-storage-melbourne-airport"
+        />
       </Helmet>
       <header className="py-10 px-5 text-black/80 bg-white">
         <div className="my-10 flex gap-10 flex-col lg:flex-row w-full max-w-screen-xl mx-auto">
@@ -158,6 +164,7 @@ function AirportPage() {
               height={(800 * 9) / 16}
               className="aspect-video object-cover rounded-2xl w-full lg:hidden flex-1"
               alt="Luggage Storage Melbourne Airport"
+              loading="lazy"
             />
             <h1 className="text-4xl md:text-6xl font-bold my-4 text-green-800">
               Luggage Storage Melbourne Airport
@@ -197,8 +204,8 @@ function AirportPage() {
             width={1280}
             height={720}
             className="aspect-video rounded-2xl max-w-2xl w-full hidden lg:block flex-1"
-            alt="Luggage Storage Melbourne Airport
-             "
+            alt="Luggage Storage Melbourne Airport"
+            loading="lazy"
           />
         </div>
       </header>
@@ -478,7 +485,6 @@ function AirportPage() {
         </div>
       </main>
       <FaqCard t={data} />
-       
     </div>
   );
 }

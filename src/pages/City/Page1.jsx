@@ -1,14 +1,14 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import cbd from "/files/city/cbd/cbd.jpeg";
-import locImage from "/files/city/cbd/locationMap.png";
+import config from "../../config";
+const cbd = config.BUCKET_URL + "/files/city/cbd/cbd.jpeg";
+const locImage = config.BUCKET_URL + "/files/city/cbd/locationMap.png";
 import NavbarComp from "../Home/NavbarComp";
 import { useTranslation } from "react-i18next";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AttractionBox from "./AttractionBox";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
-import config from "../../config";
 import { useNavigate } from "react-router-dom";
 
 const libraries = ["places"];
@@ -161,12 +161,18 @@ function MelbourneCBD() {
           content="Secure luggage storage Melbourne CBD by Urloker. Affordable, convenient spots near attractions and transport. Explore the city hands-free"
         />
         <meta name="keywords" content="luggage-storage-melbourne-cbd" />
-        <meta property="og:url" content="https://urloker.com/luggage-storage-melbourne-cbd" />
+        <meta
+          property="og:url"
+          content="https://urloker.com/luggage-storage-melbourne-cbd"
+        />
         <meta
           property="og:description"
           content="Secure luggage storage Melbourne CBD by Urloker. Affordable, convenient spots near attractions and transport. Explore the city hands-free"
         />
-        <link rel="canonical" href="https://urloker.com/luggage-storage-melbourne-cbd" />
+        <link
+          rel="canonical"
+          href="https://urloker.com/luggage-storage-melbourne-cbd"
+        />
       </Helmet>
       <div className="content font-sans mx-auto w-full">
         <header className="py-10 px-5 text-black/80 bg-white">
@@ -180,7 +186,8 @@ function MelbourneCBD() {
                 width={800}
                 height={(800 * 9) / 16}
                 className="aspect-video object-cover rounded-2xl w-full lg:hidden flex-1"
-                alt="Luggage Storage Melbourne CBD "
+                alt="Luggage Storage Melbourne CBD"
+                loading="lazy"
               />
               <h1 className="text-4xl md:text-6xl font-bold my-4 text-green-800">
                 Luggage Storage Melbourne CBD
@@ -220,7 +227,8 @@ function MelbourneCBD() {
               width={1280}
               height={720}
               className="aspect-video rounded-2xl max-w-2xl w-full hidden lg:block flex-1"
-              alt="Luggage Storage Melbourne CBD "
+              alt="Luggage Storage Melbourne CBD"
+              loading="lazy"
             />
           </div>
         </header>
@@ -462,7 +470,7 @@ function MelbourneCBD() {
           </div>
         </main>
         <FaqCard t={data} />
-      </div> 
+      </div>
     </div>
   );
 }

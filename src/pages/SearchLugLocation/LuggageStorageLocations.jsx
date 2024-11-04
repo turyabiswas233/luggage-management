@@ -1,31 +1,58 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import config from "../../config";
 import "react-slideshow-image/dist/styles.css";
 // Import images
-import avalonAirport from "/files/img/location_common/Avalon Airport.webp";
-import melbourneCBD from "/files/img/location_common/Melbourne CBD.webp";
-import melbourneAirport from "/files/img/location_common/Melbourne Airport.webp";
-import southbank from "/files/img/location_common/Southbank.jpg";
-import southernCrossStation from "/files/img/location_common/Southern Cross Station.jpg";
-import melbourneCentralStation from "/files/img/location_common/Melbourne Central Station.webp";
-import flindersStreetStation from "/files/img/location_common/Flinders Street Station.webp";
-import parliamentStation from "/files/img/location_common/Parliament Station.jpg";
-import flagstaffStation from "/files/img/location_common/Flagstaff Station.webp";
-import swanstonStreet from "/files/img/location_common/Swanston Street.jpg";
-import spencerStreet from "/files/img/location_common/Spencer Street.jpg";
-import melbourneConventionCentre from "/files/img/location_common/Melbourne Convention Centre.webp";
-import queenVictoriaMarket from "/files/img/location_common/Queen Victoria Market.jpg";
-import crownCasinoMelbourne from "/files/img/location_common/Crown Casino Melbourne.webp";
-import chinaTownMelbourne from "/files/img/location_common/Chinatown Melbourne.webp";
-import melbourneCricketGround from "/files/img/location_common/Melbourne Cricket Ground (MCG).jpg";
-import marvelStadium from "/files/img/location_common/Marvel Stadium.webp";
-import newQuay from "/files/img/location_common/New Quay.jpg";
-import stKildaPier from "/files/img/location_common/St Kilda Pier.jpg";
-import docklands from "/files/img/location_common/Docklands.webp";
-import portMelbourne from "/files/img/location_common/Port Melbourne.jpg";
-import albertPark from "/files/img/location_common/Albert Park.webp";
-import dfoMelbourne from "/files/img/location_common/DFO Melbourne.webp";
-import chadstone from "/files/img/location_common/Chadstone.webp";
+const avalonAirport =
+  config.BUCKET_URL + "/files/img/location_common/Avalon Airport.webp";
+const melbourneCBD =
+  config.BUCKET_URL + "/files/img/location_common/Melbourne CBD.webp";
+const melbourneAirport =
+  config.BUCKET_URL + "/files/img/location_common/Melbourne Airport.webp";
+const southbank =
+  config.BUCKET_URL + "/files/img/location_common/Southbank.jpg";
+const southernCrossStation =
+  config.BUCKET_URL + "/files/img/location_common/Southern Cross Station.jpg";
+const melbourneCentralStation =
+  config.BUCKET_URL +
+  "/files/img/location_common/Melbourne Central Station.webp";
+const flindersStreetStation =
+  config.BUCKET_URL + "/files/img/location_common/Flinders Street Station.webp";
+const parliamentStation =
+  config.BUCKET_URL + "/files/img/location_common/Parliament Station.jpg";
+const flagstaffStation =
+  config.BUCKET_URL + "/files/img/location_common/Flagstaff Station.webp";
+const swanstonStreet =
+  config.BUCKET_URL + "/files/img/location_common/Swanston Street.jpg";
+const spencerStreet =
+  config.BUCKET_URL + "/files/img/location_common/Spencer Street.jpg";
+const melbourneConventionCentre =
+  config.BUCKET_URL +
+  "/files/img/location_common/Melbourne Convention Centre.webp";
+const queenVictoriaMarket =
+  config.BUCKET_URL + "/files/img/location_common/Queen Victoria Market.jpg";
+const crownCasinoMelbourne =
+  config.BUCKET_URL + "/files/img/location_common/Crown Casino Melbourne.webp";
+const chinaTownMelbourne =
+  config.BUCKET_URL + "/files/img/location_common/Chinatown Melbourne.webp";
+const melbourneCricketGround =
+  config.BUCKET_URL +
+  "/files/img/location_common/Melbourne Cricket Ground (MCG).jpg";
+const marvelStadium =
+  config.BUCKET_URL + "/files/img/location_common/Marvel Stadium.webp";
+const newQuay = config.BUCKET_URL + "/files/img/location_common/New Quay.jpg";
+const stKildaPier =
+  config.BUCKET_URL + "/files/img/location_common/St Kilda Pier.jpg";
+const docklands =
+  config.BUCKET_URL + "/files/img/location_common/Docklands.webp";
+const portMelbourne =
+  config.BUCKET_URL + "/files/img/location_common/Port Melbourne.jpg";
+const albertPark =
+  config.BUCKET_URL + "/files/img/location_common/Albert Park.webp";
+const dfoMelbourne =
+  config.BUCKET_URL + "/files/img/location_common/DFO Melbourne.webp";
+const chadstone =
+  config.BUCKET_URL + "/files/img/location_common/Chadstone.webp";
 import { useTranslation } from "react-i18next";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
@@ -61,11 +88,11 @@ const CustomPrevArrow = (props) => {
   const { className, onClick } = props;
   return (
     <button
-    aria-label="Previous"
+      aria-label="Previous"
       className={`${className || ""} custom-arrow custom-prev-arrow`}
       onClick={onClick}
     >
-      <MdKeyboardArrowLeft size={'1.5em'} />
+      <MdKeyboardArrowLeft size={"1.5em"} />
     </button>
   );
 };
@@ -74,11 +101,11 @@ const CustomNextArrow = (props) => {
   const { className, onClick } = props;
   return (
     <button
-    aria-label="Forward"
+      aria-label="Forward"
       className={`${className || ""} custom-arrow custom-next-arrow`}
       onClick={onClick}
     >
-      <MdKeyboardArrowRight size={'1.5em'} />
+      <MdKeyboardArrowRight size={"1.5em"} />
     </button>
   );
 };
@@ -135,7 +162,7 @@ const LuggageStorageLocations = () => {
               <img
                 className="aspect-video w-full object-cover rounded-xl"
                 src={location.image}
-                alt={location.name||"image file"}
+                alt={location.name || "image file"}
                 width={300}
                 height={280}
                 loading="lazy"

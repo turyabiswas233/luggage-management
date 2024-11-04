@@ -24,7 +24,7 @@ const MapContainer = ({ locations, setVisibleLocations, center }) => {
         center: center || { lat: -36.8688, lng: 144.9093 },
         mapId: "mapId",
         minZoom: 5,
-        zoom: 15,
+        zoom: 13,
         maxZoom: 20,
       });
       if (!map) return;

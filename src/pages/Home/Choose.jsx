@@ -1,9 +1,9 @@
 import React from "react";
 import "./Choose.css"; // Import custom CSS for additional styling
-// import luggage1 from "/files/img/home-two/luggage-1.svg";
-import luggage1 from "/files/img/home-two/home-banner.jpeg";
+import config from "../../config";
 
-import luggage2 from "/files/img/home-two/luggage-2.jpg";
+const luggage1 = config.BUCKET_URL + "/files/img/home-two/home-banner.jpeg";
+const luggage2 = config.BUCKET_URL + "/files/img/home-two/luggage-2.jpg";
 import { useTranslation } from "react-i18next";
 
 const Choose = () => {
@@ -19,16 +19,17 @@ const Choose = () => {
                 <img
                   src={luggage1}
                   width={400}
+                  height={275}
                   alt="Luggage"
-                  className="rounded-lg mx-auto object-fill h-full"
+                  className="rounded-lg mx-auto object-fill h-full aspect-video"
                 />
                 <img
                   src={luggage2}
                   width={400}
+                  height={275}
                   alt="Luggage"
-                  className="rounded-lg mx-auto object-fill h-full"
+                  className="rounded-lg mx-auto object-fill h-full aspect-video"
                 />
-                
               </div>
             </div>
           </div>

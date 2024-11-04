@@ -4,7 +4,6 @@ import NavbarComp from "./NavbarComp";
 import Banner from "./Banner";
 import FAQ from "./FAQ";
 import Review from "./Review";
-import Footer from "./Footer";
 import Choose from "./Choose";
 import Blog from "./Blog";
 import CityInfo from "./CityInfo";

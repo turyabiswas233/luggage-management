@@ -5,6 +5,7 @@ import logo from "/files/img/home-two/logo3.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import translations from "./translations"; // Import your translations
+import { Link } from "react-router-dom";
 
 const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,21 +42,21 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
       <div className="mx-auto flex justify-between items-center p-4 md:py-4 md:px-24 md:w-5/6">
         <nav className="flex items-center">
           <a href="/" className="flex items-center no-underline">
-            <img src={logo} alt="logo1" width={75} height={45}/>
+            <img src={logo} alt="logo1" width={75} height={45} />
           </a>
           <div className="md:hidden ml-4">
-            <a
-              href="/urlokerkeysmap"
+            <Link
+              to="/urlokerkeysmap"
               className="flex items-center text-[#208873] hover:text-[#208873] no-underline"
             >
               <FontAwesomeIcon icon={faKey} className="mr-2" />{" "}
               {currentTranslations.header.urlokerKeys}
-            </a>
+            </Link>
           </div>
         </nav>
         <div className="md:hidden">
           <button
-          aria-label="action-button"
+            aria-label="action-button"
             onClick={toggleMenu}
             className="text-[#208873] focus:outline-none"
           >
@@ -86,17 +87,17 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
             <a href="/" className="text-[#208873] no-underline">
               {currentTranslations.header.home}
             </a>
-            <a
-              href="/urlokerkeysmap"
+            <Link
+              to="/urlokerkeysmap"
               className="hidden md:block text-[#208873] no-underline"
             >
               {currentTranslations.header.urlokerKeys}
-            </a>
+            </Link>
           </div>
           <div className="md:flex md:flex-row md:space-x-4 grid gap-y-5">
             <div className="relative group">
               <button
-              aria-label="action-button"
+                aria-label="action-button"
                 onClick={() => handleDropdownToggle("login")}
                 className="hover:text-[#208873] flex items-center focus:outline-none"
               >
@@ -124,7 +125,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
                 }`}
               >
                 <button
-                aria-label="action-button"
+                  aria-label="action-button"
                   onClick={(e) => {
                     e.preventDefault();
                     openLoginForm("Partner");
@@ -135,7 +136,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
                   Partner Login
                 </button>
                 <button
-                aria-label="action-button"
+                  aria-label="action-button"
                   onClick={(e) => {
                     e.preventDefault();
                     openLoginForm("User");
@@ -150,7 +151,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
 
             <div className="relative group">
               <button
-              aria-label="action-button"
+                aria-label="action-button"
                 onClick={() => handleDropdownToggle("language")}
                 className="hover:text-[#208873] flex items-center focus:outline-none"
               >
@@ -179,7 +180,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
               >
                 {["en", "es", "zh"].map((language) => (
                   <button
-                  aria-label="action-button"
+                    aria-label="action-button"
                     key={language}
                     className={`block w-full text-left px-4 py-2 hover:bg-blue-800 ${
                       language === currentLanguage &&
