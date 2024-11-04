@@ -25,7 +25,6 @@ function Service() {
         <link rel="canonical" href="https://urloker.com/services" />
 
       </Helmet>
-      <NavComp />
       <h3 className="my-3 text-4xl font-semibold text-center">Our services</h3>
       <div className="flex justify-center items-center">
         <FcServices size={200} className="animate-pulse" />

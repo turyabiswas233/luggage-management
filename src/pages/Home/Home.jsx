@@ -1,11 +1,8 @@
-import React, { lazy, Suspense, useState } from "react";
-
-import NavbarComp from "./NavbarComp";
+import React, { useState } from "react";
 import Banner from "./Banner";
 import FAQ from "./FAQ";
 import Review from "./Review";
 import Choose from "./Choose";
-import Blog from "./Blog";
 import CityInfo from "./CityInfo";
 import LuggageStorageLocations from "../SearchLugLocation/LuggageStorageLocations";
 // import ScrollToTopButton from "./ScrollToTopButton";
@@ -15,24 +12,11 @@ import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  const [currentLanguage, setCurrentLanguage] = useState(
-    localStorage.getItem("i18nextLng") == "en-US"
-      ? "en"
-      : localStorage.getItem("i18nextLng") || "en"
-  );
   const { i18n } = useTranslation();
-  const handleChangeLanguage = (lang) => {
-    setCurrentLanguage(lang);
-    i18n.changeLanguage(lang);
-  };
+
   return (
     <>
-      {/* <NavbarComp
-        currentLanguage={currentLanguage}
-        setLanguage={handleChangeLanguage}
-      /> */}
-    
-        <Banner /> 
+      <Banner />
       <LuggageStorageLocations />
       <HowItWorks />
 
@@ -42,8 +26,6 @@ const Home = () => {
       <CityInfo />
       <CurrentCities />
       <FAQ />
-      {/* <Blog /> */}
-      {/* <ScrollToTopButton /> */}
     </>
   );
 };

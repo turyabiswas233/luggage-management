@@ -1,27 +1,16 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import NavbarComp from "../Home/NavbarComp";
 import { useTranslation } from "react-i18next";
+
 const lng = localStorage.getItem("i18nextLng");
 function BlogDetails() {
   const { blogid } = useParams();
-  const [currentLanguage, setCurrentLanguage] = useState(
-    lng ? (lng == "en-US" ? "en" : lng) : "en"
-  );
-  const { i18n, t } = useTranslation();
-  const handleChangeLanguage = (lang) => {
-    setCurrentLanguage(lang);
-    i18n.changeLanguage(lang);
-  };
+  const { i18n, t } = useTranslation(); 
   const blog = t("blogs").blogs.find((ele) => ele.id === blogid);
 
   const { head, desc, img, othersInfo } = blog;
   return (
     <div className="text-black font-normal">
-      <NavbarComp
-        setLanguage={handleChangeLanguage}
-        currentLanguage={currentLanguage}
-      />
       <div className="main py-32 px-5 space-y-6">
         <header>
           <h1 className="text-5xl font-extrabold">{head}</h1>

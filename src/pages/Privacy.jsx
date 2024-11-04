@@ -17,19 +17,8 @@ function Privacy() {
           content="Urloker, Privacy Policy, Privacy Notice, Privacy Consent"
         />
       </Helmet>
-      <div id="logo">
-        <a href="/">
-          <img
-            className="aspect-square"
-            src={logo}
-            width={100}
-            height={100}
-            alt="logo"
-          />
-        </a>
-      </div>
       {/* privacy data */}
-      <main className="py-24 px-3">
+      <main className="py-10 px-3">
         <header>
           <h2 className="font-bold text-4xl">Privacy Policy for Urloker</h2>
         </header>

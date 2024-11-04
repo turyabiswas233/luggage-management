@@ -18,7 +18,6 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useTranslation } from "react-i18next";
-import NavbarComp from "../Home/NavbarComp";
 import { FaInfoCircle } from "react-icons/fa";
 
 import html2canvas from "html2canvas";
@@ -83,10 +82,6 @@ function UrlokerKeys() {
       pdf.save("keys-booking-invoice.pdf");
       paySlip.className = originalClass;
     });
-  };
-  const handleChangeLanguage = (lang) => {
-    setCurrentLanguage(lang);
-    i18n.changeLanguage(lang);
   };
 
   useEffect(() => {
@@ -196,10 +191,6 @@ function UrlokerKeys() {
         finalMessage.includes("SUCCESSFUL") && "lg:grid lg:grid-cols-2"
       } gap-2`}
     >
-      <NavbarComp
-        currentLanguage={currentLanguage}
-        setLanguage={handleChangeLanguage}
-      />
       <form
         className="bg-white border p-4 grid lg:grid-cols-2 gap-3 mx-auto rounded-lg max-w-5xl mb-10 h-fit"
         onSubmit={handleSubmit}
@@ -219,7 +210,7 @@ function UrlokerKeys() {
                 className="border rounded-md px-3 py-2 w-full"
                 placeholder="Name"
                 required
-                minlength={3}
+                minLength={3}
                 value={dropOffName}
                 onChange={(e) => setDropOffName(e.target.value)}
               />

@@ -19,7 +19,7 @@ import {
   faShieldAlt,
   faTag,
 } from "@fortawesome/free-solid-svg-icons";
-import ClientNavbarComp from "../../User/ClientNavbarComp";
+// import ClientNavbarComp from "../../User/ClientNavbarComp";
 import { useLocation, useNavigate } from "react-router-dom";
 import config from "../../../config";
 import LuggageStoreInfo from "./LuggageStoreInfo";
@@ -212,7 +212,7 @@ const LuggageStoreDetails = () => {
 
   return (
     <div>
-      {isLoggedIn ? <ClientNavbarComp /> : <NavbarComp />}
+      {/* {isLoggedIn ? <ClientNavbarComp /> : <NavbarComp />} */}
 
       {
         <div>

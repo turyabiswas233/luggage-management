@@ -1,12 +1,13 @@
-import furniture from "/files/img/home-two/furniture-1.jpg";
-import luggage from "/files/img/home-two/luggage-1.webp";
-import hospital from "/files/img/home-two/hospital-1.webp";
+import config from "../../config";
+const furniture = config.BUCKET_URL + "/files/img/home-two/furniture-1.jpg";
+const luggage = config.BUCKET_URL + "/files/img/home-two/luggage-1.webp";
+const hospital = config.BUCKET_URL + "/files/img/home-two/hospital-1.webp";
 
 const blogs = {
   en: {
     blogs: [
       {
-        id: 'sydney-harbour-bridge',
+        id: "sydney-harbour-bridge",
         head: "Sydney Harbour Bridge: The Iconic Gateway to Unforgettable Adventures",
         desc: `Sydney Harbour Bridge, affectionately known as the "Coathanger" by locals, stands as one of Australia's most famous landmarks. Spanning the stunning Sydney Harbour, this architectural marvel not only connects the city's bustling northern and southern shores but also serves as a symbol of Sydney's rich history and vibrant culture. Whether you're a first-time visitor or a seasoned traveler, the Sydney Harbour Bridge is an experience that should be at the top of your itinerary.`,
         img: furniture,
@@ -34,7 +35,7 @@ const blogs = {
         ],
       },
       {
-        id: 'tarongo-zoo-sydney',
+        id: "tarongo-zoo-sydney",
         head: "Taronga Zoo Sydney: Where Wildlife Meets the Sydney Skyline",
         desc: `Taronga Zoo Sydney is more than just a zoo—it's a world-class destination where visitors can experience the wonders of wildlife against the breathtaking backdrop of Sydney Harbour. Located on the shores of the iconic harbour, this renowned zoo offers an unparalleled opportunity to connect with nature, learn about conservation, and enjoy unforgettable moments with family and friends. Whether you're an animal lover or simply looking for a unique adventure in Sydney, Taronga Zoo is a must-visit attraction.`,
         img: hospital,
@@ -63,7 +64,7 @@ const blogs = {
         ],
       },
       {
-        id: 'great-ocean-road',
+        id: "great-ocean-road",
         head: "Great Ocean Road: Australia's Ultimate Coastal Journey",
         desc: `The Great Ocean Road is more than just a drive—it's an unforgettable journey along one of the most breathtaking coastlines in the world. Stretching over 240 kilometers from Torquay to Allansford in Victoria, Australia, this iconic route offers travelers a stunning array of natural wonders, from rugged cliffs and pristine beaches to lush rainforests and charming seaside towns. Whether you're an adventure seeker, a nature lover, or simply someone who appreciates the beauty of the great outdoors, the Great Ocean Road is a must-see destination.`,
         img: luggage,
@@ -99,7 +100,7 @@ const blogs = {
   es: {
     blogs: [
       {
-        id: 'sydney-harbour-bridge',
+        id: "sydney-harbour-bridge",
         head: "Puente de la Bahía de Sídney: la icónica puerta de entrada a aventuras inolvidables",
         desc: `El Puente de la Bahía de Sídney, conocido cariñosamente como el "Coathanger" por los lugareños, se erige como uno de los monumentos más famosos de Australia. Abarcando el impresionante puerto de Sídney, esta maravilla arquitectónica no solo conecta las bulliciosas costas norte y sur de la ciudad, sino que también sirve como símbolo de la rica historia y la vibrante cultura de Sídney. Tanto si es la primera vez que lo visita como si es un viajero experimentado, el puente de la bahía de Sídney es una experiencia que debería estar en la parte superior de su itinerario.`,
         img: furniture,
@@ -127,7 +128,7 @@ const blogs = {
         ],
       },
       {
-        id: 'tarongo-zoo-sydney',
+        id: "tarongo-zoo-sydney",
         head: "Zoológico de Taronga en Sídney: Donde la vida silvestre se encuentra con el horizonte de Sídney",
         desc: `Taronga Zoo Sydney es más que un zoológico: es un destino de clase mundial donde los visitantes pueden experimentar las maravillas de la vida silvestre con el impresionante telón de fondo del puerto de Sydney. Ubicado a orillas del icónico puerto, este reconocido zoológico ofrece una oportunidad inigualable para conectarse con la naturaleza, aprender sobre conservación y disfrutar de momentos inolvidables con familiares y amigos. Tanto si eres un amante de los animales como si simplemente buscas una aventura única en Sídney, el zoológico de Taronga es una atracción de visita obligada.`,
         img: hospital,
@@ -156,7 +157,7 @@ const blogs = {
         ],
       },
       {
-        id: 'great-ocean-road',
+        id: "great-ocean-road",
         head: "Great Ocean Road: el mejor viaje costero de Australia",
         desc: `La Great Ocean Road es más que un simple viaje: es un viaje inolvidable a lo largo de una de las costas más impresionantes del mundo. Con una extensión de más de 240 kilómetros desde Torquay hasta Allansford en Victoria, Australia, esta ruta icónica ofrece a los viajeros una impresionante variedad de maravillas naturales, desde acantilados escarpados y playas vírgenes hasta exuberantes selvas tropicales y encantadoras ciudades costeras. Ya sea que sea un buscador de aventuras, un amante de la naturaleza o simplemente alguien que aprecia la belleza del aire libre, Great Ocean Road es un destino imperdible.`,
         img: luggage,
@@ -192,7 +193,7 @@ const blogs = {
   zh: {
     blogs: [
       {
-        id: 'sydney-harbour-bridge',
+        id: "sydney-harbour-bridge",
         head: "悉尼海港大桥：通往难忘冒险的标志性门户",
         desc: `悉尼海港大桥被当地人亲切地称为“衣架”，是澳大利亚最著名的地标之一。这座建筑奇迹横跨令人惊叹的悉尼港，不仅连接了这座城市繁华的南北海岸，而且是悉尼悠久历史和充满活力的文化的象征。无论您是初次来访还是经验丰富的旅行者，悉尼海港大桥都是您行程中不可错过的体验。`,
         img: furniture,
@@ -220,7 +221,7 @@ const blogs = {
         ],
       },
       {
-        id: 'tarongo-zoo-sydney',
+        id: "tarongo-zoo-sydney",
         head: "悉尼塔龙加动物园：野生动物与悉尼天际线的交汇处",
         desc: `悉尼塔隆加动物园不仅仅是一个动物园，它还是一个世界级的目的地，游客可以在悉尼港的壮丽背景下体验野生动物的奇观。这座著名的动物园坐落在标志性的海港岸边，为您提供与大自然亲密接触、了解保护知识并与家人和朋友共度难忘时光的绝佳机会。无论您是动物爱好者，还是只是想在悉尼寻找一次独特的冒险，塔隆加动物园都是一个必游景点。`,
         img: hospital,
@@ -249,7 +250,7 @@ const blogs = {
         ],
       },
       {
-        id: 'great-ocean-road',
+        id: "great-ocean-road",
         head: "大洋路：澳大利亚的终极海岸之旅",
         desc: `大洋路不仅仅是一条公路, 更是一条沿着世界上最令人叹为观止的海岸线的难忘旅程。这条标志性路线从澳大利亚维多利亚州的托尔坎延伸至阿兰斯福德, 全长 240 多公里, 为游客提供了一系列令人惊叹的自然奇观, 从崎岖的悬崖和原始的海滩到茂密的雨林和迷人的海滨小镇。无论您是探险爱好者、自然爱好者, 还是只是欣赏户外美景的人, 大洋路都是一个必游之地。`,
         img: luggage,

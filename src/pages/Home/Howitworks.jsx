@@ -118,6 +118,8 @@ function HowItWorks() {
         <video
           className="w-full h-auto object-cover aspect-video"
           controls={false}
+          autoPlay={false}
+          loop={false}
         >
           <source src={vidFile} type="video/mp4" />
           Your browser does not support the video tag.
