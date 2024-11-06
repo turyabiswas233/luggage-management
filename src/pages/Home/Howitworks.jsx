@@ -7,7 +7,7 @@ function HowItWorks() {
   const book = config.BUCKET_URL + "/files/img/home-two/book.jpg";
   const lock = config.BUCKET_URL + "/files/img/home-two/lock.jpg";
   const enjoy = config.BUCKET_URL + "/files/img/home-two/enjoy.jpg";
-  const vidFile = config.BUCKET_URL + "/files/videos/urloker.mp4";
+  const vidFile = config.BUCKET_URL + "/files/videos/urloker.mp4?v=01";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loadingLocation, setLoadingLocation] = useState(false);
   const navigate = useNavigate();
