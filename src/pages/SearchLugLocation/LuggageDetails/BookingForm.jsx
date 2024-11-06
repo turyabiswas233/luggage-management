@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, Modal, Spinner } from "react-bootstrap";
-import { FiAlertCircle } from "react-icons/fi";
+import { Spinner } from "react-bootstrap";
 import DatePicker from "./DatePicker";
 import moment from "moment-timezone";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const BookingForm = ({
   handleSubmit,
@@ -269,7 +268,6 @@ const BookingForm = ({
               name="phone"
               value={guestDetails.phone}
               onChange={handleInputChange}
-              
             />
             {errors.phone && <p className="text-red-500">{errors.phone}</p>}
           </div>
@@ -329,14 +327,13 @@ const BookingForm = ({
             onChange={(e) => setIsAgree(e.target.checked)}
           /> */}
             <label htmlFor="isAgree" className="text-base">
-              By continuing the booking you are agreeing to our terms and
-              conditions.
-              {/* <a
-              className="text-teal-500 font-medium hover:underline"
-              href="/terms-and-conditions"
-            >
-              Terms and Conditions
-            </a>{" "} */}
+              By continuing the booking you are agreeing to our{" "}
+              <Link
+                className="text-teal-500 font-medium hover:underline"
+                to={"/terms-and-conditions"}
+              >
+                terms and conditions.
+              </Link>
             </label>
           </div>
           <div className="border-t border-gray-300 pt-4">
