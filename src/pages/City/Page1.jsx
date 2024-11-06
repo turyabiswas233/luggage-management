@@ -131,9 +131,46 @@ function MelbourneCBD() {
     },
   ];
   const { searchPlaceholder, findLocationsButton } = translate?.heroSection;
+
+  const schemaCode = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Luggage Storage Melbourne CBD - Urloker",
+    image:
+      "https://s3.ap-southeast-2.amazonaws.com/s3.urlocker.io/public/files/city/cbd/cbd.jpeg",
+    "@id":
+      "https://urloker.com/luggage-storage-melbourne-cbd/#LuggageStorageMelbourneCBD",
+    url: "https://urloker.com/luggage-storage-melbourne-cbd",
+    telephone: "+61 3 7035 5653",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Melbourne CBD",
+      addressRegion: "VIC",
+      addressCountry: "AU",
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ],
+        opens: "00:00",
+        closes: "23:59",
+      },
+    ],
+    sameAs: [
+      "https://www.facebook.com/profile.php?id=61564185476772",
+      "https://www.youtube.com/@urloker",
+    ],
+  };
   return (
     <div>
-      
       {/*  SEO Header */}
       <Helmet>
         <title>Luggage Storage Melbourne CBD - Urloker</title>
@@ -159,6 +196,10 @@ function MelbourneCBD() {
           rel="canonical"
           href="https://urloker.com/luggage-storage-melbourne-cbd"
         />
+
+        <script type="application/ld+json">
+          {JSON.stringify(schemaCode, null, 2)}
+        </script>
       </Helmet>
       <div className="content font-sans mx-auto w-full">
         <header className="py-10 px-5 text-black/80 bg-white">

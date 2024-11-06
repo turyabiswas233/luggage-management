@@ -14,7 +14,6 @@ const libraries = ["places"];
 const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 
 function FlindersPage() {
-  
   const navigate = useNavigate();
   const { t } = useTranslation();
   const translate = t("home");
@@ -109,9 +108,46 @@ function FlindersPage() {
   ];
   const { searchPlaceholder, findLocationsButton } = translate?.heroSection;
 
+  const schemaCode = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Flinders Street Station Luggage Storage - Urloker",
+    image:
+      "https://s3.ap-southeast-2.amazonaws.com/s3.urlocker.io/public/files/city/flinders/flinders.png",
+    "@id":
+      "https://urloker.com/flinders-street-station-luggage-storage/#FlindersStreetStationLuggageStorage",
+    url: "https://urloker.com/flinders-street-station-luggage-storage",
+    telephone: "+61 3 7035 5653",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Flinders Street Station",
+      addressRegion: "VIC",
+      addressCountry: "AU",
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ],
+        opens: "00:00",
+        closes: "23:59",
+      },
+    ],
+    sameAs: [
+      "https://www.facebook.com/profile.php?id=61564185476772",
+      "https://www.youtube.com/@urloker",
+    ],
+  };
+
   return (
     <div>
-      
       {/*  SEO Header */}
       <Helmet>
         <title>Flinders Street Station Luggage Storage - Urloker</title>
@@ -140,6 +176,9 @@ function FlindersPage() {
           rel="canonical"
           href="https://urloker.com/flinders-street-station-luggage-storage"
         />
+        <script type="application/ld+json">
+          {JSON.stringify(schemaCode, null, 2)}
+        </script>
       </Helmet>
       <header className="py-10 px-5 text-black/80 bg-white">
         <div className="my-10 flex gap-10 flex-col lg:flex-row w-full max-w-screen-xl mx-auto">

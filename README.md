@@ -5,9 +5,6 @@ Created and maintained with ❤️ by [EasytechInnovation.com](https://easytechi
 ## Live
 Check the live demo here 👉️ [https://urloker.com/](https://urloker.com/)
 
-## Urloker
-![Urloker](https://urloker.com/assets/luggage-1-DDJkPxyx.svg)
-
 ## Table of contents
 
 * [Usage](#usage)

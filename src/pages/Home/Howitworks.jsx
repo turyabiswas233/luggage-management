@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import config from "../../config";
-const book = config.BUCKET_URL + "/files/img/home-two/book.jpg";
-const lock = config.BUCKET_URL + "/files/img/home-two/lock.jpg";
-const enjoy = config.BUCKET_URL + "/files/img/home-two/enjoy.jpg";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { MdPlayCircleFilled } from "react-icons/md";
-const vidFile = config.BUCKET_URL + "/files/videos/urloker.mp4";
 function HowItWorks() {
+  const book = config.BUCKET_URL + "/files/img/home-two/book.jpg";
+  const lock = config.BUCKET_URL + "/files/img/home-two/lock.jpg";
+  const enjoy = config.BUCKET_URL + "/files/img/home-two/enjoy.jpg";
+  const vidFile = config.BUCKET_URL + "/files/videos/urloker.mp4";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loadingLocation, setLoadingLocation] = useState(false);
   const navigate = useNavigate();
@@ -49,6 +49,7 @@ function HowItWorks() {
       console.log("Geolocation is not supported by this browser.");
     }
   };
+
   return (
     <section className="bg-gradient-to-b from-gray-50 to-gray-100 px-3 py-10 md:p-14">
       <div className="mx-auto">
@@ -116,10 +117,10 @@ function HowItWorks() {
       </div>
       <div className="relative w-full md:w-3/4 2xl:w-1/2 mx-auto my-20 h-full rounded-lg overflow-hidden group">
         <video
-          className="w-full h-auto object-cover aspect-video"
+          className="w-full h-auto object-cover aspect-video select-none pointer-events-none"
           controls={false}
           autoPlay={false}
-          loop={false}
+          controlsList="nodownload"
         >
           <source src={vidFile} type="video/mp4" />
           Your browser does not support the video tag.

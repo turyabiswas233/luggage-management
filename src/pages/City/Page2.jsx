@@ -14,7 +14,6 @@ const libraries = ["places"];
 const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 
 function AirportPage() {
-  
   const navigate = useNavigate();
   const { t } = useTranslation();
   const translate = t("home");
@@ -24,7 +23,7 @@ function AirportPage() {
   const locationInputRef = useRef(null);
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
-    libraries,
+    libraries: libraries,
   });
 
   const onLoad = useCallback((autocompleteInstance) => {
@@ -113,6 +112,44 @@ function AirportPage() {
     },
   ];
   const { searchPlaceholder, findLocationsButton } = translate?.heroSection;
+
+  const schemaCode = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Luggage Storage Melbourne Airport - Urloker",
+    image:
+      "https://s3.ap-southeast-2.amazonaws.com/s3.urlocker.io/public/files/city/airport/airport.png",
+    "@id":
+      "https://urloker.com/luggage-storage-melbourne-airport/#LuggageStorageMelbourneAirport",
+    url: "https://urloker.com/luggage-storage-melbourne-airport",
+    telephone: "+61 3 7035 5653",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Melbourne Airport",
+      addressRegion: "VIC",
+      addressCountry: "AU",
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ],
+        opens: "00:00",
+        closes: "23:59",
+      },
+    ],
+    sameAs: [
+      "https://www.facebook.com/profile.php?id=61564185476772",
+      "https://www.youtube.com/@urloker",
+    ],
+  };
   return (
     <div className="font-sans">
       {/*  SEO Header */}
@@ -137,6 +174,10 @@ function AirportPage() {
           rel="canonical"
           href="https://urloker.com/luggage-storage-melbourne-airport"
         />
+
+        <script type="application/ld+json">
+          {JSON.stringify(schemaCode, null, 2)}
+        </script>
       </Helmet>
       <header className="py-10 px-5 text-black/80 bg-white">
         <div className="my-10 flex gap-10 flex-col lg:flex-row w-full max-w-screen-xl mx-auto">

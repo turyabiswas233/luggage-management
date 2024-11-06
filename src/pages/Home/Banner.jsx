@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 const libraries = ["places"];
 const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 const backgroundImage =
-  config.BUCKET_URL + "/files/img/location_common/home-banner.jpeg";
+  config.BUCKET_URL + "/files/img/location_common/home-banner.jpeg?v=01";
 
 function Banner() {
   const navigate = useNavigate();
@@ -50,21 +50,6 @@ function Banner() {
       }
     } else {
       console.log("Autocomplete is not loaded yet!");
-    }
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (selectedPlace && selectedPlace.geometry) {
-      const location = {
-        lat: selectedPlace.geometry.location.lat(),
-        lng: selectedPlace.geometry.location.lng(),
-      };
-      navigate("/luggage-locations", {
-        state: { location, inputLocation: locationInputRef.current.value },
-      });
-    } else {
-      console.log("Please select a valid place");
     }
   };
 
@@ -109,7 +94,7 @@ function Banner() {
         <div className="p-10 max-w-screen-md  ">
           <img
             // className="rounded-2xl w-full max-w-md mx-auto aspect-auto skew-x-3 -skew-y-12 rotate-2 scale-x-90 mb-5"
-            className="mx-auto w-full aspect-video object-cover rounded-lg shadow-xl shadow-custom-teal/30"
+            className="mx-auto w-full aspect-video object-fill rounded-lg shadow-xl shadow-custom-teal/30"
             src={backgroundImage}
             width={800}
             height={(800 * 9) / 16}

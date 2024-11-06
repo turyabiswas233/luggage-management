@@ -10,12 +10,57 @@ import HowItWorks from "./Howitworks";
 import { useTranslation } from "react-i18next";
 import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   const { i18n } = useTranslation();
-
+  const schemaCode = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Urloker",
+    image: "[hero_home_url]",
+    "@id": "https://urloker.com/#luggagestorage",
+    url: "https://urloker.com/",
+    telephone: "+61 3 7035 5653",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Melbourne",
+      addressRegion: "VIC",
+      addressCountry: "AU",
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ],
+        opens: "00:00",
+        closes: "23:59",
+      },
+    ],
+    sameAs: [
+      "https://www.facebook.com/profile.php?id=61564185476772",
+      "https://www.youtube.com/@urloker",
+    ],
+  };
   return (
     <>
+      <Helmet>
+        <link
+          rel="preload"
+          as="image"
+          href="https://s3.ap-southeast-2.amazonaws.com/s3.urlocker.io/public/files/img/location_common/home-banner.jpeg"
+        />
+        <script type="application/ld+json">
+          {JSON.stringify(schemaCode, null, 2)}
+        </script>
+      </Helmet>
       <Banner />
       <LuggageStorageLocations />
       <HowItWorks />
