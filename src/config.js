@@ -1,5 +1,6 @@
 const config = {
-  BUCKET_URL: 'https://s3.ap-southeast-2.amazonaws.com/s3.urlocker.io/public',
+  // BUCKET_URL: 'https://s3.ap-southeast-2.amazonaws.com/s3.urlocker.io/public',
+  BUCKET_URL: 'https://d21ms8cpd7kpwm.cloudfront.net/public',
   API_BASE_URL: 'https://urlocker-api.onrender.com',
   // API_BASE_URL: 'http://localhost:3000',
 
