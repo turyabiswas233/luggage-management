@@ -119,7 +119,7 @@ const routerConfig = createBrowserRouter([
         element: <Blog />,
       },
       {
-        path: "/blog-details/:blogid",
+        path: "/blog/:blogid",
         element: <BlogDetails />,
       },
       // lugage and keys

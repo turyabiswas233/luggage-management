@@ -52,7 +52,7 @@ function Blog() {
               <div className="p-6">
                 <h3 className="font-semibold text-xl leading-tight truncate mb-2">
                   <Link
-                    to={"/blog-details/" + post?.detailsUrl}
+                    to={"/blog/" + post?.detailsUrl}
                     className="hover:text-blue-600 transition duration-300"
                     about={post?.comments}
                     title={post?.title}
@@ -81,7 +81,7 @@ function Blog() {
                 </div>
                 <p className="text-gray-600 mb-4">{post.excerpt}</p>
                 <Link
-                  to={"/blog-details/" + post?.detailsUrl}
+                  to={"/blog/" + post?.detailsUrl}
                   about={post?.comments}
                   title={post?.title}
                   className="inline-flex items-center text-blue-600 hover:text-blue-700 transition duration-300 font-semibold"
