@@ -18,7 +18,7 @@ const Home = () => {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Urloker",
-    image: "[hero_home_url]",
+    image: "https://s3.ap-southeast-2.amazonaws.com/s3.urlocker.io/public/files/img/location_common/home-banner.jpeg?v=01",
     "@id": "https://urloker.com/#luggagestorage",
     url: "https://urloker.com/",
     telephone: "+61 3 7035 5653",
