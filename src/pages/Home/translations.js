@@ -194,7 +194,7 @@ const translations = {
 
       contactInfo: "Contact Info",
       address: "Address: 1 William St, Hawthorn, Victoria 3122, Australia",
-      email: "Email: admin@Urloker.com",
+      email: "Email: admin@urloker.com",
       phone: "Phone: +01 234 567 89",
       followUs: "Follow Us",
       companyDescription:
@@ -380,7 +380,7 @@ const translations = {
 
       contactInfo: "Información de Contacto",
       address: "Dirección: 1 William St, Hawthorn, Victoria 3122, Australia",
-      email: "Correo electrónico: admin@Urloker.com",
+      email: "Correo electrónico: admin@urloker.com",
       phone: "Teléfono: +01 234 567 89",
       followUs: "Síguenos",
       companyDescription:
@@ -683,7 +683,7 @@ están en buenas manos mientras disfrutan de la libertad de explorar la ciudad.`
 
       contactInfo: "联系信息",
       address: "地址: 1 William St, Hawthorn, Victoria 3122, Australia",
-      email: "邮箱: admin@Urloker.com",
+      email: "邮箱: admin@urloker.com",
       phone: "电话: +01 234 567 89",
       followUs: "关注我们",
       companyDescription:

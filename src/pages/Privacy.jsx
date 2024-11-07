@@ -46,8 +46,8 @@ function Privacy() {
             2018. This means we are responsible for, and control the processing
             of, your personal data. The person responsible for managing your
             personal information at Urloker.com is reachable at{" "}
-            <a href="mailto:support@urloker.com" className="text-blue-600">
-              support@urloker.com
+            <a href="mailto:admin@urloker.com" className="text-blue-600">
+              admin@urloker.com
             </a>
             .
           </p>
@@ -119,8 +119,8 @@ function Privacy() {
             We do not knowingly collect personal data from children under the
             age of 16. If you believe that we may have collected information
             about a child under 16, please contact us at{" "}
-            <a className="text-blue-600" href="mailto:support@urloker.com">
-              support@urloker.com
+            <a className="text-blue-600" href="mailto:admin@urloker.com">
+              admin@urloker.com
             </a>
             . We will ask for proof of your relationship to the child before
             considering any requests to access or delete their data.
@@ -208,8 +208,8 @@ function Privacy() {
             right to access, correct, or delete your information. You may also
             ask us to stop contacting you for marketing purposes. For more
             details on how to exercise these rights, please contact us at
-            <a href="mailto:support@urloker.com" className="text-blue-600">
-              support@urloker.com
+            <a href="mailto:admin@urloker.com" className="text-blue-600">
+              admin@urloker.com
             </a>
             .
           </p>
@@ -217,8 +217,8 @@ function Privacy() {
           <p>
             If you have any questions about this privacy policy or the
             information we hold about you, please contact us at
-            <a href="mailto:support@urloker.com" className="text-blue-600">
-              support@urloker.com
+            <a href="mailto:admin@urloker.com" className="text-blue-600">
+              admin@urloker.com
             </a>
             .
           </p>

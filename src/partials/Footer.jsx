@@ -124,11 +124,11 @@ const Footer = () => {
                   <li className="mb-2">
                     <span>Email: </span>
                     <a
-                      href="mailto:info@Urloker.com"
+                      href="mailto:admin@urloker.com"
                       target="_blank"
                       className="hover:underline"
                     >
-                      admin@Urloker.com
+                      admin@urloker.com
                     </a>
                   </li>
                   <li className="mb-2">

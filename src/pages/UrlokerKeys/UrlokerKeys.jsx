@@ -437,6 +437,11 @@ function UrlokerKeys() {
               We,ve sent a confirmation email with all the booking details.
               Please keep it handy for your records.
             </p>
+            <p className="text-muted mb-4 text-lg">
+              You can collect your key anytime from the pickup time, at your
+              convenience. No need to rush—your key will be securely stored and
+              available whenever you're ready to collect it.
+            </p>
 
             <Row className="mb-3">
               <Col md={6}>

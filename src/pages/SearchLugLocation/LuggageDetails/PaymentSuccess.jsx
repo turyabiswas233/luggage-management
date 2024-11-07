@@ -131,7 +131,7 @@ const PaymentSuccess = () => {
   // if (paymentIntent)
   return (
     <div>
-      {localStorage.getItem("token") && <ClientNavbarComp />}
+      {/* {localStorage.getItem("token") && <ClientNavbarComp />} */}
 
       {/* Centered logo */}
 
@@ -151,9 +151,10 @@ const PaymentSuccess = () => {
               Booking and Payment Successful!
             </h1>
             <p className="text-muted mb-4 text-lg">
-              We’ve sent a confirmation email with all the booking details.
+              We've sent a confirmation email with all the booking details.
               Please keep it handy for your records.
             </p>
+
             <p className="text-muted mb-4 text-lg">
               Reached Urloker through{" "}
               <span className="text-lg text-teal-600 font-semibold">

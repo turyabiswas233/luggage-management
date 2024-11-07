@@ -120,9 +120,18 @@ const AllBookings = () => {
   };
 
   const formatDate = (dateString, timeString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    const date = new Date(dateString).toLocaleDateString(undefined, options);
-    return `${date} ${timeString}`;
+    if (!dateString || !timeString) return "";
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    const date = new Date(dateString);
+    const [hours, minutes] = timeString.split(":");
+    date.setHours(hours, minutes);
+    return date.toLocaleString(undefined, options);
   };
 
   const getPaginationGroup = () => {

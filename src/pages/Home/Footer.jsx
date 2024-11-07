@@ -154,11 +154,11 @@ function Footer() {
                 <span>
                   Email:{" "}
                   <a
-                    href="mailto:admin@Urloker.com"
+                    href="mailto:admin@urloker.com"
                     className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
                     title="Email"
                   >
-                    admin@Urloker.com
+                    admin@urloker.com
                   </a>
                 </span>
               </li>

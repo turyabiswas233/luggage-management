@@ -221,6 +221,9 @@ const BookingCard = ({ bookingData, _id }) => {
             {keyStorage?.keyPickUpBy?.phone && (
               <li>{`Pickup Phone: ${keyStorage?.keyPickUpBy?.phone}`}</li>
             )}
+            <li>{`Pickup By Email: ${
+              keyStorage?.keyPickUpBy?.email || "--"
+            }`}</li>
 
             <li className="break-keep">{`Pickup Time: ${getFormattedUTCTime(
               keyStorage?.keyPickUpTime

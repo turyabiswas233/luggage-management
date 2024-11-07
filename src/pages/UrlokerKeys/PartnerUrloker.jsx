@@ -273,12 +273,13 @@ const BookingCard = ({ bookingData, _id }) => {
             <li>{`Drop Off by Agent: ${keyStorage?.keyOwner.name}`}</li>
             <li>{`Pickup By: ${keyStorage?.keyPickUpBy.name}`}</li>
             {keyStorage?.keyPickUpBy.phone && (
-              <li>{`Pickup Phone: ${keyStorage?.keyPickUpBy.phone}`}</li>
+              <li>{`Pickup Phone: ${keyStorage?.keyPickUpBy?.phone}`}</li>
             )}
+            <li>{`Pickup Email: ${keyStorage?.keyPickUpBy?.email}`}</li>
 
             <li className="break-keep">{`Pickup Time: ${getFormattedUTCTime(
               keyStorage?.keyPickUpTime
-            )}`}</li>
+            )} (Australian Time Zone)`}</li>
           </ul>
         </section>
       )}
