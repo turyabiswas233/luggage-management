@@ -113,7 +113,7 @@ const LuggageStoreDetails = () => {
     console.log("Boking Details:", bookingData); // Log booking details to the console
 
     setGuestDetails(guestDetails); // Store guestDetails in state
-
+    
     const token = localStorage.getItem("token");
     const url = `${config.API_BASE_URL}/api/v1/bookings/instant-booking`;
     // console.log(bookingData);

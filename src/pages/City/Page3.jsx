@@ -195,7 +195,7 @@ function FlindersPage() {
               loading="lazy"
             />
             <h1 className="text-4xl md:text-6xl font-bold my-4 text-green-800">
-              Luggage Storage Flinders Street Station
+              Flinders Street Station Luggage Storage
             </h1>
             <p>Freedom in every journey with Urloker</p>
             <div className="flex flex-col sm:flex-row justify-center items-center relative">

@@ -74,10 +74,10 @@ const PaymentSuccess = () => {
         setSuccess(
           "Thank you for your review! Your feedback has been submitted successfully."
         );
-        setTimeout(() => {
-          localStorage.clear();
-          window.location.href = "/";
-        }, 3000);
+        // setTimeout(() => {
+        //   localStorage.clear();
+        //   window.location.href = "/";
+        // }, 3000);
       } else {
         const errorData = await response.json();
         if (

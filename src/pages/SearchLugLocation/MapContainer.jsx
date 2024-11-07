@@ -23,8 +23,8 @@ const MapContainer = ({ locations, setVisibleLocations, center }) => {
       const map = new google.maps.Map(document.getElementById("map"), {
         center: center || { lat: -36.8688, lng: 144.9093 },
         mapId: "mapId",
-        minZoom: 5,
-        zoom: 13,
+        minZoom: 3,
+        zoom: 10,
         maxZoom: 20,
       });
       if (!map) return;

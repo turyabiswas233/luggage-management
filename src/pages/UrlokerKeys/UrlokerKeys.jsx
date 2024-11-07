@@ -114,8 +114,10 @@ function UrlokerKeys() {
     e.preventDefault();
     // Here, you would send the collected data to your backend for processing
     const url = config.API_BASE_URL;
-    if(pickUpDate.getTime() <= dropOffDate.getTime()){
-      alert("Pick-up date and time should be greater than drop-off date and time");
+    if (pickUpDate.getTime() <= dropOffDate.getTime()) {
+      alert(
+        "Pick-up date and time should be greater than drop-off date and time"
+      );
       return;
     }
     try {
@@ -141,12 +143,14 @@ function UrlokerKeys() {
           email: pickUpEmail,
           phone: pickUpPhone || "0000000000",
         },
+        // keyDropOffTime: dropOffDate.toISOString(), // Key pickup time
         keyPickUpTime: pickUpDate.toISOString(), // Key pickup time
         keyStorageFee: amount, // Optional, defaults to the location's hourly fee
         keyOwner: {
           name: "John Doe", // Required key owner name
           email: "john@example.com", // Required key owner email
         },
+        // timezone: Intl?.DateTimeFormat()?.resolvedOptions()?.timeZone,
       });
       if (response.data?.success) {
         setClientSecret(response.data.clientSecret);
@@ -598,14 +602,30 @@ const PaymentFormModal = ({ clientSecret, bookingId, setFinalMessage }) => {
           },
         }}
       />
-      <button
-        className="bg-teal-500 text-white min-h-10 py-2 rounded-sm w-full disabled:pointer-events-none flex items-center justify-center gap-2"
-        onClick={handlePayment}
-        type="button"
-        disabled={loading}
-      >
-        {loading ? <LuLoader className="animate-spin" /> : "  Pay Now"}
-      </button>
+      <div className="grid gap-2">
+        <button
+          className="bg-teal-500 text-white min-h-10 py-2 rounded-sm w-full disabled:pointer-events-none flex items-center justify-center gap-2"
+          onClick={handlePayment}
+          type="button"
+          disabled={loading}
+        >
+          {loading ? <LuLoader className="animate-spin" /> : "  Pay Now"}
+        </button>
+        <button
+          className="bg-rose-500 text-white min-h-10 py-2 rounded-sm w-full disabled:pointer-events-none flex items-center justify-center gap-2"
+          onClick={() => {
+            const check = window.confirm(
+              "Are you sure you want to cancel the payment?"
+            );
+            if (check) {
+              navigate("/");
+            }
+          }}
+          type="reset"
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   );
 };

@@ -184,10 +184,15 @@ const BookingForm = ({
       startTime: moment(checkinTime).tz(australianTimeZone).format("HH:mm"),
       endDate: moment(checkoutTime).tz(australianTimeZone).format("YYYY-MM-DD"),
       endTime: moment(checkoutTime).tz(australianTimeZone).format("HH:mm"),
+      // dropOffTime: checkinTime.toISOString(),
+      // pickUpTime: checkoutTime.toISOString(),
       totalPricePaid: parseFloat(totalPrice).toFixed(2),
       specialRequests: clientDetails.specialRequests || "No requirement",
       luggageQuantity: luggageQuantity,
+      // timezone: Intl?.DateTimeFormat()?.resolvedOptions()?.timeZone,
     };
+
+    console.log(bookingData);
 
     if (clientId) {
       bookingData.client = clientId;

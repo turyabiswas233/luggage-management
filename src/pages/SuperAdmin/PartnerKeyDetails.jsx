@@ -232,7 +232,14 @@ const BookingCard = ({ bookingData, _id }) => {
       </section>
       <section className="text-gray-700 px-4 border-b border border-black overflow-x-auto break-keep">
         <ul className="grid">
-          <li>{`Drop off Time: ${formattedStartDate.toLocaleString()}`}</li>
+          <li>{`Drop off Time: ${formattedStartDate.toLocaleString("en-AU", {
+            hour12: true,
+            month: "short",
+            day: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}`}</li>
           <li className="hidden">{`Kyes Count: ${luggageCount}`}</li>
           {/* <li>{`Payment Status: ${payment.status}`}</li> */}
           <li>{`Payment Method: ${payment.method}`}</li>
@@ -262,6 +269,14 @@ const BookingCard = ({ bookingData, _id }) => {
 
 const getFormattedUTCTime = (time) => {
   const now = new Date(time);
-  return now.toLocaleString("en-US");
+  return now.toLocaleString("en-AU", {
+    timeZone: "Australia/Sydney",
+    hour12: true,
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 };
 export default PartnerKeyDetails;
