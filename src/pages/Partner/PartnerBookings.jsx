@@ -29,6 +29,7 @@ const PartnerBookings = () => {
         console.log("data is fetched");
         if (Array.isArray(response.data)) {
           setBookings(response.data);
+          console.log(response.data);
         } else {
           setBookings([]);
         }
@@ -68,14 +69,7 @@ const PartnerBookings = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const formatDate = (dateString) => {
-    if (!dateString) return "";
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
-
   const formatDateTime = (dateString, timeString) => {
-    if (!dateString || !timeString) return "";
     const options = {
       year: "numeric",
       month: "long",
@@ -84,9 +78,13 @@ const PartnerBookings = () => {
       minute: "2-digit",
     };
     const date = new Date(dateString);
-    const [hours, minutes] = timeString.split(":");
-    date.setHours(hours, minutes);
-    return date.toLocaleString(undefined, options);
+    date.setHours(timeString.split(":")[0] || 0);
+    date.setMinutes(timeString.split(":")[1] || 0);
+
+    return {
+      rootDate: date,
+      localDT: date.toLocaleString("en-AU", options),
+    };
   };
   const [totalPaid, setTotalPaid] = useState(0);
   useEffect(() => {
@@ -160,7 +158,9 @@ const PartnerBookings = () => {
                         {filtertype == "true" ? "Agent" : "Guest"}
                       </th>
                       <th className="w-1/4 py-3 px-6 text-left">
-                        {filtertype == 'true' ? 'Pickup Info' :'Luggage Number'}
+                        {filtertype == "true"
+                          ? "Pickup Info"
+                          : "Luggage Number"}
                       </th>
                       <th className="w-1/6 py-3 px-6 text-left">
                         Payment Amount
@@ -191,16 +191,28 @@ const PartnerBookings = () => {
                               {booking.location.name || ""}
                             </td>
                             <td className="w-1/6 py-3 px-6 border">
-                              {formatDate(booking.bookingDate)}
-                            </td>
-                            <td className="w-1/4 py-3 px-6 border">
                               {formatDateTime(
-                                booking.startDate,
-                                booking.startTime
-                              )}
+                                booking.bookingDate,
+                                ""
+                              ).rootDate.toLocaleDateString("en-AU", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              })}
                             </td>
                             <td className="w-1/4 py-3 px-6 border">
-                              {formatDateTime(booking.endDate, booking.endTime)}
+                              {
+                                formatDateTime(
+                                  booking.startDate,
+                                  booking.startTime
+                                ).localDT
+                              }
+                            </td>
+                            <td className="w-1/4 py-3 px-6 border">
+                              {
+                                formatDateTime(booking.endDate, booking.endTime)
+                                  .localDT
+                              }
                             </td>
                             <td className="w-1/6 py-3 px-6 border">
                               {booking.guest
@@ -209,7 +221,11 @@ const PartnerBookings = () => {
                                   } ${booking.guest.phone || "no phone"}`
                                 : "--No Info--"}
                             </td>
-                            <td className={`w-1/4 py-3 px-6 border ${filtertype=='false' && 'text-center'}`}>
+                            <td
+                              className={`w-1/4 py-3 px-6 border ${
+                                filtertype == "false" && "text-center"
+                              }`}
+                            >
                               {filtertype == "false"
                                 ? booking.luggageCount || "--"
                                 : `${booking?.keyStorage?.keyPickUpBy?.name} ${booking?.keyStorage?.keyPickUpBy?.email} ${booking?.keyStorage?.keyPickUpBy?.phone}`}

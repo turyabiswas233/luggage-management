@@ -35,22 +35,12 @@ const BookingForm = ({
     phone: "",
   });
 
-  // Define the Australian time zone
-  const australianTimeZone = "Australia/Sydney";
-
   useEffect(() => {
     // Set default check-in and check-out times
-    const checkin = moment()
-      .tz(australianTimeZone)
-      .add(6, "hours")
-      .format("YYYY-MM-DDTHH:mm");
+    const checkin = moment().add(6, "hours").format("YYYY-MM-DDTHH:mm");
     const checkout = moment(checkin)
-      .tz(australianTimeZone)
       .add(20, "hours")
       .format("YYYY-MM-DDTHH:mm");
-
-    //    setCheckinTime(checkin);
-    //  setCheckoutTime(checkout);
 
     setTotalPrice(0);
     setDiscount(0);
@@ -178,12 +168,10 @@ const BookingForm = ({
 
     const bookingData = {
       location: locationid,
-      startDate: moment(checkinTime)
-        .tz(australianTimeZone)
-        .format("YYYY-MM-DD"),
-      startTime: moment(checkinTime).tz(australianTimeZone).format("HH:mm"),
-      endDate: moment(checkoutTime).tz(australianTimeZone).format("YYYY-MM-DD"),
-      endTime: moment(checkoutTime).tz(australianTimeZone).format("HH:mm"),
+      startDate: moment(checkinTime).format("YYYY-MM-DD"),
+      startTime: moment(checkinTime).format("HH:mm"),
+      endDate: moment(checkoutTime).format("YYYY-MM-DD"),
+      endTime: moment(checkoutTime).format("HH:mm"),
       // dropOffTime: checkinTime.toISOString(),
       // pickUpTime: checkoutTime.toISOString(),
       totalPricePaid: parseFloat(totalPrice).toFixed(2),

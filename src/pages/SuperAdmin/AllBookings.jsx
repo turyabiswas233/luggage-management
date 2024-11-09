@@ -120,7 +120,7 @@ const AllBookings = () => {
   };
 
   const formatDate = (dateString, timeString) => {
-    if (!dateString || !timeString) return "";
+    // if (!dateString || !timeString) return "";
     const options = {
       year: "numeric",
       month: "long",
@@ -129,9 +129,13 @@ const AllBookings = () => {
       minute: "2-digit",
     };
     const date = new Date(dateString);
-    const [hours, minutes] = timeString.split(":");
-    date.setHours(hours, minutes);
-    return date.toLocaleString(undefined, options);
+    date.setHours(timeString.split(":")[0] || 0);
+    date.setMinutes(timeString.split(":")[1] || 0);
+
+    return {
+      rootDate: date,
+      localDT: date.toLocaleString("en-AU", options),
+    };
   };
 
   const getPaginationGroup = () => {
@@ -243,16 +247,28 @@ const AllBookings = () => {
                                 ${Number(booking?.payment?.amount).toFixed(2)}
                               </td>
                               <td className="w-1/5 py-3 px-6 border">
-                                {formatDate(booking.bookingDate, "")}
-                              </td>
-                              <td className="w-1/5 py-3 px-6 border">
                                 {formatDate(
-                                  booking.startDate,
-                                  booking.startTime
-                                )}
+                                  booking.bookingDate,
+                                  ""
+                                ).rootDate.toLocaleDateString("en-AU", {
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "numeric",
+                                })}
                               </td>
                               <td className="w-1/5 py-3 px-6 border">
-                                {formatDate(booking.endDate, booking.endTime)}
+                                {
+                                  formatDate(
+                                    booking.startDate,
+                                    booking.startTime
+                                  ).localDT
+                                }
+                              </td>
+                              <td className="w-1/5 py-3 px-6 border">
+                                {
+                                  formatDate(booking.endDate, booking.endTime)
+                                    .localDT
+                                }
                               </td>
                               <td className="w-1/5 py-3 px-6 border">
                                 {booking.status}

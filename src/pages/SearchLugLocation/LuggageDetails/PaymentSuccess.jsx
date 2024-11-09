@@ -35,11 +35,11 @@ const PaymentSuccess = () => {
 
   const formatDate = (dateStr) => {
     const options = { month: "long", day: "numeric", year: "numeric" };
-    return new Date(dateStr).toLocaleDateString(undefined, options);
+    return new Date(dateStr).toLocaleDateString(undefined, {...options, timeZone: "UTC"});
   };
 
   const formatTime = (timeStr) => {
-    const options = { hour: "numeric", minute: "numeric", hour12: true };
+    const options = { hour: "numeric", minute: "numeric", hour12: true,timeZone: "UTC" };
     return new Date(`1970-01-01T${timeStr}Z`).toLocaleTimeString(
       undefined,
       options
