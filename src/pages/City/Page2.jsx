@@ -85,30 +85,14 @@ function AirportPage() {
   };
   const data = [
     {
-      question: "What services does Urloker provide?",
+      question: "What items are accepted for storage at Melbourne Airport?",
       answer:
-        "UrLoker provides a service of securing your luggage with the help of its personnel. We provide luggage pickup and drop-off service at the accommodation, at the airport, or in Melbourne at any hour of the day. After temporarily securing the luggage, we hand it over to the owner at the appropriate time.",
+        "We accept most types of luggage, from small bags to large suitcases and sports equipment. Contact us for specific inquiries.",
     },
     {
-      question:
-        "How does Urloker ensure the safety and security of my luggage?",
+      question: " Is luggage storage at Melbourne Airport secure?",
       answer:
-        "All bags are labelled with the customer's details, secured in tamper-evident plastic bags, and, most importantly, fitted with tracking devices. Storage is done under surveillance 24 hours a day with constant progress reported, and the safe remains under restrictions.",
-    },
-    {
-      question: "Can Urloker store large or oddly shaped items?",
-      answer:
-        "Yes, we store large or odd items. If you have something that does not fit in the standard box, please let us know so we can make the necessary arrangements.",
-    },
-    {
-      question: "Do you offer any additional services besides luggage storage?",
-      answer:
-        "Yes, we also help with luggage wrapping and can provide you with concierge service, among other things, that will make your travel more pleasurable.",
-    },
-    {
-      question: "What are your pricing options and available discounts?",
-      answer:
-        "We have prices that are relatively lower within the market, with discounts set for prolonged storage or the storage of many bags. Delivery and collection services provide additional benefits, and the duration of storage is flexible.",
+        "Yes, all storage facilities are monitored with CCTV and have secure access controls to ensure the safety of your belongings.",
     },
   ];
   const { searchPlaceholder, findLocationsButton } = translate?.heroSection;
@@ -159,7 +143,6 @@ function AirportPage() {
           property="og:title"
           content="Luggage Storage Melbourne Airport - Urloker"
         />
-        <meta name="description" content="Melbourne Airport" />
         <meta
           name="description"
           content="Secure, affordable luggage storage Melbourne Airport. Urlocker offers various sizes, flexible durations and easy booking for hassle free travel."

@@ -85,25 +85,15 @@ function FlindersPage() {
   };
   const data = [
     {
-      question: " Is luggage storage at Flinders Street Station safe?",
+      question: "Is luggage storage at Flinders Street Station safe?",
       answer:
-        "Yes, Urloker uses 24/7 CCTV monitoring, digital locks, and other security measures to ensure your belongings are safe.",
+        "Yes, Urloker uses 24/7 CCTV monitoring, digital locks and other security measures to ensure your belongings are safe.",
     },
     {
       question:
         "How much does it cost to store luggage at Flinders Street Station?",
       answer:
-        "Our rates start at just $10 per day, depending on the size of your luggage and the duration of storage. Discounts are available for long-term storage.",
-    },
-    {
-      question: "Can I store large items such as prams and sports gear?",
-      answer:
-        "Yes, Urloker offers a variety of locker sizes, including large lockers for strollers, sports gear, and other bulky items.",
-    },
-    {
-      question: "Do I need to book for luggage storage before the travel date?",
-      answer:
-        "No, but it is advisable to do so at least 48 through 72 hours prior to the date of travel in case high tourist centres in low periods are not conveniently forced into our centers by forcing bookers.",
+        "For Flinders Street Station Luggage Storage, we offer flat rates and affordable pricing for all luggage and bag sizes.",
     },
   ];
   const { searchPlaceholder, findLocationsButton } = translate?.heroSection;
@@ -159,7 +149,6 @@ function FlindersPage() {
           property="og:description"
           content="Urloker: Flinders Street Station luggage storage made easy. Secure, affordable options in Melbourne's heart. Drop your bags and explore freely"
         />
-        <meta name="description" content="Flinders Station" />
         <meta
           name="description"
           content="Urloker: Flinders Street Station luggage storage made easy. Secure, affordable options in Melbourne's heart. Drop your bags and explore freely"
@@ -502,38 +491,40 @@ const FaqCard = ({ t }) => {
     setOpenFAQ((p) => (p == index ? -1 : index));
   };
   return (
-    <div className="p-5">
-      <h3 className="font-bold text-2xl my-5">
+    <div className="p-5 container mx-auto xl:px-52">
+      <h3 className="text-center font-bold text-2xl my-5">
         Common Questions for Flinders Street Station Luggage Storage
       </h3>
-      {t.map((faq, index) => (
-        <div
-          key={index}
-          className={`p-2 md:p-4 min-h-fit border-y border-gray-400 transition-all ease-out duration-1000 h-full ${
-            openFAQ == index ? "max-h-52 overflow-y-auto" : "max-h-20"
-          }`}
-        >
-          <h3
-            className="text-xl font-bold text-gray-700 cursor-pointer flex items-center justify-between"
-            onClick={() => toggleFAQ(index)}
+      <div className="space-y-5 divide-y-3 divide-slate-800">
+        {t.map((faq, index) => (
+          <div
+            key={index}
+            className={`p-2 md:p-4 min-h-fit transition-all ease-out duration-1000 h-full ${
+              openFAQ == index ? "max-h-52 overflow-y-auto" : "max-h-20"
+            }`}
           >
-            Q: {faq.question}
-            {openFAQ == index ? (
-              <FontAwesomeIcon icon={faMinusCircle} />
-            ) : (
-              <FontAwesomeIcon icon={faPlusCircle} />
+            <h3
+              className="text-xl font-bold text-gray-700 cursor-pointer flex items-center justify-between"
+              onClick={() => toggleFAQ(index)}
+            >
+              Q: {faq.question}
+              {openFAQ == index ? (
+                <FontAwesomeIcon icon={faMinusCircle} />
+              ) : (
+                <FontAwesomeIcon icon={faPlusCircle} />
+              )}
+            </h3>
+            {openFAQ == index && (
+              <div
+                className="text-gray-600 mt-2 overflow-x-hidden break-words text-justify px-4 font-medium"
+                dangerouslySetInnerHTML={{
+                  __html: faq.answer,
+                }}
+              />
             )}
-          </h3>
-          {openFAQ == index && (
-            <div
-              className="text-gray-600 mt-2 overflow-x-hidden break-words text-justify px-4 font-medium"
-              dangerouslySetInnerHTML={{
-                __html: faq.answer,
-              }}
-            />
-          )}
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

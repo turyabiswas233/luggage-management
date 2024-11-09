@@ -18,7 +18,8 @@ const Home = () => {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Urloker",
-    image: "https://s3.ap-southeast-2.amazonaws.com/s3.urlocker.io/public/files/img/location_common/home-banner.jpeg?v=01",
+    image:
+      "https://s3.ap-southeast-2.amazonaws.com/s3.urlocker.io/public/files/img/location_common/home-banner.jpeg?v=01",
     "@id": "https://urloker.com/#luggagestorage",
     url: "https://urloker.com/",
     telephone: "+61 3 7035 5653",
@@ -132,6 +133,10 @@ const Demo = () => {
 const CurrentCities = () => {
   const cities = [
     {
+      to: "/luggage-storage-melbourne",
+      name: "Melbourne",
+    },
+    {
       name: "Melbourne CBD",
       to: "/luggage-storage-melbourne-cbd",
     },
@@ -142,6 +147,14 @@ const CurrentCities = () => {
     {
       name: "Flinders Street Station",
       to: "/flinders-street-station-luggage-storage",
+    },
+    {
+      to: "/southern-cross-station-luggage-storage",
+      name: "Southern Cross Station",
+    },
+    {
+      to: "/luggage-storage-melbourne-central-station",
+      name: "Melbourne Central Station",
     },
   ];
   return (

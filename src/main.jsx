@@ -73,10 +73,14 @@ import SuperAdminUrloker from "./pages/UrlokerKeys/SuperAdminUrloker";
 import PartnerUrloker from "./pages/UrlokerKeys/PartnerUrloker";
 import PartnerKeyDetails from "./pages/SuperAdmin/PartnerKeyDetails";
 
-// city files
+// city files [6]
 import MelbourneCBD from "./pages/City/Page1";
 import AirportPage from "./pages/City/Page2";
 import FlindersPage from "./pages/City/Page3";
+import Melbourne from "./pages/City/Page4";
+import SouthernStation from "./pages/City/Page5";
+import MelbourneCentral from "./pages/City/Page6";
+// error page
 import ErrorPage from "./pages/404";
 
 const root = document.getElementById("root");
@@ -180,7 +184,7 @@ const routerConfig = createBrowserRouter([
         path: "/reset-password-form/:tokenId",
         element: <ResetPasswordForm />,
       },
-      // three static page
+      // 6 static page
       {
         path: "/luggage-storage-melbourne-cbd",
         element: <MelbourneCBD />,
@@ -192,6 +196,18 @@ const routerConfig = createBrowserRouter([
       {
         path: "/flinders-street-station-luggage-storage",
         element: <FlindersPage />,
+      },
+      {
+        path: "/luggage-storage-melbourne",
+        element: <Melbourne />,
+      },
+      {
+        path: "/southern-cross-station-luggage-storage",
+        element: <SouthernStation />,
+      },
+      {
+        path: "/luggage-storage-melbourne-central-station",
+        element: <MelbourneCentral />,
       },
       // others
       {
