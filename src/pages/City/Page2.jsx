@@ -94,6 +94,67 @@ function AirportPage() {
       answer:
         "Yes, all storage facilities are monitored with CCTV and have secure access controls to ensure the safety of your belongings.",
     },
+    {
+      question: "How does the Urloker luggage storage system work?",
+      answer:
+        "UrLoker provides collection and delivery services. Click on a location or book a van in the same way that you would book a doctor's appointment through the website. Book a flight by telephone, specifying the location, date and time. As for the dropping out, you will have to put your bag in a locker and as for pick up, the staff will take it and keep it safely.",
+    },
+    {
+      question: "What things can I store?",
+      answer: `
+        <li>Luggage: franchises of suitcases, big bags duffle</li>
+        <li>Personal items: Women's purses, Computer Case</li>
+        <li>Bulky Items: Sporting equipment, Child params</li>
+        `,
+    },
+    {
+      question: "Are there size limits?",
+      answer:
+        "We welcome items of all sizes! However, for extra-large or bulky items like surfboards, skis, or bicycles, we kindly ask for prior approval to ensure our partners can accommodate your needs. Don’t worry—we’ll handle the coordination and keep you informed.",
+    },
+    {
+      question: "Do larger bags cost more?",
+      answer:
+        "No. We won't charge you more for your bigger luggeages. So, enjoy the same rates, exclusively with Urloker.",
+    },
+    {
+      question: "Is hourly luggage storage available at Urloker?",
+      answer:
+        "We offer a flat 24-hour rate, ensuring you get the same great price whether you store your items for just a few hours or the entire day.",
+    },
+    {
+      question:
+        "Can I book luggage storage for the whole day with a single booking?",
+      answer: `Yes, you can easily book luggage storage for the entire day with just one booking, ensuring a hassle-free experience.`,
+    },
+    {
+      question: "Looking for luggage lockers nearby?",
+      answer:
+        "We partner with trusted businesses that provide secure storage areas for your belongings, offering the same safety and convenience as traditional lockers—without the hassle of availability or size constraints.",
+    },
+    {
+      question: "Need to change or cancel your booking?",
+      answer:
+        "We understand that plans can change! Easily modify or cancel your booking right from the details page in our app. Adjust dates, drop-off and pick-up times, or the number of bags with just a few taps.",
+    },
+    {
+      question: "Can I get a refund if I cancel?",
+      answer:
+        "Absolutely! You can cancel your booking anytime before check-in for a full refund, and best of all—no cancellation fees!",
+    },
+    {
+      question: "What security measures are in place?",
+      answer: `
+        <li>Super Locks</li>
+        <li>CCTV</li>
+        <li>Staff trained</li>
+      `,
+    },
+    {
+      question: "what kind of service Urloker Luggage Storage provide?",
+      answer:
+        "Urloker Luggage Storage provides secure and monitored luggage storage solutions with flexible options for all bag sizes. They also offer key storage services for Airbnb hosts and guests, with easy online and QR code booking at partner locations. Additionally, Urloker provides 24/7 customer support, real-time notifications, and optional insurance for added peace of mind.",
+    },
   ];
   const { searchPlaceholder, findLocationsButton } = translate?.heroSection;
 

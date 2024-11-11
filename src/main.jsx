@@ -82,6 +82,7 @@ import SouthernStation from "./pages/City/Page5";
 import MelbourneCentral from "./pages/City/Page6";
 // error page
 import ErrorPage from "./pages/404";
+import PromoCodeManagement from "./pages/SuperAdmin/promocode/PromoCodeManagement";
 
 const root = document.getElementById("root");
 const routerConfig = createBrowserRouter([
@@ -302,6 +303,10 @@ const routerConfig = createBrowserRouter([
         path: "urlokerkey",
         element: <SuperAdminUrloker />,
       },
+      {
+        path: "promocode",
+        element: <PromoCodeManagement />,
+      }
     ],
   },
   // partner
