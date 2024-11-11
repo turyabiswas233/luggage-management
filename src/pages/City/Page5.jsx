@@ -1,8 +1,8 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import config from "../../config";
-// const cbd = config.BUCKET_URL + "/files/city/southern/scs.jpeg";
-import cbd from "/files/city/southern/scs.jpeg";
+const cbd = config.BUCKET_URL + "/files/city/southern/scs.jpeg";
+// import cbd from "/files/city/southern/scs.jpeg";
 const locImage = config.BUCKET_URL + "/files/city/cbd/locationMap.png";
 import { useTranslation } from "react-i18next";
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
@@ -217,11 +217,10 @@ function SouthernStation() {
               </p>
               <img
                 src={cbd}
-                width={800}
-                height={(800 * 9) / 16}
+                width={1280}
+                height={720}
                 className="aspect-video object-cover rounded-2xl w-full lg:hidden flex-1"
                 alt="Southern Cross Station Luggage Storage"
-                loading="lazy"
               />
               <h1 className="text-4xl md:text-6xl font-bold my-4 text-green-800">
                 Southern Cross Station Luggage Storage
@@ -262,6 +261,7 @@ function SouthernStation() {
               height={720}
               className="aspect-video rounded-2xl max-w-2xl w-full hidden lg:block flex-1"
               alt="Southern Cross Station Luggage Storage"
+              loading="lazy"
             />
           </div>
         </header>
@@ -269,10 +269,10 @@ function SouthernStation() {
           locationImage={locImage}
           me={"Souther Cross Station Luggage Storage"}
         />
-        <main className="p-5 bg-white xl:px-52 w-full mx-auto">
-          <div className="space-y-6 my-5">
-            <h2>
-              H2 - Southern Cross Station Luggage Storage: Convenient and Secure
+        <main className="p-5 bg-white xl:px-52 w-full mx-auto space-y-10">
+          <div className="space-y-5 my-5">
+            <h2 className="text-3xl font-extrabold text-black">
+              Southern Cross Station Luggage Storage: Convenient and Secure
               Solutions with Urloker
             </h2>
             <p>
@@ -287,8 +287,8 @@ function SouthernStation() {
             </p>
           </div>
 
-          <div className="space-y-6 my-5">
-            <h2 className="text-3xl font-[900] text-black">
+          <div className="space-y-5 my-5">
+            <h2 className="text-3xl font-bold text-black">
               Why You Need Luggage Storage at Southern Cross Station
             </h2>
             <p>
@@ -310,8 +310,8 @@ function SouthernStation() {
             </p>
           </div>
 
-          <div className="space-y-6 my-5">
-            <h3 className="text-2xl font-[900] text-black">
+          <div className="space-y-5 my-5">
+            <h3 className="text-2xl font-bold text-black">
               Luggage Storage Options Near Southern Cross Station
             </h3>
             <p>
@@ -325,8 +325,8 @@ function SouthernStation() {
             </p>
           </div>
 
-          <div className="space-y-6 my-5">
-            <h2 className="text-3xl font-[900] text-black">
+          <div className="space-y-5 my-5">
+            <h2 className="text-3xl font-bold text-black">
               Benefits of Using Urloker for Luggage Storage at Southern Cross
               Station
             </h2>
@@ -359,8 +359,8 @@ function SouthernStation() {
             </ul>
           </div>
 
-          <div className="space-y-6 my-5">
-            <h3 className="text-2xl font-[900] text-black">
+          <div className="space-y-5 my-5">
+            <h3 className="text-2xl font-bold text-black">
               How to Store Your Bags Near Southern Cross Station
             </h3>
             <p>
@@ -392,10 +392,274 @@ function SouthernStation() {
             </ol>
           </div>
 
-          {/* aro add kora baki */}
+          <div className="space-y-5 my-5">
+            <h3 className="text-2xl font-bold text-black">
+              Melbourne Southern Cross Station Luggage Storage: Flexible Options
+              for Travellers
+            </h3>
+            <p>
+              We understand that every traveller is different and has unique
+              needs. Whether you need luggage storage for a few hours or
+              long-term storage, Urloker has flexible options to fit your needs.
+            </p>
+            <ul className="px-10 list-disc text-lg">
+              <li>
+                <b>Short-Term Storage:</b> Ideal for those with a layover or a
+                few hours to pass in Melbourne. Drop off your bags with Urloker
+                and make the most of your time in the city without any baggage
+                holding you back.
+              </li>
+              <li>
+                <b>Long-Term Storage:</b>Need to leave your luggage for several
+                days? We have secure long-term options.
+              </li>
+              <li>
+                <b>Large Group Luggage Storage: </b> If you are travelling with
+                a group of mates you also do not need to worry cause we can
+                accommodate multiple bags and ensure everyone enjoys their trip
+                with a hassle free experience.
+              </li>
+            </ul>
+          </div>
 
-          <div className="space-y-6 my-5">
-            <h2 className="text-3xl font-[900] text-black">
+          <div className="space-y-5 my-5">
+            <h2 className="text-3xl font-bold text-black">
+              Luggage Storage at Southern Cross Station: Your Guide to
+              Stress-Free Travel
+            </h2>
+
+            <p>
+              If you are heading to Melbourne and need a safe spot to store your
+              luggage, Southern Cross Station is the ideal location to start
+              your search. Urloker offers a seamless way to leave your bags
+              behind and focus on the adventures ahead. Southern Cross Station
+              luggage storage is essential for hassle-free travel, especially
+              for those who want to explore Melbourne without dragging their
+              luggage everywhere. Make the most of your time in Melbourne by
+              storing your bags with Urloker. Imagine you are walking the lively
+              Queen Victoria Market, admiring the beautiful Yarra River or
+              sipping coffee in the trendy Fitzroy district all without the
+              hassle of dragging around your heavy luggage.
+            </p>
+
+            <p>
+              Urloker makes luggage storage near Southern Cross Station not only
+              simple but also affordable and secure. We take care of your bags
+              so you can focus on making lasting memories in this wonderful
+              city.
+            </p>
+
+            <p>
+              By using our luggage storage services, you can fully enjoy your
+              time in Melbourne without the burden of heavy bags.
+            </p>
+          </div>
+
+          <div className="space-y-5 my-5">
+            <h2 className="text-3xl font-bold text-black"></h2>
+            <p>
+              While there are lockers at Southern Cross Station, using Urloker
+              offers several advantages:
+            </p>
+            <ul className="px-10 list-disc text-lg">
+              <li>
+                <b>Availability:</b> Lockers can be limited, especially during
+                busy travel times. Urloker ensures that you always have a place
+                to store your luggage at your convenience.
+              </li>
+              <li>
+                <b>Size Flexibility:</b>Our luggage storage facilities can
+                accommodate bags of various sizes unlike traditional lockers and
+                the best thing is we offer a flat rate where size does not
+                matter.
+              </li>
+              <li>
+                <b>Guaranteed Luggage Storage: </b> Book in advance and have
+                peace of mind knowing your spot is reserved. Luggage storage at
+                Southern Cross Station with Urloker means you never have to
+                worry about finding space.If you are travelling with a group of
+                mates you also do not need to worry cause we can accommodate
+                multiple bags and ensure everyone enjoys their trip with a
+                hassle free experience.
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-5 my-5">
+            <h3 className="text-2xl font-bold text-black">
+              Luggage Storage in Melbourne Southern Cross Station for Every
+              Traveller
+            </h3>
+            <p>
+              Southern Cross Station luggage storage with Urloker is designed to
+              meet the needs of different types of travellers:
+            </p>
+            <ul className="px-10 list-disc text-lg">
+              <li>
+                <b>Backpackers:</b> Melbourne is full of exciting attractions
+                but hauling your backpack around can be exhausting. Store your
+                backpack securely while you enjoy Melbourne's attractions with
+                freedom in every journey .
+              </li>
+              <li>
+                <b>Business Travellers:</b> Do not let your suitcase hold you
+                back from meetings and networking events. By choosing our
+                luggage storage platform you can store your luggage conveniently
+                and focus on making business connections and spend your time
+                more efficiently.
+              </li>
+              <li>
+                <b>Families: </b> Travelling with kids can be stressful but with
+                luggage storage options you can lighten your load and explore
+                the city comfortably. Our luggage storage services help lighten
+                the load and allow you to explore Melbourne comfortably with
+                your family.
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-5 my-5">
+            <h4 className="text-black font-bold text-xl">
+              Where Can You Find Urloker Luggage Storage Locations?
+            </h4>
+            <p>
+              Our luggage storage locations are spread across Melbourne and
+              especially near Southern Cross Station for easy access. Whether
+              you are arriving at Spencer Street or hopping on the SkyBus, you
+              will find our storage spots conveniently nearby. Melbourne
+              Southern Cross Station luggage storage is all about convenience
+              and Urloker ensures you are covered with flexible, convenient and
+              affordable solutions.
+            </p>
+          </div>
+
+          <div className="space-y-5 my-5">
+            <h4 className="text-xl font-bold text-black">
+              Store Your Luggage and Explore Melbourne
+            </h4>
+
+            <p>
+              No one likes dragging luggage around while trying to explore.
+              Urloker luggage storage makes it easy to drop off your bags and
+              make the most of your time in Melbourne.
+            </p>
+            <ul className="px-10 list-disc text-lg">
+              <li>
+                <b>Flinders Street Station:</b>
+                Drop your bags and take a short walk to Melbourne's iconic
+                Flinders Street Station and take a ride in the world's largest
+                tram network .
+              </li>
+              <li>
+                <b>Melbourne CBD:</b>With our luggage storage service, you can
+                explore Melbourne CBD without being weighed down. Enjoy
+                shopping, dining, and sightseeing with complete freedom all
+                around Melbourne CBD with a hassle-free experience.
+              </li>
+              <li>
+                <b>Bourke Street: </b>Enjoy the hustle and bustle of Bourke
+                Street, knowing that your luggage is safe with us. Luggage
+                storage at Southern Cross Station gives you the freedom to
+                explore without the hassle.
+              </li>
+              <li>
+                <b>Docklands Waterfront: </b> Head to Docklands for beautiful
+                waterfront views, unique public art and plenty of entertainment
+                options. Furthermore you can take a ride on the Melbourne Star
+                Observation Wheel for stunning panoramic views of the city
+                skyline.
+              </li>
+              <li>
+                <b>SEA LIFE Melbourne Aquarium: </b>Just a ten minutes walk from
+                Southern Cross Station the Melbourne Aquarium offers an exciting
+                underwater adventure with exhibits featuring penguins, sharks,
+                and an array of marine life which is perfect for families and
+                sea life enthusiasts.
+              </li>
+              <li>
+                <b>Southbank and Crown Casino Complex: </b>You will find a great
+                opportunity to discover the beauty of Southbank and its
+                riverside dining, trendy bars and the famous Crown Casino
+                Complex. This area is perfect for a night out or a day spent by
+                the famous Yarra River.
+              </li>
+              <li>
+                <b>Eureka Skydeck: </b>Explore one of the tallest observation
+                decks in the Southern Hemisphere where you can take in
+                breathtaking 360-degree views from Eureka Skydeck. It is only a
+                short tram or train ride from Southern Cross Station which
+                offers a view you will never forget.
+              </li>
+              <li>
+                <b>Federation Square: </b>You can visit this cultural hub filled
+                with galleries, cafes and live events to get Melbourne's vibe.
+                Federation Square is the perfect spot to experience Melbourne's
+                vibrant art and culture scene. You can also stop by ACMI
+                (Australian Centre for the Moving Image) to explore innovative
+                exhibitions and interactive displays.
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-5 my-5">
+            <h2 className="text-black font-bold text-3xl">
+              What You Need to Know About Luggage Storage
+            </h2>
+            <p>
+              Luggage storage service can transform your visit. With Urloker,
+              you will have:
+            </p>
+            <ul className="px-10 list-disc text-lg">
+              <li>
+                <b>Convenient Booking:</b>
+                No need to wait in line or worry about locker availability. Book
+                your storage online.
+              </li>
+              <li>
+                <b>Safe Environment:</b>
+                Our storage locations are monitored and your belongings are safe
+                and secure.
+              </li>
+              <li>
+                <b>Affordable Pricing:</b>
+                Pay only for the time you need. Our rates are affordable and
+                make it easy to plan your trip budget. You can enjoy a flat rate
+                for all sizes of bags for the whole day.
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-5 my-5">
+            <h3 className="text-black font-bold text-2xl">
+              What You Need to Know About Luggage Storage
+            </h3>
+            <ul className="px-10 list-disc text-lg">
+              <li>
+                <b>Ease of Booking:</b>
+                Booking with Urloker is quick and seamless. No complicated
+                registration. Just book online, drop off and ready to go.
+              </li>
+              <li>
+                <b>Secure and Insured:</b>
+                Your peace of mind is our first priority. Rest assured that our
+                storage locations are secure and your luggage is protected.
+                Urloker's storage locations are not only secure but also insured
+                so that you can rest assured that your belongings are in safe
+                hands.
+              </li>
+              <li>
+                <b>Friendly Service:</b>
+                Our team is always ready to help to make your experience
+                stress-free. Whether you need directions, assistance with your
+                bags or travel tips, we are here to help. Choosing Urloker for
+                luggage storage at Southern Cross Station means choosing
+                convenience and peace of mind.
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-5 my-5">
+            <h2 className="text-3xl font-bold text-black">
               How much Does Luggage Storage Cost at Southern Cross Station?
             </h2>
 
@@ -417,8 +681,8 @@ function SouthernStation() {
             </ul>
           </div>
 
-          <div className="space-y-6 my-5">
-            <h4 className="text-xl font-[900] text-black">
+          <div className="space-y-5 my-5">
+            <h4 className="text-xl font-bold text-black">
               Storage Near Melbourne Southern Cross Station for Every Traveller
             </h4>
             <p className="text-lg font-normal lightShade">
@@ -430,8 +694,8 @@ function SouthernStation() {
             </p>
           </div>
 
-          <div className="space-y-6 my-5">
-            <h4 className="font-bold text-xl">
+          <div className="space-y-5 my-5">
+            <h4 className="font-bold text-xl text-black">
               How Secure Is the Luggage Storage Near Southern Cross Station?
             </h4>
             <p>Security is our priority. At Urloker, we:</p>
@@ -453,7 +717,7 @@ function SouthernStation() {
             </ul>
           </div>
 
-          <div className="space-y-6 my-5">
+          <div className="space-y-5 my-5">
             <h3 className="text-2xl font-[900] text-black">
               Luggage Storage Locations Around Southern Cross Station
             </h3>
@@ -467,7 +731,7 @@ function SouthernStation() {
               constraints.
             </p>
           </div>
-          <div className="space-y-6 my-5">
+          <div className="space-y-5 my-5">
             <h4 className="text-xl font-bold text-black">
               Store Your Luggage and Enjoy Melbourne Worry-Free
             </h4>
@@ -480,7 +744,7 @@ function SouthernStation() {
               Melbourne.
             </p>
           </div>
-          <div className="space-y-6 my-5">
+          <div className="space-y-5 my-5">
             <h3 className="text-2xl font-bold text-black">
               Affordable Luggage Storage Around Melbourne Southern Cross Station{" "}
             </h3>
@@ -492,8 +756,8 @@ function SouthernStation() {
               at Southern Cross Station is within reach for all travellers.
             </p>
           </div>
-          <div className="space-y-6 my-5">
-            <h4 className="font-bold text-xl">
+          <div className="space-y-5 my-5">
+            <h4 className="font-bold text-xl text-black">
               Storage Spots Across Melbourne to Make Your Trip Easier
             </h4>
             <p>
@@ -505,8 +769,8 @@ function SouthernStation() {
               storage needs.
             </p>
           </div>
-          <div className="space-y-6 my-5">
-            <h3 className="font-bold text-2xl">
+          <div className="space-y-5 my-5">
+            <h3 className="font-bold text-2xl text-black">
               Why You Should Store Your Luggage with Urloker Instead of Lockers
             </h3>
             <p>
@@ -530,7 +794,7 @@ function SouthernStation() {
             </ul>
           </div>
 
-          <div className="space-y-6 my-5">
+          <div className="space-y-5 my-5">
             <h3 className="text-2xl font-bold text-black">
               How to Book Luggage Storage Near Southern Cross Station
             </h3>
@@ -544,7 +808,7 @@ function SouthernStation() {
             </p>
           </div>
 
-          <div className="space-y-6 my-5">
+          <div className="space-y-5 my-5">
             <h2 className="text-3xl font-bold text-black">
               Luggage Storage Near Melbourne Southern Cross for Backpackers
             </h2>
@@ -557,7 +821,7 @@ function SouthernStation() {
             </p>
           </div>
 
-          <div className="space-y-6 my-5">
+          <div className="space-y-5 my-5">
             <h4 className="text-xl font-bold text-black">
               Enjoy Melbourne Without Heavy Bags
             </h4>
@@ -571,7 +835,7 @@ function SouthernStation() {
             </p>
           </div>
 
-          <div className="space-y-6 my-5">
+          <div className="space-y-5 my-5">
             <h4 className="text-xl font-bold text-black">
               Store Your Luggage and Enjoy Melbourne's Attractions
             </h4>
@@ -621,15 +885,16 @@ function SouthernStation() {
 
             <ul className="px-10 list-disc">
               <li>
-                Monitored Locations: Our storage spots are watched to ensure
-                security.
+                <b>Monitored Locations:</b>
+                Our storage spots are watched to ensure security.
               </li>
               <li>
-                Trusted Partners: We work with reliable businesses to store your
-                luggage.
+                <b>Trusted Partners:</b>
+                We work with reliable businesses to store your luggage.
               </li>
               <li>
-                Insurance Provided: Your luggage is insured while in our care.
+                <b>Insurance Provided:</b>
+                Your luggage is insured while in our care.
               </li>
             </ul>
           </div>
@@ -692,7 +957,7 @@ const FaqCard = ({ t }) => {
             }`}
           >
             <h4
-              className="text-xl font-bold text-gray-700 cursor-pointer flex items-center justify-between"
+              className="text-xl font-bold text-gray-700 cursor-pointer flex items-center justify-between text-slate-900"
               onClick={() => toggleFAQ(index)}
             >
               {faq.question}

@@ -51,6 +51,7 @@ import AllBookings from "./pages/SuperAdmin/AllBookings";
 import PartnerBookings from "./pages/Partner/PartnerBookings";
 import Logout from "./pages/Home/Logout";
 import BookingConfirmation from "./pages/SearchLugLocation/BookingConfirmation";
+import ChargingLocations from "./pages/ChargingStorage/ChargingLocations";
 import ClientMenu from "./pages/User/ClientMenu";
 import ClientWallet from "./pages/User/ClientWallet";
 import ClientBookingHistory from "./pages/User/ClientBookingHistory";
@@ -159,6 +160,10 @@ const routerConfig = createBrowserRouter([
       {
         path: "/payment-success",
         element: <PaymentSuccess />,
+      },
+      {
+        path: "/charging-location",
+        element: <ChargingLocations />,
       },
       {
         path: "/payment-cancelled",
@@ -306,7 +311,7 @@ const routerConfig = createBrowserRouter([
       {
         path: "promocode",
         element: <PromoCodeManagement />,
-      }
+      },
     ],
   },
   // partner

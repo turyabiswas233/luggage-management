@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import LoginForm from "./LoginForm"; // Assuming LoginForm is in the same directory
 import logo from "/files/img/home-two/logo3.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { faKey, faChargingStation } from "@fortawesome/free-solid-svg-icons";
 import translations from "./translations"; // Import your translations
 import { Link } from "react-router-dom";
 
@@ -53,6 +53,15 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
               {currentTranslations.header.urlokerKeys}
             </Link>
           </div>
+          <div className="md:hidden ml-4">
+            <Link
+              to="/charging-location"
+              className="flex items-center text-[#208873] hover:text-[#208873] no-underline"
+            >
+              <FontAwesomeIcon icon={faChargingStation} className="mr-2" />{" "}
+              {currentTranslations.header.chargingLocation}
+            </Link>
+          </div>
         </nav>
         <div className="md:hidden">
           <button
@@ -83,7 +92,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
               : "hidden"
           }`}
         >
-          <div className="md:flex md:flex-row md:space-x-16">
+          <div className="md:flex md:flex-row md:space-x-8">
             <a href="/" className="text-[#208873] no-underline">
               {currentTranslations.header.home}
             </a>
@@ -91,10 +100,18 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
               to="/urlokerkeysmap"
               className="hidden md:block text-[#208873] no-underline"
             >
+              <FontAwesomeIcon icon={faKey} className="mr-2" />{" "}
               {currentTranslations.header.urlokerKeys}
             </Link>
-          </div>
-          <div className="md:flex md:flex-row md:space-x-4 grid gap-y-5">
+            <Link
+              to="/charging-location"
+              className="flex items-center text-[#208873] hover:text-[#208873] no-underline"
+            >
+              <FontAwesomeIcon icon={faChargingStation} className="mr-2" />{" "}
+              {currentTranslations.header.chargingLocation}
+            </Link>
+          </div> 
+          <div className="md:flex md:flex-row md:space-x-2 grid gap-y-5">
             <div className="relative group">
               <button
                 aria-label="action-button"

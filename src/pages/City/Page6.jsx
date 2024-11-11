@@ -1,8 +1,8 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import config from "../../config";
-// const cbd = config.BUCKET_URL + "/files/city/cbd/cbd.jpeg";
-import cbd from "/files/city/mcs/mcs.jpeg";
+const cbd = config.BUCKET_URL + "/files/city/mcs/mcs.jpeg";
+// import cbd from "/files/city/mcs/mcs.jpeg";
 
 const locImage = config.BUCKET_URL + "/files/city/cbd/locationMap.png";
 import { useTranslation } from "react-i18next";
