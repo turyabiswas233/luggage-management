@@ -3,6 +3,7 @@ import config from "../../config";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { MdPlayCircleFilled } from "react-icons/md";
+import ReactPlayer from "react-player";
 function HowItWorks() {
   const book = config.BUCKET_URL + "/files/img/home-two/book.jpg";
   const lock = config.BUCKET_URL + "/files/img/home-two/lock.jpg";
@@ -116,17 +117,20 @@ function HowItWorks() {
         </div>
       </div>
       <div className="relative w-full md:w-3/4 2xl:w-1/2 mx-auto my-20 h-full rounded-lg overflow-hidden group">
-        <video
-          className="w-full h-auto object-cover aspect-video select-none pointer-events-none"
-          controls={false}
-          autoPlay={false}
-          controlsList="nodownload"
-        >
-          <source src={vidFile} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition duration-300"></div>
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-white">
+        <div className="w-full mx-auto rounded-lg p-10">
+          <iframe
+            src="https://www.youtube.com/embed/HyPdRR9cJRI?si=cZ7JQ7wrlKtZdJG5"
+            width={600} 
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+            className="w-full max-w-screen-md mx-auto aspect-video rounded-2xl shadow-xl shadow-slate-600/20"
+          ></iframe>
+        </div>
+        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition duration-300 hidden"></div>
+        <div className="absolute inset-0 hidden flex-col items-center justify-center gap-4 text-white">
           <button
             className="bg-transparent bg-custom-teal-deep hover:text-black px-4 py-2 rounded-full"
             type="button"

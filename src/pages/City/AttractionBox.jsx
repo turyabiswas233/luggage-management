@@ -102,7 +102,7 @@ const CustomInfo = () => {
           </h3>
           <div className="hidden lg:block py-20">
             <button
-              className="text-custom-teal-deep flex gap-1 items-center bg-white rounded-full px-3 py-2 group hover:bg-slate-50 transition-colors"
+              className="text-custom-teal-deep font-bold flex gap-1 items-center bg-white rounded-full px-3 py-2 group hover:bg-slate-50 transition-colors"
               type="button"
               onClick={handleNearMyLocationClick}
             >
@@ -213,7 +213,7 @@ const SwipeButton = () => {
   return (
     <div className="flex justify-between items-center mt-6">
       <button
-        className="text-custom-teal-deep flex gap-1 items-center bg-white rounded-full px-3 py-2 group hover:bg-slate-50 transition-colors"
+        className="text-custom-teal-deep font-bold flex gap-1 items-center bg-white rounded-full px-3 py-2 group hover:bg-slate-50 transition-colors"
         type="button"
         onClick={handleNearMyLocationClick}
       >

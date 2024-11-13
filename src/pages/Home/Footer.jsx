@@ -10,10 +10,12 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { faChargingStation } from "@fortawesome/free-solid-svg-icons";
 
 function Footer() {
   const { t: tl } = useTranslation();
   const t = tl("home")?.footer;
+  const rt = tl("home")?.header;
 
   return (
     <footer className="bg-teal-800 text-white py-16 px-5">
@@ -82,6 +84,15 @@ function Footer() {
                   {t.blog}
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/charging-location"
+                  className="flex items-center  text-white no-underline hover:text-teal-200 transition-colors duration-300"
+                >
+                  <FontAwesomeIcon icon={faChargingStation} className="mr-2" />{" "}
+                  {rt.chargingLocation}
+                </Link>
+              </li>
             </ul>
           </div>
           <div className="w-full md:w-1/2 lg:w-1/5 px-4 mb-8">
@@ -99,22 +110,22 @@ function Footer() {
                 </a>
               </li>
               <li>
-                <a
-                  href="/privacy-policy"
+                <Link
+                  to="/privacy-policy"
                   className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
                   title="Privacy Policy"
                 >
                   {t.privacyPolicy}
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="/terms-and-conditions"
+                <Link
+                  to="/terms-and-conditions"
                   className="hover:underline text-white no-underline hover:text-teal-200 transition-colors duration-300"
                   title="Terms and Conditions"
                 >
                   {t.terms}
-                </a>
+                </Link>
               </li>
               <li>
                 <a

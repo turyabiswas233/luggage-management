@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import LoginForm from "./LoginForm"; // Assuming LoginForm is in the same directory
 import logo from "/files/img/home-two/logo3.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faKey, faChargingStation } from "@fortawesome/free-solid-svg-icons";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 import translations from "./translations"; // Import your translations
 import { Link } from "react-router-dom";
 
@@ -39,7 +39,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
 
   return (
     <div className="sticky top-0 left-0 w-full bg-white/90 backdrop-blur shadow-md z-50">
-      <div className="mx-auto flex justify-between items-center p-4 md:py-4 md:px-24 md:w-5/6">
+      <div className="mx-auto flex justify-between items-center p-4 md:py-4 md:w-5/6 max-w-[1280px]">
         <nav className="flex items-center">
           <a href="/" className="flex items-center no-underline">
             <img src={logo} alt="logo1" width={75} height={45} />
@@ -53,7 +53,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
               {currentTranslations.header.urlokerKeys}
             </Link>
           </div>
-          <div className="md:hidden ml-4">
+          {/* <div className="md:hidden ml-4">
             <Link
               to="/charging-location"
               className="flex items-center text-[#208873] hover:text-[#208873] no-underline"
@@ -61,7 +61,7 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
               <FontAwesomeIcon icon={faChargingStation} className="mr-2" />{" "}
               {currentTranslations.header.chargingLocation}
             </Link>
-          </div>
+          </div> */}
         </nav>
         <div className="md:hidden">
           <button
@@ -103,13 +103,13 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
               <FontAwesomeIcon icon={faKey} className="mr-2" />{" "}
               {currentTranslations.header.urlokerKeys}
             </Link>
-            <Link
+            {/* <Link
               to="/charging-location"
               className="flex items-center text-[#208873] hover:text-[#208873] no-underline"
             >
               <FontAwesomeIcon icon={faChargingStation} className="mr-2" />{" "}
               {currentTranslations.header.chargingLocation}
-            </Link>
+            </Link> */}
           </div> 
           <div className="md:flex md:flex-row md:space-x-2 grid gap-y-5">
             <div className="relative group">
