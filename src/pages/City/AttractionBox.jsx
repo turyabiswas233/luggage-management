@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LuggageStorageLocations from "../SearchLugLocation/LuggageStorageLocations";
 import HowItWorks from "../Home/Howitworks";
 import Review from "../Home/Review";
@@ -9,13 +9,45 @@ import {
   MdKeyboardArrowRight,
   MdSecurity,
 } from "react-icons/md";
+import attr from "/files/city/attr.jpeg";
 import { MdMedicalServices } from "react-icons/md";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 
 function AttractionBox({ locationImage, me }) {
+  const navigate = useNavigate();
+  const [loadingLocation, setLoadingLocation] = useState(false);
+  const handleNearMyLocationClick = () => {
+    if (navigator.geolocation) {
+      setLoadingLocation(true);
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const location = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          navigate("/luggage-locations", { state: { location, nearby: true } });
+          setLoadingLocation(false);
+        },
+        (error) => {
+          console.error("Error fetching location:", error);
+          setLoadingLocation(false);
+          if (navigator.permissions) {
+            navigator.permissions
+              .query({ name: "geolocation" })
+              .then(function (result) {
+                if (result.state === "denied") {
+                  alert("Please enable location services to use this feature");
+                }
+              });
+          }
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  };
   return (
     <div className="font-sans bg-white pb-6">
       <div className="px-5 w-full max-w-screen-xl mx-auto">
@@ -38,6 +70,33 @@ function AttractionBox({ locationImage, me }) {
       <Review />
 
       <CustomInfo />
+
+      <div className="flex items-start justify-center gap-5 px-10 py-20 bg-slate-100 mx-auto w-full">
+        <div>
+          <img
+            width={250}
+            height={250}
+            className="rounded-lg"
+            src={attr}
+            alt="human image"
+          />
+        </div>
+        <div className="col-span-2">
+          <h3 className="text-2xl font-bold text-slate-900">
+            Check all the luggage storage spots in Melbourne
+          </h3>
+          <button
+            type="button"
+            onClick={handleNearMyLocationClick}
+            className={`bg-custom-teal hover:bg-custom-teal-deep text-white text-sm font-bold rounded-full shadow-md transition duration-100 ease-in-out mt-10 px-8 py-3  ${
+              loadingLocation ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={loadingLocation}
+          >
+            Find closest locations
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
