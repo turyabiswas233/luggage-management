@@ -957,7 +957,7 @@ const FaqCard = ({ t }) => {
             }`}
           >
             <h4
-              className="text-xl font-bold text-gray-700 cursor-pointer flex items-center justify-between text-slate-900"
+              className="text-xl font-bold cursor-pointer flex items-center justify-between text-slate-900"
               onClick={() => toggleFAQ(index)}
             >
               {faq.question}
