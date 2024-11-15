@@ -9,7 +9,8 @@ import {
   MdKeyboardArrowRight,
   MdSecurity,
 } from "react-icons/md";
-import attr from "/files/city/attr.jpeg";
+import config from "../../config";
+const attr = config.BUCKET_URL + "/files/city/attr.jpeg";
 import { MdMedicalServices } from "react-icons/md";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Autoplay } from "swiper/modules";
