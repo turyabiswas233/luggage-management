@@ -52,6 +52,7 @@ import PartnerBookings from "./pages/Partner/PartnerBookings";
 import Logout from "./pages/Home/Logout";
 import BookingConfirmation from "./pages/SearchLugLocation/BookingConfirmation";
 import ChargingLocations from "./pages/ChargingStorage/ChargingLocations";
+import ChargingTerms from "./pages/ChargingStorage/ChargingTerms";
 import ClientMenu from "./pages/User/ClientMenu";
 import ClientWallet from "./pages/User/ClientWallet";
 import ClientBookingHistory from "./pages/User/ClientBookingHistory";
@@ -81,6 +82,9 @@ import FlindersPage from "./pages/City/Page3";
 import Melbourne from "./pages/City/Page4";
 import SouthernStation from "./pages/City/Page5";
 import MelbourneCentral from "./pages/City/Page6";
+import SydneyStorage from "./pages/City/Page7";
+import MelbourneLocker from "./pages/Lockers/Page1";
+import SoutherLocker from "./pages/Lockers/Page2";
 // error page
 import ErrorPage from "./pages/404";
 import PromoCodeManagement from "./pages/SuperAdmin/promocode/PromoCodeManagement";
@@ -115,6 +119,10 @@ const routerConfig = createBrowserRouter([
       {
         path: "/terms-and-conditions",
         element: <Terms />,
+      },
+      {
+        path: "/terms-for-charging-station",
+        element: <ChargingTerms />,
       },
       // {
       //   path: "/legal/partner-agreement",
@@ -214,6 +222,18 @@ const routerConfig = createBrowserRouter([
       {
         path: "/luggage-storage-melbourne-central-station",
         element: <MelbourneCentral />,
+      },
+      {
+        path: "/luggage-storage-sydney",
+        element: <SydneyStorage />,
+      },
+      {
+        path: "/luggage-lockers-melbourne",
+        element: <MelbourneLocker />,
+      },
+      {
+        path: "/melbourne-southern-cross-station-lockers",
+        element: <SoutherLocker />,
       },
       // others
       {

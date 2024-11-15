@@ -1,20 +1,97 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import config from "../../config";
-const cbd = config.BUCKET_URL + "/files/city/mcs/mcsw.jpeg";
+const cbd = config.BUCKET_URL + "/files/city/mcs/mcs.jpeg";
 // import cbd from "/files/city/mcs/mcs.jpeg";
 
 const locImage = config.BUCKET_URL + "/files/city/cbd/locationMap.png";
 import { useTranslation } from "react-i18next";
-import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AttractionBox from "./AttractionBox";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 import { useNavigate } from "react-router-dom";
-
+import FaqCard from "./FaqCard";
+import Template from "./Template";
 const libraries = ["places"];
 const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
-
+const content = [
+  {
+    title:
+      "Stress Free Luggage Storage Melbourne Central Station: Safe, Convenient and Affordable",
+    type: "h2",
+    para: [
+      "Luggage Storage Melbourne Central Station: Safe, Convenient and Affordable",
+    ],
+  },
+  {
+    title: "The Struggle with Luggage at Melbourne Central Station",
+    type: "h4",
+    para: [
+      "Navigating the bustling streets around luggage storage Melbourne central station with luggage is no picnic. The crowds, the trams and the narrow sidewalks make it a challenge. Trust me, I have felt the strain of hauling bags through the busy city centre and it is not fun.",
+    ],
+  },
+  {
+    title: "Why Carrying Luggage Around Melbourne is a Hassle",
+    type: "h4",
+    list: [
+      "<b>Limited Mobility:</b> Carrying bags slows you down and makes it hard to enjoy spontaneous activities. With hands full of luggage, it becomes nearly impossible to make spontaneous stops at interesting shops, parks or street performances that Melbourne is famous for.",
+      "<b>Security Concerns:</b> Worrying about the safety of your belongings distracts from your experience and makes it difficult for you to enjoy the moment.",
+      "<b>Physical Strain:</b> Lugging heavy bags can lead to fatigue and even injury. Hauling heavy bags is not just uncomfortable but also it can lead to back, neck, or shoulder pain, especially if you are covering long distances. Navigating through crowded areas or getting on and off trams becomes exhausting and this strain can leave you too tired to fully enjoy your day.",
+      "<b>Restricted Access:</b> Some attractions and venues do not allow large bags inside. This means that you might find yourself turned away from remarkable destinations like galleries, theatres or busy eateries just because of your luggage.",
+    ],
+  },
+  {
+    title: "The Importance of Luggage Storage at Melbourne Central Station",
+    type: "h3",
+    para: [
+      "So, what is the solution? Finding reliable luggage storage near Melbourne central station is a game changer. It allows you to explore freely, without the burden of your bags.",
+    ],
+  },
+  {
+    title: "Why Luggage Storage at Melbourne Central Station is Essential",
+    type: "h4",
+    list: [
+      "<b>Freedom to Explore:</b> Imagine being able to explore Melbourne's vibrant streets without the burden of luggage slowing you down. Without bags, you can fully immerse yourself in the city's offerings.",
+      "<b>Peace of Mind:</b> Knowing your luggage is safe lets you relax and enjoy your day. Whether you are enjoying a performance at the Melbourne Arts Centre or losing track of time in a quirky bookshop, the peace of mind that your belongings are secure makes every experience richer. You are here to make memories but not keep watch over your bags.",
+      "<b>Convenient Access:</b> Store your bags  right at Melbourne central station with Urloker and retrieve them when needed . This convenience lets you move seamlessly from one part of your itinerary to another and gives you more freedom to fully experience all that Melbourne has to offer.",
+      "<b>FMaximise Time:</b> Especially useful during layovers or before hotel check-in. You can now make the most of every moment. For example you can catch that early museum tour, grab breakfast at that cozy cafe or spend an hour exploring Federation Square. Time in a new city is very precious so it is important to make sure you use every minute wisely.",
+    ],
+  },
+  {
+    title:
+      "Urloker: Your Solution for Luggage Storage at Melbourne Central Station",
+    type: "h3",
+    para: [
+      "At Urloker, We offer a hassle-free way to store your luggage near luggage storage Melbourne central station. We understand the needs of travellers because we have been there ourselves looking to explore the beauty of travelling without being weighed down by bags that is why we are here to offer you a seamless luggage storage solution.",
+    ],
+  },
+  {
+    title:
+      "What Makes Our Luggage Storage Near Melbourne Central Station Stand Out?",
+    type: "h4",
+    list: [
+      "<b>Proximity: </b> We are just minutes away from the station, making drop-off and pick-up a breeze. Whether you are arriving by train or need quick access to your belongings before heading to the airport, we are always right where you need us.",
+      "<b>Affordable Rates:</b> We believe in transparent and fair pricing which means no hidden fees, just competitive rates that let you enjoy Melbourne without worrying about your budget. Spend more on experiences and less on storage, knowing you're getting the best value.",
+      "<b>Flexible Hours:</b>  Open early and close late to fit your schedule. Whether you are starting your adventure early in the morning or wrapping up a late night out, our flexible hours mean you have one less thing to worry about. Best thing is you can book your luggage for the whole day with a single booking fee.  Our pay per bag per day policy makes it easier for our guests to get the freedom they want.",
+      "<b>Secure Facilittes:</b> Your belongings are safe with us. Our secure storage facilities feature monitoring policy and safety measures that give you complete peace of mind. Travel confidently, knowing your bags are safe with us.",
+    ],
+  },
+  {
+    title: "Secure Luggage Storage Facilities at Melbourne Central Station",
+    type: "h3",
+    para: ["Your belongings are safe with us."],
+    list: [
+      "<b>Top-Notch Security Features</b>",
+      [
+        "Modern Equipment: Up to date security technology ensures maximum protection. <br />Strict Protocols: Only authorised personnel can access the storage area. <br />Fire Safety Measures: Our facility is equipped with fire alarms and extinguishers.",
+      ],
+      "<b>Regular Maintenance</b>",
+      [
+        " Clean and Organised: We maintain a tidy environment for your comfort.",
+        "Pest Control: Regular inspections to keep the facility pest free.",
+      ],
+    ],
+  },
+];
 function MelbourneCentral() {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -263,50 +340,20 @@ function MelbourneCentral() {
           locationImage={locImage}
           me={"Luggage Storage Melbourne Central Station"}
         />
+        <main className="p-5 bg-white xl:px-52 w-full mx-auto">
+          {content.map((item, index) => (
+            <Template
+              key={index}
+              heading={item.title}
+              type={item.type}
+              para={item.para}
+              list={item?.list || []}
+            />
+          ))}
+        </main>
       </div>
     </div>
   );
 }
-const FaqCard = ({ t }) => {
-  const [openFAQ, setOpenFAQ] = useState(-1);
 
-  const toggleFAQ = (index) => {
-    setOpenFAQ((p) => (p == index ? -1 : index));
-  };
-  return (
-    <div className="p-5 container mx-auto xl:px-52">
-      <h3 className="text-center font-bold text-2xl my-5">FAQs</h3>
-      <div className="space-y-5 divide-y-3 divide-slate-800">
-        {t.map((faq, index) => (
-          <div
-            key={index}
-            className={`p-2 md:p-4 min-h-fit transition-all ease-out duration-1000 h-full ${
-              openFAQ == index ? "max-h-52 overflow-y-auto" : "max-h-20"
-            }`}
-          >
-            <h3
-              className="text-xl font-bold text-gray-700 cursor-pointer flex items-center justify-between"
-              onClick={() => toggleFAQ(index)}
-            >
-              {faq.question}
-              {openFAQ == index ? (
-                <FontAwesomeIcon icon={faMinusCircle} />
-              ) : (
-                <FontAwesomeIcon icon={faPlusCircle} />
-              )}
-            </h3>
-            {openFAQ == index && (
-              <div
-                className="text-gray-600 mt-2 overflow-x-hidden break-words text-justify px-4 font-medium"
-                dangerouslySetInnerHTML={{
-                  __html: faq.answer,
-                }}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
 export default MelbourneCentral;

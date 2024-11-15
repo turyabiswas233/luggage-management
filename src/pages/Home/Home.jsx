@@ -156,6 +156,18 @@ const CurrentCities = () => {
       to: "/luggage-storage-melbourne-central-station",
       name: "Melbourne Central Station",
     },
+    {
+      to: "/luggage-storage-sydney",
+      name: "Luggage Storage Sydney",
+    },
+    {
+      to: "/luggage-lockers-melbourne",
+      name: "Luggage Locker Melbourne",
+    },
+    {
+      to: "/melbourne-southern-cross-station-lockers",
+      name: "Melbourne Southern cross Station Lockers",
+    },
   ];
   return (
     <div className="p-10 bg-gray-50 w-full">

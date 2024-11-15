@@ -52,7 +52,7 @@ function AttractionBox({ locationImage, me }) {
     <div className="font-sans bg-white pb-6">
       <div className="px-5 w-full max-w-screen-xl mx-auto">
         <h2 className="text-4xl font-medium md:text-5xl xl:text-5xl mb-10">
-          Luggage storage near {me}
+          {me}
         </h2>
         {/* add image of location */}
         <img
@@ -161,7 +161,7 @@ const CustomInfo = () => {
           </h3>
           <div className="hidden lg:block py-20">
             <button
-              className="text-custom-teal-deep font-bold flex gap-1 items-center bg-white rounded-full px-10 py-2 group hover:bg-slate-50 transition-colors"
+              className="text-custom-teal-deep font-bold flex gap-1 items-center bg-white rounded-full px-3 py-2 group hover:bg-slate-50 transition-colors"
               type="button"
               onClick={handleNearMyLocationClick}
             >
@@ -272,7 +272,7 @@ const SwipeButton = () => {
   return (
     <div className="flex justify-between items-center mt-6">
       <button
-        className="text-custom-teal-deep font-bold flex gap-1 items-center bg-white rounded-full px-10 py-2 group hover:bg-slate-50 transition-colors"
+        className="text-custom-teal-deep font-bold flex gap-1 items-center bg-white rounded-full px-3 py-2 group hover:bg-slate-50 transition-colors"
         type="button"
         onClick={handleNearMyLocationClick}
       >

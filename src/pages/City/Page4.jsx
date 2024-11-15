@@ -6,11 +6,11 @@ const cbd = config.BUCKET_URL + "/files/city/melbourne/cbd.jpeg";
 
 const locImage = config.BUCKET_URL + "/files/city/cbd/locationMap.png";
 import { useTranslation } from "react-i18next";
-import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AttractionBox from "./AttractionBox";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 import { useNavigate } from "react-router-dom";
+import FaqCard from "./FaqCard";
+import Template from "./Template";
 
 const libraries = ["places"];
 const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
@@ -372,92 +372,92 @@ function Melbourne() {
               "Convenient for both <b>business travelers</b> and <b>tourists</b>",
             ]}
           />
-          {/* after page 3 */}
+          <Template
+            type={"h3"}
+            heading={"Is Luggage Storage Safe in Melbourne?"}
+            para={[
+              "Security is one of the top priorities when choosing a luggage storage service in Melbourne. At Urloker, we understand how important it is for you to trust that your belongings are in safe hands. That is why all of our facilities are equipped with 24/7 CCTV surveillance, ensuring that your bags are always monitored. In addition, each storage space is secured with digital access locks and you will receive a unique access code to retrieve your luggage.",
+              "We also employ trained professionals who understand how to handle your items with care. Whether you are storing a backpack or valuable gear, you can count on Urloker to keep your luggage secure while you explore Melbourne.",
+            ]}
+            list={[
+              " <b>24/7 monitoring</b> for maximum security",
+              "<b>Staff only areas to</b> keep your luggage safe",
+              "<b>Professional staff</b> traned to ensure your belongings are well cared for",
+            ]}
+          />
+          <Template
+            type={"h3"}
+            heading={"What Types of Luggage Can I Store?"}
+            para={[
+              "At Urloker, we understand that travelers come with different types of luggage. Whether you are traveling with standard suitcases, sports equipment or even large items like bicycles and surfboards, we offer flexible storage options to accommodate them. Our storage facilities are designed to handle all kinds of luggage from small to large or even oversize items so that you can easily store your items without worrying about space or security.",
+              "If you are carrying oversized items, just let us know when you book and we will ensure that we have the right space for you. From backpacks to sports gear, big or small we store it all. Urloker has the perfect storage solution with unbeatable pricing and flat rate for all kinds of bags.",
+            ]}
+            list={[
+              "<b>Affordable pricing</b> with no hidden fees",
+              "<b>No hourly fees</b>",
+              "Competitive rates for <b>budget-conscious travelers</b>",
+            ]}
+          />
+          <Template
+            type={"h4"}
+            heading={"Can I Store Luggage for a Few Hours in Melbourne?"}
+            para={[
+              "Many travelers find themselves with extra time before their hotel check-in, a flight or a meeting. That is where luggage storage service comes in handy. With Urloker, you can store your bags for just a few hours or longer. If you have a long layover or just need a break from carrying your luggage, we offer flexible storage options to make sure you do not have to wait around with your bags in tow.",
+              "Our no hourly rates make it easy to store your luggage without worrying about picking it up early and gives you freedom in your journey knowing that your bags await no rush. It is an affordable and convenient solution for all the tourists with tight schedules or those who want to explore more.",
+            ]}
+            list={[
+              "<b>NO Hourly rates with unbeatable pricing.</b>",
+              "<b>No need to carry bags</b> while sigtseeing or meeting friends",
+              "Convenient for travelers with right schedules.",
+            ]}
+          />
+          <Template
+            type={"h3"}
+            heading={"How Long Can I Keep My Luggage in Storage?"}
+            para={[
+              "At Urloker, we believe in offering flexible storage options to cater to all types of travelers. Whether you need to store your luggage for just a few hours, a few days or even longer, we have got you covered. Our luggage storage Melbourne facilities allow for both short-term and long-term storage, depending on your needs. This flexibility is ideal for travelers with changing schedules or those who want to enjoy Melbourne without the burden of carrying their bags around.",
+              "When you store with Urloker, you are not limited to a strict time frame. You can simply extend your storage time if needed, so you do not have to worry about rushing back to retrieve your belongings.",
+            ]}
+            list={[
+              "<b>Flexible duration:</b> Store for hours, dats or even weeks. You can book your luggage storage for a whole day with a single booking fee.",
+              "<b>No rush:</b> Extend your storage if plans change. Your bags await no rush.",
+              "Convenient for <b>tourists</b> and <b>business travelers</b> with varying schedules",
+            ]}
+          />
+          <Template
+            type={"h3"}
+            heading={
+              "Booking Luggage Storage in Melbourne Made Easy with Urloker"
+            }
+            para={[
+              "Booking luggage storage in Melbourne with Urloker is quick and hassle-free. Our online platform allows you to reserve storage space in just a few clicks, making it ideal for travelers who want a seamless experience from start to finish. Once you have made your reservation, you will  receive a booking confirmation with all the necessary details. Our seamless booking process is designed to be as simple as possible, so you do not waste time figuring out where to store your bags.",
+              "In addition, Urloker allows you to modify or cancel your reservation if your travel plans change, ensuring flexibility in case of unexpected delays or shifts in your schedule.",
+            ]}
+            list={[
+              "<b>Easy online booking in just a few clicks</b> in just a few clicks.",
+              "<b>Booking confirmation:</b>with all the details.",
+              "<b>Modify or cancel</b> your reservation with ease anytime before drop off time.",
+            ]}
+          />
+          <Template
+            type={"h3"}
+            heading={"How Do I Retrieve My Stored Luggage?"}
+            para={[
+              "Retrieving your stored luggage from Urloker is a smooth and easy process. After storing your items, you will receive a booking confirmation email with an unique access code that allows you to easily retrieve your belongings. Our locations are staffed by friendly professionals who are always available to assist if you need help. When you return to pick up your luggage, simply provide your booking confirmation or access code and we will bring your bags to you right away.",
+              "We prioritize convenience and security during the retrieval process, ensuring that you get your bags back quickly without any delays.",
+            ]}
+            list={[
+              "<b>Quick retrieval</b> with a unique access code",
+              "<b>Friendly staff</b> available to assist with any issues",
+              "<b>Smooth and secure process</b>for picking up your luggage",
+            ]}
+          />
+          {/* 7 page */}
         </main>
         <FaqCard t={data} />
       </div>
     </div>
   );
 }
-const HH = ({ type, heading }) => {
-  console.log(type, heading);
-  switch (type) {
-    case "h1":
-      return <h1 className="text-black font-bold text-4xl">{heading}</h1>;
-    case "h2":
-      return <h2 className="text-black font-bold text-3xl">{heading}</h2>;
-    case "h3":
-      return <h3 className="text-black font-bold text-2xl">{heading}</h3>;
-    case "h4":
-      return <h4 className="text-black font-bold text-xl">{heading}</h4>;
-    default:
-      return <h1 className="text-black font-bold text-3xl">{heading}</h1>;
-  }
-};
-
-const Template = ({ type, heading, para, lsType, list }) => {
-  console.log(heading, type);
-  return (
-    <div className="space-y-5 my-5">
-      <HH type={type} heading={heading} />
-      {para && para?.map((pp) => <p className="text-sm">{para}</p>)}
-
-      {list && (
-        <ul
-          className={`px-5 ${
-            lsType == "numeric" ? "list-decimal" : "list-disc"
-          } text-lg`}
-        >
-          {list.map((item, index) => (
-            <li key={index} dangerouslySetInnerHTML={{ __html: item }}></li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-};
-
-const FaqCard = ({ t }) => {
-  const [openFAQ, setOpenFAQ] = useState(-1);
-
-  const toggleFAQ = (index) => {
-    setOpenFAQ((p) => (p == index ? -1 : index));
-  };
-  return (
-    <div className="p-5 container mx-auto xl:px-52">
-      <h3 className="text-center font-bold text-2xl my-5">FAQs</h3>
-      <div className="space-y-5 divide-y-3 divide-slate-800">
-        {t.map((faq, index) => (
-          <div
-            key={index}
-            className={`p-2 md:p-4 min-h-fit transition-all ease-out duration-1000 h-full ${
-              openFAQ == index ? "max-h-52 overflow-y-auto" : "max-h-20"
-            }`}
-          >
-            <h3
-              className="text-xl font-bold text-gray-700 cursor-pointer flex items-center justify-between"
-              onClick={() => toggleFAQ(index)}
-            >
-              {faq.question}
-              {openFAQ == index ? (
-                <FontAwesomeIcon icon={faMinusCircle} />
-              ) : (
-                <FontAwesomeIcon icon={faPlusCircle} />
-              )}
-            </h3>
-            {openFAQ == index && (
-              <div
-                className="text-gray-600 mt-2 overflow-x-hidden break-words text-justify px-4 font-medium"
-                dangerouslySetInnerHTML={{
-                  __html: faq.answer,
-                }}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
 
 export default Melbourne;
