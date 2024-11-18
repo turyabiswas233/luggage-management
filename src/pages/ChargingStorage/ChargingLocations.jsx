@@ -5,8 +5,7 @@ import config from "../../config";
 import axios from "axios";
 import { LuLoader } from "react-icons/lu";
 import { MdCurrencyExchange } from "react-icons/md";
-import { json, Link, useNavigate } from "react-router-dom";
-import DatePicker from "../SearchLugLocation/LuggageDetails/DatePicker";
+import { Link, useNavigate } from "react-router-dom";
 const final = config.BUCKET_URL + "/files/img/charger/final.jpg";
 // payment components
 import {
@@ -125,14 +124,14 @@ const ChargingLocations = () => {
         Charging Locations
       </h1>
 
-      <div className="space-y-4 md:space-y-0 gap-20 my-20 md:my-0 col-span-2 lg:grid grid-cols-2 mx-auto w-fit">
+      <div className="gap-20 space-y-4 lg:space-y-0 my-20 md:my-0 col-span-2 lg:grid grid-cols-2 mx-auto w-fit">
         {/* <img
           className="aspect-square mx-auto object-cover rounded-xl"
           src={final}
           width={400}
           height={600}
         /> */}
-        <div className="mt-4 p-4 bg-teal-100 border border-teal-300 rounded-lg mx-auto w-fit h-fit">
+        <div className=" p-4 bg-teal-100 border border-teal-300 rounded-lg mx-auto w-fit h-fit">
           <img />
           <p className="text-teal-700 text-lg font-bold text-center hidden">
             Charging locations will be available soon. Stay tuned!
@@ -161,7 +160,7 @@ const ChargingLocations = () => {
             height={300}
           /> */}
         </div>
-        <div className="bg-teal-50 ring-1 ring-teal-300 rounded-lg flex gap-10 flex-col justify-between h-auto flex-1 select-none    mx-auto max-w-md">
+        <div className="bg-teal-50 ring-1 ring-teal-300 rounded-lg flex gap-10 flex-col justify-between h-auto flex-1 select-none mx-auto max-w-md">
           <ul className="px-10 list-disc mt-6 max-w-md">
             <h4 className="text-xl font-semibold">
               Before you book for a charging space, let me inform you.
@@ -230,6 +229,9 @@ const ChargingLocations = () => {
                   id="fullName"
                   value={fullName}
                   required
+                  onInvalid={(e)=>{
+                    e.target.setCustomValidity("Please Type your full name");
+                  }}
                   placeholder="John Doe"
                   onChange={(e) => setFullName(e.target.value)}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder:text-xs"
@@ -247,6 +249,9 @@ const ChargingLocations = () => {
                   id="email"
                   value={email}
                   required
+                  onInvalid={(e)=>{
+                    e.target.setCustomValidity("Please Type your email address");
+                  }}
                   placeholder="john@example.com"
                   onChange={(e) => setEmail(e.target.value)}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder:text-xs"
@@ -257,7 +262,7 @@ const ChargingLocations = () => {
                   htmlFor="deviceType"
                   className="block text-sm text-gray-700 font-semibold"
                 >
-                  Phone:
+                  Phone: <span className="text-xs">[optional]</span> 
                 </label>
                 <input
                   type="text"
@@ -273,16 +278,16 @@ const ChargingLocations = () => {
                   htmlFor="deviceType"
                   className="block text-sm text-gray-700 font-semibold"
                 >
-                  Device Information:
+                  Device Information: <span className="text-xs">[optional]</span> 
                 </label>
-                <input
+                <textarea
                   type="text"
                   id="deviceType"
                   value={deviceInfo}
-                  required
+                  rows={3}
                   placeholder="Example: iPhone 12 Pro Max"
                   onChange={handleDeviceTypeChange}
-                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder:text-xs"
+                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder:text-xs resize-none"
                 />
               </div>
 
@@ -307,29 +312,43 @@ const ChargingLocations = () => {
                     </option>
                   ))}
                 </select>
-                <button
-                  className="bg-custom-teal-deep rounded-lg py-2 px-6 text-sm text-white mt-5"
-                  type="button"
-                  onClick={() => {
-                    if (locationId === "") {
-                      alert("Please select a location to check map");
-                      return;
-                    }
-                    navigate("/luggage-locations", {
-                      state: {
-                        location: {
-                          lat: locs.find((loc) => loc._id === locationId)
-                            ?.coordinates?.coordinates[1],
-                          lng: locs.find((loc) => loc._id === locationId)
-                            ?.coordinates?.coordinates[0],
-                        },
-                        nearby: true,
+                <div className="my-5">
+                  <Link
+                  hidden={!locationId}
+                    className="bg-custom-teal-deep rounded-lg py-2 px-6 text-sm text-white"
+                    type="button"
+                    to={"/luggage-locations"}
+                    state={{
+                      location: {
+                        lat: locs.find((loc) => loc._id === locationId)
+                          ?.coordinates?.coordinates[1],
+                        lng: locs.find((loc) => loc._id === locationId)
+                          ?.coordinates?.coordinates[0],
                       },
-                    });
-                  }}
-                >
-                  Check Location
-                </button>
+                      nearby: true,
+                      zoom: 19,
+                    }}
+                    // onClick={() => {
+                    //   if (locationId === "") {
+                    //     alert("Please select a location to check map");
+                    //     return;
+                    //   }
+                    //   navigate("/luggage-locations", {
+                    //     state: {
+                    //       location: {
+                    //         lat: locs.find((loc) => loc._id === locationId)
+                    //           ?.coordinates?.coordinates[1],
+                    //         lng: locs.find((loc) => loc._id === locationId)
+                    //           ?.coordinates?.coordinates[0],
+                    //       },
+                    //       nearby: true,
+                    //     },
+                    //   });
+                    // }}
+                  >
+                    Check Location
+                  </Link>
+                </div>
               </div>
               <div className="mb-4">
                 <label
@@ -347,21 +366,63 @@ const ChargingLocations = () => {
                 >
                   {times.map((time) => (
                     <option value={time} key={`time-${time}`}>
-                      {time} (${getCharge(time)} AUD)
+                      {time} minute (${getCharge(time)} AUD)
                     </option>
                   ))}
                 </select>
               </div>
 
-              <DatePicker
+              {/* <DatePicker
                 setCheckinTime={setDropOffDate}
                 setCheckoutTime={setPickUpDate}
                 setLuggageQuantity={(e) => {
                   console.log("Luggage Quantity", e);
                 }}
                 hideBags={true}
-              />
+              /> */}
+              <div className="mb-4">
+                <label className="block text-sm text-gray-700 font-semibold">
+                  Charging start time [approximate]
+                </label>
+                <input
+                  type="time"
+                  name="dropOffTime"
+                  required
+                  onInvalid={(e)=>{
+                    e.target.setCustomValidity("Please select a time when you want to start charging");
+                  }}
+                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  onChange={(e) => {
+                    const pre = new Date();
+                    console.log(
+                      dropOffDate.getFullYear(),
+                      dropOffDate.getMonth(),
+                      e.target.value
+                    );
+                    setDropOffDate(
+                      new Date(
+                        pre.getFullYear(),
+                        pre.getMonth(),
+                        pre.getDate(),
+                        e.target.value.split(":")[0],
+                        e.target.value.split(":")[1]
+                      )
+                    );
+                  }}
+                />
 
+                <p>
+                  {dropOffDate.toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    timeZone: "Australia/Sydney",
+                  })}{" "}
+                  (in Australia/Sydney)
+                </p>
+              </div>
               <button
                 type="submit"
                 className="w-full inline-flex items-center justify-center px-4 py-2 bg-teal-600 border border-transparent rounded-md font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm text-center disabled:pointer-events-none"

@@ -4,7 +4,7 @@ import config from "../../config";
 import googleMapIcon from "/files/img/home-two/gmi.svg";
 import userLocation from "/files/img/home-two/userLocation.svg"; 
 
-const MapContainer = ({ locations, setVisibleLocations, center }) => {
+const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
   const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
   const isLoaded = useGoogleMapsApi(GOOGLE_MAPS_API_KEY);
 
@@ -24,7 +24,7 @@ const MapContainer = ({ locations, setVisibleLocations, center }) => {
         center: center || { lat: -36.8688, lng: 144.9093 },
         mapId: "mapId",
         minZoom: 3,
-        zoom: 10,
+        zoom: zoom || 5,
         maxZoom: 20,
       });
       if (!map) return;

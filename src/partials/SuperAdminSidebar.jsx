@@ -358,6 +358,22 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
+                              to="/superadmin/chargings"
+                              className={({ isActive }) =>
+                                "no-underline block transition duration-150 truncate p-2 " +
+                                (isActive
+                                  ? "text-indigo-400 bg-indigo-800/50"
+                                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50")
+                              }
+                            >
+                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                Charging Bookings
+                              </span>
+                            </NavLink>
+                          </li>
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
                               to="/superadmin/bookings"
                               className={({ isActive }) =>
                                 "no-underline block transition duration-150 truncate p-2 " +
@@ -367,7 +383,7 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                               }
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                All Bookings
+                                Luggage Bookings
                               </span>
                             </NavLink>
                           </li>

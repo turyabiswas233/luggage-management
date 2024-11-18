@@ -9,7 +9,7 @@ import config from "../../config";
 import { LuLoader } from "react-icons/lu";
 
 const LuggageLocation = () => {
-  const { state } = useLocation();
+  const { state, zoom } = useLocation();
   const [locations, setLocations] = useState([]);
   const [visibleLocations, setVisibleLocations] = useState([]);
   const [currentLocation, setCurrentLocation] = useState(null);
@@ -120,6 +120,7 @@ const LuggageLocation = () => {
           locations={locations}
           setVisibleLocations={setVisibleLocations}
           center={currentLocation}
+          zoom={zoom}
         />
       </div>
     </div>

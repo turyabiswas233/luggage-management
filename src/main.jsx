@@ -48,6 +48,7 @@ import ClientBooking from "./pages/User/ClientBooking";
 import AllLocations from "./pages/SuperAdmin/AllLocations";
 import PartnerLocations from "./pages/Partner/PartnerLocation";
 import AllBookings from "./pages/SuperAdmin/AllBookings";
+import AllChargings from "./pages/SuperAdmin/AllCharging";
 import PartnerBookings from "./pages/Partner/PartnerBookings";
 import Logout from "./pages/Home/Logout";
 import BookingConfirmation from "./pages/SearchLugLocation/BookingConfirmation";
@@ -307,6 +308,10 @@ const routerConfig = createBrowserRouter([
       {
         path: "bookings",
         element: <AllBookings />,
+      },
+      {
+        path: "chargings",
+        element: <AllChargings />,
       },
       {
         path: "analytics",
