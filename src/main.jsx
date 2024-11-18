@@ -171,7 +171,11 @@ const routerConfig = createBrowserRouter([
         element: <PaymentSuccess />,
       },
       {
-        path: "/charging-location",
+        path: "/charging",
+        element: <ChargingLocations />,
+      },
+      {
+        path: "/charging/:link",
         element: <ChargingLocations />,
       },
       {

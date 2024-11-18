@@ -5,7 +5,7 @@ import config from "../../config";
 import axios from "axios";
 import { LuLoader } from "react-icons/lu";
 import { MdCurrencyExchange } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 const final = config.BUCKET_URL + "/files/img/charger/final.jpg";
 // payment components
 import {
@@ -25,8 +25,8 @@ const ChargingLocations = () => {
   const stripePromise = loadStripe(config.STRIPE_PUBLIC_KEY);
 
   const navigate = useNavigate();
+  const { link } = useParams();
   const times = [5, 10];
-  const ratePerMinute = 0.5; // Rate per minute in USD
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -52,20 +52,29 @@ const ChargingLocations = () => {
   };
 
   const getAllLocations = async () => {
-    const url = config.API_BASE_URL;
+    const url = link
+      ? `${config.API_BASE_URL}/api/v1/locations/url/${link}`
+      : `${config.API_BASE_URL}/api/v1/locations/public/all-locations`;
+    console.log(link);
     try {
-      const response = await axios.get(
-        `${url}/api/v1/locations/public/all-locations`
-      );
+      const response = await axios.get(url);
       const data = response.data;
       console.log("success", data);
       if (Array.isArray(data))
-        setLocs(data.filter((a) => a.hasChargingStation === true));
+        setLocs(data?.filter((f) => f?.hasChargingStation));
+      else if (data) setLocs([data]?.filter((f) => f?.hasChargingStation));
       else {
         console.log("Data is not an array list");
+        navigate("/error");
       }
     } catch (err) {
       console.log("error", err);
+      setError(
+        err?.response?.data?.error ===
+          "Error fetching location by URL: Location not found"
+          ? "Location not found"
+          : err?.response?.data?.error
+      );
     }
   };
 
@@ -77,13 +86,14 @@ const ChargingLocations = () => {
   }, []);
   useEffect(() => {
     if (error) {
-      const confirm = window.confirm(error);
+      window.confirm(error);
       setError("");
     }
   }, [error]);
   const handleBookingCreate = async (e) => {
     e.preventDefault();
     const url = config.API_BASE_URL;
+
     try {
       const response = await axios.post(
         `${url}/api/v1/charging/bookings`,
@@ -229,7 +239,7 @@ const ChargingLocations = () => {
                   id="fullName"
                   value={fullName}
                   required
-                  onInvalid={(e)=>{
+                  onInvalid={(e) => {
                     e.target.setCustomValidity("Please Type your full name");
                   }}
                   placeholder="John Doe"
@@ -249,8 +259,10 @@ const ChargingLocations = () => {
                   id="email"
                   value={email}
                   required
-                  onInvalid={(e)=>{
-                    e.target.setCustomValidity("Please Type your email address");
+                  onInvalid={(e) => {
+                    e.target.setCustomValidity(
+                      "Please Type your email address"
+                    );
                   }}
                   placeholder="john@example.com"
                   onChange={(e) => setEmail(e.target.value)}
@@ -262,7 +274,7 @@ const ChargingLocations = () => {
                   htmlFor="deviceType"
                   className="block text-sm text-gray-700 font-semibold"
                 >
-                  Phone: <span className="text-xs">[optional]</span> 
+                  Phone: <span className="text-xs">[optional]</span>
                 </label>
                 <input
                   type="text"
@@ -278,7 +290,8 @@ const ChargingLocations = () => {
                   htmlFor="deviceType"
                   className="block text-sm text-gray-700 font-semibold"
                 >
-                  Device Information: <span className="text-xs">[optional]</span> 
+                  Device Information:{" "}
+                  <span className="text-xs">[optional]</span>
                 </label>
                 <textarea
                   type="text"
@@ -305,16 +318,18 @@ const ChargingLocations = () => {
                   required
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 >
-                  <option value={""}>Choose a location</option>
                   {locs.map((loc, i) => (
                     <option value={loc?._id} key={loc?._id}>
                       {loc?.name}
                     </option>
                   ))}
+                  {locs.length == 0 && (
+                    <option value={""}>Choose a location</option>
+                  )}
                 </select>
                 <div className="my-5">
                   <Link
-                  hidden={!locationId}
+                    hidden={!locationId}
                     className="bg-custom-teal-deep rounded-lg py-2 px-6 text-sm text-white"
                     type="button"
                     to={"/luggage-locations"}
@@ -388,8 +403,10 @@ const ChargingLocations = () => {
                   type="time"
                   name="dropOffTime"
                   required
-                  onInvalid={(e)=>{
-                    e.target.setCustomValidity("Please select a time when you want to start charging");
+                  onInvalid={(e) => {
+                    e.target.setCustomValidity(
+                      "Please select a time when you want to start charging"
+                    );
                   }}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   onChange={(e) => {
@@ -425,7 +442,8 @@ const ChargingLocations = () => {
               </div>
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center px-4 py-2 bg-teal-600 border border-transparent rounded-md font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm text-center disabled:pointer-events-none"
+                className="w-full inline-flex items-center justify-center px-4 py-2 bg-teal-600 border border-transparent rounded-md font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm text-center disabled:pointer-events-none disabled:grayscale disabled:opacity-55"
+                disabled={!(fullName && email && locationId && chargeTime)}
               >
                 Pay Now <MdCurrencyExchange className="ml-3 text-teal-50" />
               </button>

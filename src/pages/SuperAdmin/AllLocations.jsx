@@ -11,7 +11,7 @@ import AssignPartnerModal from "./AssignPartnerModal";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdChargingStation, MdDelete, MdEdit } from "react-icons/md";
 
 const AllLocations = () => {
   const [locations, setLocations] = useState([]);
@@ -185,6 +185,28 @@ const AllLocations = () => {
   };
   const updateImage = (imageFile) => {
     // i will update image here
+  };
+
+  const updateCharging = async (locId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.patch(
+        `${config.API_BASE_URL}/api/v1/charging/locations/toggle/${locId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        alert("Charging Location updated successfully.");
+      } else {
+        alert("Failed to update charging.");
+      }
+    } catch (error) {
+      alert("An error occurred. Please try again.");
+    }
   };
 
   const assignPartner = async (locationId, partnerId) => {
@@ -391,15 +413,23 @@ const AllLocations = () => {
                               </button>
                             )}
                           </td>
-                          <td className="py-3 px-6 border-b text-center grid grid-cols-1 gap-1">
+                          <td className="py-3 pr-5 border-b text-center grid grid-cols-3 gap-1 items-center text-xs">
+                            <button
+                              onClick={() => {
+                                updateCharging(location?._id);
+                              }}
+                              className="p-2 w-fit mx-auto rounded-lg bg-green-400 text-white transition duration-150 flex justify-center items-center"
+                            >
+                              <MdChargingStation size={15} />
+                            </button>
                             <button
                               onClick={() => {
                                 setIsEditing(true);
                                 setCurrentLocation(location);
                               }}
-                              className="p-2 w-fit mx-auto rounded-lg bg-yellow-500 text-white transition duration-150 flex justify-center items-center"
+                              className="p-2 w-fit mx-auto rounded-lg bg-teal-500 text-white transition duration-150 flex justify-center items-center"
                             >
-                              <MdEdit size={20} />
+                              <MdEdit size={15} />
                             </button>
                             <button
                               onClick={() =>
@@ -407,7 +437,7 @@ const AllLocations = () => {
                               }
                               className="p-2 w-fit mx-auto rounded-lg bg-red-500 text-white transition duration-150 flex justify-center items-center"
                             >
-                              <MdDelete size={20} />
+                              <MdDelete size={15} />
                             </button>
                           </td>
                           <td className="py-3 px-6 border-b text-center hidden">

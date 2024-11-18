@@ -86,7 +86,7 @@ function Footer() {
               </li>
               <li>
                 <Link
-                  to="/charging-location"
+                  to="/charging"
                   className="flex items-center  text-white no-underline hover:text-teal-200 transition-colors duration-300"
                 >
                   <FontAwesomeIcon icon={faChargingStation} className="mr-2" />{" "}
