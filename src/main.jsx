@@ -124,10 +124,10 @@ const routerConfig = createBrowserRouter([
         path: "/terms-for-charging-station",
         element: <ChargingTerms />,
       },
-      // {
-      //   path: "/legal/partner-agreement",
-      //   element: <PartnerAgreement />,
-      // },
+      {
+        path: "/legal-partner-agreement",
+        element: <PartnerAgreement />,
+      },
       {
         path: "/blog",
         element: <Blog />,

@@ -8,10 +8,6 @@ function ChargingTerms() {
         {
           title:
             "URLoker Charging Station offers device-charging services for customers needing quick power boosts for mobile phones, tablets or other small electronic devices.",
-        },
-        {
-          title:
-            "URLoker Charging Station offers device-charging services for customers needing quick power boosts for mobile phones, tablets or other small electronic devices.",
           nestedList: [
             {
               title: "5 minutes at a rate of AUD $6",
@@ -75,7 +71,7 @@ function ChargingTerms() {
       nestedList: [
         {
           title:
-            "Chargin times are fixed at either 5 or 10 minutes. CUstomers are responsible for collecting their devices promptly at the end of the chosen session.",
+            "Chargin times are fixed at either 5 or 10 minutes. Customers are responsible for collecting their devices promptly at the end of the chosen session.",
         },
         {
           title:

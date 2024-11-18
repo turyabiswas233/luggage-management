@@ -1,22 +1,8 @@
-import React, { useState } from "react";
-import NavbarComp from "../Home/NavbarComp";
-import Footer from "../Home/Footer";
+import React from "react";
 
-import { useTranslation } from "react-i18next";
 const PartnerAgreement = () => {
-  const [currentLanguage, setCurrentLanguage] = useState(
-    localStorage.getItem("i18nextLng") == "en-US"
-      ? "en"
-      : localStorage.getItem("i18nextLng") || "en"
-  );
-  const { i18n } = useTranslation();
-  const handleChangeLanguage = (lang) => {
-    setCurrentLanguage(lang);
-    i18n.changeLanguage(lang);
-  };
   return (
     <div className="bg-white">
-      <NavbarComp setLanguage={handleChangeLanguage} />
       <div className="px-10 py-10 mb-10 w-full max-w-5xl mx-auto font-sans space-y-7 partnerAgree">
         <header className="py-5 space-y-3">
           <h1 className="text-3xl font-bold">Partner Terms and conditions</h1>
