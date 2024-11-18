@@ -93,7 +93,6 @@ const ChargingLocations = () => {
   const handleBookingCreate = async (e) => {
     e.preventDefault();
     const url = config.API_BASE_URL;
-
     try {
       const response = await axios.post(
         `${url}/api/v1/charging/bookings`,
@@ -109,6 +108,7 @@ const ChargingLocations = () => {
           endDate: pickUpDate.toLocaleDateString(),
           endTime: pickUpDate.toLocaleTimeString(),
           durationInMinutes: chargeTime,
+          // chargingFee: getCharge(chargeTime),
           dropOffTime: dropOffDate.toISOString(),
           pickUpTime: pickUpDate.toISOString(),
           notes: deviceInfo,
@@ -127,7 +127,11 @@ const ChargingLocations = () => {
       setError(err?.response?.data?.message);
     }
   };
-
+  useEffect(() => {
+    if (locs?.length === 1) {
+      setLocationId(locs[0]?._id);
+    }
+  }, [locs]);
   return (
     <div className="px-5 p-20 space-y-10 max-w-screen-lg mx-auto">
       <h1 className="text-4xl text-custom-teal-deep text-center font-bold">
@@ -443,7 +447,6 @@ const ChargingLocations = () => {
               <button
                 type="submit"
                 className="w-full inline-flex items-center justify-center px-4 py-2 bg-teal-600 border border-transparent rounded-md font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm text-center disabled:pointer-events-none disabled:grayscale disabled:opacity-55"
-                disabled={!(fullName && email && locationId && chargeTime)}
               >
                 Pay Now <MdCurrencyExchange className="ml-3 text-teal-50" />
               </button>

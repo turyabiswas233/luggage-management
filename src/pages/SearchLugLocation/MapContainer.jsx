@@ -24,7 +24,7 @@ const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
         center: center || { lat: -36.8688, lng: 144.9093 },
         mapId: "mapId",
         minZoom: 3,
-        zoom: zoom || 5,
+        zoom: zoom || 12,
         maxZoom: 20,
       });
       if (!map) return;
@@ -72,7 +72,7 @@ const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
       if (!center) {
         map.fitBounds(bounds);
       } else {
-        map.setZoom(15); // Adjust zoom level as needed
+        map.setZoom(13); // Adjust zoom level as needed
       }
 
       google.maps.event.addListener(map, "idle", () => {

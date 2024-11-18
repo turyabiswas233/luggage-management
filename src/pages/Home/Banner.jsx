@@ -9,7 +9,9 @@ import { useTranslation } from "react-i18next";
 const libraries = ["places"];
 const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 const backgroundImage =
-  config.BUCKET_URL + "/files/img/location_common/home-banner.jpeg?v=01";
+  config.BUCKET_URL + "/files/img/location_common/home-banner.jpg?v=01";
+
+// import backgroundImage from "/files/img/location_common/home-banner.jpg";
 
 function Banner() {
   const navigate = useNavigate();
@@ -94,7 +96,7 @@ function Banner() {
         <div className="p-10 max-w-screen-md  ">
           <img
             // className="rounded-2xl w-full max-w-md mx-auto aspect-auto skew-x-3 -skew-y-12 rotate-2 scale-x-90 mb-5"
-            className="mx-auto w-full aspect-video object-fill rounded-lg shadow-xl shadow-custom-teal/30"
+            className="mx-auto w-full aspect-video object-fill rounded-lg shadow-xl shadow-custom-teal/30 pointer-events-none"
             src={backgroundImage}
             width={800}
             height={(800 * 9) / 16}
