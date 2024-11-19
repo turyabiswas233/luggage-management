@@ -406,7 +406,6 @@ const ChargingLocations = () => {
                 <input
                   type="time"
                   name="dropOffTime"
-                  required
                   onInvalid={(e) => {
                     e.target.setCustomValidity(
                       "Please select a time when you want to start charging"
