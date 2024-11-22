@@ -84,6 +84,13 @@ import Melbourne from "./pages/City/Page4";
 import SouthernStation from "./pages/City/Page5";
 import MelbourneCentral from "./pages/City/Page6";
 import SydneyStorage from "./pages/City/Page7";
+import SydneyCentral from "./pages/City/Page8";
+import SydneyCircularQuay from "./pages/City/Page9";
+import BrisbaneCBD from "./pages/City/Page10";
+import Adelaide from "./pages/City/Page11";
+import PerthCBD from "./pages/City/Page12";
+import Canberra from "./pages/City/Page13";
+import GoldCoast from "./pages/City/Page14";
 import MelbourneLocker from "./pages/Lockers/Page1";
 import SoutherLocker from "./pages/Lockers/Page2";
 // error page
@@ -231,6 +238,34 @@ const routerConfig = createBrowserRouter([
       {
         path: "/luggage-storage-sydney",
         element: <SydneyStorage />,
+      },
+      {
+        path: "/luggage-storage-sydney-central",
+        element: <SydneyCentral />,
+      },
+      {
+        path: "/luggage-storage-sydney-circular-quay",
+        element: <SydneyCircularQuay />,
+      },
+      {
+        path: "/luggage-storage-brisbane-cbd",
+        element: <BrisbaneCBD />,
+      },
+      {
+        path: "/luggage-storage-adelaide",
+        element: <Adelaide />,
+      },
+      {
+        path: "/luggage-storage-perth-cbd",
+        element: <PerthCBD />,
+      },
+      {
+        path: "/luggage-storage-canberra",
+        element: <Canberra />,
+      },
+      {
+        path: "/luggage-storage-gold-coast",
+        element: <GoldCoast />,
       },
       {
         path: "/luggage-lockers-melbourne",

@@ -12,7 +12,7 @@ import FaqCard from "./FaqCard";
 const libraries = ["places"];
 const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 
-function Canberra() {
+function GoldCoast() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const translate = t("home");
@@ -293,4 +293,4 @@ function Canberra() {
   );
 }
 
-export default Canberra;
+export default GoldCoast;
