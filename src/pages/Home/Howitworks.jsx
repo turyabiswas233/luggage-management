@@ -122,10 +122,10 @@ function HowItWorks() {
             src="https://www.youtube.com/embed/HyPdRR9cJRI?si=cZ7JQ7wrlKtZdJG5"
             width={600} 
             title="YouTube video player"
-            frameborder="0"
+            frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
             className="w-full max-w-screen-md mx-auto aspect-video rounded-2xl shadow-xl shadow-slate-600/20"
           ></iframe>
         </div>

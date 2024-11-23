@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import config from "../../config";
 const cbd = config.BUCKET_URL + "/files/city/southern/scs.jpeg";
-// import cbd from "/files/city/southern/scs.jpeg";
+
 const locImage = config.BUCKET_URL + "/files/city/cbd/locationMap.png";
 import { useTranslation } from "react-i18next";
 import AttractionBox from "./AttractionBox";

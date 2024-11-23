@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import config from "../../config";
 import "react-slideshow-image/dist/styles.css";
@@ -57,6 +57,7 @@ import { useTranslation } from "react-i18next";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import axios from "axios";
 
 const locations = [
   { name: "Melbourne Airport", image: melbourneAirport },
@@ -111,6 +112,11 @@ const CustomNextArrow = (props) => {
 };
 const LuggageStorageLocations = () => {
   const navigate = useNavigate();
+  // Get translations for the current language
+  const { t: tl } = useTranslation();
+  const t = tl("home")?.luggageStorageLocations;
+  const [allLoc, setLocations] = useState(locations);
+  // const t = translations[currentLanguage]?.luggageStorageLocations;
 
   const handleSearchLocation = (locationName) => {
     const geocoder = new window.google.maps.Geocoder();
@@ -131,10 +137,25 @@ const LuggageStorageLocations = () => {
     });
   };
 
-  // Get translations for the current language
-  const { t: tl } = useTranslation();
-  const t = tl("home")?.luggageStorageLocations;
-  // const t = translations[currentLanguage]?.luggageStorageLocations;
+  const getSydney = async () => {
+    const url = config.API_BASE_URL + "/api/v1/featured/search?city=Sydney";
+    try {
+      const res = await axios.get(url);
+      console.log(res.data.data);
+      setLocations([
+        ...locations,
+        ...res.data?.data?.map((e) => ({
+          name: e?.address,
+          image: e?.images[0]?.url,
+        })),
+      ]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getSydney();
+  }, []);
 
   return (
     <div className="bg-gradient-to-t from-white via-white to-custom-teal-deep/20 py-16">
@@ -154,7 +175,7 @@ const LuggageStorageLocations = () => {
           }}
           className="relative flex gap-5"
         >
-          {locations.map((location, index) => (
+          {allLoc.map((location, index) => (
             <SwiperSlide
               key={index}
               className="grid gap-2 min-h-fit max-w-md bg-white shadow-md rounded-xl overflow-hidden md:mx-auto p-2 mb-20"
