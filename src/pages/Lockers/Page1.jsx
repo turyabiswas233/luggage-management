@@ -163,14 +163,16 @@ function MelbourneLocker() {
     },
     {
       type: "h3",
-      title: "Safety Measures for Luggage Lockers in Melbourne",
+      title:
+        "Safety Measures for Luggage <a href='https://en.wikipedia.org/wiki/Locker'>Lockers</a> in Melbourne",
       para: [
         "Safety is a top concern when it comes to leaving your belongings behind.  Urloker's luggage lockers in Melbourne have robust security measures, such as CCTV surveillance, secure locks and 24/7 monitoring so that you can relax and explore Melbourne knowing that your items are under reliable protection and are in safe hands. With Urloker, you are not just storing luggage but also you are safeguarding your peace of mind.",
       ],
     },
     {
       type: "h3",
-      title: "How to Book Luggage Lockers in Melbourne",
+      title:
+        "How to Book Luggage Lockers in <a href'https://en.wikipedia.org/wiki/Melbourne'>Melbourne</a>",
       para: [
         "Booking luggage lockers in Melbourne is simple and can be done in advance online. With  Urloker, you can choose a locker booking according to your needs, specify the booking duration and reserve it all from your smartphone. You can also book from on-site if you prefer a spontaneous storage option by simply scanning the Qr code. This makes the whole process super convenient and helps avoid last-minute stress. With clear pricing and flexible booking options, Urloker has made it simple to secure your bags and provides you the flexibility to enjoy your day.",
       ],
@@ -463,7 +465,6 @@ function MelbourneLocker() {
               list={item?.list || []}
             />
           ))}
-          <FaqCard t={faqs} />
           <Template
             heading={"Plan Your Day with Luggage Lockers in Melbourne"}
             type={"h2"}
@@ -481,6 +482,7 @@ function MelbourneLocker() {
             list={[]}
           />
         </main>
+        <FaqCard t={faqs} />
       </div>
     </div>
   );

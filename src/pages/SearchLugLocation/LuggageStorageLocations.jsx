@@ -147,6 +147,7 @@ const LuggageStorageLocations = () => {
         ...res.data?.data?.map((e) => ({
           name: e?.address,
           image: e?.images[0]?.url,
+          alt: e?.images[0]?.alt || "Luggage Storage",
         })),
       ]);
     } catch (err) {

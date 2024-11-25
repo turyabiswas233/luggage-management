@@ -168,6 +168,34 @@ const CurrentCities = () => {
       to: "/melbourne-southern-cross-station-lockers",
       name: "Melbourne Southern cross Station Lockers",
     },
+    {
+      to: "/luggage-storage-sydney-central",
+      name: "Luggage Storage Sydney Central",
+    },
+    {
+      to: "/luggage-storage-sydney-circular-quay",
+      name: "Luggage Storage Sydney Circular Quay",
+    },
+    {
+      to: "/luggage-storage-brisbane-cbd",
+      name: "Luggage Storage Brisbane CBD",
+    },
+    {
+      to: "/luggage-storage-adelaide",
+      name: "Luggage Storage Adelaide",
+    },
+    {
+      to: "/luggage-storage-perth-cbd",
+      name: "Luggage Storage Perth CBD",
+    },
+    {
+      to: "/luggage-storage-canberra",
+      name: "Luggage Storage Canberra",
+    },
+    {
+      to: "/luggage-storage-gold-coast",
+      name: "Luggage Storage Gold Coast",
+    },
   ];
   return (
     <div className="p-10 bg-gray-50 w-full">

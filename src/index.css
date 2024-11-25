@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body{
+html,
+body {
   scroll-behavior: smooth;
   transition: all 0.75s linear;
   overflow-x: hidden;
@@ -10,16 +11,19 @@ html, body{
 .quillText {
   padding-left: 1em;
 }
-.partnerAgree section h3  {
+.partnerAgree section h3 {
   @apply font-bold text-xl mt-10;
 }
-.partnerAgree section ol  {
+.partnerAgree section ol {
   @apply space-y-5;
 }
-.partnerAgree section ol li  {
+.partnerAgree section ol li {
   @apply font-normal text-lg;
 }
-
+a,
+a:visited {
+  @apply text-custom-teal-deep underline font-bold;
+}
 .quillText blockquote {
   position: relative;
   padding: 2pt 0;

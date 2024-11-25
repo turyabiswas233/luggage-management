@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+
+import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const FaqCard = ({ t }) => {
   const [openFAQ, setOpenFAQ] = useState(-1);
 
@@ -16,7 +19,7 @@ const FaqCard = ({ t }) => {
               openFAQ == index ? "max-h-52 overflow-y-auto" : "max-h-20"
             }`}
           >
-            <h3
+            <h4
               className="text-xl font-bold text-gray-700 cursor-pointer flex items-center justify-between"
               onClick={() => toggleFAQ(index)}
             >
@@ -26,7 +29,7 @@ const FaqCard = ({ t }) => {
               ) : (
                 <FontAwesomeIcon icon={faPlusCircle} />
               )}
-            </h3>
+            </h4>
             {openFAQ == index && (
               <div
                 className="text-gray-600 mt-2 overflow-x-hidden break-words text-justify px-4 font-medium"

@@ -74,11 +74,11 @@ function AttractionBox({ locationImage, me }) {
 
       <CustomInfo />
 
-      <div className="flex items-start justify-center gap-5 px-10 py-20 bg-slate-100 mx-auto w-full">
+      <div className="flex items-start justify-center gap-20 px-10 py-20 bg-slate-100 mx-auto w-full">
         <div>
           <img
-            width={250}
-            height={250}
+            width={300}
+            height={300}
             className="rounded-lg"
             src={attr}
             alt="human image"

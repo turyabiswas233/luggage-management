@@ -21,9 +21,11 @@ function PromoCodeManagement() {
           sidebarOpen={sidebarOpen}
           setSidebarOpen={setSidebarOpen}
         />
-
-        <main className="pointer-events-none cursor-not-allowed grayscale opacity-70">
-          <p className="text-3xl font-extrabold p-10">*This feature is in development mode</p>
+        {/* pointer-events-none cursor-not-allowed grayscale opacity-70 */}
+        <main>
+          <p className="text-3xl font-extrabold p-10">
+            *This feature is in development mode
+          </p>
           <div className="p-4 w-full">
             <h1 className="text-2xl font-semibold text-gray-800">
               Promo Code Management
