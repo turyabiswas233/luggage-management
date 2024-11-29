@@ -35,11 +35,19 @@ const PaymentSuccess = () => {
 
   const formatDate = (dateStr) => {
     const options = { month: "long", day: "numeric", year: "numeric" };
-    return new Date(dateStr).toLocaleDateString(undefined, {...options, timeZone: "UTC"});
+    return new Date(dateStr).toLocaleDateString(undefined, {
+      ...options,
+      timeZone: "UTC",
+    });
   };
 
   const formatTime = (timeStr) => {
-    const options = { hour: "numeric", minute: "numeric", hour12: true,timeZone: "UTC" };
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+      timeZone: "UTC",
+    };
     return new Date(`1970-01-01T${timeStr}Z`).toLocaleTimeString(
       undefined,
       options
@@ -111,7 +119,7 @@ const PaymentSuccess = () => {
 
       // Calculate X and Y positions to center the content
       const imgWidth = 210; // PDF width in mm
-      const pageHeight = 297;
+      const pageHeight = (210 * 21) / 9;
       const imgHeight = (canvas.height * imgWidth) / canvas.width; // Keep aspect ratio
       let heightLeft = imgHeight;
       let position = 0;

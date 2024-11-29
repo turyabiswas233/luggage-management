@@ -65,7 +65,7 @@ function UrlokerKeys() {
 
       // Calculate X and Y positions to center the content
       const imgWidth = 210; // PDF width in mm
-      const pageHeight = 297;
+      const pageHeight = 210*21/9;
       const imgHeight = (canvas.height * imgWidth) / canvas.width; // Keep aspect ratio
       let heightLeft = imgHeight;
       let position = 0;
@@ -408,7 +408,7 @@ function UrlokerKeys() {
 
       <div
         className="w-5/6 bg-white rounded-lg mx-auto px-3 mb-20 pt-3"
-        hidden={finalMessage.includes("SUCCESSFUL") == false}
+        hidden={finalMessage.includes("SUCCESSFUL") == true}
       >
         <button
           className={`flex gap-2 w-full items-center p-2 mt-5 bg-custom-teal hover:bg-custom-teal-deep text-green-100 transition-colors justify-center rounded-md`}
