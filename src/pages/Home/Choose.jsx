@@ -21,14 +21,14 @@ const Choose = () => {
                   width={400}
                   height={275}
                   alt="Luggage"
-                  className="rounded-lg mx-auto object-fill h-full aspect-video"
+                  className="rounded-lg mx-auto object-fill h-full aspect-video pointer-events-none"
                 />
                 <img
                   src={luggage2}
                   width={400}
                   height={275}
                   alt="Luggage"
-                  className="rounded-lg mx-auto object-fill h-full aspect-video"
+                  className="rounded-lg mx-auto object-fill h-full aspect-video pointer-events-none"
                 />
               </div>
             </div>

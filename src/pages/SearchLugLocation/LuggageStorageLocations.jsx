@@ -182,7 +182,7 @@ const LuggageStorageLocations = () => {
               className="grid gap-2 min-h-fit max-w-md bg-white shadow-md rounded-xl overflow-hidden md:mx-auto p-2 mb-20"
             >
               <img
-                className="aspect-video w-full object-cover rounded-xl"
+                className="aspect-video w-full object-cover rounded-xl pointer-events-none"
                 src={location.image}
                 alt={location.name || "image file"}
                 width={300}

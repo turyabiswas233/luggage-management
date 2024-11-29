@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./css/style.css";
 
 import TawkTo from "./TawkTo";
@@ -23,6 +23,19 @@ function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  useEffect(() => {
+    const handleContextMenu = (event) => {
+      event.preventDefault();
+    };
+
+    // document.addEventListener("contextmenu", handleContextMenu);
+
+    return () => {
+      // document.removeEventListener("contextmenu", handleContextMenu);
+    };
+  }, []);
+
   return (
     <>
       <NavbarComp

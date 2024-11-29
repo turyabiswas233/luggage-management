@@ -24,6 +24,10 @@ a,
 a:visited {
   @apply text-custom-teal-deep underline font-bold;
 }
+img {
+  pointer-events: none;
+  user-select: none;
+}
 .quillText blockquote {
   position: relative;
   padding: 2pt 0;

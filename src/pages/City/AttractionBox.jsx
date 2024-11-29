@@ -61,7 +61,7 @@ function AttractionBox({ locationImage, me }) {
           alt="Location Image"
           width={1080}
           height={(1080 * 9) / 16}
-          className="aspect-video object-contain mx-auto w-full"
+          className="aspect-video object-contain mx-auto w-full pointer-events-none"
         />
       </div>
 
@@ -77,7 +77,7 @@ function AttractionBox({ locationImage, me }) {
           <img
             width={250}
             height={250}
-            className="rounded-lg"
+            className="rounded-lg pointer-events-none select-none"
             src={attr}
             alt="human image"
           />
