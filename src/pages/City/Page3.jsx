@@ -298,7 +298,7 @@ function FlindersPage() {
             Carrying heavy bags is a challenge anytime one is sightseeing in
             Melbourne. Whether you are navigating the busy streets, visiting
             iconic attractions or waiting to catch a train, it is essential to
-            safely store your bags where you can trust. At
+            safely store your bags where you can trust. At{" "}
             <a href="/" className="text-custom-teal-deep font-bold">
               Urloker
             </a>{" "}

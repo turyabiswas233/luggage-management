@@ -20,8 +20,8 @@ body {
 .partnerAgree section ol li {
   @apply font-normal text-lg;
 }
-a,
-a:visited {
+main a,
+main a:visited {
   @apply text-custom-teal-deep underline font-bold;
 }
 img {
