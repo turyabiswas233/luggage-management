@@ -143,8 +143,8 @@ const PaymentSuccess = () => {
 
       {/* Centered logo */}
 
-      <div className="container text-center mt-12 mb-20 pt-16">
-        <Card className="my-5 shadow-lg p-6 rounded-lg" ref={bookingInfoRef}>
+      <div className="container text-center mt-12 mb-20 mx-auto pt-16">
+        <Card className="my-5 shadow-lg p-6 rounded-lg bg-white" ref={bookingInfoRef}>
           <Card.Body>
             <div className="text-center mt-8">
               <img
@@ -238,7 +238,7 @@ const PaymentSuccess = () => {
         <Button
           variant="primary"
           onClick={handleDownloadPDF}
-          className="mt-4 rounded-lg shadow-lg"
+          className="mt-4 rounded-lg shadow-lg bg-custom-teal hover:bg-custom-teal-deep text-white"
         >
           Download Booking Info as PDF
         </Button>

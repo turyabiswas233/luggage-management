@@ -202,7 +202,7 @@ function UrlokerKeys() {
         {/* left part */}
         <div
           className="aria-hidden:hidden lg:block"
-          hidden={finalMessage.includes("SUCCESSFUL") == true}
+          hidden={finalMessage.includes("SUCCESSFUL") === true}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className=" border border-gray-600 p-2 rounded-md">
@@ -408,7 +408,7 @@ function UrlokerKeys() {
 
       <div
         className="w-5/6 bg-white rounded-lg mx-auto px-3 mb-20 pt-3"
-        hidden={finalMessage.includes("SUCCESSFUL") == true}
+        hidden={finalMessage.includes("SUCCESSFUL") === false}
       >
         <button
           className={`flex gap-2 w-full items-center p-2 mt-5 bg-custom-teal hover:bg-custom-teal-deep text-green-100 transition-colors justify-center rounded-md`}
