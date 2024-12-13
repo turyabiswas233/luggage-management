@@ -1,9 +1,9 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import config from "../../config";
-// const cbd = config.BUCKET_URL + "/files/city/cbd/cbd.jpeg";
-const cbd = "/files/city/perthcbd/cbd.jpg";
-const locImage = config.BUCKET_URL + "/files/city/cbd/locationMap.png";
+const cbd = config.BUCKET_URL + "/files/city/perthcbd/cbd.jpg";
+
+const locImage = config.BUCKET_URL + "/files/city/perthcbd/locationMap.png";
 import { useTranslation } from "react-i18next";
 import AttractionBox from "./AttractionBox";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
@@ -564,7 +564,7 @@ function PerthCBD() {
                       className="bg-white text-black placeholder:text-gray-700 rounded-full p-3 w-full h-fit"
                       placeholder={searchPlaceholder}
                       ref={locationInputRef}
-                      defaultValue={"Sydney, Australia"}
+                      defaultValue={"Perth CBD, Australia"}
                     />
                   </Autocomplete>
                 )}

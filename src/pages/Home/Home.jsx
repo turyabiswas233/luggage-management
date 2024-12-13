@@ -198,7 +198,7 @@ const CurrentCities = () => {
     },
   ];
   return (
-    <div className="p-10 bg-gray-50 w-full">
+    <div className="p-10 px-52 bg-gray-50 w-full">
       <h2 className="text-3xl font-bold">
         Store your luggage to your closet location
       </h2>

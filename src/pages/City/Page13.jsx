@@ -1,9 +1,9 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import config from "../../config";
-// const cbd = config.BUCKET_URL + "/files/city/cbd/cbd.jpeg";
-const cbd = "/files/city/canberra/cbd.jpg";
-const locImage = config.BUCKET_URL + "/files/city/cbd/locationMap.png";
+const cbd = config.BUCKET_URL + "/files/city/canberra/cbd.jpg";
+// const cbd = "/files/city/canberra/cbd.jpg";
+const locImage = config.BUCKET_URL + "/files/city/canberra/locationMap.png";
 import { useTranslation } from "react-i18next";
 import AttractionBox from "./AttractionBox";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
