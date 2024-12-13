@@ -1,7 +1,8 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import config from "../../config";
-const cbd = config.BUCKET_URL + "/files/city/cbd/cbd.jpeg";
+// const cbd = config.BUCKET_URL + "/files/city/cbd/cbd.jpeg";
+const cbd = "/files/city/canberra/cbd.jpg";
 const locImage = config.BUCKET_URL + "/files/city/cbd/locationMap.png";
 import { useTranslation } from "react-i18next";
 import AttractionBox from "./AttractionBox";
@@ -578,7 +579,7 @@ function Canberra() {
             );
           })}
         </main>
-        <FaqCard t={faqs} />
+        <FaqCard t={faqs} title={'FAQs About Luggage Storage in Canberra'} />
         <p className="p-5 xl:px-52 text-black/80 bg-white">
           Urloker is all about making travel lighter, seamless, simpler and
           hassle-free. Whether you are in Canberra for a few hours or a few

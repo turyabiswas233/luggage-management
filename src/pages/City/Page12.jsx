@@ -1,7 +1,8 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import config from "../../config";
-const cbd = config.BUCKET_URL + "/files/city/cbd/cbd.jpeg";
+// const cbd = config.BUCKET_URL + "/files/city/cbd/cbd.jpeg";
+const cbd = "/files/city/perthcbd/cbd.jpg";
 const locImage = config.BUCKET_URL + "/files/city/cbd/locationMap.png";
 import { useTranslation } from "react-i18next";
 import AttractionBox from "./AttractionBox";
@@ -607,7 +608,7 @@ function PerthCBD() {
           ))}
         </main>
 
-        <FaqCard t={faqs} />
+        <FaqCard t={faqs} title={'FAQs about Luggage Storage in Perth CBD'} />
         <p className="p-10 xl:px-52 bg-white">
         Urloker makes storing your luggage in Perth CBD seamless, secure and hassle free so that you can focus on what really matters. Enjoy freedom in every journey with Urloker.
 

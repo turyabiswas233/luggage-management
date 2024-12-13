@@ -2,15 +2,15 @@ import React, { useState } from "react";
 
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const FaqCard = ({ t }) => {
+const FaqCard = ({ t, title }) => {
   const [openFAQ, setOpenFAQ] = useState(-1);
 
   const toggleFAQ = (index) => {
     setOpenFAQ((p) => (p == index ? -1 : index));
   };
   return (
-    <div className="p-5 container mx-auto xl:px-52">
-      <h3 className="text-center font-bold text-2xl my-5">FAQs</h3>
+    <main className="p-5 container mx-auto xl:px-52">
+      <h2 className="text-center font-bold text-2xl my-5">{title || "FAQs"}</h2>
       <div className="space-y-5 divide-y-3 divide-slate-800">
         {t.map((faq, index) => (
           <div
@@ -41,7 +41,7 @@ const FaqCard = ({ t }) => {
           </div>
         ))}
       </div>
-    </div>
+    </main>
   );
 };
 export default FaqCard;
