@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { MdEdit } from "react-icons/md";
 import SuperAdminSidebar from "../../partials/SuperAdminSidebar";
 import SuperAdminHeader from "../../partials/SuperAdminHeader";
 import config from "../../config";
+import DatePicker from "../SearchLugLocation/LuggageDetails/DatePicker";
+import moment from "moment-timezone";
 
 const AllBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -13,7 +16,8 @@ const AllBookings = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [bookingsPerPage] = useState(50);
-  const [currentBooking, setCurrentBooking] = useState(null);
+  const [editId, setEditId] = useState(null);
+  const [preData, setPreData] = useState(null);
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -233,6 +237,21 @@ const AllBookings = () => {
                             >
                               <td className="w-1/5 py-3 px-6 border">
                                 {getClientInfo(booking.client, booking.guest)}
+                                <button
+                                  className="bg-white rounded-md p-2 text-black ring-1 ring-red-500"
+                                  type="button"
+                                  onClick={() => {
+                                    setPreData({
+                                      startDate: booking.startDate,
+                                      startTime: booking.startTime,
+                                      endDate: booking.endDate,
+                                      endTime: booking.endTime,
+                                    });
+                                    setEditId(booking._id);
+                                  }}
+                                >
+                                  <MdEdit size={20} />
+                                </button>
                               </td>
                               <td className="w-1/5 py-3 px-6 border">
                                 {booking.location
@@ -329,9 +348,99 @@ const AllBookings = () => {
             </div>
           </div>
         </main>
+        {editId && (
+          <EditBookingTime
+            id={editId}
+            preData={preData}
+            hideDialog={() => {
+              setPreData(null);
+              setEditId(null);
+            }}
+          />
+        )}
       </div>
     </div>
   );
 };
+const EditBookingTime = ({ id, preData, hideDialog }) => {
+  const [startDate, setStartDate] = useState(preData.startDate);
+  const [startTime, setStartTime] = useState(preData.startTime);
+  const [endDate, setEndDate] = useState(preData.endDate);
+  const [endTime, setEndTime] = useState(preData.endTime);
+  const [checkinTime, setCheckinTime] = useState(
+    new Date(preData.startDate.split("T")[0] + ":" + preData.startTime)
+  );
+  const [checkoutTime, setCheckoutTime] = useState(
+    new Date(preData.endDate.split("T")[0] + ":" + preData.endTime)
+  );
+  // const [checkoutTime, setCheckoutTime] = useState(null);
+  const [lug, setLug] = useState(null);
+  const [falsy, setFalsy] = useState(false);
 
+  useEffect(() => {
+    if (checkinTime != null && checkoutTime != null) {
+      setStartDate(moment(checkinTime).format("YYYY-MM-DD"));
+      setStartTime(moment(checkinTime).format("HH:mm"));
+      setEndDate(moment(checkoutTime).format("YYYY-MM-DD"));
+      setEndTime(moment(checkoutTime).format("HH:mm"));
+      if (checkinTime.getTime() >= checkoutTime.getTime()) {
+        setFalsy(true);
+      } else setFalsy(false);
+    }
+  }, [checkinTime, checkoutTime]);
+
+  return (
+    <div className="fixed top-0 left-0 z-50 w-svw h-svh bg-black bg-opacity-80 backdrop-blur-sm flex justify-center items-center p-5">
+      <form
+        className="bg-white shadow-lg rounded-lg p-5 min-w-[700px]"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          try {
+            const response = await axios.put(
+              `${config.API_BASE_URL}/api/v1/superadmin/bookings/${id}/times`,
+              {
+                startDate,
+                startTime,
+                endDate,
+                endTime,
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+          } catch (error) {
+            console.error("Failed to update booking time", error);
+            alert("Failed to update booking time");
+          }
+        }}
+      >
+        <p>ID: {id}</p>
+        <DatePicker
+          setCheckinTime={setCheckinTime}
+          setCheckoutTime={setCheckoutTime}
+          setLuggageQuantity={setLug}
+          hideBags
+        />
+        <div className="flex gap-2 my-2">
+          <button
+            type="submit"
+            className="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded-md"
+          >
+            Save
+          </button>
+          <button
+            type="reset"
+            className="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md"
+            onClick={hideDialog}
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
 export default AllBookings;

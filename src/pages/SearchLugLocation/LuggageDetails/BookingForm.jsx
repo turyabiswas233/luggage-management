@@ -3,6 +3,8 @@ import { Spinner } from "react-bootstrap";
 import DatePicker from "./DatePicker";
 import moment from "moment-timezone";
 import { Link, useSearchParams } from "react-router-dom";
+import config from "../../../config";
+import axios from "axios";
 
 const BookingForm = ({
   handleSubmit,
@@ -35,25 +37,37 @@ const BookingForm = ({
     phone: "",
   });
 
-  useEffect(() => {
-    // Set default check-in and check-out times
-    const checkin = moment().add(6, "hours").format("YYYY-MM-DDTHH:mm");
-    const checkout = moment(checkin)
-      .add(20, "hours")
-      .format("YYYY-MM-DDTHH:mm");
+  // useEffect(() => {
+  //   // Set default check-in and check-out times
+  //   const checkin = moment().add(6, "hours").format("YYYY-MM-DDTHH:mm");
+  //   const checkout = moment(checkin)
+  //     .add(20, "hours")
+  //     .format("YYYY-MM-DDTHH:mm");
 
-    setTotalPrice(0);
-    setDiscount(0);
-  }, [setTotalPrice, setDiscount, setCheckinTime, setCheckoutTime]);
+  //   setTotalPrice(0);
+  //   setDiscount(0);
+  // }, [setTotalPrice, setDiscount, setCheckinTime, setCheckoutTime]);
 
-  const handleApplyPromo = () => {
-    if (promoCode === "DISCOUNT10") {
-      setDiscount(10);
-      setPromoApplied(true);
-    } else {
-      setDiscount(0);
-      setPromoApplied(false);
-      setErrorMessage("Invalid promo code. Please try again.");
+  const handleApplyPromo = async () => {
+    const url = config.API_BASE_URL;
+    try {
+      const { data } = await axios.get(
+        `${url}/api/v1/promocode/check/${promoCode}`
+      );
+
+      console.log(data);
+      if (data?.discountPercentage && data?.discountPercentage > 0) {
+        setDiscount(data?.discountPercentage);
+        setPromoApplied(true);
+        console.log(totalPrice - totalPrice * (data.discountPercentage / 100));
+      } else {
+        setDiscount(0);
+        setPromoApplied(false);
+        setErrorMessage(data?.message);
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage(error?.response?.data?.message || "Invalid promo code.");
     }
   };
 
@@ -61,6 +75,11 @@ const BookingForm = ({
     setPromoCode("");
     setDiscount(0);
     setPromoApplied(false);
+    const dailyRate = 10.5; // Combined service fee and luggage price per day
+    const duration = calculateDuration(checkinTime, checkoutTime);
+    let price = dailyRate * duration * luggageQuantity - discount;
+    price = parseFloat(price.toFixed(2)); // Round to two decimal places
+    setTotalPrice(price);
   };
 
   const handleCheckoutTimeChange = () => {
@@ -117,11 +136,12 @@ const BookingForm = ({
     ) {
       const dailyRate = 10.5; // Combined service fee and luggage price per day
       const duration = calculateDuration(checkinTime, checkoutTime);
-      let price = dailyRate * duration * luggageQuantity - discount;
+      let price = dailyRate * duration * luggageQuantity;
+      price -= price * (discount / 100);
       price = parseFloat(price.toFixed(2)); // Round to two decimal places
-      setTotalPrice(price > 0 ? price : 0);
+      setTotalPrice(price);
     }
-  }, [discount, checkinTime, checkoutTime, luggageQuantity, setTotalPrice]);
+  }, [discount, checkinTime, checkoutTime, luggageQuantity]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -311,14 +331,6 @@ const BookingForm = ({
             </div>
           </div>
           <div className="Mb-4 flex gap-2 items-center mb-6 group w-fit">
-            {/* <input
-            className="hidden"
-            hidden
-            type="checkbox"
-            name="isAgree"
-            id="isAgree"
-            onChange={(e) => setIsAgree(e.target.checked)}
-          /> */}
             <label htmlFor="isAgree" className="text-base">
               By continuing the booking you are agreeing to our{" "}
               <Link
@@ -350,11 +362,6 @@ const BookingForm = ({
               </span>
             </div>
 
-            {/* <div className="flex justify-between">
-  <span>Service Charge per day</span>
-  <span>A${(2.60).toFixed(2)}</span>
-</div> */}
-
             <div className="flex justify-between pt-2">
               <span>
                 Total Service Charge per day (A$2.60 x{" "}
@@ -374,8 +381,28 @@ const BookingForm = ({
             </div>
 
             <div className="flex justify-between font-bold text-xl mt-4">
-              <span>Total</span>
-              <span>A${totalPrice.toFixed(2)}</span>
+              <span>
+                Total{" "}
+                {promoApplied && (
+                  <small className="font-thin text-sm">
+                    ({discount}% discount)
+                  </small>
+                )}{" "}
+              </span>
+              <span>
+                A${totalPrice.toFixed(2)}{" "}
+                {promoApplied && (
+                  <small
+                    style={{
+                      textDecoration: "line-through",
+                    }}
+                  >
+                    {10.5 *
+                      calculateDuration(checkinTime, checkoutTime) *
+                      luggageQuantity}
+                  </small>
+                )}
+              </span>
             </div>
           </div>
           <button

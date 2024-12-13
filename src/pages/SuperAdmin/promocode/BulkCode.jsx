@@ -4,20 +4,25 @@ import config from "../../../config";
 
 function BulkPromoCodeGeneration() {
   const [discountPercentage, setDiscountPercentage] = useState(0);
-  const [codeCount, setCodeCount] = useState(0);
+  const [codeCount, setCodeCount] = useState(10);
   const [expiresAt, setExpiresAt] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Send POST request to '/promocode/generate-bulk' endpoint with the form data
-    const response = await axios.post(
-      `${config.API_BASE_URL}/api/v1/promocode/generate-bulk`,
-      {
-        discountPercentage,
-        codeCount,
-        expiresAt,
-      }
-    );
+    try {
+      // Send POST request to '/promocode/generate-bulk' endpoint with the form data
+      const response = await axios.post(
+        `${config.API_BASE_URL}/api/v1/promocode/generate-bulk`,
+        {
+          discountPercentage: Number.parseInt(discountPercentage),
+          codeCount,
+          expiresAt: new Date(expiresAt).toISOString(),
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   };
 
   return (
@@ -36,24 +41,44 @@ function BulkPromoCodeGeneration() {
           value={discountPercentage}
           min={0}
           max={100}
+          step={1}
           onChange={(e) => setDiscountPercentage(e.target.value)}
         />
       </div>
       <div className="mb-4 space-y-4">
         <label
-          htmlFor="discountPercentage"
+          htmlFor="expiresAtC"
           className="block text-sm font-medium text-gray-700"
         >
-          Discount Percentage
+          Expire At
         </label>
         <input
           type="datetime-local"
           name="expiresAt"
-          id="expiredAt"
+          id="expiresAtC"
           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           onChange={(e) => setExpiresAt(e.target.value)}
           value={expiresAt}
         />
+      </div>
+      <div>
+        {/* code count */}
+        <label
+          htmlFor="codeCount"
+          className="block text-sm font-medium text-gray-700"
+        >
+          Code Count
+        </label>
+        <select
+          name="codeCount"
+          id="codeCount"
+          onChange={(e) => setCodeCount(e.target.value)}
+        >
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
       </div>
       <button
         type="submit"

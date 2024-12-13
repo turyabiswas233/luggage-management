@@ -8,6 +8,8 @@ function PromoCodeEdit() {
   const [selectedPromoKey, setSelectedPromoKey] = useState(0);
   const [selectedPromoCode, setSelectedPromoCode] = useState("");
   const [expiresAt, setExpiresAt] = useState("");
+  const [codeType, setCodeType] = useState(true);
+
   const [loading, setLoading] = useState(false);
   async function getPromoCodes() {
     try {
@@ -63,7 +65,7 @@ function PromoCodeEdit() {
         `${config.API_BASE_URL}/api/v1/promocode/${
           promoCodes.find((f) => f?._id === selectedPromoCode)?.code
         }/toggle-status`,
-        null,
+        {},
         {
           headers: {
             "Content-Type": "application/json",
@@ -74,8 +76,11 @@ function PromoCodeEdit() {
       alert(response.data.message || "Failed to update Expiry Date");
     } catch (error) {
       console.log(error);
+      alert(error.response.data.message || "Failed to update Expiry Date");
     }
   };
+
+  console.log(codeType);
 
   return (
     <div className="p-4">
@@ -91,8 +96,8 @@ function PromoCodeEdit() {
           Reload
         </button>
       </div>
-      <div className="flex gap-5">
-        <section className="space-y-2 p-2 bg-white rounded-lg border-2 border-black">
+      <div>
+        <div className="grid grid-cols-2 gap-5 my-5">
           <select onChange={(e) => setSelectedPromoKey(Number(e.target.value))}>
             <option value={""}>Select a code</option>
             {promoKeys.map((key, id) => {
@@ -103,10 +108,25 @@ function PromoCodeEdit() {
               );
             })}
           </select>
-          <table
-            className="w-full aria-hidden:hidden max-h-96 overflow-y-hidden"
-            aria-hidden={!selectedPromoKey}
-          >
+          <div className="bg-white border-2 border-black grid grid-cols-2 gap-5 p-1">
+            <button
+              className="bg-green-500 text-white rounded-md"
+              type="button"
+              onClick={(e) => setCodeType(true)}
+            >
+              Active
+            </button>
+            <button
+              className="bg-red-500 text-white rounded-md"
+              type="button"
+              onClick={(e) => setCodeType(false)}
+            >
+              Inactive
+            </button>
+          </div>
+        </div>
+        <section className="space-y-2 p-2 bg-white rounded-lg border-2 border-black">
+          <table className="w-full overflow-y-hidden">
             <thead className="table-header-group bg-black text-white text-center">
               <tr>
                 <th>Code</th>
@@ -115,9 +135,13 @@ function PromoCodeEdit() {
               </tr>
             </thead>
 
-            <tbody className="space-y-2 my-2 overflow-y-scroll text-center h-64">
+            <tbody className="space-y-2 my-2 overflow-y-scroll text-center h-auto">
               {promoCodes
-                ?.filter((f) => f.discountPercentage === selectedPromoKey)
+                ?.filter(
+                  (f) =>
+                    f.discountPercentage === selectedPromoKey &&
+                    codeType == Boolean(f.isActive)
+                )
                 .map((code, id) => (
                   <tr
                     key={code + id}
@@ -143,61 +167,69 @@ function PromoCodeEdit() {
             </tbody>
           </table>
         </section>
-        {selectedPromoCode ? (
-          <div className="space-y-3 sticky top-0 right-0">
-            <p>
-              Modify Promo code:{" "}
-              <small className="bg-slate-900 text-slate-50 px-4 py-1 rounded-md">
-                {promoCodes.find((f) => f?._id == selectedPromoCode)?.code ||
-                  "-- --"}
-              </small>
-            </p>
-            <p>
-              Current Expiry Time:{" "}
-              <small className="bg-slate-900 text-slate-50 px-4 py-1 rounded-md">
-                {new Date(expiresAt).toLocaleString("en-AU", {
-                  timeZone: "Australia/Sydney",
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                }) || "-- --"}{" "}
-                (Australia/Sydney)
-              </small>
-            </p>
-            <input
-              type="datetime-local"
-              value={expiresAt}
-              onChange={(e) => setExpiresAt(e.target.value)}
-              className="border p-2 rounded w-full"
-            />
-            <div className="flex gap-2">
-              <button
-                onClick={handleEditExpiry}
-                type="button"
-                className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
-              >
-                Edit Expiry
-              </button>
-              <button
-                onClick={handleToggleActive}
-                type="button"
-                className={`${
-                  promoCodes.find((f) => f?._id === selectedPromoCode)
-                    ?.isActive === false
-                    ? "bg-green-500"
-                    : "bg-red-500"
-                } text-white p-2 rounded`}
-              >
-                {promoCodes.find((f) => f?._id === selectedPromoCode)?.isActive
-                  ? "Deactivate"
-                  : "Activate"}
-              </button>
+        {selectedPromoCode && (
+          <div className="space-y-3 fixed w-svw h-svh bg-black bg-opacity-80 top-0 right-0 backdrop-blur flex items-center justify-center p-5">
+            <div className="bg-white p-10 rounded-lg shadow-xl space-y-2">
+              <p>
+                Modify Promo code:{" "}
+                <small className="bg-slate-900 text-slate-50 px-4 py-1 rounded-md">
+                  {promoCodes.find((f) => f?._id == selectedPromoCode)?.code ||
+                    "-- --"}
+                </small>
+              </p>
+              <p className="flex flex-auto flex-wrap">
+                Current Expiry Time:{" "}
+                <small className="bg-slate-900 text-slate-50 px-4 py-1 rounded-md">
+                  {new Date(expiresAt).toLocaleString("en-AU", {
+                    timeZone: "Australia/Sydney",
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                  }) || "-- --"}{" "}
+                  (Australia/Sydney)
+                </small>
+              </p>
+              <input
+                type="datetime-local"
+                value={expiresAt}
+                onChange={(e) => setExpiresAt(e.target.value)}
+                className="border p-2 rounded w-full"
+              />
+              <div className="flex gap-2 mt-3">
+                <button
+                  onClick={handleEditExpiry}
+                  type="button"
+                  className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+                >
+                  Edit Expiry
+                </button>
+                <button
+                  onClick={handleToggleActive}
+                  type="button"
+                  className={`${
+                    promoCodes.find((f) => f?._id === selectedPromoCode)
+                      ?.isActive === false
+                      ? "bg-green-500"
+                      : "bg-red-500"
+                  } text-white p-2 rounded`}
+                >
+                  {promoCodes.find((f) => f?._id === selectedPromoCode)
+                    ?.isActive
+                    ? "Deactivate"
+                    : "Activate"}
+                </button>
+                <button
+                  onClick={() => setSelectedPromoCode(null)}
+                  type="button"
+                  className={`bg-red-600 text-white p-2 rounded`}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
-        ) : (
-          <h4>Select a promo-code to update expiry time</h4>
         )}
       </div>
     </div>
