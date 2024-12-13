@@ -89,7 +89,7 @@ const StorageSpot = ({
             type="button"
             disabled
           >
-            Currently Unavailable
+            Only Key Service
           </button>
         ) : (
           <button

@@ -339,6 +339,7 @@ function MelbourneCentral() {
         <AttractionBox
           locationImage={locImage}
           me={"Luggage Storage Melbourne Central Station"}
+           cityType="Melbourne"
         />
         <main className="p-5 bg-white xl:px-52 w-full mx-auto">
           {content.map((item, index) => (

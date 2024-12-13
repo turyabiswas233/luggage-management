@@ -16,7 +16,7 @@ import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import { useNavigate } from "react-router-dom";
 
-function AttractionBox({ locationImage, me }) {
+function AttractionBox({ locationImage, me, cityType = "" }) {
   const navigate = useNavigate();
   const [loadingLocation, setLoadingLocation] = useState(false);
   const handleNearMyLocationClick = () => {
@@ -65,7 +65,7 @@ function AttractionBox({ locationImage, me }) {
         />
       </div>
 
-      <LuggageStorageLocations />
+      <LuggageStorageLocations cityType={cityType} />
 
       <HowItWorks />
       <Review />

@@ -8,6 +8,7 @@ import AttractionBox from "./AttractionBox";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 import { useNavigate } from "react-router-dom";
 import FaqCard from "./FaqCard";
+import Template from "./Template";
 
 const libraries = ["places"];
 const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
@@ -82,82 +83,375 @@ function GoldCoast() {
       console.log("Geolocation is not supported by this browser.");
     }
   };
-  const data = [
+  const faqs = [
     {
       question:
-        "In which areas of the City of Melbourne can users find Urloker's luggage storage?",
+        "How secure are Urloker’s luggage storage services in Gold Coast?",
       answer:
-        "Urloker has strategic locations for luggage storage in the heart of Melbourne. Our locations are close to Central Melbourne and significant attractions, transport hubs as well as Flinders Street Station and Melbourne Central Station and famous spots such as Federation Square and Queen Victoria Market.",
+        "Your safety is our priority. We use modern locker systems, CCTV and secure access protocols.",
     },
     {
-      question:
-        "What's the pricing policy for Urloker's luggage storage Melbourne CBD ?",
+      question: "Can I store my luggage for more than one day?",
       answer:
-        "We offer flat rates and affordable pricing for all luggage and bag sizes.",
+        "Absolutely. Urloker offers flexible storage durations to suit your needs.",
     },
     {
-      question: "How does the Urloker luggage storage system work?",
+      question: "What payment methods do you accept?",
       answer:
-        "UrLoker provides collection and delivery services. Click on a location or book a van in the same way that you would book a doctor's appointment through the website. Book a flight by telephone, specifying the location, date and time. As for the dropping out, you will have to put your bag in a locker and as for pick up, the staff will take it and keep it safely.",
+        "We accept all major payment methods, making it easy and convenient for everyone.",
     },
     {
-      question: "What things can I store?",
-      answer: `
-        <li>Luggage: franchises of suitcases, big bags duffle</li>
-        <li>Personal items: Women's purses, Computer Case</li>
-        <li>Bulky Items: Sporting equipment, Child params</li>
-        `,
-    },
-    {
-      question: "Are there size limits?",
+      question: "Is luggage storage near Gold Coast beaches available?",
       answer:
-        "We welcome items of all sizes! However, for extra-large or bulky items like surfboards, skis, or bicycles, we kindly ask for prior approval to ensure our partners can accommodate your needs. Don’t worry—we’ll handle the coordination and keep you informed.",
+        "Yes, we have locations close to popular beaches so that you can enjoy the sun without worrying about your bags.",
     },
     {
-      question: "Do larger bags cost more?",
+      question: "How do I find the nearest Urloker location?",
       answer:
-        "No. We won't charge you more for your bigger luggeages. So, enjoy the same rates, exclusively with Urloker.",
+        "Use our website or app to locate the nearest storage spot in seconds.",
     },
     {
-      question: "Is hourly luggage storage available at Urloker?",
+      question: "Can I book luggage storage in advance?",
       answer:
-        "We offer a flat 24-hour rate, ensuring you get the same great price whether you store your items for just a few hours or the entire day.",
+        "Yes, we recommend pre-booking during peak seasons to secure your spot.",
     },
     {
-      question:
-        "Can I book luggage storage for the whole day with a single booking?",
-      answer: `Yes, you can easily book luggage storage for the entire day with just one booking, ensuring a hassle-free experience.`,
-    },
-    {
-      question: "Looking for luggage lockers nearby?",
+      question: "Are there any prohibited items I can’t store?",
       answer:
-        "We partner with trusted businesses that provide secure storage areas for your belongings, offering the same safety and convenience as traditional lockers—without the hassle of availability or size constraints.",
+        "Yes, items like perishables, hazardous materials and illegal goods are not allowed.",
     },
     {
-      question: "Need to change or cancel your booking?",
+      question: "Can I cancel my booking if my plans change?",
       answer:
-        "We understand that plans can change! Easily modify or cancel your booking right from the details page in our app. Adjust dates, drop-off and pick-up times, or the number of bags with just a few taps.",
-    },
-    {
-      question: "Can I get a refund if I cancel?",
-      answer:
-        "Absolutely! You can cancel your booking anytime before check-in for a full refund, and best of all—no cancellation fees!",
-    },
-    {
-      question: "What security measures are in place?",
-      answer: `
-        <li>Super Locks</li>
-        <li>CCTV</li>
-        <li>Staff trained</li>
-      `,
-    },
-    {
-      question: "what kind of service Urloker Luggage Storage provide?",
-      answer:
-        "Urloker Luggage Storage provides secure and monitored luggage storage solutions with flexible options for all bag sizes. They also offer key storage services for Airbnb hosts and guests, with easy online and QR code booking at partner locations. Additionally, Urloker provides 24/7 customer support, real-time notifications, and optional insurance for added peace of mind.",
+        "Yes, we have a flexible cancellation policy to accommodate your changing plans.",
     },
   ];
   const { searchPlaceholder, findLocationsButton } = translate?.heroSection;
+
+  const data = [
+    {
+      type: "h2",
+      heading: "Hassle Free Luggage Storage in Gold Coast with Urloker",
+      para: [
+        "Welcome to your ultimate guide for everything you need to know about luggage storage in Gold Coast. Whether you are soaking in the sun at Surfers Paradise, exploring the iconic Hinterland or enjoying the vibrant culture downtown, Urloker has you covered for secure, hassle-free luggage storage. Travelling is all about freedom and we are here to ensure you get to experience Gold Coast without the burden of carrying heavy bags. Travel light, explore more and experience the freedom to enjoy Gold Coast at its best.",
+      ],
+    },
+    {
+      type: "h3",
+      heading:
+        "Why Gold Coast Visitors Love Luggage Storage Services at Urloker",
+      para: [
+        "Gold Coast is a top destination, attracting millions of visitors each year, and it is easy to see why. From stunning beaches to thrilling theme parks, there is so much to explore but lugging your bags around a definite no go. Luggage storage services in Gold Coast at Urloker let you drop your bags off and fully enjoy your day without worrying about your stuff. Smart travellers know the value of freedom, leave your bags with us and make every minute count.",
+      ],
+      list: [
+        "No more lugging heavy bags around.",
+        "Enjoy freedom to explore the city with ease.",
+        "Perfect for day-trippers and layover travellers.",
+      ],
+    },
+    {
+      type: "h2",
+      heading:
+        "What Is Luggage Storage <a href='https://en.wikipedia.org/wiki/Gold_Coast,_Queensland'>Gold Coast</a>, and How Does It Work?",
+      para: [
+        "If you are new to the idea of luggage storage, no worries—we'll break it down. Luggage storage is just like it sounds: a secure space where you can leave your bags for a short period while you explore. Urloker offers a simple, easy-to-use solution for luggage storage in Gold Coast. Just book online, drop off your bags at one of our convenient locations, and set out on your Gold Coast adventure without the weight on your shoulders.",
+      ],
+      list: [
+        "Easy booking online or through our app.",
+        "Convenient drop-off locations across Gold Coast.",
+        "Flexible hours to match your travel schedule.",
+      ],
+    },
+    {
+      type: "h2",
+      heading: "Why Choose Urloker for Luggage Storage in Gold Coast?",
+      para: [
+        "Urloker is not just a luggage storage service. It is a trusted partner in making your trip smooth and stress-free. With competitive rates, easy booking and locations near all major Gold Coast attractions, we are here to offer convenience like no other. Our customer-first approach and state of the art security are just a few of the reasons visitors keep coming back to Urloker.",
+      ],
+      list: [
+        "Affordable prices with no hidden fees.",
+        "Flat Rate for All Luggage Sizes.",
+        "No Hourly Fees and offers storage for the entire day with a single booking fee.",
+        "Convenient Locations which are strategically located near Gold Coast’s top attractions.",
+        "Customer-first service, always ready to help.",
+        "Comprehensive security measures for peace of mind.",
+      ],
+    },
+    {
+      type: "h3",
+      heading:
+        "Where Can You Find Urloker’s Luggage Storage Locations in Gold Coast?",
+      para: [
+        "Wondering where to find us? Urloker’s luggage storage locations are strategically placed throughout Gold Coast so you can easily drop off your bags wherever you are. We are close to popular beaches, bustling shopping areas and major transport hubs, making it convenient for you to store your luggage and go enjoy the sights.",
+      ],
+      list: [
+        "Locations near Surfers Paradise and Main Beach.",
+        "Close to major transit hubs for easy access.",
+        "Storage points at shopping and entertainment areas.",
+      ],
+    },
+    {
+      type: "h3",
+      heading: "Affordable and Transparent Luggage Storage in Gold Coast",
+      para: [
+        "At Urloker, we offer simple and competitive pricing for luggage storage in Gold Coast. Our flat rates come with no hidden fees, ensuring you know exactly what you are paying. Experience the best value and peace of mind with Urloker's straightforward pricing.",
+      ],
+      list: [
+        "Fixed Price for Luggage Storage: Enjoy a consistent, flat rate without any surprises.",
+        "No Hidden Fees: What you see is what you pay and there are no additional charges.",
+        "Best Value in Gold Coast: Our competitive rates make us the top choice for luggage storage.",
+      ],
+    },
+    {
+      type: "h4",
+      heading: "Travelling Light: The Perks of Dropping Off Your Bags",
+      para: [
+        "Travelling light is not just a luxury but also it is a game changer. Dropping off your luggage at Urloker’s storage points allows you to explore without feeling weighed down. Whether you are hitting up the theme parks or heading out for a day hike, not having to drag your luggage along means you can be spontaneous and flexible with your plans.",
+      ],
+      list: [
+        "Freedom to change plans without worrying about your bags.",
+        "Easier access to attractions that do not allow large items.",
+        "A true hands-free holiday experience.",
+      ],
+    },
+    {
+      type: "h3",
+      heading: "Who Can Benefit from Luggage Storage in Gold Coast?",
+      para: [
+        "Luggage storage is not just for tourists. Business travellers, backpackers, day-trippers and even locals can benefit from Urloker’s services. If you have a few hours to kill before your flight or just need somewhere",
+      ],
+    },
+    {
+      type: "h3",
+      heading: "Who Can Benefit from Luggage Storage in Gold Coast?",
+      para: [
+        "Luggage storage is not just for tourists. Business travellers, backpackers, day-trippers and even locals can benefit from Urloker’s services. If you have a few hours to kill before your flight or just need somewhere",
+      ],
+      list: [
+        "Tousists wanting to explore without baggage.",
+        "Business travellers needing to store bags during meetings.",
+        "Backpackers looking for a secure spot while they wander.",
+      ],
+    },
+    {
+      type: "h3",
+      heading:
+        "Is My Luggage Safe with Urloker for Luggage Storage in Gold Coast?",
+      para: [
+        "Your belongings are precious, and we get it. That is why safety is our top priority at Urloker. Our storage facilities are equipped with modern locker systems, 24/7 CCTV and secure access protocols. You can travel worry-free, knowing that your belongings are in safe hands.",
+      ],
+      list: [
+        "Secure lockers with staff monitoring.",
+        "24/7 CCTV monitoring at all locations.",
+        "Regular security checks for additional peace of mind.",
+      ],
+    },
+    {
+      type: "h3",
+      heading: "Top Attractions Near Our Gold Coast Luggage Storage Locations",
+      para: [
+        "Urloker’s locations are strategically chosen so you can store your luggage and start exploring right away. With our storage spots near popular attractions, you can visit the best spots in Gold Coast without any baggage hassle.",
+      ],
+      list: [
+        "Surfers Paradise Beach: Iconic golden sands and great vibes.",
+        "SkyPoint Observation Deck: Amazing views from up high.",
+        "Cavill Avenue: Perfect for shopping and entertainment.",
+      ],
+    },
+    {
+      type: "h2",
+      heading: "Benefits of Luggage Storage in Gold Coast with Urloker",
+      para: [
+        "Urloker is not just another storage service. We are designed to make your travel experience seamless, offering a range of perks that go beyond basic storage.",
+      ],
+      list: [
+        "Safety First: State of the art security measures to protect your belongings.",
+        "Affordable Rates: Save money while enjoying top-notch service.",
+        "Accessibility: Easily reachable from public transport hubs.",
+        "No Hidden Fees: Transparent pricing with no surprises.",
+      ],
+    },
+    {
+      type: "h4",
+      heading: "What Can I Store with Urloker in Gold Coast?",
+      para: [
+        "It is not just suitcases that you can store. Urloker accommodates all kinds of items whether it is your backpack, shopping bags or even odd-sized items like surfboards. If it fits in our lockers, it is good to go.",
+      ],
+      list: [
+        "Suitcases of all sizes.",
+        "Backpacks and carry-ons.",
+        "Sports equipment like surfboards and beach gear.",
+      ],
+    },
+    {
+      type: "h4",
+      heading:
+        "What Makes Urloker Different from Other Luggage Storage Services?",
+      para: [
+        "Urloker stands out for a lot of reasons. We are not just about storing your luggage but also we are about making your experience seamless, secure and affordable. Our competitive rates, excellent customer service and convenient locations are just a few reasons travellers choose us.",
+      ],
+      list: [
+        "Customer-first approach, always ready to help.",
+        "Simple booking process with no hidden charges.",
+        "Strategically located storage for ultimate convenience.",
+      ],
+    },
+    {
+      type: "h3",
+      heading: "How to Book Luggage Storage with Urloker in Gold Coast",
+      para: [
+        "Booking with Urloker is as easy as pie. You can make a reservation online via our website or through our app. Choose the location that suits you, select the storage time, and you are all set. It is as simple as click, drop and go.",
+      ],
+      list: [
+        "Visit our website or download the Urloker app.",
+        "Select your desired location and storage time.",
+        "Book in seconds and enjoy a stress-free day.",
+      ],
+    },
+    {
+      type: "h4",
+      heading: "What Happens If You Need to Access Your Stored Luggage?",
+      para: [
+        "Need to access your stuff in the middle of the day. No problem. Urloker makes it super easy to get into your locker whenever you need. Just drop by the location, show your booking details and grab what you need and it is that simple.",
+      ],
+      list: [
+        "Access during opening hours for convenience.",
+        "Easy locker and access anytime.",
+        "No extra charges for accessing your belongings.",
+      ],
+    },
+    {
+      type: "h4",
+      heading: "Can I Store My Bags Overnight in Gold Coast?",
+      para: [
+        "Yes, you can. Urloker offers overnight storage which is perfect if you are catching a late flight or want to keep your bags safe while you explore the nightlife. Drop off your luggage and enjoy Gold Coast without any stress.",
+      ],
+      list: [
+        "Overnight storage options available.",
+        "Secure and monitored throughout the night.",
+        "Convenient for late flights or early checkouts.",
+      ],
+    },
+    {
+      type: "h3",
+      heading:
+        "Travelling with Kids? Why Luggage Storage in Gold Coast Is a Game-Changer",
+      para: [
+        "Travelling with little ones can be challenging, and juggling bags does not make it easier. With Urloker’s luggage storage, you can drop off your bags and focus on what matters most, making memories with your family. Enjoy Gold Coast’s theme parks and beaches hands-free.",
+      ],
+      list: [
+        "Free up your hands to manage your little ones.",
+        "Less stress and more fun for family adventures.",
+        "Access your bags easily when you need.",
+      ],
+    },
+    {
+      type: "h3",
+      heading: "Last-Minute Luggage Storage Options in Gold Coast",
+      para: [
+        "Life is unpredictable and travel plans change. With Urloker, you can book storage even at the last minute. Whether you suddenly need a safe spot for your bags or a layover turned into an all day adventure, Urloker’s here for you.",
+      ],
+      list: [
+        "Instant bookings available online or via app.",
+        "Convenient locations for quick drop off.",
+        "Flexible timings to suit your needs.",
+      ],
+    },
+    {
+      type: "h4",
+      heading: "Planning a Day Trip from Gold Coast? Leave Your Bags Behind",
+      para: [
+        "Day trips are exciting but lugging bags can ruin your day. If you are planning to explore nearby destinations like Byron Bay or Brisbane, just leave your luggage with Urloker and make the most of your time without any extra weight on your back.",
+      ],
+      list: [
+        "Perfect for day trips to Byron Bay or Hinterland.",
+        "No hassle of carrying bags on public transport.",
+        "Enjoy your day, luggage-free.",
+      ],
+    },
+    {
+      type: "h3",
+      heading: "Can I Trust Urloker for Luggage Storage in Gold Coast?",
+      para: [
+        "Absolutely. Urloker’s lockers are built for security and convenience. Our modern, high-tech locker systems ensure that your belongings are safe. With features like secure access and constant surveillance, you can leave your luggage knowing it is in good hands.",
+      ],
+      list: [
+        "Modern lockers.",
+        "24/7 CCTV coverage for all storage points.",
+        "Regular maintenance checks for your safety.",
+      ],
+    },
+    {
+      type: "h4",
+      heading: "What Are the Alternatives to Luggage Storage in Gold Coast?",
+      para: [
+        "There are not many good alternatives to luggage storage but you might consider options like leaving bags at a hotel or trying self-storage units. However, these options often come with higher costs and less flexibility compared to a dedicated luggage storage service like Urloker.",
+      ],
+      list: [
+        "Hotels: Expensive and often limited to guests.",
+        "Self-storage: Complicated and not ideal for short-term.",
+        "Urloker: Affordable, flexible and perfectly convenient.",
+      ],
+    },
+    {
+      type: "h4",
+      heading: "How Luggage Storage Helps Digital Nomads in Gold Coast",
+      para: [
+        "Digital nomads, rejoice. If you are working remotely while exploring Gold Coast, Urloker can be a game changer. Drop your bags off at a secure location, grab your laptop and work from a beachside cafe or a co-working space hands-free and stress-free.",
+      ],
+      list: [
+        "Perfect for remote workers needing mobility.",
+        "Secure your equipment while you work or explore.",
+        "Make the most of work-life balance without the baggage.",
+      ],
+    },
+    {
+      type: "h4",
+      heading: "Common Mistakes to Avoid When Using Luggage Storage",
+      para: [
+        "To get the best out of your luggage storage experience, make sure you avoid common pitfalls like forgetting to check opening hours or not securing your booking in advance. A little planning goes a long way to ensure a smooth experience with Urloker.",
+      ],
+      list: [
+        "Double-check opening and closing times.",
+        "Secure your booking during peak seasons.",
+        "Avoid storing prohibited items to prevent hassles.",
+      ],
+    },
+    {
+      type: "h3",
+      heading:
+        "Can Luggage Storage in Gold Coast Save You Money While Travelling?",
+      para: [
+        "Believe it or not, using luggage storage can actually save you money. Instead of paying for extra transport or carting your bags around on public transport, dropping them at Urloker allows you to explore efficiently. Less hassle, less expense that is a win win.",
+      ],
+      list: [
+        "Save on taxi or Uber costs.",
+        "Avoid paying for unnecessary hotel day rates.",
+        "Enjoy attractions without extra storage fees.",
+      ],
+    },
+    {
+      type: "h2",
+      heading:
+        "Are There Any Weight or Size Limits for the Luggage Storage in Gold Coast with Urloker?",
+      para: [
+        "Urloker prides itself on flexibility and that includes accommodating a variety of luggage sizes. Whether you have a small carry on or a massive suitcase, we have got a spot for you. Just make sure to check our guidelines for specific size and weight limitations.",
+      ],
+      list: [
+        "Accommodate a wide range of luggage sizes.",
+        "No extra charges for larger items just book the right size.",
+        "Clear guidelines for size and weight on our website.",
+      ],
+    },
+    {
+      type: "h2",
+      heading: "Experience the Best Luggage Storage in Gold Cost with Urloker",
+      para: [
+        "Exploring the vibrant Gold Coast is a delight but managing your luggage can be a hassle. Whether you are between accommodations, have a late flight or simply want to enjoy the city unencumbered, finding a reliable luggage storage solution is essential. Urloker offers convenient and secure luggage storage options throughout the Gold Coast and allows you to make the most of your visit without the burden of heavy bags.",
+        "Using Urloker is straightforward and hassle free. Visit our website to locate the nearest storage point in Gold Coast, reserve your spot through our user-friendly online system and drop off your bags at the chosen location. With flexible storage options, affordable pricing and robust security measures, Urloker ensures your belongings are safe so that you can explore the city with peace of mind. Do not let your luggage hold you back and experience Gold Coast unburdened with Urloker.",
+      ],
+    },
+  ];
 
   const schemaCode = {
     "@context": "https://schema.org",
@@ -239,11 +533,11 @@ function GoldCoast() {
                 width={800}
                 height={(800 * 9) / 16}
                 className="aspect-video object-cover rounded-2xl w-full lg:hidden flex-1"
-               alt="luggage storage gold coast"
+                alt="luggage storage gold coast"
                 loading="lazy"
               />
               <h1 className="text-4xl md:text-6xl font-bold my-4 text-green-800">
-              Luggage Storage Gold Coast
+                Luggage Storage Gold Coast
               </h1>
               <p>Freedom in every journey with Urloker</p>
               <div className="flex flex-col sm:flex-row justify-center items-center relative">
@@ -259,7 +553,7 @@ function GoldCoast() {
                       className="bg-white text-black placeholder:text-gray-700 rounded-full p-3 w-full h-fit"
                       placeholder={searchPlaceholder}
                       ref={locationInputRef}
-                      defaultValue={"Sydney, Australia"}
+                      defaultValue={"Gold Coast, Australia"}
                     />
                   </Autocomplete>
                 )}
@@ -280,14 +574,32 @@ function GoldCoast() {
               width={1280}
               height={720}
               className="aspect-video rounded-2xl max-w-2xl w-full hidden lg:block flex-1"
-             alt="luggage storage gold coast"
+              alt="luggage storage gold coast"
               loading="lazy"
             />
           </div>
         </header>
-        <AttractionBox locationImage={locImage} me={"Sydney"} />
+        <AttractionBox
+          locationImage={locImage}
+          me={"Sydney Gold Coast"}
+          cityType="Sydney"
+        />
 
-        <FaqCard t={data} />
+        <main className="p-5 bg-white xl:px-52 w-full mx-auto space-y-10">
+          {data.map((item, index) => {
+            return (
+              <Template
+                key={index}
+                heading={item.heading}
+                type={item.type}
+                para={item?.para || []}
+                list={item?.list || []}
+              />
+            );
+          })}
+        </main>
+
+        <FaqCard t={faqs} />
       </div>
     </div>
   );

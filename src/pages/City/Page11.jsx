@@ -285,7 +285,7 @@ function Adelaide() {
             />
           </div>
         </header>
-        <AttractionBox locationImage={locImage} me={"Sydney"} />
+        <AttractionBox locationImage={locImage} me={"Adelaide"} cityType="Sydney" />
 
         <FaqCard t={data} />
       </div>

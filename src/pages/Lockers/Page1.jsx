@@ -454,6 +454,7 @@ function MelbourneLocker() {
         <AttractionBox
           locationImage={locImage}
           me={"Luggage Lockers Melbourne"}
+          cityType="Melbourne"
         />
         <main className="p-5 bg-white xl:px-52 w-full mx-auto">
           {data.map((item, index) => (

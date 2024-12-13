@@ -286,7 +286,7 @@ function FlindersPage() {
           />
         </div>
       </header>
-      <AttractionBox locationImage={locImage} me={"Flinders Street Station"} />
+      <AttractionBox locationImage={locImage} me={"Flinders Street Station"}  cityType="Melbourne" />
 
       <main className="p-5 bg-white xl:px-52 w-full mx-auto">
         <div className="space-y-6 my-5">

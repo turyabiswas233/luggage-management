@@ -26,7 +26,7 @@ function PromoCodeManagement() {
           <p className="text-3xl font-extrabold p-10">
             *This feature is in development mode
           </p>
-          <div className="p-4 w-full">
+          <div className="p-4 w-full max-w-screen-md mx-auto">
             <h1 className="text-2xl font-semibold text-gray-800">
               Promo Code Management
             </h1>

@@ -264,7 +264,8 @@ function SydneyStorage() {
     },
     {
       type: "h3",
-      heading: "Affordable Luggage Storage Options in <a href='https://en.wikipedia.org/wiki/Sydney'>Sydney</a>",
+      heading:
+        "Affordable Luggage Storage Options in <a href='https://en.wikipedia.org/wiki/Sydney'>Sydney</a>",
       para: [
         "Travelling in Sydney should not break the bank and at Urloker, we are here to ensure that it does not. We understand that travelling can be costly, which is why we offer unbeatable pricing and a seamless storage process. At Urloker, we offer fixed pricing for all luggage sizes with no hourly fees, ensuring that you get great value whether it is a single day drop-off or a longer-term storage plan. Urloker storage solutions are designed to cater to all kind of travellers whether you are backpackers, business people or a tourist exploring the city.",
       ],
@@ -621,7 +622,11 @@ function SydneyStorage() {
             />
           </div>
         </header>
-        <AttractionBox locationImage={locImage} me={"Sydney"} />
+        <AttractionBox
+          locationImage={locImage}
+          me={"Sydney"}
+          cityType="Sydney"
+        />
         <main className="p-5 bg-white xl:px-52 w-full mx-auto space-y-10">
           {data.map((item, index) => {
             return (

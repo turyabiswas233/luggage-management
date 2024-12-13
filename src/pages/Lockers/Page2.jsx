@@ -535,6 +535,7 @@ function SoutherLocker() {
         <AttractionBox
           locationImage={locImage}
           me={"Melbourne Southern cross Station Lockers"}
+          cityType="Melbourne"
         />
         <main className="p-5 bg-white xl:px-52 w-full mx-auto">
           {data.map((item, index) => {

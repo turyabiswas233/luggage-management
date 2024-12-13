@@ -287,7 +287,7 @@ function Melbourne() {
             />
           </div>
         </header>
-        <AttractionBox locationImage={locImage} me={"Melbourne"} />
+        <AttractionBox locationImage={locImage} me={"Melbourne"}  cityType="Melbourne" />
         <main className="p-5 bg-white xl:px-52 w-full mx-auto space-y-10">
           <Template
             type={"h2"}

@@ -110,7 +110,7 @@ const CustomNextArrow = (props) => {
     </button>
   );
 };
-const LuggageStorageLocations = () => {
+const LuggageStorageLocations = ({ cityType }) => {
   const navigate = useNavigate();
   // Get translations for the current language
   const { t: tl } = useTranslation();
@@ -142,14 +142,26 @@ const LuggageStorageLocations = () => {
     try {
       const res = await axios.get(url);
       console.log(res.data.data);
-      setLocations([
-        ...locations,
-        ...res.data?.data?.map((e) => ({
-          name: e?.address,
-          image: e?.images[0]?.url,
-          alt: e?.images[0]?.alt || "Luggage Storage",
-        })),
-      ]);
+      if (cityType === "Sydney")
+        setLocations([
+          ...res.data?.data?.map((e) => ({
+            name: e?.address,
+            image: e?.images[0]?.url,
+            alt: e?.images[0]?.alt || "Luggage Storage",
+          })),
+        ]);
+        else if (cityType === "Melbourne")
+        setLocations(locations);
+      else {
+        setLocations([
+          ...res.data?.data?.map((e) => ({
+            name: e?.address,
+            image: e?.images[0]?.url,
+            alt: e?.images[0]?.alt || "Luggage Storage",
+          })),
+          ...locations,
+        ]);
+      }
     } catch (err) {
       console.error(err);
     }

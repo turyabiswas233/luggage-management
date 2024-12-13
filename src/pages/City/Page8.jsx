@@ -285,7 +285,11 @@ function SydneyCentral() {
             />
           </div>
         </header>
-        <AttractionBox locationImage={locImage} me={"Sydney"} />
+        <AttractionBox
+          locationImage={locImage}
+          me={"Sydney"}
+          cityType="Sydney"
+        />
 
         <FaqCard t={data} />
       </div>

@@ -17,8 +17,7 @@ import { useNavigate } from "react-router-dom";
 import config from "../../config";
 const attr = config.BUCKET_URL + "/files/city/attr.jpeg";
 
-
-function AttractionBox({ locationImage, me }) {
+function AttractionBox({ locationImage, me, cityType = "" }) {
   const navigate = useNavigate();
   const [loadingLocation, setLoadingLocation] = useState(false);
   const handleNearMyLocationClick = () => {
@@ -67,7 +66,7 @@ function AttractionBox({ locationImage, me }) {
         />
       </div>
 
-      <LuggageStorageLocations />
+      <LuggageStorageLocations cityType={cityType} />
 
       <HowItWorks />
       <Review />

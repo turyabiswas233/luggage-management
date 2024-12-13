@@ -267,6 +267,7 @@ function SouthernStation() {
         <AttractionBox
           locationImage={locImage}
           me={"Souther Cross Station Luggage Storage"}
+           cityType="Melbourne"
         />
         <main className="p-5 bg-white xl:px-52 w-full mx-auto space-y-10">
           <div className="space-y-5 my-5">

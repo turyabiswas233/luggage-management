@@ -280,7 +280,7 @@ function AirportPage() {
         </div>
       </header>
 
-      <AttractionBox locationImage={locImage} me={"Melbourne Airport"} />
+      <AttractionBox locationImage={locImage} me={"Melbourne Airport"}  cityType="Melbourne" />
       <main className="p-5 bg-white xl:px-52 w-full mx-auto">
         <div className="space-y-6 my-5">
           <h2 className="text-3xl font-bold">
