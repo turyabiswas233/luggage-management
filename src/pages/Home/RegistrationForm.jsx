@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import config from "../../config";
+import { MdCheckBox, MdCheck, MdCheckBoxOutlineBlank } from "react-icons/md";
 
 const RegistrationForm = ({ loginType, onClose }) => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
+    confirmPassword: "",
     businessAddress: {
       street: "",
       district: "",
@@ -18,7 +20,7 @@ const RegistrationForm = ({ loginType, onClose }) => {
     },
     tradeLicenseNumber: "",
   });
-
+  const [keyServiceOnly, setKeyServiceOnly] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState({});
   const [responseMessage, setResponseMessage] = useState("");
@@ -89,9 +91,11 @@ const RegistrationForm = ({ loginType, onClose }) => {
       ...(loginType === "Partner" && {
         businessAddress: formData.businessAddress,
         tradeLicenseNumber: formData.tradeLicenseNumber,
+        keyServiceOnly: keyServiceOnly,
       }),
     };
     console.log(body);
+
     try {
       const response = await fetch(endpoint, {
         method: "POST",
@@ -100,7 +104,7 @@ const RegistrationForm = ({ loginType, onClose }) => {
         },
         body: JSON.stringify(body),
       });
-      console.log(response)
+      console.log(response);
       const result = await response.json();
       if (response.ok) {
         console.log("Success:", result);
@@ -125,7 +129,9 @@ const RegistrationForm = ({ loginType, onClose }) => {
   };
 
   const handleOkClick = () => {
-    navigate("/logout"); // Redirect to logout page
+    window.localStorage.clear(); // Clear local storage
+    window.location.reload(); // Reload the page
+    // navigate("/logout"); // Redirect to logout page
   };
 
   if (!loginType) return null;
@@ -230,11 +236,34 @@ const RegistrationForm = ({ loginType, onClose }) => {
                     <span className="text-red-500">{errors.password}</span>
                   )}
                 </div>
+                <div className="mb-4">
+                  <label
+                    className="block text-[#4A686A] font-medium"
+                    htmlFor="conPass"
+                  >
+                    Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    id="conPass"
+                    name="confirmPassword"
+                    className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                  />
+                </div>
                 <div className="flex justify-between items-center mb-4">
                   <button
                     className="w-full bg-[#4A686A] hover:bg-[#518689] text-white py-2 px-4 rounded transition duration-200"
                     type="button"
-                    onClick={() => setCurrentStep(2)}
+                    onClick={() => {
+                      if (formData.password === formData.confirmPassword) {
+                        setErrors({});
+                        setCurrentStep(2);
+                      } else {
+                        setErrors({ password: "Passwords do not match" });
+                      }
+                    }}
                   >
                     Next
                   </button>
@@ -392,6 +421,38 @@ const RegistrationForm = ({ loginType, onClose }) => {
                     value={formData.tradeLicenseNumber}
                     onChange={handleChange}
                   />
+                  {errors.tradeLicenseNumber && (
+                    <span className="text-red-500">
+                      {errors.tradeLicenseNumber}
+                    </span>
+                  )}
+                </div>
+                <div className="mb-4 flex items-center gap-2 text-[#518689]">
+                  <span onClick={() => setKeyServiceOnly((p) => !p)}>
+                    {keyServiceOnly ? (
+                      <MdCheckBox />
+                    ) : (
+                      <MdCheckBoxOutlineBlank />
+                    )}
+                  </span>
+                  <input
+                    aria-hidden="true"
+                    type="checkbox"
+                    id="keyServiceOnly"
+                    name="keyServiceOnly"
+                    className="aria-hidden:hidden"
+                    value={keyServiceOnly}
+                    onChange={(e) => {
+                      console.log(e.target.checked);
+                      setKeyServiceOnly(e.target.checked);
+                    }}
+                  />
+                  <label
+                    className="block text-[#4A686A] font-medium"
+                    htmlFor="keyServiceOnly"
+                  >
+                    For only key service
+                  </label>
                   {errors.tradeLicenseNumber && (
                     <span className="text-red-500">
                       {errors.tradeLicenseNumber}

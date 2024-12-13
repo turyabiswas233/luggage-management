@@ -21,6 +21,7 @@ const PartnerProfile = () => {
     zipCode: "",
     country: "",
     tradeLicenseNumber: "",
+    keyServiceOnly: false,
     earnings: 0,
     locations: "",
     bankName: "",
@@ -64,6 +65,7 @@ const PartnerProfile = () => {
             country: result.businessAddress.country,
             tradeLicenseNumber: result.tradeLicenseNumber,
             earnings: result.earnings,
+            keyServiceOnly: result.keyServiceOnly,
             locations: result.locations.join(", "),
             accountHolderName: result.bankDetails.accountHolderName,
             accountNumber: result.bankDetails.accountNumber,
@@ -168,7 +170,8 @@ const PartnerProfile = () => {
             <div className="w-full max-w-4xl">
               <div className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 transition-transform duration-500 hover:shadow-2xl">
                 <h2 className="text-3xl font-extrabold text-center text-blue-700 mb-6 transition-transform duration-500 transform hover:scale-105">
-                  Partner Profile
+                  Partner Profile{" "}
+                  {profile?.keyServiceOnly && <span className="text-sm">Only Key Service*</span>}
                 </h2>
                 <div className="flex flex-col md:flex-row">
                   <div className="flex flex-col items-center md:w-1/3">

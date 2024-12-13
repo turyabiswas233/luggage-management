@@ -91,6 +91,21 @@ const CreatePartnerLocation = () => {
     const url = `${config.API_BASE_URL}/api/v1/locations/create`;
 
     try {
+      const partner = await fetch(
+        `${config.API_BASE_URL}/api/v1/users/profile/partner`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const result = await partner.json();
+      const keyServiceOnly = result.keyServiceOnly;
+
+      if (keyServiceOnly) formData.append("canStoreLuggage", false);
+      else formData.append("canStoreLuggage", true);
+      
+      
       const response = await axios.post(url, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -99,6 +114,8 @@ const CreatePartnerLocation = () => {
       });
 
       if (response.status >= 200 && response.status < 300) {
+        console.log("Location created successfully:", response.data);
+        
         setMessage({ text: "Location created successfully!", type: "success" });
         navigate("/partner/locations");
       } else {

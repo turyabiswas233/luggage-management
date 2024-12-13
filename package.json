@@ -39,6 +39,7 @@
     "@stripe/stripe-js": "^4.1.0",
     "@tailwindcss/forms": "^0.5.7",
     "@tawk.to/tawk-messenger-react": "^2.0.2",
+    "@vis.gl/react-google-maps": "^1.4.2",
     "axios": "^1.7.3",
     "boostrap": "^2.0.0",
     "bootstrap": "^5.3.3",
