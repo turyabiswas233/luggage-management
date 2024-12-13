@@ -85,6 +85,7 @@ const LuggageStoreDetails = () => {
             availableFrom: data?.availableFrom,
             availableTo: data?.availableTo,
             discountPercentage: data?.discountPercentage,
+            canStoreLuggage: data?.canStoreLuggage,
             openTime: data?.openTime,
             closeTime: data?.closeTime,
             notes: data?.notes,
@@ -107,6 +108,9 @@ const LuggageStoreDetails = () => {
   useEffect(() => {
     fetchStoreDetails();
   }, [state]);
+  useEffect(() => {
+    fetchStoreDetails();
+  }, []);
 
   const handleSubmit = async (bookingData, guestDetails) => {
     console.log("Guest Details:", guestDetails); // Log guest details to the console
@@ -209,7 +213,16 @@ const LuggageStoreDetails = () => {
   const handleBookingErrorModalClose = () => {
     setShowBookingErrorModal(false);
   };
-
+  if(storeDetails?.canStoreLuggage === false){
+    return (
+      <div className="text-center py-10 px-2 mb-10 min-h-52 flex justify-center items-center flex-col">
+        <p className="text-3xl font-bold">
+          This storage is not available for luggage booking.
+        </p>
+        <p>Please try another location</p>
+      </div>
+    );
+  }
   return (
     <div>
       {/* {isLoggedIn ? <ClientNavbarComp /> : <NavbarComp />} */}
