@@ -448,10 +448,10 @@ const RegistrationForm = ({ loginType, onClose }) => {
                     }}
                   />
                   <label
-                    className="block text-[#4A686A] font-medium"
+                    className="block text-[#4A686A] font-bold"
                     htmlFor="keyServiceOnly"
                   >
-                    For only key service
+                    Check this if you only provide key services
                   </label>
                   {errors.tradeLicenseNumber && (
                     <span className="text-red-500">
