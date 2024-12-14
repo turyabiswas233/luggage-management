@@ -56,9 +56,9 @@ const Review = () => {
   return (
     <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
           Trusted by millions of customers all over the world
-        </h1>
+        </h2>
         <h3 className="text-2xl font-medium mt-3 mb-6 text-[#4A686A]">
           {t.title}
         </h3>

@@ -481,7 +481,7 @@ function AirportPage() {
                 is required to access the inner sanctum of the storage cubes.
               </li>
               <li>
-                Find out which storage closet you put your goods in by using
+                Find out which storage closest you put your goods in by using
                 proper-aimed directional signs.
               </li>
               <li>Place your luggage items inside your locker.</li>

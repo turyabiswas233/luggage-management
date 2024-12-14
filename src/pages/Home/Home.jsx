@@ -200,10 +200,10 @@ const CurrentCities = () => {
   return (
     <div className="p-10 px-52 bg-gray-50 w-full">
       <h2 className="text-3xl font-bold">
-        Store your luggage to your closet location
+        Store your luggage to your closest location
       </h2>
       <br />
-      <h4 className="text-xl font-bold">Newly added lcoations</h4>
+      <h4 className="text-xl font-bold">Newly added locations</h4>
       <div className="flex flex-wrap gap-3 my-5">
         {cities?.sort()?.map((loc) => (
           <Link
