@@ -42,6 +42,7 @@ const AllPartner = () => {
             },
           }
         );
+        console.log("Fetched Partners:", response.data);
 
         const fetchedPartners = response.data.map((partner) => ({
           id: partner._id,
@@ -51,6 +52,7 @@ const AllPartner = () => {
           tradeLicenseNumber: partner.tradeLicenseNumber,
           isLocked: partner.user.isLocked,
           isDeleted: partner.user.isDeleted,
+          keyServiceOnly: partner?.keyServiceOnly || false,
         }));
 
         setPartners(fetchedPartners);
@@ -77,10 +79,10 @@ const AllPartner = () => {
 
   const confirmAction = async () => {
     const token = localStorage.getItem("token");
+    alert("Will be added soon!");
+    return;
     try {
       if (actionType === "lock" || actionType === "unlock") {
-        alert("Will be added soon!");
-        return;
         setPartners(
           partners.map((partner) =>
             partner.id === selectedPartner.id
@@ -133,6 +135,37 @@ const AllPartner = () => {
     }
   };
 
+  const toggleKeyService = async (partnerId) => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.put(
+        `${config.API_BASE_URL}/api/v1/superadmin/partners/${partnerId}/keyServiceOnly`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Key Service Response:", response.data);
+      setErrorMessage(response.data.message);
+      setPartners(
+        partners.map((partner) =>
+          partner.id === partnerId
+            ? {
+                ...partner,
+                keyServiceOnly: response.data.partner.keyServiceOnly,
+              }
+            : partner
+        )
+      );
+      // alert("Key Service status updated successfully");
+    } catch (err) {
+      console.error("Error:", err);
+      setErrorMessage("Failed to update key service status.");
+    }
+  };
   const filteredPartners = partners.filter((partner) =>
     partner.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -231,72 +264,88 @@ const AllPartner = () => {
                 </thead>
 
                 <tbody className="text-gray-800">
-                  {currentPartners.map((partner) => (
-                    <tr
-                      key={partner.id}
-                      className="bg-white hover:bg-gray-200 transition duration-150"
-                    >
-                      <td className="w-1/5 py-3 px-6 border">
-                        <button
-                          onClick={() =>
-                            navigate(`/superadmin/partners/${partner.id}`)
-                          }
-                          className="text-blue-600 hover:text-blue-800"
-                        >
-                          {partner.username}
-                        </button>
-                      </td>
-                      <td className="w-1/5 py-3 px-6 border">
-                        {partner.email}
-                      </td>
-                      <td className="w-2/5 py-3 px-6 border">
-                        {partner.businessAddress.street},{" "}
-                        {partner.businessAddress.district},{" "}
-                        {partner.businessAddress.city},{" "}
-                        {partner.businessAddress.state},{" "}
-                        {partner.businessAddress.zipCode},{" "}
-                        {partner.businessAddress.country}
-                      </td>
-                      <td className="w-1/5 py-3 px-6 border">
-                        {partner.tradeLicenseNumber}
-                      </td>
-                      <td className="py-4 px-8 border text-center flex justify-center space-x-2">
-                        <button
-                          onClick={() =>
-                            handleAction(
-                              partner,
-                              partner.isLocked ? "unlock" : "lock"
-                            )
-                          }
-                          className={`px-2 py-2 rounded ${
-                            partner.isLocked
-                              ? "bg-yellow-500 hover:bg-yellow-700"
-                              : "bg-green-500 hover:bg-green-700"
-                          } text-white`}
-                        >
-                          {partner.isLocked ? "Unlock" : "Lock"}
-                        </button>
-                        <button
-                          onClick={() => handleAction(partner, "hardDelete")}
-                          className="px-2 py-2 bg-red-500 hover:bg-red-700 text-white rounded"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                      <td className="py-4 px-8 border text-center hidden">
-                        {partner.isDeleted ? (
-                          <span className="text-gray-500">Soft Deleted</span>
-                        ) : (
+                  {currentPartners
+                    .sort((a, b) => {
+                      return a.username.localeCompare(b.username);
+                    })
+                    .map((partner) => (
+                      <tr
+                        key={partner.id}
+                        className="bg-white hover:bg-gray-200 transition duration-150"
+                      >
+                        <td className="w-1/5 py-3 px-6 border">
                           <button
-                            onClick={() => handleAction(partner, "softDelete")}
-                            className="px-2 py-2 bg-orange-500 hover:bg-orange-700 text-white rounded"
+                            onClick={() =>
+                              navigate(`/superadmin/partners/${partner.id}`)
+                            }
+                            className="text-blue-600 hover:text-blue-800"
                           >
-                            Trash
+                            {partner.username}
                           </button>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                        <td className="w-1/5 py-3 px-6 border">
+                          {partner.email}
+                        </td>
+                        <td className="w-2/5 py-3 px-6 border">
+                          {partner.businessAddress.street},{" "}
+                          {partner.businessAddress.district},{" "}
+                          {partner.businessAddress.city},{" "}
+                          {partner.businessAddress.state},{" "}
+                          {partner.businessAddress.zipCode},{" "}
+                          {partner.businessAddress.country}
+                        </td>
+                        <td className="w-1/5 py-3 px-6 border">
+                          {partner.tradeLicenseNumber}
+                        </td>
+                        <td className="py-4 px-8 border text-center flex justify-center space-x-2">
+                          <button
+                            onClick={() =>
+                              handleAction(
+                                partner,
+                                partner.isLocked ? "unlock" : "lock"
+                              )
+                            }
+                            className={`px-2 py-2 rounded ${
+                              partner.isLocked
+                                ? "bg-yellow-500 hover:bg-yellow-700"
+                                : "bg-green-500 hover:bg-green-700"
+                            } text-white`}
+                          >
+                            {partner.isLocked ? "Unlock" : "Lock"}
+                          </button>
+                          <button
+                            onClick={() => toggleKeyService(partner.id)}
+                            className={`px-2 py-2 rounded ${
+                              partner.keyServiceOnly
+                                ? "bg-yellow-500 hover:bg-yellow-700"
+                                : "bg-green-500 hover:bg-green-700"
+                            } text-white`}
+                          >
+                            {partner.keyServiceOnly ? "Key Service" : "Both"}
+                          </button>
+                          <button
+                            onClick={() => handleAction(partner, "hardDelete")}
+                            className="px-2 py-2 bg-red-500 hover:bg-red-700 text-white rounded"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                        <td className="py-4 px-8 border text-center hidden">
+                          {partner.isDeleted ? (
+                            <span className="text-gray-500">Soft Deleted</span>
+                          ) : (
+                            <button
+                              onClick={() =>
+                                handleAction(partner, "softDelete")
+                              }
+                              className="px-2 py-2 bg-orange-500 hover:bg-orange-700 text-white rounded"
+                            >
+                              Trash
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>

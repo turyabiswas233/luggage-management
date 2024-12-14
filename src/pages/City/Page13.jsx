@@ -175,7 +175,8 @@ function Canberra() {
     },
     {
       type: "h2",
-      heading: "Who Needs Luggage Storage in Canberra?",
+      heading:
+        "Who Needs Luggage Storage in <a href='https://en.wikipedia.org/wiki/Canberra'>Canberra</a>?",
       para: [
         "Luggage storage is not just for tourists. It is ideal for anyone who finds themselves between destinations or in need of temporary storage. Let's explore who can benefit from this service:",
       ],
@@ -205,12 +206,12 @@ function Canberra() {
     },
     {
       type: "h3",
-      heading: "How Does Urloker Work for Luggage Storage Canberra?",
+      heading: "How Does Urloker Work for <a href='https://en.wikipedia.org/wiki/Baggage'>Luggage</a> Storage Canberra?",
       para: [
         "Using Urloker is simple and straightforward. We know you are busy, so we have made the process as easy as possible:",
       ],
       list: [
-        "Visit Our Website: Head to urloker.com and choose your location.",
+        "Visit Our Website: Head to <a href='https://urloker.com'>urloker.com</a> and choose your location.",
         "Select Your Storage Option: Decide on the drop-off location, duration and size of storage.",
         "Drop Off Your Bags: Head to your chosen storage point and leave your luggage with us.",
       ],
@@ -260,7 +261,9 @@ function Canberra() {
     {
       type: "h3",
       heading: "How Secure Is Urloker's Luggage Storage in Canberra?",
-      para: ["We know that security is your top concern when it comes to luggage storage. At Urloker, we take the safety of your belongings seriously. Here is how we ensure your luggage is in safe hands:"],
+      para: [
+        "We know that security is your top concern when it comes to luggage storage. At Urloker, we take the safety of your belongings seriously. Here is how we ensure your luggage is in safe hands:",
+      ],
       list: [
         "24/7 CCTV Monitoring: All our locations are monitored to keep your items secure.",
         "Secure Lockers: Robust lockers to ensure your luggage stays untouched.",
@@ -272,7 +275,9 @@ function Canberra() {
     {
       type: "h4",
       heading: "Is There Luggage Storage Near Canberra Airport?",
-      para: ["Definitely. We know that one of the most convenient times to store luggage is right after you land or before you depart. That is why Urloker offers luggage storage solutions near Canberra Airport:"],
+      para: [
+        "Definitely. We know that one of the most convenient times to store luggage is right after you land or before you depart. That is why Urloker offers luggage storage solutions near Canberra Airport:",
+      ],
       list: [
         "Convenient Access: Just a short distance from the terminal.",
         "Flexible Storage Options: Available for both short and long-term needs.",
@@ -282,7 +287,9 @@ function Canberra() {
     {
       type: "h4",
       heading: "Luggage Storage Near Canberra Train Station",
-      para: ["If you are planning a rail journey, you will want to leave your luggage behind so you can relax or explore before your departure. Our luggage storage near Canberra Train Station offers:"],
+      para: [
+        "If you are planning a rail journey, you will want to leave your luggage behind so you can relax or explore before your departure. Our luggage storage near Canberra Train Station offers:",
+      ],
       list: [
         "Quick Drop-Off: Store your bags right before hopping on your train.",
         "Easy Retrieval: Pick up your items whenever you need.",
@@ -294,7 +301,9 @@ function Canberra() {
     {
       type: "h3",
       heading: "What Can I Store at Urloker?",
-      para: ["At Urloker, we do not just handle suitcases. We offer storage for various items to accommodate all types of travellers:"],
+      para: [
+        "At Urloker, we do not just handle suitcases. We offer storage for various items to accommodate all types of travellers:",
+      ],
       list: [
         "Backpacks and Suitcases: Ideal for travellers of all kinds.",
         "Sports Equipment: Bikes, skis and more, we have got room for them.",
@@ -318,7 +327,9 @@ function Canberra() {
     {
       type: "h4",
       heading: "Are There Any Hidden Fees?",
-      para: ["Transparency is key to our service. At Urloker, there are no hidden fees or nasty surprises:"],
+      para: [
+        "Transparency is key to our service. At Urloker, there are no hidden fees or nasty surprises:",
+      ],
       list: [
         "Straightforward Pricing: What you see is what you pay.",
         "No Surprises: The price shown during booking is the price you will pay.",
@@ -330,10 +341,12 @@ function Canberra() {
     {
       type: "h4",
       heading: "What Are Urloker's Operating Hours?",
-      para: ["We understand that travel plans do not always fit within a 9 to 5 schedule. That is why Urloker offers flexible operating hours:"],
+      para: [
+        "We understand that travel plans do not always fit within a 9 to 5 schedule. That is why Urloker offers flexible operating hours:",
+      ],
       list: [
         "Early Morning to Late Night: Depending on location, hours vary to accommodate travellers.",
-        "Check Specific Locations: Visit urloker.com for exact times at your chosen storage facility.",
+        "Check Specific Locations: Visit <a href='https://urloker.com'>urloker.com</a> for exact times at your chosen storage facility.",
         "Flexible Access: We make sure you can drop off and pick up when it works best for you.",
       ],
       para2:
@@ -342,7 +355,9 @@ function Canberra() {
     {
       type: "h2",
       heading: "Why Is Luggage Storage Essential for Travellers in Canberra?",
-      para: ["When you are travelling, the last thing you want is to be burdened by heavy bags. Luggage storage at Urloker gives you freedom and flexibility, allowing you to fully experience Canberra's attractions like:"],
+      para: [
+        "When you are travelling, the last thing you want is to be burdened by heavy bags. Luggage storage at Urloker gives you freedom and flexibility, allowing you to fully experience Canberra's attractions like:",
+      ],
       list: [
         "National Gallery of Australia: Enjoy your visit without lugging bags.",
         "Parliament House: Walk through this iconic landmark hands-free.",
@@ -356,7 +371,9 @@ function Canberra() {
     {
       type: "h4",
       heading: "Can Locals Use Urloker's Storage Service?",
-      para: ["Yes, absolutely. Urloker is not just for tourists, locals can use our luggage storage services too:"],
+      para: [
+        "Yes, absolutely. <a href='https://urloker.com'>Urloker</a> is not just for tourists, locals can use our luggage storage services too:",
+      ],
       list: [
         "Decluttering: Temporarily store extra items while organizing your space.",
         "Events and Activities: If you do not want to carry your bags around an event, drop them off with us.",
@@ -368,9 +385,11 @@ function Canberra() {
     {
       type: "h4",
       heading: "How to Find the Nearest Urloker Location in Canberra",
-      para: ["Finding the nearest Urloker location is quick and easy. Here's how:"],
+      para: [
+        "Finding the nearest Urloker location is quick and easy. Here's how:",
+      ],
       list: [
-        "Use Our Website: Head to urloker.com and enter your current location.",
+        "Use Our Website: Head to <a href='https://urloker.com'>urloker.com</a> and enter your current location.",
         "Mobile App: Use our mobile app for instant directions to the nearest storage facility.",
         "Quick Search: With just a few taps, you'll be on your way to a nearby Urloker location.",
       ],
@@ -381,7 +400,9 @@ function Canberra() {
       type: "h2",
       heading:
         "What Sets Urloker Apart From Traditional Luggage Storage in Canberra?",
-      para: ["Urloker is not your average luggage storage facility. We are here to revolutionize how you store your luggage in Canberra. Here's what makes us different:"],
+      para: [
+        "Urloker is not your average luggage storage facility. We are here to revolutionize how you store your luggage in Canberra. Here's what makes us different:",
+      ],
       list: [
         "Advanced Security: Unlike traditional lockers, we offer CCTV monitoring and insured storage.",
         "Convenient Booking: Book online or via our seamless booking process and no need to deal with manual, on-site payments.",
@@ -393,7 +414,9 @@ function Canberra() {
     {
       type: "h4",
       heading: "Do You Offer Group Storage Options?",
-      para: ["Travelling with friends or family? We have got you covered with our group storage solutions:"],
+      para: [
+        "Travelling with friends or family? We have got you covered with our group storage solutions:",
+      ],
       list: [
         "Family Travel: Store all your bags in one place, hassle-free.",
         "Group Trips: Large groups can keep their luggage together for convenience.",
@@ -405,7 +428,9 @@ function Canberra() {
     {
       type: "h4",
       heading: "Is My Luggage Insured at Urloker?",
-      para: ["Yes, it is. We know how important peace of mind is when it comes to your belongings. That is why at Urloker, we offer insurance coverage for all stored items:"],
+      para: [
+        "Yes, it is. We know how important peace of mind is when it comes to your belongings. That is why at Urloker, we offer insurance coverage for all stored items:",
+      ],
       list: [
         "Insured Storage: Your belongings are covered against damage or theft.",
         "Extra Peace of Mind: Leave your bags knowing they are in safe, insured hands.",
@@ -417,7 +442,9 @@ function Canberra() {
     {
       type: "h3",
       heading: "What is the Booking Process at Urloker in Canberra?",
-      para: ["Booking with Urloker is designed to be simple, so you can get on with your day without fuss:"],
+      para: [
+        "Booking with Urloker is designed to be simple, so you can get on with your day without fuss:",
+      ],
       list: [
         "Select Your Storage Location: Find the most convenient location in Canberra.",
         "Choose Your Duration: Pick the time period you need short-term or long-term.",
@@ -428,7 +455,9 @@ function Canberra() {
     {
       type: "h3",
       heading: "How Urloker Helps You Maximise Your Day in Canberra",
-      para: ["Imagine exploring Canberra without dragging your bags around. With Urloker, you can fully immerse yourself in the experience:"],
+      para: [
+        "Imagine exploring Canberra without dragging your bags around. With Urloker, you can fully immerse yourself in the experience:",
+      ],
       list: [
         "Travel Light: Store your luggage and move freely around the city.",
         "Enjoy More: Spend more time at attractions and less time worrying about where your bags are.",
@@ -440,7 +469,9 @@ function Canberra() {
     {
       type: "h2",
       heading: "Benefits of Luggage Storage in Perth CBD with Urloker",
-      para: ["Urloker is not just another storage service. We are designed to make your travel experience seamless, offering a range of perks that go beyond basic storage."],
+      para: [
+        "Urloker is not just another storage service. We are designed to make your travel experience seamless, offering a range of perks that go beyond basic storage.",
+      ],
       list: [
         "Safety First: State of the art security measures to protect your belongings.",
         "Affordable Rates: Save money while enjoying top-notch service.",
@@ -451,7 +482,9 @@ function Canberra() {
     {
       type: "h4",
       heading: "Any Tips for Travellers Using Luggage Storage?",
-      para: ["Here are some quick tips to make the most of your Urloker experience:"],
+      para: [
+        "Here are some quick tips to make the most of your Urloker experience:",
+      ],
       list: [
         "Book Early: During peak seasons, it is best to book in advance to secure your spot.",
         "Keep Essentials With You: Things like passports, money and electronics are best kept on you.",
@@ -463,7 +496,9 @@ function Canberra() {
     {
       type: "h3",
       heading: "Why Urloker's Luggage Storage in Canberra Is a Game-Changer",
-      para: ["At Urloker, we are redefining what it means to store luggage while travelling. Here is why we think our service is a game changer:"],
+      para: [
+        "At Urloker, we are redefining what it means to store luggage while travelling. Here is why we think our service is a game changer:",
+      ],
       list: [
         "Convenience: Strategic locations make it easy to find us.",
         "Flexibility: From a couple of hours to several weeks, we have got options for every need.",
@@ -579,7 +614,7 @@ function Canberra() {
             );
           })}
         </main>
-        <FaqCard t={faqs} title={'FAQs About Luggage Storage in Canberra'} />
+        <FaqCard t={faqs} title={"FAQs About Luggage Storage in Canberra"} />
         <p className="p-5 xl:px-52 text-black/80 bg-white">
           Urloker is all about making travel lighter, seamless, simpler and
           hassle-free. Whether you are in Canberra for a few hours or a few

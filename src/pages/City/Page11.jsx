@@ -87,36 +87,44 @@ function Adelaide() {
   const faqs = [
     {
       question: "What is Urloker, and how does it work in Adelaide?",
-      answer: "Urloker is a convenient luggage storage service where you can securely store your bags while exploring Adelaide. Simply book online, drop off your luggage and enjoy your day hassle-free."
+      answer:
+        "Urloker is a convenient luggage storage service where you can securely store your bags while exploring Adelaide. Simply book online, drop off your luggage and enjoy your day hassle-free.",
     },
     {
       question: "Where is Urloker located in Adelaide?",
-      answer: "Urloker offers central locations in Adelaide which is close to popular attractions and transport hubs like the Adelaide Train Station."
+      answer:
+        "Urloker offers central locations in Adelaide which is close to popular attractions and transport hubs like the Adelaide Train Station.",
     },
     {
       question: "Can I store my luggage overnight in Adelaide?",
-      answer: "Yes, Urloker offers overnight storage for travellers who need flexibility in their schedules."
+      answer:
+        "Yes, Urloker offers overnight storage for travellers who need flexibility in their schedules.",
     },
     {
       question: "What size of luggage can I store?",
-      answer: "Urloker accepts bags of all sizes, from small backpacks to large suitcases."
+      answer:
+        "Urloker accepts bags of all sizes, from small backpacks to large suitcases.",
     },
     {
       question: "How do I book luggage storage in Adelaide?",
-      answer: "Booking is quick and easy on the Urloker website. Choose your location, storage duration and pay securely online."
+      answer:
+        "Booking is quick and easy on the Urloker website. Choose your location, storage duration and pay securely online.",
     },
     {
       question: "Is there a limit to how long I can store my luggage?",
-      answer: "Urloker offers both short-term and long-term storage solutions to fit your travel plans."
+      answer:
+        "Urloker offers both short-term and long-term storage solutions to fit your travel plans.",
     },
     {
       question: "Are there discounts for storing multiple bags?",
-      answer: "Yes, Urloker provides discounts for storing multiple items. Check the website for special offers."
+      answer:
+        "Yes, Urloker provides discounts for storing multiple items. Check the website for special offers.",
     },
     {
       question: "Can I cancel or modify my booking?",
-      answer: "Yes, Urloker offers flexible booking options with easy cancellations or modifications."
-    }
+      answer:
+        "Yes, Urloker offers flexible booking options with easy cancellations or modifications.",
+    },
   ];
   const { searchPlaceholder, findLocationsButton } = translate?.heroSection;
 
@@ -187,7 +195,7 @@ function Adelaide() {
       type: "h2",
       heading: "Urloker - Your Handy Solution for Luggage Storage in Adelaide",
       para: [
-        "Urloker is designed with one mission: to take the load off your shoulders (literally). We offer centrally located luggage storage in Adelaide that is secure and easy to access. Whether you are a backpacker, a family on holiday or someone passing through for the day, our services cater to all types of travellers. Flexibility is key when you are on the move, which is why Urloker offers short-term and long-term storage options to fit your schedule perfectly. With Urloker, you will have peace of mind knowing your belongings are safe while you explore Adelaide without limits.",
+        "<a href='https://urloker.com'>Urloker</a> is designed with one mission: to take the load off your shoulders (literally). We offer centrally located luggage storage in Adelaide that is secure and easy to access. Whether you are a backpacker, a family on holiday or someone passing through for the day, our services cater to all types of travellers. Flexibility is key when you are on the move, which is why Urloker offers short-term and long-term storage options to fit your schedule perfectly. With Urloker, you will have peace of mind knowing your belongings are safe while you explore Adelaide without limits.",
       ],
       list: [
         "Centrally located for easy access.",
@@ -201,7 +209,8 @@ function Adelaide() {
     },
     {
       type: "h3",
-      heading: "Where Can I Store My Luggage in Adelaide?",
+      heading:
+        "Where Can I Store My Luggage in <a hrf='https://en.wikipedia.org/wiki/Adelaide'>Adelaide</a>?",
       para: [
         "We get it, finding the right place to leave your bags can be a bit of a headache. Fortunately, Urloker has several locations strategically placed in central Adelaide, near key attractions and transport hubs. Whether you need to store your luggage near Adelaide Train Station, Rundle Mall or any of the city’s highlights, Urloker’s got you covered. Our goal is to make sure you are never more than a few minutes away from safe and secure luggage storage.",
       ],
@@ -219,7 +228,7 @@ function Adelaide() {
       heading:
         "How Urloker Makes Luggage Storage in Adelaide Simple and Stress-Free",
       para: [
-        "With Urloker, storing your luggage in Adelaide is designed to be as smooth as possible. You can book your storage space online in minutes, making it easy to secure your spot even before you arrive. When you drop off your bags, you will find our staff friendly and the process seamless. We use secure lockers and monitored areas so that you do not have to worry about anything. That is right you can finally explore Adelaide with peace of mind.",
+        "With Urloker, storing your <a href='https://en.wikipedia.org/wiki/Baggage'>luggage</a> in Adelaide is designed to be as smooth as possible. You can book your storage space online in minutes, making it easy to secure your spot even before you arrive. When you drop off your bags, you will find our staff friendly and the process seamless. We use secure lockers and monitored areas so that you do not have to worry about anything. That is right you can finally explore Adelaide with peace of mind.",
       ],
       list: [
         "Fast and easy online booking process.",
@@ -616,7 +625,7 @@ function Adelaide() {
             );
           })}
         </main>
-        <FaqCard t={faqs} title={'FAQs About Luggage Storage in Adelaide'} />
+        <FaqCard t={faqs} title={"FAQs About Luggage Storage in Adelaide"} />
       </div>
     </div>
   );

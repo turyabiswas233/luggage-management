@@ -158,7 +158,8 @@ function PerthCBD() {
     },
     {
       type: "h2",
-      heading: "Why Do You Need Luggage Storage in Perth CBD?",
+      heading:
+        "Why Do You Need Luggage Storage in <a href='https://en.wikipedia.org/?title=Perth_CBD&redirect=no'>Perth CBD</a>?",
       para: [
         "Travelling light is not just a luxury, it is the key to enjoying Perth's bustling city centre to the fullest. Imagine strolling through the vibrant streets of Perth CBD, unburdened by bags. From impromptu shopping sprees to spontaneous photo opportunities, having a storage spot for your luggage makes everything smoother. At Urloker, we give you the freedom to explore the city your way by offering secure and convenient luggage storage options so that you can make the most of your day.",
         "<b>Why use luggage storage in Perth CBD?</b>",
@@ -191,7 +192,7 @@ function PerthCBD() {
       type: "h3",
       heading: "What Makes Urloker Stand Out for Luggage Storage in Perth CBD?",
       para: [
-        "At Urloker, we are not just about storing luggage but also providing convenience, safety and peace of mind. Our modern lockers come equipped with the latest security features so that you can rest easy knowing your belongings are in safe hands. We focus on delivering a simple and seamless experience that lets you get on with exploring Perth without a care in the world.",
+        "At <a href='https://urloker.com'>Urloker</a>, we are not just about storing luggage but also providing convenience, safety and peace of mind. Our modern lockers come equipped with the latest security features so that you can rest easy knowing your belongings are in safe hands. We focus on delivering a simple and seamless experience that lets you get on with exploring Perth without a care in the world.",
         "<b>Why choose us?</b>",
       ],
       list: [
@@ -206,7 +207,8 @@ function PerthCBD() {
     },
     {
       type: "h3",
-      heading: "Is Luggage Storage Safe in Perth CBD at Urloker?",
+      heading:
+        "Is <a href='https://en.wikipedia.org/wiki/Baggage'>Luggage</a> Storage Safe in Perth CBD at Urloker?",
       para: [
         "Absolutely. Safety is a top priority at Urloker. We use modern, highly secure lockers with 24/7 monitoring and gives you complete peace of mind. Our facility is designed to keep your belongings secure, no matter how long you choose to store them. When you store your bags with us, you can focus on enjoying your day knowing that everything is taken care of.",
         "<b>Safety features include:</b>",
@@ -608,10 +610,11 @@ function PerthCBD() {
           ))}
         </main>
 
-        <FaqCard t={faqs} title={'FAQs about Luggage Storage in Perth CBD'} />
+        <FaqCard t={faqs} title={"FAQs about Luggage Storage in Perth CBD"} />
         <p className="p-10 xl:px-52 bg-white">
-        Urloker makes storing your luggage in Perth CBD seamless, secure and hassle free so that you can focus on what really matters. Enjoy freedom in every journey with Urloker.
-
+          Urloker makes storing your luggage in Perth CBD seamless, secure and
+          hassle free so that you can focus on what really matters. Enjoy
+          freedom in every journey with Urloker.
         </p>
       </div>
     </div>

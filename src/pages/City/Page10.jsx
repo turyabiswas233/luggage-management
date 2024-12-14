@@ -255,7 +255,8 @@ function BrisbaneCBD() {
     },
     {
       type: "h3",
-      heading: "Where Can You Find the Best Luggage Storage in Brisbane CBD?",
+      heading:
+        "Where Can You Find the Best Luggage Storage in <a href='https://en.wikipedia.org/wiki/Brisbane_central_business_district'>Brisbane CBD</a>?",
       para: [
         "At Urloker, of course! Our facilities are strategically located for easy access. Drop off your bags on your way to a meeting or before exploring the city.",
         "Our locations are near major transport hubs and popular attractions. You can find us near places like Queen Street Mall, Central Station, South Bank Parklands, Eagle Street Pier and other key points. With Urloker, you get the perfect combination of accessibility, affordability and peace of mind. Say goodbye to heavy bags and hello to a hassle-free day in Brisbane with Urloker.",
@@ -266,7 +267,7 @@ function BrisbaneCBD() {
       type: "h4",
       heading: "Why Urloker is the Best Choice",
       para: [
-        "When it comes to luggage storage in Brisbane CBD, Urloker stands out for its unbeatable convenience, safety and flexibility. Here is why we are the trusted choice for travelers, business professionals and locals alike:",
+        "When it comes to <a href='https://en.wikipedia.org/wiki/Baggage'>luggage</a> storage in Brisbane CBD, Urloker stands out for its unbeatable convenience, safety and flexibility. Here is why we are the trusted choice for travelers, business professionals and locals alike:",
       ],
       list: [
         "Convenient Locations: Our storage facilities are strategically located near major transport hubs and iconic attractions such as Queen Street Mall, South Bank Parklands and Brisbane Central Station which makes it easy to drop off and pick up your bags.",
@@ -280,7 +281,7 @@ function BrisbaneCBD() {
       heading: "How Does Brisbane CBD Luggage Storage Work?",
       para: [
         "Drop off your bags, enjoy your day and pick them up when you are ready. Our process is designed to be simple so you can make the most of your time in Brisbane.",
-        "Booking with Urloker is easy. Use our online booking system to reserve your spot, drop your bags at our location and enjoy the city hands-free.",
+        "Booking with <a href='https://urloker.com'>Urloker</a> is easy. Use our online booking system to reserve your spot, drop your bags at our location and enjoy the city hands-free.",
       ],
       list: [],
     },

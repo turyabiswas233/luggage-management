@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../../config";
 
-const EditLocationModal = ({ location, onClose, onUpdate, onUpdateImage }) => {
+const EditLocationModal = ({
+  location,
+  onClose,
+  onUpdate,
+  onUpdateImage,
+  toggleCanStoreLuggage,
+  toggleStoreKeys,
+}) => {
   const [formData, setFormData] = useState({
     openTime: "",
     closeTime: "",
@@ -143,6 +150,25 @@ const EditLocationModal = ({ location, onClose, onUpdate, onUpdateImage }) => {
               className="px-4 py-2 bg-blue-500 text-white rounded-lg transition duration-200 ease-in-out transform hover:bg-blue-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Update
+            </button>
+          </div>
+          
+          <hr className="my-5"/>
+          <p className="text-center">Or</p>
+          <div className="flex justify-center my-5">
+            <button
+              type="button"
+              onClick={()=> toggleCanStoreLuggage(location._id)}
+              className="px-4 py-2 bg-amber-600 text-amber-50 font-semibold rounded-lg mr-2 transition duration-200 ease-in-out transform hover:bg-amber-800 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+            >
+              Toggle Can Store Luggage
+            </button>
+            <button
+              type="button"
+              onClick={()=> toggleStoreKeys(location._id)}
+              className="px-4 py-2 bg-custom-teal-deep text-white rounded-lg transition duration-200 ease-in-out transform hover:bg-green-800 hover:scale-105 focus:outline-none"
+            >
+              Toggle Store Keys
             </button>
           </div>
         </form>

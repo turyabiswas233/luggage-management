@@ -22,7 +22,7 @@ body {
 }
 main a,
 main a:visited {
-  @apply text-custom-teal-deep underline font-bold;
+  @apply text-custom-teal-deep no-underline hover:underline font-bold;
 }
 img {
   pointer-events: none;

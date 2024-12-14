@@ -12,6 +12,7 @@ import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { MdChargingStation, MdDelete, MdEdit } from "react-icons/md";
+import { LuLoader } from "react-icons/lu";
 
 const AllLocations = () => {
   const [locations, setLocations] = useState([]);
@@ -281,6 +282,83 @@ const AllLocations = () => {
     });
   };
 
+  // toggle-charging-station
+  const toggleChargingStation = async (locId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.patch(
+        `${config.API_BASE_URL}/api/v1/superadmin/locations/${locId}/toggle-charging-station`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        alert("Charging Station Status toggled successfully.");
+      } else {
+        alert("Failed to update store keys.");
+      }
+    } catch (error) {
+      alert(
+        error.response.data.message || "An error occurred. Please try again."
+      );
+    }
+  };
+  // toggle-store-keys
+  const toggleStoreKeys = async (locId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.put(
+        `${config.API_BASE_URL}/api/v1/superadmin/locations/${locId}/toggleCanStoreKeys`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        alert("Store Keys toggled successfully.");
+      } else {
+        alert("Failed to update store keys.");
+      }
+    } catch (error) {
+      console.log(error);
+      
+      alert(
+        error.response.data.message || "An error occurred. Please try again."
+      );
+    }
+  };
+
+  // can-store-luggage
+  const toggleCanStoreLuggage = async (locId) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.patch(
+        `${config.API_BASE_URL}/api/v1/superadmin/locations/${locId}/toggle-can-store-luggage`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        alert("Can Store Luggage toggled successfully.");
+      } else {
+        alert("Failed to update store keys.");
+      }
+    } catch (error) {
+      console.log(error);
+      alert(
+        error.response.data.message || "An error occurred. Please try again."
+      );
+    }
+  };
+
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -327,12 +405,7 @@ const AllLocations = () => {
             <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
               {loading ? (
                 <div className="flex justify-center items-center p-8">
-                  <div
-                    className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
-                    role="status"
-                  >
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
+                  <LuLoader size={34} className="animate-spin" />
                 </div>
               ) : error ? (
                 <div className="flex justify-center items-center p-8 text-red-500">
@@ -404,8 +477,8 @@ const AllLocations = () => {
                             ) : (
                               <button
                                 onClick={() => {
-                                  setIsAssigning(true);
                                   setCurrentLocation(location);
+                                  setIsAssigning(true);
                                 }}
                                 className="px-4 py-2 rounded-lg bg-blue-500 text-white transition duration-150"
                               >
@@ -413,10 +486,10 @@ const AllLocations = () => {
                               </button>
                             )}
                           </td>
-                          <td className="py-3 pr-5 border-b text-center grid grid-cols-3 gap-1 items-center text-xs">
+                          <td className="py-3 pr-5 border-b flex flex-wrap justify-start gap-1 text-xs">
                             <button
                               onClick={() => {
-                                updateCharging(location?._id);
+                                toggleChargingStation(location?._id);
                               }}
                               className="p-2 w-fit mx-auto rounded-lg bg-green-400 text-white transition duration-150 flex justify-center items-center"
                             >
@@ -424,8 +497,8 @@ const AllLocations = () => {
                             </button>
                             <button
                               onClick={() => {
-                                setIsEditing(true);
                                 setCurrentLocation(location);
+                                setIsEditing(true);
                               }}
                               className="p-2 w-fit mx-auto rounded-lg bg-teal-500 text-white transition duration-150 flex justify-center items-center"
                             >
@@ -440,22 +513,7 @@ const AllLocations = () => {
                               <MdDelete size={15} />
                             </button>
                           </td>
-                          <td className="py-3 px-6 border-b text-center hidden">
-                            {location.isDeleted ? (
-                              <span className="text-gray-500">
-                                Soft Deleted
-                              </span>
-                            ) : (
-                              <button
-                                onClick={() =>
-                                  confirmDeleteLocation(location._id, "soft")
-                                }
-                                className="px-4 py-2 rounded-lg bg-orange-500 text-white transition duration-150"
-                              >
-                                Trash
-                              </button>
-                            )}
-                          </td>
+                          
                         </tr>
                       );
                     })}
@@ -495,6 +553,9 @@ const AllLocations = () => {
             onClose={() => setIsEditing(false)}
             onUpdate={updateLocation}
             onUpdateImage={updateImage}
+            toggleCanStoreLuggage={toggleCanStoreLuggage}
+            toggleStoreKeys={toggleStoreKeys}
+
           />
         )}
         {isAssigning && (
