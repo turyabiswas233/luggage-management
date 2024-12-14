@@ -65,8 +65,8 @@ const NavbarComp = ({ currentLanguage = "en", setLanguage }) => {
           className={`fixed top-24 left-0 w-screen md:w-fit md:static md:flex md:flex-row md:space-x-16 text-[#208873] ${
             isMenuOpen
               ? "translate-x-0 space-y-3 md:space-y-0"
-              : "opacity-0 pointer-events-none -translate-x-20 -z-10"
-          } transition-all md:translate-x-0 duration-200 md:opacity-100 md:pointer-events-auto bg-white md:bg-transparent shadow-xl shadow-slate-300 md:shadow-none rounded-md p-3`}
+              : "opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto -translate-x-20 md:translate-x-0"
+          } transition-all duration-200 bg-white shadow-xl shadow-slate-300 md:shadow-none rounded-md p-3`}
         >
           <Link
             to="/urlokerkeysmap"
