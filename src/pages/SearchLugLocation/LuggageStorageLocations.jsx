@@ -150,20 +150,21 @@ const LuggageStorageLocations = ({ cityType }) => {
             alt: e?.images[0]?.alt || "Luggage Storage",
           })),
         ]);
-        else if (cityType === "Melbourne")
-        setLocations(locations);
+      else if (cityType === "Melbourne") setLocations(locations);
       else {
-        setLocations([
+        const combinedLocations = [
+          ...locations,
           ...res.data?.data?.map((e) => ({
             name: e?.address,
             image: e?.images[0]?.url,
             alt: e?.images[0]?.alt || "Luggage Storage",
           })),
-          ...locations,
-        ]);
+        ];
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setLocations(combinedLocations.sort(() => Math.random() - 0.5)); // this will shuffle the array by sorting them randomly
     }
   };
   useEffect(() => {

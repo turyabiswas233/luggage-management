@@ -37,6 +37,7 @@ function UrlokerKeys() {
   const [keysNum, setKeysNum] = useState(1);
   const [promoCode, setPromoCode] = useState(""); // promo_code
   const [isPromoApplied, setIsPromoApplied] = useState(false); // promo_code checker
+  const [discount, setDiscount] = useState(false); // promo_code checker
   const [promoAlert, setPromoAlert] = useState("");
   const [load, setLoad] = useState(false);
   // const [location, setLocation] = useState(sk.get("location") || "");
@@ -65,7 +66,7 @@ function UrlokerKeys() {
 
       // Calculate X and Y positions to center the content
       const imgWidth = 210; // PDF width in mm
-      const pageHeight = 210*21/9;
+      const pageHeight = (210 * 21) / 9;
       const imgHeight = (canvas.height * imgWidth) / canvas.width; // Keep aspect ratio
       let heightLeft = imgHeight;
       let position = 0;
@@ -145,10 +146,10 @@ function UrlokerKeys() {
         },
         // keyDropOffTime: dropOffDate.toISOString(), // Key pickup time
         keyPickUpTime: pickUpDate.toISOString(), // Key pickup time
-        keyStorageFee: amount, // Optional, defaults to the location's hourly fee
+        keyStorageFee: amount, // Optional, defaults to the location's fee
         keyOwner: {
-          name: "John Doe", // Required key owner name
-          email: "john@example.com", // Required key owner email
+          name: dropOffName, // Required key owner name
+          email: dropOffEmail, // Required key owner email
         },
         // timezone: Intl?.DateTimeFormat()?.resolvedOptions()?.timeZone,
       });
@@ -158,7 +159,13 @@ function UrlokerKeys() {
         // setBookingId(result.booking._id);
         console.log("AirBnB Key ID:", response.data);
         if (!isPromoApplied) setShowPaymentModal(true);
-        else if (isPromoApplied && response.data.booking?._id) {
+        else if (isPromoApplied && parseInt(amount.toString()) > 0) {
+          setShowPaymentModal(true);
+        } else if (
+          isPromoApplied &&
+          response.data.booking?._id &&
+          parseInt(amount.toString()) === 0
+        ) {
           const utilizeResponse = await axios.put(
             `${url}/api/v1/promocode/utilize/${promoCode}`,
             {}
@@ -174,8 +181,8 @@ function UrlokerKeys() {
             `${url}/api/v1/airbnb-keys/bookings/${response.data.booking?._id}/discount`,
             {
               discountCode: promoCode,
-              discountPercentage: 100,
-              coversFullAmount: true,
+              discountPercentage: discount,
+              coversFullAmount: parseInt(amount.toString()) === 0,
             }
           );
           console.log("Promo Response:", promoResponse.data);
@@ -336,7 +343,10 @@ function UrlokerKeys() {
                   id="promo_code"
                   name="promo_code"
                   value={promoCode}
-                  onChange={(e) => setPromoCode(e.target.value)}
+                  onChange={(e) => {
+                    setPromoAlert("");
+                    setPromoCode(e.target.value);
+                  }}
                 />
                 <button
                   className="bg-custom-teal text-white font-medium px-5 rounded-md hover:bg-custom-teal-deep transition-colors"
@@ -344,7 +354,8 @@ function UrlokerKeys() {
                   onClick={(e) => {
                     e.preventDefault();
                     if (promoCode.length == 0) {
-                      alert("Please enter a promo code");
+                      setPromoAlert("Please enter a promo code");
+                      setAmount(15);
                       return;
                     } else {
                       const url = config.API_BASE_URL;
@@ -354,13 +365,10 @@ function UrlokerKeys() {
                         .then((res) => {
                           console.log(res.data);
                           if (res.data?.discountPercentage) {
-                            console.log(
-                              amount -
-                                (amount * res.data?.discountPercentage) / 100
-                            );
-                            setAmount((p) =>
+                            setDiscount(res.data?.discountPercentage);
+                            setAmount(
                               Number(
-                                p - (p * res.data?.discountPercentage) / 100
+                                15 - (15 * res.data?.discountPercentage) / 100
                               )
                             );
                             setIsPromoApplied(true);
@@ -373,6 +381,7 @@ function UrlokerKeys() {
                         })
                         .catch((err) => {
                           setIsPromoApplied(false);
+                          setAmount(15);
                           setPromoAlert(
                             err.response?.data?.message || "Invalid promo code"
                           );
@@ -569,6 +578,7 @@ const PaymentFormModal = ({ clientSecret, bookingId, setFinalMessage }) => {
         else setFinalMessage("PAYMENT FAILED");
       } catch (error) {
         console.error("Error updating booking status:", error);
+        setFinalMessage("PAYMENT FAILED");
         setLoading(false);
       } finally {
         setLoading(false);

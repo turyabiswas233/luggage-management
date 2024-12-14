@@ -63,7 +63,7 @@ const Home = () => {
         </script>
       </Helmet>
       <Banner />
-      <LuggageStorageLocations />
+      <LuggageStorageLocations cityType={"both"} />
       <HowItWorks />
 
       <Review />
@@ -133,88 +133,117 @@ const Demo = () => {
 const CurrentCities = () => {
   const cities = [
     {
-      to: "/luggage-storage-melbourne",
       name: "Melbourne",
+      to: "/luggage-storage-melbourne",
+      city: "melbourne",
     },
     {
       name: "Melbourne CBD",
       to: "/luggage-storage-melbourne-cbd",
+      city: "melbourne",
     },
     {
       name: "Melbourne Airport",
       to: "/luggage-storage-melbourne-airport",
+      city: "melbourne",
     },
     {
       name: "Flinders Street Station",
       to: "/flinders-street-station-luggage-storage",
+      city: "melbourne",
     },
     {
       to: "/southern-cross-station-luggage-storage",
       name: "Southern Cross Station",
+      city: "melbourne",
     },
     {
       to: "/luggage-storage-melbourne-central-station",
       name: "Melbourne Central Station",
+      city: "melbourne",
     },
     {
       to: "/luggage-storage-sydney",
       name: "Luggage Storage Sydney",
+      city: "sydney",
     },
     {
       to: "/luggage-lockers-melbourne",
       name: "Luggage Locker Melbourne",
+      city: "melbourne",
     },
     {
       to: "/melbourne-southern-cross-station-lockers",
       name: "Melbourne Southern cross Station Lockers",
+      city: "melbourne",
     },
     {
       to: "/luggage-storage-sydney-central",
       name: "Luggage Storage Sydney Central",
+      city: "sydney",
     },
     {
       to: "/luggage-storage-sydney-circular-quay",
       name: "Luggage Storage Sydney Circular Quay",
+      city: "sydney",
     },
     {
       to: "/luggage-storage-brisbane-cbd",
       name: "Luggage Storage Brisbane CBD",
+      city: "sydney",
     },
     {
       to: "/luggage-storage-adelaide",
       name: "Luggage Storage Adelaide",
+      city: "sydney",
     },
     {
       to: "/luggage-storage-perth-cbd",
       name: "Luggage Storage Perth CBD",
+      city: "sydney",
     },
     {
       to: "/luggage-storage-canberra",
       name: "Luggage Storage Canberra",
+      city: "sydney",
     },
     {
       to: "/luggage-storage-gold-coast",
       name: "Luggage Storage Gold Coast",
+      city: "sydney",
     },
   ];
+  const groupedCities = cities.reduce((acc, city) => {
+    if (!acc[city.city]) {
+      acc[city.city] = [];
+    }
+    acc[city.city].push(city);
+    return acc;
+  }, {});
+
   return (
-    <div className="p-10 px-52 bg-gray-50 w-full">
+    <div className="p-10 md:px-20 xl:container mx-auto bg-gray-50 w-full rounded-md my-5 shadow-custom-teal-deep/10 shadow-xl">
       <h2 className="text-3xl font-bold">
         Store your luggage to your closest location
       </h2>
       <br />
       <h4 className="text-xl font-bold">Newly added locations</h4>
-      <div className="flex flex-wrap gap-3 my-5">
-        {cities?.sort()?.map((loc) => (
-          <Link
-            to={loc?.to}
-            key={`city-${loc?.name}`}
-            className="relative text-custom-teal-deep no-underline after:absolute after:w-full after:h-1 after:bg-custom-teal-deep after:left-0 after:-bottom-2 after:rounded-full hover:after:h-2 after:transition-all"
-          >
-            {loc?.name}
-          </Link>
-        ))}
-      </div>
+      {Object.keys(groupedCities).map((cityKey) => (
+        <div key={cityKey} className="my-5">
+          <h5 className="text-lg font-semibold capitalize">{cityKey}</h5>
+          <div className="flex flex-wrap gap-3">
+            {groupedCities[cityKey].map((loc) => (
+              <Link
+                to={loc.to}
+                key={`city-${loc.name}`}
+                className="relative text-custom-teal-deep no-underline after:absolute after:w-full after:h-1 after:bg-custom-teal-deep after:left-0 after:-bottom-2 after:rounded-full hover:after:h-2 after:transition-all"
+              >
+                {loc.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

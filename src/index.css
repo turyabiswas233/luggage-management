@@ -7,6 +7,7 @@ body {
   scroll-behavior: smooth;
   transition: all 0.75s linear;
   overflow-x: hidden;
+  max-height: 100dvh;
 }
 .quillText {
   padding-left: 1em;

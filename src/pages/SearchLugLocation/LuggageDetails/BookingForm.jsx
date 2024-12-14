@@ -136,8 +136,10 @@ const BookingForm = ({
     ) {
       const dailyRate = 10.5; // Combined service fee and luggage price per day
       const duration = calculateDuration(checkinTime, checkoutTime);
-      let price = dailyRate * duration * luggageQuantity;
-      price -= price * (discount / 100);
+      let price =
+        dailyRate * duration * luggageQuantity -
+        (discount / 100) * 7.9 * duration * luggageQuantity;
+
       price = parseFloat(price.toFixed(2)); // Round to two decimal places
       setTotalPrice(price);
     }
@@ -230,7 +232,7 @@ const BookingForm = ({
   };
 
   return (
-    <div className="bg-white text-slate-900 shadow-md rounded-lg p-6">
+    <div className="bg-white text-slate-900 shadow-md rounded-lg p-6 mb-10">
       <h5 className="text-2xl font-bold mb-4">Your Booking</h5>
       {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
       <form id="booking-form" onSubmit={handleFormSubmit}>
@@ -343,7 +345,6 @@ const BookingForm = ({
           </div>
           <div className="border-t border-gray-300 pt-4">
             <h6 className="font-bold mb-2">Price details</h6>
-
             <div className="flex justify-between">
               <span>
                 {luggageQuantity} Checked bag
@@ -361,7 +362,6 @@ const BookingForm = ({
                 ).toFixed(2)}
               </span>
             </div>
-
             <div className="flex justify-between pt-2">
               <span>
                 Total Service Charge per day (A$2.60 x{" "}
@@ -379,7 +379,6 @@ const BookingForm = ({
                 ).toFixed(2)}
               </span>
             </div>
-
             <div className="flex justify-between font-bold text-xl mt-4">
               <span>
                 Total{" "}
@@ -405,14 +404,14 @@ const BookingForm = ({
               </span>
             </div>
           </div>
+          {/* Show error message */}
+          {errorMessage && <p className="text-red-500">{errorMessage}</p>}{" "}
           <button
             type="submit"
             className="w-full bg-[#1A73A7] text-white py-2 rounded-lg hover:bg-[#1a6397] transition duration-300"
           >
             Submit
           </button>
-          {errorMessage && <p className="text-red-500">{errorMessage}</p>}{" "}
-          {/* Show error message */}
         </div>
         {loading ? (
           <div className="flex justify-center items-center h-32">
