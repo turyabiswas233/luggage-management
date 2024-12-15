@@ -27,7 +27,7 @@ function AdminLoginForm() {
       localStorage.setItem('token', token);
       localStorage.setItem('loginTime', new Date().getTime().toString()); // Store the login time
       console.log('Login successful', response.data);
-      navigate('/superadmin/partner-analytics');
+      navigate('/superadmin/analytics');
     } catch (error) {
       console.error('Login failed', error);
       setError('Login failed. Please check your credentials and try again.');

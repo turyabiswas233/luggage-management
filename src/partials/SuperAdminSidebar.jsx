@@ -119,7 +119,7 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
               {/* Dashboard */}
               <SidebarLinkGroup
                 activecondition={
-                  pathname === "/" || pathname.includes("partner-analytics")
+                  pathname === "/" || pathname.includes("analytics")
                 }
               >
                 {(handleClick, open) => {
@@ -129,7 +129,7 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                         href="#0"
                         className={`block text-slate-200 truncate transition duration-150 ${
                           pathname === "/" ||
-                          pathname.includes("partner-analytics")
+                          pathname.includes("analytics")
                             ? "hover:text-slate-200"
                             : "hover:text-white"
                         }`}
@@ -149,7 +149,7 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                               <path
                                 className={`fill-current ${
                                   pathname === "/" ||
-                                  pathname.includes("partner-analytics")
+                                  pathname.includes("analytics")
                                     ? "text-indigo-500"
                                     : "text-slate-400"
                                 }`}
@@ -158,7 +158,7 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                               <path
                                 className={`fill-current ${
                                   pathname === "/" ||
-                                  pathname.includes("partner-analytics")
+                                  pathname.includes("analytics")
                                     ? "text-indigo-600"
                                     : "text-slate-600"
                                 }`}
@@ -167,7 +167,7 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                               <path
                                 className={`fill-current ${
                                   pathname === "/" ||
-                                  pathname.includes("partner-analytics")
+                                  pathname.includes("analytics")
                                     ? "text-indigo-200"
                                     : "text-slate-400"
                                 }`}
