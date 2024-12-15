@@ -96,6 +96,7 @@ import SoutherLocker from "./pages/Lockers/Page2";
 // error page
 import ErrorPage from "./pages/404";
 import PromoCodeManagement from "./pages/SuperAdmin/promocode/PromoCodeManagement";
+import Invoice from "./partials/Invoice";
 
 const root = document.getElementById("root");
 const routerConfig = createBrowserRouter([
@@ -107,6 +108,10 @@ const routerConfig = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "/invoice",
+        element: <Invoice />,
       },
       {
         path: "/about",
@@ -354,10 +359,6 @@ const routerConfig = createBrowserRouter([
       },
       {
         path: "analytics",
-        element: <AdminAnalytics />,
-      },
-      {
-        path: "partner-analytics",
         element: <SuperAdminPartnerAnalytics />,
       },
       {

@@ -4,6 +4,7 @@ import axios from "axios";
 import WelcomeBanner from "../../partials/dashboard/WelcomeBanner";
 import SuperAdminSidebar from "../../partials/SuperAdminSidebar";
 import SuperAdminHeader from "../../partials/SuperAdminHeader";
+import { MdDelete } from "react-icons/md";
 function SuperAdminUrloker() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [data, setData] = useState(null);
@@ -20,6 +21,7 @@ function SuperAdminUrloker() {
           // d?.bookings
           d?.bookings?.filter((p) => p.payment.status !== "pending")
         );
+      else setBookingList([]);
     } catch (err) {
       console.log(err);
     }
@@ -143,6 +145,9 @@ const BookingCard = ({ bookingData, _id }) => {
     luggageCount,
   } = bookingData;
 
+  const [cancelPopup, setCancelPopup] = useState(false);
+  const [cancelBookingId, setCancelBookingId] = useState(null);
+
   const formattedStartDate = new Date(startDate);
   formattedStartDate.setHours(startTime?.split(":")[0]);
   formattedStartDate.setMinutes(startTime?.split(":")[1]);
@@ -172,6 +177,67 @@ const BookingCard = ({ bookingData, _id }) => {
   };
   return (
     <div className="hover:bg-green-50 transition-colors text-sm grid grid-cols-4 gap-0">
+      {cancelPopup && (
+        <div className="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white shadow-lg rounded-lg p-5">
+            <p className="text-lg mb-5">
+              Are you sure you want to cancel this booking?
+            </p>
+            <div>
+              <div className="font-bold">
+                <p>Guest Name: {guest?.name || "N/A"}</p>
+                <p>Guest Email: {guest?.email || "N/A"}</p>
+                <p>Location Name: {location?.name || "N/A"}</p>
+                <p>
+                  Paid Amount: ${Number(payment?.amount).toFixed(2) || "N/A"}
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-2 items-center justify-center mt-2">
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors"
+                onClick={async () => {
+                  try {
+                    const response = await axios.put(
+                      `${config.API_BASE_URL}/api/v1/superadmin/bookings/${cancelBookingId}/cancel`,
+                      {},
+                      {
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                          )}`,
+                        },
+                      }
+                    );
+                    console.log("response", response);
+                     
+                    alert(
+                      response.data.message || "Booking cancelled successfully"
+                    );
+                    setCancelBookingId(null);
+                    setCancelPopup(false);
+                    window.location.reload();
+                  } catch (error) {
+                    console.error("Failed to cancel booking", error);
+                    alert("Failed to cancel booking");
+                  }
+                }}
+              >
+                Yes
+              </button>
+              <button
+                className="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded-md transition-colors"
+                onClick={() => {
+                  setCancelBookingId(null);
+                  setCancelPopup(false);
+                }}
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <section className="text-gray-700 px-4 border-b border border-black overflow-x-auto break-keep">
         <h2 className="font-medium text-gray-900">{`Booking ID: ${bookingData._id}`}</h2>
 
@@ -179,6 +245,19 @@ const BookingCard = ({ bookingData, _id }) => {
           <li>{`Name: ${guest?.name}`}</li>
           <li>{`Email: ${guest?.email}`}</li>
           {guest?.phone && <li>{`Phone: ${guest?.phone}`}</li>}
+
+          <div className="flex gap-2 items-center">
+            <button
+              className="bg-red-50 rounded-md p-2 text-red-500 ring-1 ring-red-900 hover:bg-red-500 hover:text-red-50"
+              type="button"
+              onClick={() => {
+                setCancelBookingId(_id);
+                setCancelPopup(true);
+              }}
+            >
+              <MdDelete size={20} />
+            </button>
+          </div>
         </ul>
       </section>
       <section className="text-gray-700 px-4 border-b border border-black overflow-x-auto break-keep">
@@ -187,8 +266,8 @@ const BookingCard = ({ bookingData, _id }) => {
           {keyStorage?.isKeyStorage && (
             <li>
               Key Storage Fee:{" "}
-              <span className="math-inline">
-                {Number(keyStorage?.keyStorageFee).toFixed(2)}
+              <span className="math-inline bg-green-500 text-white rounded-md px-3 py-1">
+                ${Number(keyStorage?.keyStorageFee).toFixed(2)}
               </span>{" "}
               AUD
             </li>
@@ -196,7 +275,7 @@ const BookingCard = ({ bookingData, _id }) => {
         </ul>
       </section>
       <section className="text-gray-700 px-4 border-b border border-black overflow-x-auto break-keep">
-        <ul className="grid">
+        <ul className="grid gap-1">
           <li>{`Drop off Time: ${formattedStartDate.toLocaleString("en-AU", {
             hour12: true,
             month: "short",
@@ -207,10 +286,19 @@ const BookingCard = ({ bookingData, _id }) => {
           })} (Australian Time Zone)`}</li>
           <li className="hidden">{`Kyes Count: ${luggageCount}`}</li>
           {/* <li>{`Payment Status: ${payment.status}`}</li> */}
-          <li>{`Payment Method: ${payment.method}`}</li>
-          {payment.transactionId && (
-            <li className="break-keep">{`Transaction ID: ${payment.transactionId}`}</li>
-          )}
+          <li>
+            Payment Method:{" "}
+            <span className="bg-black text-white p-1 text-xs rounded-md uppercase">
+              {payment.method}
+            </span>
+          </li>
+          <li>
+            Payment Status:{" "}
+            <span className="bg-black text-white p-1 text-xs rounded-md uppercase">
+              {payment.status}
+            </span>
+          </li>
+          
         </ul>
       </section>
       {keyStorage?.isKeyStorage && (

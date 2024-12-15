@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { MdEdit } from "react-icons/md";
+import { MdDelete, MdEdit } from "react-icons/md";
 import SuperAdminSidebar from "../../partials/SuperAdminSidebar";
 import SuperAdminHeader from "../../partials/SuperAdminHeader";
 import config from "../../config";
@@ -18,6 +18,8 @@ const AllBookings = () => {
   const [bookingsPerPage] = useState(50);
   const [editId, setEditId] = useState(null);
   const [preData, setPreData] = useState(null);
+  const [cancelPopup, setCancelPopup] = useState(false);
+  const [cancelBookingId, setCancelBookingId] = useState(null);
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -32,8 +34,16 @@ const AllBookings = () => {
             },
           }
         );
+        console.log(response.data);
+
         if (Array.isArray(response.data)) {
-          setBookings(response.data);
+          setBookings(
+            response.data.filter(
+              (booking) =>
+                booking.chargingStation.isChargingStationBooking == false &&
+                booking.keyStorage.isKeyStorage == false
+            )
+          );
         } else {
           setBookings([]);
         }
@@ -169,6 +179,97 @@ const AllBookings = () => {
           sidebarOpen={sidebarOpen}
           setSidebarOpen={setSidebarOpen}
         />
+        {cancelPopup && (
+          <div className="fixed top-0 left-0 z-50 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white shadow-lg rounded-lg p-5">
+              <p className="text-lg mb-5">
+                Are you sure you want to cancel this booking?
+              </p>
+              <div>
+                <div className="font-bold">
+                  <p>
+                    Guest Name:{" "}
+                    {currentBookings.find(
+                      (booking) => booking._id === cancelBookingId
+                    )?.guest?.name || "N/A"}
+                  </p>
+                  <p>
+                    Guest Email:{" "}
+                    {currentBookings.find(
+                      (booking) => booking._id === cancelBookingId
+                    )?.guest?.email || "N/A"}
+                  </p>
+                  <p>
+                    Location Name:{" "}
+                    {currentBookings.find(
+                      (booking) => booking._id === cancelBookingId
+                    )?.location?.name || "N/A"}
+                  </p>
+                  <p>
+                    Paid Amount: $
+                    {Number(
+                      currentBookings.find(
+                        (booking) => booking._id === cancelBookingId
+                      )?.payment?.amount
+                    ).toFixed(2) || "N/A"}
+                  </p>
+                </div>
+              </div>
+              <div className="flex gap-2 items-center justify-center mt-2">
+                <button
+                  className="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors"
+                  onClick={async () => {
+                    try {
+                      setLoading(true);
+                      const response = await axios.put(
+                        `${config.API_BASE_URL}/api/v1/superadmin/bookings/${cancelBookingId}/cancel`,
+                        {},
+                        {
+                          headers: {
+                            Authorization: `Bearer ${localStorage.getItem(
+                              "token"
+                            )}`,
+                          },
+                        }
+                      );
+                      console.log("response", response);
+                      setBookings((prev) =>
+                        prev.map((booking) =>
+                          booking._id !== cancelBookingId
+                            ? booking
+                            : response.data.data
+                        )
+                      );
+                      alert(
+                        response.data.message ||
+                          "Booking cancelled successfully"
+                      );
+                      setCancelBookingId(null);
+                      setCancelPopup(false);
+                      // window.location.reload();
+                    } catch (error) {
+                      console.error("Failed to cancel booking", error);
+                      alert("Failed to cancel booking");
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
+                >
+                  Yes
+                </button>
+                <button
+                  className="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded-md transition-colors"
+                  onClick={() => {
+                    setCancelBookingId(null);
+                    setCancelPopup(false);
+                  }}
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
@@ -182,7 +283,20 @@ const AllBookings = () => {
                 className="px-4 py-2 border rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300"
               />
             </div>
-
+            <div className="bg-white p-4 rounded-lg shadow-lg mb-4 flex flex-col justify-between">
+              <p>
+                Total Luggage Booking: <b>{bookings.length || 0}</b>{" "}
+              </p>
+              <p>
+                Total Paid Booking:{" "}
+                <b>
+                  {bookings.reduce(
+                    (total, b) => (b.status == "paid" ? total + 1 : total),
+                    0
+                  ) || 0}
+                </b>{" "}
+              </p>
+            </div>
             {/* Booking List Table */}
             <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
               {loading ? (
@@ -237,21 +351,33 @@ const AllBookings = () => {
                             >
                               <td className="w-1/5 py-3 px-6 border">
                                 {getClientInfo(booking.client, booking.guest)}
-                                <button
-                                  className="bg-white rounded-md p-2 text-black ring-1 ring-red-500"
-                                  type="button"
-                                  onClick={() => {
-                                    setPreData({
-                                      startDate: booking.startDate,
-                                      startTime: booking.startTime,
-                                      endDate: booking.endDate,
-                                      endTime: booking.endTime,
-                                    });
-                                    setEditId(booking._id);
-                                  }}
-                                >
-                                  <MdEdit size={20} />
-                                </button>
+                                <div className="flex gap-2 items-center">
+                                  <button
+                                    className="bg-blue-50 rounded-md p-2 text-black ring-1 ring-blue-500 hover:bg-blue-500 hover:text-white"
+                                    type="button"
+                                    onClick={() => {
+                                      setPreData({
+                                        startDate: booking.startDate,
+                                        startTime: booking.startTime,
+                                        endDate: booking.endDate,
+                                        endTime: booking.endTime,
+                                      });
+                                      setEditId(booking._id);
+                                    }}
+                                  >
+                                    <MdEdit size={20} />
+                                  </button>
+                                  <button
+                                    className="bg-red-50 rounded-md p-2 text-red-500 ring-1 ring-red-900 hover:bg-red-500 hover:text-red-50"
+                                    type="button"
+                                    onClick={() => {
+                                      setCancelBookingId(booking._id);
+                                      setCancelPopup(true);
+                                    }}
+                                  >
+                                    <MdDelete size={20} />
+                                  </button>
+                                </div>
                               </td>
                               <td className="w-1/5 py-3 px-6 border">
                                 {booking.location
@@ -411,6 +537,10 @@ const EditBookingTime = ({ id, preData, hideDialog }) => {
                 },
               }
             );
+            console.log("response", response);
+
+            alert(response.data.message || "Booking time updated successfully");
+            hideDialog();
           } catch (error) {
             console.error("Failed to update booking time", error);
             alert("Failed to update booking time");

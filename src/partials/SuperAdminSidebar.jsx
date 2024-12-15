@@ -196,7 +196,7 @@ function SuperAdminSidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/superadmin/partner-analytics"
+                              to="/superadmin/analytics"
                               className={({ isActive }) =>
                                 "no-underline block transition duration-150 truncate p-2 " +
                                 (isActive
