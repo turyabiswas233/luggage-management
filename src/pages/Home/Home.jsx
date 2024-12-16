@@ -63,7 +63,7 @@ const Home = () => {
         </script>
       </Helmet>
       <Banner />
-      <LuggageStorageLocations cityType={"both"} />
+      <LuggageStorageLocations cityType={""} />
       <HowItWorks />
 
       <Review />

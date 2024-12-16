@@ -154,8 +154,8 @@ const LuggageStoreInfo = ({
   const formatTime = (timeStr) => {
     const options = { hour: "numeric", minute: "numeric", hour12: true };
     return new Date(`1970-01-01T${timeStr}Z`).toLocaleTimeString(
-      undefined,
-      options
+      'en-AU',
+      {...options, timeZone: 'UTC' }
     );
   };
 

@@ -137,21 +137,25 @@ const LuggageStorageLocations = ({ cityType }) => {
     });
   };
 
-  const getSydney = async () => {
-    const url = config.API_BASE_URL + "/api/v1/featured/search?city=Sydney";
+  const getLocations = async () => {
     try {
-      const res = await axios.get(url);
-      console.log(res.data.data);
-      if (cityType === "Sydney")
-        setLocations([
-          ...res.data?.data?.map((e) => ({
-            name: e?.address,
-            image: e?.images[0]?.url,
-            alt: e?.images[0]?.alt || "Luggage Storage",
-          })),
-        ]);
-      else if (cityType === "Melbourne") setLocations(locations);
-      else {
+      if (cityType !== "") {
+        const url =
+          config.API_BASE_URL + `/api/v1/featured/search?city=${cityType}`;
+        if (cityType === "Melbourne") setLocations(locations);
+        else {
+          const res = await axios.get(url);
+          setLocations([
+            ...res.data?.data?.map((e) => ({
+              name: e?.address,
+              image: e?.images[0]?.url,
+              alt: e?.images[0]?.alt || "Luggage Storage",
+            })),
+          ]);
+        }
+      } else {
+        const url = config.API_BASE_URL + `/api/v1/featured/search?city=Melbourne`;
+        const res = await axios.get(url);
         const combinedLocations = [
           ...locations,
           ...res.data?.data?.map((e) => ({
@@ -160,15 +164,14 @@ const LuggageStorageLocations = ({ cityType }) => {
             alt: e?.images[0]?.alt || "Luggage Storage",
           })),
         ];
+        setLocations(combinedLocations.sort(() => Math.random() - 0.5)); // this will shuffle the array by sorting them randomly
       }
     } catch (err) {
       console.error(err);
-    } finally {
-      setLocations(combinedLocations.sort(() => Math.random() - 0.5)); // this will shuffle the array by sorting them randomly
     }
   };
   useEffect(() => {
-    getSydney();
+    getLocations();
   }, []);
 
   return (

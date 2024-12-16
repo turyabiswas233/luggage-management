@@ -142,13 +142,20 @@ function PromoCodeEdit() {
                     f.discountPercentage === selectedPromoKey &&
                     codeType == Boolean(f.isActive)
                 )
+                .sort((a, b) =>
+                  new Date(a.expiresAt).getTime() -
+                    new Date(b.expiresAt).getTime() <=
+                  0
+                    ? 1
+                    : -1
+                )
                 .map((code, id) => (
-                  <tr
+                 (new Date().getTime() < new Date(code.expiresAt).getTime()) && <tr
                     key={code + id}
                     onClick={() => setSelectedPromoCode(code._id)}
                     className={`cursor-pointer p-2 rounded text-cyan-900 ${
                       id % 2 == 0 ? "bg-gray-200" : "bg-gray-100"
-                    } hover:bg-slate-800 hover:text-white `}
+                    } hover:bg-custom-teal-deep/70 hover:text-white `}
                   >
                     <td className="p-2">{code.code}</td>
                     <td className="p-2">{code.discountPercentage}%</td>

@@ -9,26 +9,6 @@ const EditLocationForm = ({ onSubmit, location, loading, errors }) => {
   const [specialClosedDays, setSpecialClosedDays] = useState(
     location.specialClosedDays || []
   );
-  const [formValues, setFormValues] = useState({
-    name: location.name || "",
-    description: location.description || "",
-    street: location.address.street || "",
-    city: location.address.city || "",
-    state: location.address.state || "",
-    zipCode: location.address.zipCode || "",
-    country: location.address.country || "",
-    regularPrice: location.regularPrice || "",
-    discountPercentage: location.discountPercentage || "",
-    availableFrom: location.availableFrom || "",
-    availableTo: location.availableTo || "",
-    openTime: location.openTime || "",
-    closeTime: location.closeTime || "",
-    closedDays: location.closedDays || [],
-    specialClosedDays: location.specialClosedDays || [],
-    locationType: location.locationType || "",
-    notes: location.notes || "",
-    // Add more fields as needed
-  });
 
   return (
     <Formik

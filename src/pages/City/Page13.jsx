@@ -599,7 +599,7 @@ function Canberra() {
         <AttractionBox
           locationImage={locImage}
           me={"Canberra"}
-          cityType="Sydney"
+          cityType="Canberra"
         />
         <main className="p-5 bg-white xl:px-52 w-full mx-auto space-y-10">
           {data.map((item, index) => {

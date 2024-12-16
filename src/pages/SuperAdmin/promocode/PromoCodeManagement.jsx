@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BulkPromoCodeGeneration from "./BulkCode";
 import PromoCodeEdit from "./EditPromocode";
 import SuperAdminSidebar from "../../../partials/SuperAdminSidebar";
@@ -6,6 +6,7 @@ import SuperAdminHeader from "../../../partials/SuperAdminHeader";
 
 function PromoCodeManagement() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -23,9 +24,9 @@ function PromoCodeManagement() {
         />
         {/* pointer-events-none cursor-not-allowed grayscale opacity-70 */}
         <main>
-          <p className="text-3xl font-extrabold p-10">
+          {/* <p className="text-3xl font-extrabold p-10">
             *This feature is in development mode
-          </p>
+          </p> */}
           <div className="p-4 w-full max-w-screen-md mx-auto">
             <h1 className="text-2xl font-semibold text-gray-800">
               Promo Code Management

@@ -37,6 +37,17 @@ const AllLocations = () => {
 
   const navigate = useNavigate();
 
+  const formatTime = (timeStr) => {
+    const options = { hour: "numeric", minute: "numeric", hour12: true };
+    return new Date(`1970-01-01T${timeStr}Z`)
+      .toLocaleTimeString("en-AU", {
+        ...options,
+        timeZone: "UTC",
+      })
+      .toString()
+      .toUpperCase();
+  };
+
   useEffect(() => {
     fetchLocations();
     fetchPartners();
@@ -326,7 +337,7 @@ const AllLocations = () => {
       }
     } catch (error) {
       console.log(error);
-      
+
       alert(
         error.response.data.message || "An error occurred. Please try again."
       );
@@ -450,14 +461,14 @@ const AllLocations = () => {
                           >
                             {location.name}
                           </td>
-                          <td className="py-3 px-6 border-b">
+                          <td className="py-3 px-6 border-b max-w-52">
                             {`${location.address.street},  ${location.address.city}, ${location.address.state}, ${location.address.zipCode}, ${location.address.country}`}
                           </td>
                           <td className="py-3 px-6 border-b">
-                            {location.openTime}
+                            {formatTime(location.openTime)}
                           </td>
                           <td className="py-3 px-6 border-b">
-                            {location.closeTime}
+                            {formatTime(location.closeTime)}
                           </td>
                           <td className="py-3 px-6 border-b">
                             <button
@@ -469,7 +480,7 @@ const AllLocations = () => {
                               {location.url}
                             </button>
                           </td>
-                          <td className="py-3 px-6 border-b">
+                          <td className="py-3 px-6 border-b text-wrap">
                             {location.partner ? (
                               <>
                                 {username} ({email})
@@ -486,7 +497,7 @@ const AllLocations = () => {
                               </button>
                             )}
                           </td>
-                          <td className="py-3 pr-5 border-b flex flex-wrap justify-start gap-1 text-xs">
+                          <td className="py-3 pr-5 border-b flex flex-nowrap justify-start gap-1 text-xs h-full">
                             <button
                               onClick={() => {
                                 toggleChargingStation(location?._id);
@@ -513,7 +524,6 @@ const AllLocations = () => {
                               <MdDelete size={15} />
                             </button>
                           </td>
-                          
                         </tr>
                       );
                     })}
@@ -555,7 +565,6 @@ const AllLocations = () => {
             onUpdateImage={updateImage}
             toggleCanStoreLuggage={toggleCanStoreLuggage}
             toggleStoreKeys={toggleStoreKeys}
-
           />
         )}
         {isAssigning && (

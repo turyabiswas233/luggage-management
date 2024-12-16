@@ -40,6 +40,7 @@ import LuggageLocation from "./pages/SearchLugLocation/LuggageLocation";
 import PartnerAvailabilityCalendar from "./pages/Partner/PartnerAvailabilityCalender";
 import AdminLoginForm from "./pages/SuperAdmin/AdminLoginForm";
 import PartnerProfile from "./pages/Partner/PartnerProfile";
+import SuperadminRoot from "./pages/SuperAdmin/SuperadminRoot";
 import AdminProfile from "./pages/SuperAdmin/AdminProfile";
 import AllClient from "./pages/SuperAdmin/AllClient";
 import ClientProfile from "./pages/User/ClientProfile";
@@ -97,6 +98,7 @@ import SoutherLocker from "./pages/Lockers/Page2";
 import ErrorPage from "./pages/404";
 import PromoCodeManagement from "./pages/SuperAdmin/promocode/PromoCodeManagement";
 import Invoice from "./partials/Invoice";
+import LiveTracking from "./pages/LiveTracking";
 
 const root = document.getElementById("root");
 const routerConfig = createBrowserRouter([
@@ -203,6 +205,10 @@ const routerConfig = createBrowserRouter([
         element: <SearchLuggage />,
       },
       {
+        path: "/live-tracking/:locationName",
+        element: <LiveTracking />,
+      },
+      {
         path: "/unauthorized",
         element: <UnauthorizedPage />,
       },
@@ -294,11 +300,7 @@ const routerConfig = createBrowserRouter([
   // superadmin
   {
     path: "/superadmin",
-    element: (
-      <>
-        <Outlet />
-      </>
-    ),
+    element: <SuperadminRoot />,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -340,6 +342,10 @@ const routerConfig = createBrowserRouter([
       {
         path: "locations",
         element: <AllLocations />,
+      },
+      {
+        path: "edit-location/:locationId",
+        element: <EditPartnerLocation />,
       },
       {
         path: "reviews/:locationId",

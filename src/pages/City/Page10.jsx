@@ -602,7 +602,7 @@ function BrisbaneCBD() {
         <AttractionBox
           locationImage={locImage}
           me={"Brisbane CBD"}
-          cityType="Sydney"
+          cityType="Brisbane"
         />
         <main className="p-5 bg-white xl:px-52 w-full mx-auto space-y-10">
           {data.map((item, index) => (

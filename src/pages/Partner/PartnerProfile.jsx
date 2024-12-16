@@ -6,6 +6,7 @@ import config from "../../config";
 import PartnerChangePasswordModal from "./PartnerChangePasswordModal"; // Import the modal
 import "./PartnerProfile.css"; // If you still have some custom styles
 import axios from "axios";
+import { MdHelp } from "react-icons/md";
 
 const PartnerProfile = () => {
   const [editMode, setEditMode] = useState(false);
@@ -155,7 +156,7 @@ const PartnerProfile = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <LuLoader size={70} color="#4A90E2" />
+        <LuLoader size={70} color="#4A90E2" className="animate-spin" />
       </div>
     );
   }
@@ -171,7 +172,9 @@ const PartnerProfile = () => {
               <div className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 transition-transform duration-500 hover:shadow-2xl">
                 <h2 className="text-3xl font-extrabold text-center text-blue-700 mb-6 transition-transform duration-500 transform hover:scale-105">
                   Partner Profile{" "}
-                  {profile?.keyServiceOnly && <span className="text-sm">Only Key Service*</span>}
+                  {profile?.keyServiceOnly && (
+                    <span className="text-sm">Only Key Service*</span>
+                  )}
                 </h2>
                 <div className="flex flex-col md:flex-row">
                   <div className="flex flex-col items-center md:w-1/3">
@@ -218,15 +221,18 @@ const PartnerProfile = () => {
                           <div className="mb-3">
                             <label className="block text-sm font-medium text-gray-700">
                               Email
+                              <MdHelp
+                                className="text-gray-800 mx-1 inline-flex cursor-pointer"
+                                title="Ask URLOKER-ADMIN to change Email"
+                              />
                             </label>
                             <input
-                              className="mt-1 p-2 border rounded-md w-full disabled:bg-gray-400/20 disabled:text-gray-500"
+                              className="mt-1 p-2 border rounded-md w-full disabled:bg-gray-400/20 disabled:opacity-70 disabled:text-gray-500 disabled:pointer-events-none"
                               disabled
                               type="email"
                               name="email"
                               placeholder="Email"
                               value={profile.email}
-                              onChange={handleInputChange}
                             />
                           </div>
                           <div className="mb-3">
@@ -310,16 +316,19 @@ const PartnerProfile = () => {
                           <div className="mb-3">
                             <label className="block text-sm font-medium text-gray-700">
                               ABN Number
+                              <MdHelp
+                                className="text-gray-800 mx-1 inline-flex cursor-pointer"
+                                title="Ask URLOKER-ADMIN to update your ABN NUMBER"
+                              />
                             </label>
                             <input
                               type="text"
                               className="mt-1 p-2 border rounded-md w-full
-                              disabled:bg-gray-400/20 disabled:text-gray-500"
+                              disabled:bg-gray-400/20 disabled:opacity-70 disabled:text-gray-500 disabled:pointer-events-none"
                               disabled
                               name="tradeLicenseNumber"
                               placeholder="ABN Number"
                               value={profile.tradeLicenseNumber}
-                              onChange={handleInputChange}
                             />
                           </div>
                           <div className="mb-3 hidden">

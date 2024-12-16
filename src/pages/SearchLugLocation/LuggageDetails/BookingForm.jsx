@@ -406,6 +406,14 @@ const BookingForm = ({
           </div>
           {/* Show error message */}
           {errorMessage && <p className="text-red-500">{errorMessage}</p>}{" "}
+          {loading ? (
+            <div className="flex justify-center items-center h-32">
+              <Spinner animation="border" variant="primary" />
+              <span className="ml-3 text-gray-500">Submitting...</span>
+            </div>
+          ) : (
+            <div></div>
+          )}
           <button
             type="submit"
             className="w-full bg-[#1A73A7] text-white py-2 rounded-lg hover:bg-[#1a6397] transition duration-300"
@@ -413,14 +421,6 @@ const BookingForm = ({
             Submit
           </button>
         </div>
-        {loading ? (
-          <div className="flex justify-center items-center h-32">
-            <Spinner animation="border" variant="primary" />
-            <span className="ml-3 text-gray-500">Submitting...</span>
-          </div>
-        ) : (
-          <div></div>
-        )}
       </form>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../../config";
+import { useNavigate } from "react-router-dom";
 
 const EditLocationModal = ({
   location,
@@ -15,6 +16,7 @@ const EditLocationModal = ({
     closeTime: "",
     image: null,
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location) {
@@ -58,30 +60,6 @@ const EditLocationModal = ({
       alert("An error occurred. Please try again.");
     }
   };
-  // image update not set yet
-  const handleUpdateImage = async (e) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.put(
-        `${config.API_BASE_URL}/api/v1/locations/${location._id}`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        onUpdateImage(response.data);
-        onClose();
-      } else {
-        alert("Failed to update location.");
-      }
-    } catch (error) {
-      alert("An error occurred. Please try again.");
-    }
-  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center animate-fadeIn">
@@ -90,7 +68,7 @@ const EditLocationModal = ({
           Edit Location Image, Open and Close Time
         </h2>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="hidden">
           <div className="mb-6">
             <label className="block mb-2 text-sm font-medium text-gray-700">
               Banner Image
@@ -137,41 +115,41 @@ const EditLocationModal = ({
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 bg-gray-500 text-white rounded-lg mr-2 transition duration-200 ease-in-out transform hover:bg-gray-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg transition duration-200 ease-in-out transform hover:bg-blue-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Update
-            </button>
-          </div>
-          
-          <hr className="my-5"/>
-          <p className="text-center">Or</p>
-          <div className="flex justify-center my-5">
-            <button
-              type="button"
-              onClick={()=> toggleCanStoreLuggage(location._id)}
-              className="px-4 py-2 bg-amber-600 text-amber-50 font-semibold rounded-lg mr-2 transition duration-200 ease-in-out transform hover:bg-amber-800 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-            >
-              Toggle Can Store Luggage
-            </button>
-            <button
-              type="button"
-              onClick={()=> toggleStoreKeys(location._id)}
-              className="px-4 py-2 bg-custom-teal-deep text-white rounded-lg transition duration-200 ease-in-out transform hover:bg-green-800 hover:scale-105 focus:outline-none"
-            >
-              Toggle Store Keys
-            </button>
-          </div>
         </form>
+        <div className="grid grid-cols-2 gap-4 my-5">
+          <button
+            type="button"
+            onClick={() => toggleCanStoreLuggage(location._id)}
+            className="h-fit px-4 py-2 bg-amber-600 text-amber-50 rounded-lg mr-2 transition duration-200 ease-in-out transform hover:bg-amber-800 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+          >
+            Toggle Can Store Luggage
+          </button>
+          <button
+            type="button"
+            onClick={() => toggleStoreKeys(location._id)}
+            className="h-fit px-4 py-2 bg-custom-teal-deep text-white rounded-lg transition duration-200 ease-in-out transform hover:bg-green-800 hover:scale-105 focus:outline-none"
+          >
+            Toggle Store Keys
+          </button>
+          <button
+            type="button"
+            className="h-fit px-4 py-2 bg-blue-500 text-white rounded-lg transition duration-200 ease-in-out transform hover:bg-blue-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            onClick={() => {
+              navigate(`/superadmin/edit-location/${location._id}`, {
+                state: { location, acType: "superadmin" },
+              });
+            }}
+          >
+            Edit Location Info
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="h-fit px-4 py-2 bg-gray-500 text-white rounded-lg mr-2 transition duration-200 ease-in-out transform hover:bg-gray-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+          >
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );

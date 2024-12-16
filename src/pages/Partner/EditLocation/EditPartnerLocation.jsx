@@ -12,7 +12,7 @@ const EditPartnerLocation = () => {
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const locationData = useLocation(); // Get location data passed from PartnerLocations
-
+  const acType = locationData.state.acType || "partner";
   useEffect(() => {
     if (locationData.state && locationData.state.location) {
       setLocation(locationData.state.location);
@@ -42,32 +42,6 @@ const EditPartnerLocation = () => {
       setLoading(false);
       return;
     }
-
-    // Prepare the JSON object with the data to send to the server
-    const updatedLocation = {
-      name: values.name,
-      description: values.description,
-      address: {
-        street: values.street,
-        city: values.city,
-        state: values.state,
-        zipCode: values.zipCode,
-        country: values.country,
-      },
-      files: values.files,
-      capacity: values.capacity,
-      regularPrice: values.regularPrice,
-      discountPercentage: values.discountPercentage,
-      availableFrom: values.availableFrom,
-      availableTo: values.availableTo,
-      openTime: values.openTime,
-      closeTime: values.closeTime,
-      closedDays: values.closedDays,
-      specialClosedDays: values.specialClosedDays,
-      locationType: values.locationType,
-      timezone: location.timezone,
-      notes: values.notes,
-    };
 
     const formData = new FormData();
     formData.append("name", values.name);
@@ -118,7 +92,7 @@ const EditPartnerLocation = () => {
 
       if (response.status >= 200 && response.status < 300) {
         setMessage({ text: "Location updated successfully!", type: "success" });
-        navigate("/partner/locations");
+        navigate(`/${acType}/locations`);
       } else {
         setMessage({ text: "Failed to update location.", type: "error" });
       }
@@ -144,8 +118,8 @@ const EditPartnerLocation = () => {
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       <PartnerNavbarComp />
-      <div className="flex-1 overflow-y-auto">
-        <div className="container mx-auto mt-24 px-4 py-8">
+      <div className="flex-1 overflow-y-hidden">
+        <div className="container mx-auto px-4 py-10 mt-16">
           <div className="flex justify-between items-center mb-6">
             <button
               className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"
@@ -166,14 +140,12 @@ const EditPartnerLocation = () => {
             </div>
           )}
           {location ? (
-            <div className="bg-white shadow-lg rounded p-6">
-              <EditLocationForm
-                onSubmit={handleSubmit}
-                location={location}
-                loading={loading}
-                errors={errors}
-              />
-            </div>
+            <EditLocationForm
+              onSubmit={handleSubmit}
+              location={location}
+              loading={loading}
+              errors={errors}
+            />
           ) : (
             <div className="text-red-500">Loading location data...</div>
           )}
