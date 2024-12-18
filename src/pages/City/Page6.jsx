@@ -19,7 +19,7 @@ const content = [
       "Stress Free Luggage Storage Melbourne Central Station: Safe, Convenient and Affordable",
     type: "h2",
     para: [
-      "Luggage Storage Melbourne Central Station: Safe, Convenient and Affordable",
+      "Looking for luggage storage at Melbourne central station? Visit <a href='https://urloker.com'>Urloker</a> for secure and affordable options. Whether you are catching a train, exploring the city without heavy luggage or want to make the most of your day before check-in, our centrally located luggage storage has you covered. Enjoy Melbourne hands-free with reliable, seamless and affordable storage services with Urloker.",
     ],
   },
   {
@@ -61,7 +61,7 @@ const content = [
       "Urloker: Your Solution for Luggage Storage at Melbourne Central Station",
     type: "h3",
     para: [
-      "At Urloker, We offer a hassle-free way to store your luggage near luggage storage Melbourne central station. We understand the needs of travellers because we have been there ourselves looking to explore the beauty of travelling without being weighed down by bags that is why we are here to offer you a seamless luggage storage solution.",
+      "At <a href='https://urloker.com'>Urloker</a>, We offer a hassle-free way to store your luggage near luggage storage Melbourne central station. We understand the needs of travellers because we have been there ourselves looking to explore the beauty of travelling without being weighed down by bags that is why we are here to offer you a seamless luggage storage solution.",
     ],
   },
   {
@@ -73,6 +73,161 @@ const content = [
       "<b>Affordable Rates:</b> We believe in transparent and fair pricing which means no hidden fees, just competitive rates that let you enjoy Melbourne without worrying about your budget. Spend more on experiences and less on storage, knowing you're getting the best value.",
       "<b>Flexible Hours:</b>  Open early and close late to fit your schedule. Whether you are starting your adventure early in the morning or wrapping up a late night out, our flexible hours mean you have one less thing to worry about. Best thing is you can book your luggage for the whole day with a single booking fee.  Our pay per bag per day policy makes it easier for our guests to get the freedom they want.",
       "<b>Secure Facilittes:</b> Your belongings are safe with us. Our secure storage facilities feature monitoring policy and safety measures that give you complete peace of mind. Travel confidently, knowing your bags are safe with us.",
+    ],
+  },
+  {
+    title:
+      "How to Use Urloker's Luggage Storage Near Melbourne Central Station",
+    type: "h3",
+    para: [
+      "Getting started is simple, and we have designed the process to be as straightforward as possible.",
+    ],
+    list: [
+      "<b>Step-by-Step Guide</b>",
+      [
+        "Visit our Website: Go to <a href='https://urloker.com'>Urloker</a>.",
+        "Select Dates: Choose when you need luggage storage at Melbourne central station.",
+        "Book Online: Secure your spot instantly with our secure and easy booking system.",
+        "Drop Off Bags: Bring your luggage to our convenient location near Melbourne central station.",
+        "Enjoy Melbourne: Explore the city unburdened by heavy bags. Enjoy freedom in every journey.",
+        "Pick Up Luggage: Collect your belongings when you are ready to move on.",
+      ],
+      "<b>No Hassle, Just Convenience</b>",
+      [
+        "We have streamlined the entire process so you can focus on enjoying your time in Melbourne. No lengthy forms or complicated procedures just quick and efficient service.",
+      ],
+    ],
+  },
+  {
+    title:
+      "Benefits of Our Luggage Storage Service at Melbourne Central Station",
+    type: "h2",
+    para: [
+      "Wondering why you should choose us? Let me highlight the advantages of using our service.",
+    ],
+    list: [
+      "<b>Convenience at Its Best</b>",
+      [
+        "Close to Attractions: Store your bags and visit nearby sights like the State Library Victoria and Queen Victoria Market with ease.",
+        "Easy Booking: Our seamless online reservation system makes it incredibly easy to secure luggage storage.",
+        "Quick Drop-Off and Pick-Up: Spend less time worrying about your luggage and more time enjoying the city.",
+      ],
+      "<b>Security You Can Trust</b>",
+      [
+        "24/7 Surveillance: Our facility is monitored round the clock.",
+        "Secure Storage: Only authorised staff have access to the storage area.",
+        "Insurance Coverage: Urloker offers Optional insurance for extra peace of mind.",
+      ],
+      "<b>Affordable and Transparent Pricing</b>",
+      [
+        "Daily Rates: One flat rate covers the entire day.",
+        "Weekly Rates: Great for longer stays.",
+        "No Hidden Fees: What you see is what you pay.",
+      ],
+    ],
+  },
+  {
+    title:
+      "Safety Measures at Our Luggage Storage Near Melbourne Central Station",
+    type: "h2",
+    para: [
+      "I understand that safety is paramount when it comes to your belongings.",
+    ],
+    list: [
+      "<b>How We Keep Your Luggage Safe</b>",
+      [
+        "Secure Lockers: Sturdy, tamper-proof lockers protect your items.",
+        "Staff Vigilance: Trained professionals monitor the facility.",
+        "Regular Audits: We perform routine checks to ensure everything is in order.",
+      ],
+    ],
+  },
+  {
+    title:
+      "Flat-Rate Luggage Storage at Melbourne Central Station: Size Does not Matter",
+    type: "h3",
+    para: [
+      "When it comes to storing your <a href='https://en.wikipedia.org/wiki/Baggage'>luggage</a>, we believe in keeping it simple and hassle-free. With our luggage storage service at Melbourne central station, you can enjoy:",
+    ],
+    list: [
+      "<b>Size Doesn't Matter - Flat Rate for All Bags</b>",
+      [
+        "Whether it is a small backpack or an oversized suitcase, you pay the same low flat rate. No complicated size-based pricing and just one price for everything, no matter how big or small.",
+      ],
+      "<b>Unbeatable Pricing for All-Day Storage</b>",
+      [
+        "Need storage for the entire day? No problem. You can book for a full day with a single booking, no need to rush, no hourly limits. Drop off your bags, enjoy Melbourne at your own pace and collect them whenever you are ready.",
+      ],
+    ],
+  },
+  {
+    title:
+      "Tips for Exploring Melbourne After Storing Luggage at Melbourne Central Station",
+    type: "h3",
+    para: [
+      "With your bags safely stored, here is how to make the most of your time.",
+    ],
+    list: [
+      "<b>Must-Visit Attractions Near Melbourne Central Station</b>",
+      [
+        "State Library Victoria: Explore the beautiful architecture and free exhibitions",
+        "Bourke Street Mall: Shop at popular Australian and international retailers",
+        "Chinatown: Experience diverse cuisine and vibrant culture",
+        "Old Melbourne Gaol: Dive into the city's history",
+        "Federation Square: Discover the cultural heart of Melbourne",
+        "Southbank: Take a leisurely walk along the Yarra River",
+      ],
+      "<b>Getting Around Easily</b>",
+      [
+        "Free Tram Zone: Take advantage of the free trams in the city centre",
+        "Walking Tours: Join a guided tour to discover hidden gems",
+        "Bike Rentals: Explore the city on two wheels",
+      ],
+      "<b>Dining and Entertainment</b>",
+      [
+        "Laneway Cafes: Discover Melbourne's famous coffee culture",
+        "Theatres and Galleries: Catch a show or visit an art exhibition",
+        "Street Art: Explore the colourful murals in Hosier Lane",
+      ],
+    ],
+  },
+  {
+    title:
+      "Why Choose Urloker for Luggage Storage at Melbourne Central Station",
+    type: "h2",
+    para: [
+      "There are other options out there but here is why we are the best choice.",
+    ],
+    list: [
+      "<b>Customer-Focused Service</b>",
+      [
+        "Personalised Assistance: We are here to help with any questions or concerns.",
+        "Flexible Options: Tailored services to meet your specific needs.",
+        "Quick Responses: We value your time and strive to provide prompt service.",
+      ],
+      "<b>Trusted by Travellers</b>",
+      [
+        "Positive Reviews: Our customers appreciate our reliability and convenience.",
+        "Repeat Clients: Many travellers return to us whenever they are in Melbourne.",
+      ],
+    ],
+  },
+  {
+    title: "Convenient Location Near Melbourne Central Station",
+    type: "h3",
+    para: ["Our prime spot makes us hard to beat."],
+    list: [
+      "<b>Easy to Find</b>",
+      [
+        "Central Address: Located in the heart of Melbourne's CBD.",
+        "Nearby Landmarks: Close to popular spots like the Melbourne Museum and Carlton Gardens.",
+        "Accessible by Public Transport: Easy to reach via tram, train or bus.",
+      ],
+      "<b>Map and Directions</b>",
+      [
+        "Detailed Map: Available on our website to help you find us easily.",
+        "Directions: Step by step instructions from <a href='https://en.wikipedia.org/wiki/Melbourne_Central_railway_station'>Melbourne Central Station</a> to our location.",
+      ],
     ],
   },
   {
@@ -89,6 +244,221 @@ const content = [
         " Clean and Organised: We maintain a tidy environment for your comfort.",
         "Pest Control: Regular inspections to keep the facility pest free.",
       ],
+    ],
+  },
+  {
+    title:
+      "Flexible Booking Options for Luggage Storage Near Melbourne Central Station",
+    type: "h2",
+    para: ["We adapt to your plans."],
+    list: [
+      "<b>Book Anytime, Anywhere</b>",
+      [
+        "Online Access: Reserve your storage space from your phone or computer.",
+        "No Long-Term Commitments: Store your luggage for as long or as short as you need.",
+        "Last-Minute Bookings: We accommodate spontaneous travellers.",
+      ],
+      "<b>Easy Modifications</b>",
+      [
+        "Change of Plans?: Modify your booking easily through our website or by contacting us.",
+        "Cancellation Policy: Clear and fair policies in case you need to cancel. You can cancel and get a full refund anytime before drop off time.",
+      ],
+    ],
+  },
+  {
+    title: "Customer Support for Luggage Storage at Melbourne Central Station",
+    type: "h2",
+    para: ["We are here to assist you every step of the way."],
+    list: [
+      "<b>How We Help</b>",
+      [
+        "Live Chat: Get immediate answers to your questions on our website.",
+        "Email Support: For detailed inquiries or assistance.",
+        "Phone Assistance: Speak directly with us for urgent matters.",
+      ],
+      "<b>Feedback Welcome</b>",
+      [
+        "Your Opinions Matter: We appreciate feedback to improve our services.",
+        "Review Us: Share your experience to help other travellers.",
+      ],
+    ],
+  },
+  {
+    title: "How Our Luggage Storage Works",
+    type: "h3",
+    para: ["Transparency is key."],
+    list: [
+      "<b>Simple Process</b>",
+      [
+        "No Complicated Forms: Quick and straightforward booking and check in.",
+        "Immediate Confirmation: Receive instant confirmation of your booking.",
+        "Clear Instructions: Easy to follow steps provided upon booking.",
+      ],
+      "<b>What to Bring</b>",
+      [
+        "Valid ID: For verification purposes.",
+        "Booking Confirmation: Printed or digital copy.",
+      ],
+    ],
+  },
+  {
+    title: "Enjoy Melbourne Without Luggage Weighing You Down",
+    type: "h4",
+    para: ["Experience the city unburdened."],
+    list: [
+      "<b>Freedom to Roam</b>",
+      [
+        "Spontaneous Plans: Go wherever the day takes you without baggage constraints.",
+        "Comfort: Move around easily without the physical strain of heavy bags.",
+        "Extended Activities: Participate in tours or events that don’t allow luggage.",
+      ],
+      "<b>Make the Most of Your Time</b>",
+      [
+        "Maximise Layovers: If you have a few hours between flights or trains, explore the city.",
+        "Early Check-Outs or Late Flights: Store your bags after hotel check-out until it's time to depart.",
+      ],
+    ],
+  },
+  {
+    title:
+      "Explore Attractions Near Melbourne Central Station After Storing Your Luggage",
+    type: "h4",
+    para: ["So much to see nearby."],
+    list: [
+      "<b>Local Highlights</b>",
+      [
+        "Melbourne Museum: Immerse yourself in science and culture.",
+        "Royal Exhibition Building: Admire one of the world's oldest remaining exhibition pavilions.",
+        "Queen Victoria Market: Shop for fresh produce and unique souvenirs.",
+      ],
+      "<b>Cultural Experiences</b>",
+      [
+        "National Gallery of Victoria: Discover world-class art collections.",
+        "ACMI (Australian Centre for the Moving Image): Explore the world of film and digital culture.",
+      ],
+    ],
+  },
+  {
+    title:
+      "Our Commitment to Safe Luggage Storage at Melbourne Central Station",
+    type: "h4",
+    para: ["Your trust matters."],
+    list: [
+      "<b>Dedicated to Security</b>",
+      [
+        "Ongoing Improvements: We continuously update our security measures.",
+        "Staff Training: Our team is trained in best practices for safety and customer service.",
+        "Compliance: We adhere to all local regulations and standards.",
+      ],
+    ],
+  },
+  {
+    title: "Accessibility of Our Luggage Storage",
+    type: "h4",
+    para: ["We cater to everyone."],
+    list: [
+      "<b>Inclusive Facilities</b>",
+      [
+        "Wheelchair Access: Our premises are accessible to those with mobility needs.",
+        "Language Support: Assistance available in multiple languages.",
+        "Family-Friendly: Accommodations for parents with young children.",
+      ],
+      "<b>Amenities</b>",
+      [
+        "Rest Areas: Comfortable seating if you need a moment to rest.",
+        "Washrooms: Clean facilities available for customers.",
+      ],
+    ],
+  },
+  {
+    title: "Group Rates for Luggage Storage at Melbourne Central Station",
+    type: "h3",
+    para: ["Travelling with others? We have got you covered."],
+    list: [
+      "<b>Special Offers</b>",
+      [
+        "Discounts for Groups: Save more when storing multiple bags.",
+        "Custom Packages: Tailored solutions for tour groups or corporate events.",
+      ],
+      "<b>How to Avail Group Rates</b>",
+      [
+        "Contact Us: Reach out for customised pricing.",
+        "Advance Booking: Ensure availability for your entire group.",
+      ],
+    ],
+  },
+  {
+    title: "Store Oversized Items at Our Luggage Storage",
+    type: "h4",
+    para: ["No item is too big for us to handle."],
+    list: [
+      "<b>We Accommodate</b>",
+      [
+        "Sports Equipment: Bikes, surfboards, skis whatever you name it.",
+        "Musical Instruments: Secure storage for your valuable instruments.",
+        "Artwork: Safe keeping for art pieces during exhibitions or transit.",
+      ],
+      "<b>Special Handling</b>",
+      [
+        "Fragile Items: Extra care for delicate belongings.",
+        "Protective Packaging: We can provide materials to safeguard your items.",
+      ],
+    ],
+  },
+  {
+    title:
+      "Extended Opening Hours for Luggage Storage at Melbourne Central Station",
+    type: "h3",
+    para: ["We work around your schedule."],
+    list: [
+      "<b>Open When You Need Us</b>",
+      [
+        "Early Birds and Night Owls: Our extended hours cater to all schedules.",
+        "Holiday Hours: Open even on public holidays for your convenience.",
+      ],
+      "<b>After-Hours Access</b>",
+      [
+        "By Appointment: Arrange access outside regular hours if needed.",
+        "Emergency Assistance: Contact us for urgent matters.",
+      ],
+    ],
+  },
+  {
+    title: "Our Online Booking System",
+    type: "h3",
+    para: ["Technology makes it easy."],
+    list: [
+      "<b>User-Friendly Platform</b>",
+      [
+        "<b>Mobile-Friendly</b>: Book from your smartphone seamlessly with ease.",
+        "<b>Secure Transactions</b>: Your payment information is protected.",
+        "<b>Account Management</b>: Create an account to manage bookings and preferences.",
+      ],
+      "<b>Notifications</b>",
+      [
+        "<b>Booking Reminders</b>: Receive alerts about your upcoming storage.",
+        "<b>Promotional Offers</b>: Be the first to know about discounts and deals.",
+      ],
+    ],
+  },
+  {
+    title: "Insurance Options for Luggage Storage",
+    type: "h5",
+    para: ["Extra security for peace of mind."],
+    list: [
+      "<b>We have Got You Covered</b>",
+      [
+        "<b>Optional Insurance</b>: Choose to insure valuable items.",
+        "<b>Transparent Terms</b>: Clear policies without hidden clauses.",
+        "<b>Claims Assistance</b>: Support in the unlikely event you need to file a claim.",
+      ],
+    ],
+  },
+  {
+    title: "Luggage Storage Melbourne Central Station - Book Now",
+    type: "h2",
+    para: [
+      "Do not let your luggage hold you back from experiencing all Melbourne offers. With our convenient and secure luggage storage Melbourne Central Station, you can explore the city freely and make the most of your time here. Next time if you are in town, remember <a href='https://urloker.com'>Urloker</a> your go-to for hassle <i>free luggage storage at Melbourne Central Station.</i>",
     ],
   },
 ];
@@ -164,49 +534,9 @@ function MelbourneCentral() {
   };
   const data = [
     {
-      question:
-        "In which areas of the City of Melbourne can users find Urloker's luggage storage?",
+      question: "How Close Are You to Melbourne Central Station?",
       answer:
-        "Urloker has seUrloker'sategic designations for luggage storage in the heart of Melbourne. Our locations are close to Central Bangkok and significant attractions, transport hubs such as Flinders Street Station and Melbourne Central Station and famous spots such as Federation Square and Queen Victoria Market.",
-    },
-    {
-      question:
-        "What's the price policy for Urloker's luggage storage Melbourne CBD ?",
-      answer:
-        "What'sffer affordabUrloker'sear pricing with flexible terms. Rates start at a low hourly rate, and even if you plan on renting for the whole day, there is a daily maximum. There are no extra fees, and one can choose the option that best fits one's time.",
-    },
-    {
-      question:
-        "Is it secure to leave my belongings with one's socketwitone'soker?",
-      answer:
-        "Of course. What is most important to us is that your belongings are well safeguarded. Our sites have CCTV monitoring and electronic access controls to enhance the protection of the premises at all times. Also, our all-risk insurance policy further ensures that all items being kept for storage are safe.",
-    },
-    {
-      question: "What items are acceptable to put into Urloker?",
-      answer:
-        "We support keeping various items, ranging from towels, shoes, smaller backpacks, and handbags to giant bags like large suitcases and other bulky things such as sports equipment. If you have a concern, you can always reach out to our customer support for help.",
-    },
-    {
-      question: "How do I reserve my luggage with Urloker?",
-      answer:
-        "The reservation process takes seconds and is straightforward. Go to your desired location in the Melbourne CBD, select the most appropriate locker size, and make the reservation. You will receive a confirmation that communicates everything that you require.",
-    },
-    {
-      question: "How long is your business open?",
-      answer:
-        "In general, all our sites in Melbourne CBD are open daily, and most of them have longer business hours to accommodate the needs of different travellers. Since these hours typically vary by location, we recommend checking the details for the location you selected while booking.",
-    },
-    {
-      question:
-        "When I make a reservation, what if I cannot stay within the time indicated in my reservation?",
-      answer:
-        "Yes, we understand that sometimes the best plans… don't go as planned. You can modify the time in which don't belongings will be kept by simply making changes to your reservation or by contacting us.",
-    },
-    {
-      question:
-        "Is an identification certificate required while dropping off or picking up my cargo?",
-      answer:
-        "For security reasons, we ask for valid identification when you drop off your belongings. This ensures that all items are accounted for and received by the appropriate people.",
+        "We have partners located directly in Melbourne Central Station as well as in surrounding areas, all within a short, easy to reach distance. Whether you are right at the station or nearby, you will always find a convenient spot to store your luggage.",
     },
   ];
   const { searchPlaceholder, findLocationsButton } = translate?.heroSection;
@@ -339,7 +669,7 @@ function MelbourneCentral() {
         <AttractionBox
           locationImage={locImage}
           me={"Luggage Storage Melbourne Central Station"}
-           cityType="Melbourne"
+          cityType="Melbourne"
         />
         <main className="p-5 bg-white xl:px-52 w-full mx-auto">
           {content.map((item, index) => (
@@ -352,6 +682,13 @@ function MelbourneCentral() {
             />
           ))}
         </main>
+        <div className="bg-slate-50 border-t border-t-slate-200 py-6">
+          <FaqCard
+            t={data}
+            title={"FAQs About Luggage Storage at Melbourne Central Station"}
+            p="You asked, We answered."
+          />
+        </div>
       </div>
     </div>
   );

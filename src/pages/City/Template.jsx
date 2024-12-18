@@ -62,13 +62,24 @@ const Template = ({ type, heading, para, lsType, list }) => {
             lsType == "numeric" ? "list-decimal" : "list-disc"
           } text-lg`}
         >
-          {list.map((item, index) => (
-            <li
-              key={index}
-              className="text-base"
-              dangerouslySetInnerHTML={{ __html: item }}
-            ></li>
-          ))}
+          {list.map((item, index) =>
+            Array.isArray(item) ? (
+              <ol className="list-decimal pl-5">
+                {item.map((subItem) => (
+                  <li
+                    className="text-base"
+                    dangerouslySetInnerHTML={{ __html: subItem }}
+                  ></li>
+                ))}
+              </ol>
+            ) : (
+              <li
+                key={index}
+                className="text-base"
+                dangerouslySetInnerHTML={{ __html: item }}
+              ></li>
+            )
+          )}
         </ul>
       )}
     </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const FaqCard = ({ t, title }) => {
+const FaqCard = ({ t, title, p="" }) => {
   const [openFAQ, setOpenFAQ] = useState(-1);
 
   const toggleFAQ = (index) => {
@@ -11,6 +11,7 @@ const FaqCard = ({ t, title }) => {
   return (
     <main className="p-5 container mx-auto xl:px-52">
       <h2 className="text-center font-bold text-2xl my-5">{title || "FAQs"}</h2>
+      {p && <p>{p}</p>}
       <div className="space-y-5 divide-y-3 divide-slate-800">
         {t.map((faq, index) => (
           <div

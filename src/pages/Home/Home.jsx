@@ -163,11 +163,6 @@ const CurrentCities = () => {
       city: "melbourne",
     },
     {
-      to: "/luggage-storage-sydney",
-      name: "Luggage Storage Sydney",
-      city: "sydney",
-    },
-    {
       to: "/luggage-lockers-melbourne",
       name: "Luggage Locker Melbourne",
       city: "melbourne",
@@ -176,6 +171,11 @@ const CurrentCities = () => {
       to: "/melbourne-southern-cross-station-lockers",
       name: "Melbourne Southern cross Station Lockers",
       city: "melbourne",
+    },
+    {
+      to: "/luggage-storage-sydney",
+      name: "Luggage Storage Sydney",
+      city: "sydney",
     },
     {
       to: "/luggage-storage-sydney-central",
@@ -190,27 +190,27 @@ const CurrentCities = () => {
     {
       to: "/luggage-storage-brisbane-cbd",
       name: "Luggage Storage Brisbane CBD",
-      city: "sydney",
+      city: "Brisbane",
     },
     {
       to: "/luggage-storage-adelaide",
       name: "Luggage Storage Adelaide",
-      city: "sydney",
+      city: "Adelaide",
     },
     {
       to: "/luggage-storage-perth-cbd",
       name: "Luggage Storage Perth CBD",
-      city: "sydney",
+      city: "Perth",
     },
     {
       to: "/luggage-storage-canberra",
       name: "Luggage Storage Canberra",
-      city: "sydney",
+      city: "Canberra",
     },
     {
       to: "/luggage-storage-gold-coast",
       name: "Luggage Storage Gold Coast",
-      city: "sydney",
+      city: "Gold Coast",
     },
   ];
   const groupedCities = cities.reduce((acc, city) => {
