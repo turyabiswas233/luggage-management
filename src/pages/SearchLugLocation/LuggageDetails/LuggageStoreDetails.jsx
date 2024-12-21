@@ -20,7 +20,7 @@ import {
   faTag,
 } from "@fortawesome/free-solid-svg-icons";
 // import ClientNavbarComp from "../../User/ClientNavbarComp";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import config from "../../../config";
 import LuggageStoreInfo from "./LuggageStoreInfo";
 import BookingForm from "./BookingForm";
@@ -33,6 +33,8 @@ const LuggageStoreDetails = () => {
   const stripePromise = loadStripe(config.STRIPE_PUBLIC_KEY);
 
   const { state, pathname } = useLocation();
+  const { link } = useParams();
+
   const navigate = useNavigate();
 
   const [storeDetails, setStoreDetails] = useState(null);
@@ -61,47 +63,45 @@ const LuggageStoreDetails = () => {
   const [bookingError, setBookingError] = useState("");
   const [showBookingErrorModal, setShowBookingErrorModal] = useState(false);
   const [guestDetails, setGuestDetails] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const fetchStoreDetails = async () => {
-    if (!state || !state.link) {
-      const pName = pathname.split("/").pop();
-      const url = `${config.API_BASE_URL}/api/v1/locations/url/${pName}`;
+    const url = `${config.API_BASE_URL}/api/v1/locations/url/${link}`;
 
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        setBookingAllowed(data?.canStoreLuggage);
-        console.log(data);
+    try {
+      setErrorMessage("");
+      const response = await fetch(url);
+      const data = await response.json();
+      setBookingAllowed(data?.canStoreLuggage);
+      console.log(data);
 
-        if (response.ok) {
-          setStoreDetails({
-            id: data?._id,
-            title: data?.name,
-            details: data?.description,
-            price: data?.regularPrice,
-            lat: data?.coordinates.coordinates[1],
-            lng: data?.coordinates.coordinates[0],
-            regularprice: data?.regularPrice,
-            availableFrom: data?.availableFrom,
-            availableTo: data?.availableTo,
-            discountPercentage: data?.discountPercentage,
-            canStoreLuggage: data?.canStoreLuggage,
-            openTime: data?.openTime,
-            closeTime: data?.closeTime,
-            notes: data?.notes,
-            link: data?.url,
-            isAllowd: data?.canStoreLuggage,
-          });
-        } else {
-          console.error("Error fetching store details:", data);
-          navigate("/error"); // Redirect to an error page
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        navigate("/error"); // Redirect to an error page
+      if (response.ok) {
+        setStoreDetails({
+          id: data?._id,
+          title: data?.name,
+          details: data?.description,
+          price: data?.regularPrice,
+          lat: data?.coordinates.coordinates[1],
+          lng: data?.coordinates.coordinates[0],
+          regularprice: data?.regularPrice,
+          availableFrom: data?.availableFrom,
+          availableTo: data?.availableTo,
+          discountPercentage: data?.discountPercentage,
+          canStoreLuggage: data?.canStoreLuggage,
+          openTime: data?.openTime,
+          closeTime: data?.closeTime,
+          notes: data?.notes,
+          link: data?.url,
+          isAllowd: data?.canStoreLuggage,
+        });
+      } else {
+        console.error("Error fetching store details:", data);
+        setErrorMessage("Invalid location URL");
+        // navigate("/error"); // Redirect to an error page
       }
-    } else {
-      setStoreDetails(state); // Use the data passed via location.state
+    } catch (error) {
+      console.error("Error:", error);
+      navigate("/error"); // Redirect to an error page
     }
   };
 
@@ -117,7 +117,7 @@ const LuggageStoreDetails = () => {
     console.log("Boking Details:", bookingData); // Log booking details to the console
 
     setGuestDetails(guestDetails); // Store guestDetails in state
-    
+
     const token = localStorage.getItem("token");
     const url = `${config.API_BASE_URL}/api/v1/bookings/instant-booking`;
     // console.log(bookingData);
@@ -213,7 +213,7 @@ const LuggageStoreDetails = () => {
   const handleBookingErrorModalClose = () => {
     setShowBookingErrorModal(false);
   };
-  if(storeDetails?.canStoreLuggage === false){
+  if (storeDetails?.canStoreLuggage === false) {
     return (
       <div className="text-center py-10 px-2 mb-10 min-h-52 flex justify-center items-center flex-col">
         <p className="text-3xl font-bold">
@@ -227,108 +227,102 @@ const LuggageStoreDetails = () => {
     <div>
       {/* {isLoggedIn ? <ClientNavbarComp /> : <NavbarComp />} */}
 
-      {
-        <div>
-          {bookingId == "" && clientSecret == "" && (
-            <div className="container mx-auto pt-10">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div>
-                  {storeDetails ? (
-                    <LuggageStoreInfo
-                      id={storeDetails.id}
-                      title={storeDetails.title}
-                      details={storeDetails.details}
-                      price={storeDetails.price}
-                      lat={storeDetails.lat}
-                      lng={storeDetails.lng}
-                      availableFrom={storeDetails.availableFrom}
-                      availableTo={storeDetails.availableTo}
-                      discountPercentage={storeDetails.discountPercentage}
-                      openTime={storeDetails.openTime}
-                      closeTime={storeDetails.closeTime}
-                      notes={storeDetails.notes}
-                    />
-                  ) : (
-                    <div>Loading...</div>
-                  )}
+      <div>
+        {bookingId == "" && clientSecret == "" && (
+          <div className="container mx-auto pt-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {storeDetails ? (
+                <LuggageStoreInfo
+                  id={storeDetails.id}
+                  title={storeDetails.title}
+                  details={storeDetails.details}
+                  price={storeDetails.price}
+                  lat={storeDetails.lat}
+                  lng={storeDetails.lng}
+                  availableFrom={storeDetails.availableFrom}
+                  availableTo={storeDetails.availableTo}
+                  discountPercentage={storeDetails.discountPercentage}
+                  openTime={storeDetails.openTime}
+                  closeTime={storeDetails.closeTime}
+                  notes={storeDetails.notes}
+                />
+              ) : (
+                <div className="text-center text-3xl font-bold text-slate-800 lg:col-span-2 h-96 flex justify-center items-center flex-col">
+                  <p>{errorMessage || "Loading..."}</p>
+                  {errorMessage && <p> Search your nearby locations <a href="/luggage-locations">here</a>
+                  </p>}
                 </div>
-                <div>
-                  {bookingError && (
-                    <div className="alert alert-danger">{bookingError}</div>
-                  )}
-                  {storeDetails ? (
-                    <BookingForm
-                      locationid={storeDetails?.id}
-                      handleSubmit={handleSubmit}
-                      luggageQuantity={luggageQuantity}
-                      setLuggageQuantity={setLuggageQuantity}
-                      serviceOption={serviceOption}
-                      setServiceOption={setServiceOption}
-                      promoCode={promoCode}
-                      setPromoCode={setPromoCode}
-                      discount={discount}
-                      setDiscount={setDiscount}
-                      totalPrice={totalPrice}
-                      setTotalPrice={setTotalPrice}
-                      regularprice={storeDetails?.regularprice}
-                      clientId={clientId}
-                      setClientId={setClientId}
-                      clientDetails={clientDetails}
-                      setClientDetails={setClientDetails}
-                      setQrcode={setQrcode}
-                    />
-                  ) : (
-                    <div className="text-center py-10 px-2 mb-10">
-                      <p className="text-3xl font-bold">
-                        This luggage storage shop is currently full.
-                      </p>
-                      <p>Please try another location</p>
-                    </div>
-                  )}
-                </div>
+              )}
+
+              <div>
+                {bookingError && (
+                  <div className="alert alert-danger">{bookingError}</div>
+                )}
+                {storeDetails ? (
+                  <BookingForm
+                    locationid={storeDetails?.id}
+                    handleSubmit={handleSubmit}
+                    luggageQuantity={luggageQuantity}
+                    setLuggageQuantity={setLuggageQuantity}
+                    serviceOption={serviceOption}
+                    setServiceOption={setServiceOption}
+                    promoCode={promoCode}
+                    setPromoCode={setPromoCode}
+                    discount={discount}
+                    setDiscount={setDiscount}
+                    totalPrice={totalPrice}
+                    setTotalPrice={setTotalPrice}
+                    regularprice={storeDetails?.regularprice}
+                    clientId={clientId}
+                    setClientId={setClientId}
+                    clientDetails={clientDetails}
+                    setClientDetails={setClientDetails}
+                    setQrcode={setQrcode}
+                  />
+                ) : null}
               </div>
             </div>
-          )}
+          </div>
+        )}
 
-          {showPaymentModal && clientSecret && (
-            <Elements
-              stripe={stripePromise}
-              options={{
-                clientSecret: clientSecret,
-              }}
-            >
-              <PaymentFormModal
-                clientSecret={clientSecret}
-                clientDetails={clientDetails}
-                guestDetails={guestDetails}
-                bookingId={bookingId}
-                storeDetails={storeDetails}
-                totalPrice={totalPrice} // Pass the total price here
-                qrChecked={qrChecked}
-                luggageQuantity={luggageQuantity}
-              />
-            </Elements>
-          )}
-          {/* Booking Error Modal */}
-          {showBookingErrorModal && (
-            <div className="fixed z-50 top-3 left-1/2 -translate-x-1/2 bg-white shadow-xl shadow-custom-teal-deep/20 rounded-md px-10 py-5 max-w-md w-full min-h-32">
-              <header>
-                <div className="title font-bold text-lg">Booking Error</div>
-              </header>
-              <main>
-                <p className="text-wrap">{bookingError || "Lorem ipsum"}</p>
-                <button
-                  className="bg-red-500 text-white rounded-md px-4 py-2 mx-auto mt-5"
-                  type="button"
-                  onClick={handleBookingErrorModalClose}
-                >
-                  OK
-                </button>
-              </main>
-            </div>
-          )}
-        </div>
-      }
+        {showPaymentModal && clientSecret && (
+          <Elements
+            stripe={stripePromise}
+            options={{
+              clientSecret: clientSecret,
+            }}
+          >
+            <PaymentFormModal
+              clientSecret={clientSecret}
+              clientDetails={clientDetails}
+              guestDetails={guestDetails}
+              bookingId={bookingId}
+              storeDetails={storeDetails}
+              totalPrice={totalPrice} // Pass the total price here
+              qrChecked={qrChecked}
+              luggageQuantity={luggageQuantity}
+            />
+          </Elements>
+        )}
+        {/* Booking Error Modal */}
+        {showBookingErrorModal && (
+          <div className="fixed z-50 top-3 left-1/2 -translate-x-1/2 bg-white shadow-xl shadow-custom-teal-deep/20 rounded-md px-10 py-5 max-w-md w-full min-h-32">
+            <header>
+              <div className="title font-bold text-lg">Booking Error</div>
+            </header>
+            <main>
+              <p className="text-wrap">{bookingError || "Lorem ipsum"}</p>
+              <button
+                className="bg-red-500 text-white rounded-md px-4 py-2 mx-auto mt-5"
+                type="button"
+                onClick={handleBookingErrorModalClose}
+              >
+                OK
+              </button>
+            </main>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -80,6 +80,8 @@ const LuggageLocation = () => {
         },
         (error) => {
           console.error("Error fetching location:", error);
+          console.log(navigator);
+
           if (navigator.permissions) {
             navigator.permissions
               .query({ name: "geolocation" })
@@ -87,6 +89,9 @@ const LuggageLocation = () => {
                 if (result.state === "denied") {
                   alert("Please enable location services to use this feature");
                 }
+              })
+              .finally(() => {
+                setLoading(false);
               });
           }
         }

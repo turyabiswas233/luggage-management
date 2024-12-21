@@ -1,13 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useGoogleMapsApi from "../Partner/AddLocation/useGoogleMapsApi";
 import config from "../../config";
 import googleMapIcon from "/files/img/home-two/gmi.svg";
-import userLocation from "/files/img/home-two/userLocation.svg"; 
+import userLocation from "/files/img/home-two/userLocation.svg";
+import { MdMyLocation } from "react-icons/md";
 
 const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
   const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
   const isLoaded = useGoogleMapsApi(GOOGLE_MAPS_API_KEY);
 
+  const userIcon = document.createElement("img");
+  userIcon.src = userLocation;
+  userIcon.width = 30;
+  userIcon.height = 30;
+  const [userMarker, setUserMarker] = useState(null);
   useEffect(() => {
     if (isLoaded && window.google && window.google.maps.Map) {
       try {
@@ -23,31 +29,80 @@ const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
       const map = new google.maps.Map(document.getElementById("map"), {
         center: center || { lat: -36.8688, lng: 144.9093 },
         mapId: "mapId",
-        minZoom: 3,
-        zoom: zoom || 12,
-        maxZoom: 20,
+        minZoom: 5,
+        controlSize: 30,
+        disableDefaultUI: true,
+        streetView: false,
+        zoomControl: true,
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.TOP_RIGHT,
+        },
+        zoom: 12,
+        maxZoom: 18,
       });
+      const infoWindow = new google.maps.InfoWindow();
+
+      const trafficLayer = new google.maps.TrafficLayer();
+
+      // my location button
+      const locationButton = document.createElement("button");
+      locationButton.textContent = "";
+      locationButton.classList.add("custom-map-control-button");
+
       if (!map) return;
 
+      trafficLayer.setMap(map);
       const bounds = new google.maps.LatLngBounds();
       const { AdvancedMarkerElement } = await google.maps.importLibrary(
         "marker"
       );
-      const userIcon = document.createElement("img");
-      userIcon.src = userLocation;
-      userIcon.width = 30;
-      userIcon.height = 30;
 
-      const userMarker = new AdvancedMarkerElement({
-        position: {
-          lat: center?.lat || -37.8295,
-          lng: center?.lng || 144.905,
-        },
-        map: map,
-        title: "You",
-        content: userIcon,
-      });
+      const findMyLocation = () => {
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            async (position) => {
+              const pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              };
+              const { AdvancedMarkerElement } = await google.maps.importLibrary(
+                "marker"
+              );
+              setUserMarker(
+                new AdvancedMarkerElement({
+                  position: pos,
+                  map: map,
+                  title: "You",
+                  content: userIcon,
+                })
+              );
 
+              map.setCenter(pos);
+              if (
+                pos.lat != userMarker.position.lat ||
+                pos.lng != userMarker.position.lng
+              ) {
+                bounds.contains;
+                bounds.extend(userMarker.position);
+              } else alert("You are already here");
+            },
+            (error) => {
+              alert(
+                error.message + ". Please enable location access on this site"
+              );
+              console.log(error);
+            }
+          );
+        } else {
+          // Browser doesn't support Geolocation
+          alert("Your browser doesn't support Geolocation");
+        }
+      };
+
+      locationButton.addEventListener("click", findMyLocation);
+      map.controls[google.maps.ControlPosition.RIGHT_TOP].push(locationButton);
+      // add custom location marker
       locations.forEach((location) => {
         const markerIcon = document.createElement("img");
         markerIcon.src = googleMapIcon;
@@ -64,15 +119,37 @@ const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
 
           content: markerIcon,
         });
+        marker.addListener("click", () => {
+          infoWindow.setOptions({ minWidth: 250, maxWidth: 250 });
+          infoWindow.setContent(
+            "<div>" +
+              `<h1 id="firstHeader"><b>${location.name}</b></h1>` +
+              `<p>${location.address.street}, ${location.address.city}</p>` +
+              `<p>${location.address.state}, ${location.address.country}</p>` +
+              `<p id='dist'>${Number(location.distance).toFixed(2)} meter</p>` +
+              "</div>"
+          );
+          infoWindow.open(map, marker);
+        });
         bounds.extend(marker.position);
       });
-
-      bounds.extend(userMarker.position);
+      setUserMarker(
+        new AdvancedMarkerElement({
+          position: {
+            lat: center ? center.lat : -36.8688,
+            lng: center ? center.lng : 144.9093,
+          },
+          map: map,
+          title: "You",
+          content: userIcon,
+        })
+      );
+      if (userMarker) bounds.extend(userMarker.position);
 
       if (!center) {
         map.fitBounds(bounds);
       } else {
-        map.setZoom(13); // Adjust zoom level as needed
+        map.setZoom(12); // Adjust zoom level as needed
       }
 
       google.maps.event.addListener(map, "idle", () => {

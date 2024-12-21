@@ -44,6 +44,7 @@ const generateRandomName = () => {
 };
 const libraries = ["places"];
 const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
+const GOOGLE_MAPS_ID = config.GOOGLE_MAP_ID;
 
 class PinElement {
   constructor(icon) {
@@ -129,7 +130,7 @@ const LuggageStoreInfo = ({
       maxZoom: 15,
       center: location,
       disableDefaultUI: true,
-      mapId: "DemoMapId",
+      mapId: GOOGLE_MAPS_ID,
       gestureHandling: "none",
     });
     const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");

@@ -87,6 +87,37 @@ img {
   text-align: center;
   padding: 6px;
 }
+.custom-map-control-button {
+  background-color: #e7fffa;
+  border: 1pt solid #04581f;
+  width: 30px;
+  height: 30px;
+  margin-right: 7.5px;
+  border-radius: 5pt;
+  position: relative;   
+}
+.custom-map-control-button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: .75em;
+  height: .75em;
+  background-color: #04581f;
+  border-radius: 500px;
+  outline: 2px solid #04581f;
+  outline-offset: 3px;
+}
+#firstHeader {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-bottom: 1em;
+}
+#dist{
+  font-size: 1em;
+  font-weight: 700;
+}
 
 @keyframes rot {
   0% {
