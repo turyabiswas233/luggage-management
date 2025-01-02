@@ -3,7 +3,7 @@ import useGoogleMapsApi from "../Partner/AddLocation/useGoogleMapsApi";
 import config from "../../config";
 import googleMapIcon from "/files/img/home-two/gmi.svg";
 import userLocation from "/files/img/home-two/userLocation.svg";
-import { MdMyLocation } from "react-icons/md";
+import myLocation from "/files/img/home-two/myloc.svg";
 
 const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
   const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
@@ -13,6 +13,14 @@ const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
   userIcon.src = userLocation;
   userIcon.width = 30;
   userIcon.height = 30;
+  const myLocIcon = document.createElement("img");
+  myLocIcon.src = myLocation;
+  myLocIcon.width = 30;
+  myLocIcon.height = 30;
+  const markerIcon = document.createElement("img");
+  markerIcon.src = googleMapIcon;
+  markerIcon.width = 30;
+  markerIcon.height = 30;
   const [userMarker, setUserMarker] = useState(null);
   useEffect(() => {
     if (isLoaded && window.google && window.google.maps.Map) {
@@ -74,7 +82,7 @@ const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
                   position: pos,
                   map: map,
                   title: "You",
-                  content: userIcon,
+                  content: myLocIcon,
                 })
               );
 
@@ -83,14 +91,13 @@ const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
                 pos.lat != userMarker.position.lat ||
                 pos.lng != userMarker.position.lng
               ) {
-                bounds.contains;
-                bounds.extend(userMarker.position);
+                if (bounds.contains(userMarker.position)) {
+                  bounds.extend(userMarker.position);
+                }
               } else alert("You are already here");
             },
             (error) => {
-              alert(
-                error.message + ". Please enable location access on this site"
-              );
+              alert("Please enable location access on this site");
               console.log(error);
             }
           );
@@ -104,11 +111,6 @@ const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
       map.controls[google.maps.ControlPosition.RIGHT_TOP].push(locationButton);
       // add custom location marker
       locations.forEach((location) => {
-        const markerIcon = document.createElement("img");
-        markerIcon.src = googleMapIcon;
-        markerIcon.width = 30;
-        markerIcon.height = 30;
-
         const marker = new AdvancedMarkerElement({
           position: {
             lat: location.coordinates.coordinates[1],
@@ -140,8 +142,8 @@ const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
             lng: center ? center.lng : 144.9093,
           },
           map: map,
-          title: "You",
-          content: userIcon,
+          title: "Center of City",
+          content: myLocIcon,
         })
       );
       if (userMarker) bounds.extend(userMarker.position);

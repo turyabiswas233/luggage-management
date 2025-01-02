@@ -46,19 +46,6 @@ const libraries = ["places"];
 const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
 const GOOGLE_MAPS_ID = config.GOOGLE_MAP_ID;
 
-class PinElement {
-  constructor(icon) {
-    this.icon = icon;
-    this.element = this.createPinElement();
-  }
-
-  createPinElement() {
-    const pinElement = document.createElement("span");
-    pinElement.innerHTML = this.icon;
-    return pinElement;
-  }
-}
-
 const LuggageStoreInfo = ({
   id,
   title,
