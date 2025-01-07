@@ -31,8 +31,7 @@ import Reservations from "./pages/User/Reservations";
 import AllLuggage from "./pages/Luggage/AllLuggage";
 import LuggageDetails from "./pages/Luggage/LuggageDetails";
 import AllCustomer from "./pages/Partner/AllCustomer";
-import PartnerAnalytics from "./pages/Partner/PartnerAnalytics";
-import AdminAnalytics from "./pages/SuperAdmin/AdminAnalytics";
+import PartnerAnalytics from "./pages/Partner/PartnerAnalytics"; 
 import ResetPasswordForm from "./pages/ResetPasswordForm";
 
 import LuggageStoreDetails from "./pages/SearchLugLocation/LuggageDetails/LuggageStoreDetails";
@@ -69,7 +68,7 @@ import EditPartnerLocation from "./pages/Partner/EditLocation/EditPartnerLocatio
 import SuperAdminPartnerAnalytics from "./pages/SuperAdmin/SuperAdminPartnerAnalytics";
 import PaymentCancelled from "./pages/SearchLugLocation/LuggageDetails/PaymentCancelled";
 import LocationReviews from "./pages/SuperAdmin/LocationReviews";
-import AllPartnerPayment from "./pages/SuperAdmin/AllPartnerPayment";
+import Finance from "./pages/SuperAdmin/Finance";
 import AddNotification from "./pages/SuperAdmin/Notification/NtAdd";
 import AllNotificationAdmin from "./pages/SuperAdmin/Notification/NtList";
 import AllNotificationPartner from "./pages/Partner/Notification/NtList";
@@ -325,7 +324,7 @@ const routerConfig = createBrowserRouter([
       },
       {
         path: "partners-payment",
-        element: <AllPartnerPayment />,
+        element: <Finance />,
       },
       {
         path: "partners/:id",

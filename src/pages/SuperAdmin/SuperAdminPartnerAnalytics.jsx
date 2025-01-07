@@ -46,65 +46,55 @@ const SuperAdminPartnerAnalytics = () => {
   const [dataM, setDataM] = useState([]);
   const [errMsg, setErrMsg] = useState("");
   const [slipType, setSlipType] = useState("");
-
-  useEffect(() => {
+  const getAllPartnersEarning = async () => {
     try {
       const URL = `${config.API_BASE_URL}/api/v1/analytics/all-partner-earnings`;
-      axios
-        .get(URL)
-        .then((res) => {
-          console.log(res);
-          if (res.data.success) setPartners(res?.data?.data);
-          else {
-            setPartners([]);
-            setErrMsg("No data found");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          setErrMsg("An unexpected error occured. Try refreshing the page.");
-        });
+      const res = await axios.get(URL);
+
+      if (res.data.success) setPartners(res?.data?.data);
+      else {
+        setPartners([]);
+        setErrMsg("No data found");
+      }
     } catch (err) {
       console.log(err);
       setErrMsg("An unexpected error occured. Try refreshing the page.");
     }
-    // try to fetch super-admin analytics
+  };
+  const getSuperAdminAnalytics = async () => {
     try {
       const URL = `${config.API_BASE_URL}/api/v1/analytics/superadmin/earnings`;
       const token = localStorage.getItem("token");
-      axios
-        .get(URL, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          console.log(res.data);
-
-          if (res.data.success) {
-            setData(res.data?.data);
-            setDataM(
-              res?.data?.data?.months?.sort((a, b) =>
-                new Date(a?.monthStart).getTime() >
-                new Date(b?.monthStart).getTime()
-                  ? 1
-                  : -1
-              )
-            );
-            setAdminEarning(res?.data?.data);
-          } else {
-            setAdminEarning(null);
-            setErrMsg("No data found");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          setErrMsg("An unexpected error occured. Try refreshing the page.");
-        });
+      const res = await axios.get(URL, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.data.success) {
+        setData(res.data?.data);
+        setDataM(
+          res?.data?.data?.months?.sort((a, b) =>
+            new Date(a?.monthStart).getTime() >
+            new Date(b?.monthStart).getTime()
+              ? 1
+              : -1
+          )
+        );
+        setAdminEarning(res?.data?.data);
+      } else {
+        setAdminEarning(null);
+        setErrMsg("No data found");
+      }
     } catch (err) {
       console.log(err);
       setErrMsg("An unexpected error occured. Try refreshing the page.");
     }
+  };
+  useEffect(() => {
+    // fetch all partners earnings
+    getAllPartnersEarning();
+    // fetch super-admin analytics
+    getSuperAdminAnalytics();
   }, []);
 
   // superadmin monthly earning

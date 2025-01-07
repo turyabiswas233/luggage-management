@@ -183,10 +183,10 @@ const ChargingLocations = () => {
               You can charge your device at our convenient charging stations
               located throughout the building.
             </li>
-            <li>
+            {/* <li>
               Please ensure you bring your own{" "}
               <strong className="text-custom-teal-deep">charging cable</strong>.
-            </li>
+            </li> */}
           </ul>
           {finalMessage ? (
             <div className="">
