@@ -142,26 +142,29 @@ const BookingCard = ({ bookingData, _id }) => {
     location,
     startDate,
     startTime,
+    endDate,
+    endTime,
     luggageCount,
   } = bookingData;
+  if (_id === "6775cbc7c70f315803e82f47")
+    console.log(
+      startDate,
+      startTime,
+      "; ",
+      endDate,
+      endTime,
+      keyStorage.keyPickUpTime
+    );
 
   const [cancelPopup, setCancelPopup] = useState(false);
   const [cancelBookingId, setCancelBookingId] = useState(null);
-
-  const formattedStartDate = new Date(startDate);
-  formattedStartDate.setHours(startTime?.split(":")[0]);
-  formattedStartDate.setMinutes(startTime?.split(":")[1]);
-
-  if (_id == "671ed29a98c385fa50366f28") {
-    console.log(new Date(keyStorage?.keyPickUpTime)?.toISOString());
-    console.log(new Date(keyStorage?.keyPickUpTime)?.toLocaleString());
-  }
-
+  const [loadDelete, setLoadDelete] = useState(false);
   // delete booking by id
   const deleteBookingById = async () => {
     const url = `${config.API_BASE_URL}/api/v1/bookings/system/hard-delete-booking?bookingId=${_id}`;
     const token = `Bearer ${localStorage.getItem("token")}`;
     try {
+      setLoadDelete(true);
       const response = await axios.delete(url, {
         headers: {
           Authorization: token,
@@ -169,10 +172,11 @@ const BookingCard = ({ bookingData, _id }) => {
       });
 
       alert("Booking Deleted Successfully");
-      window.location?.reload();
     } catch (err) {
       console.log(err);
       alert("Failed to delete booking");
+    } finally {
+      setLoadDelete(false);
     }
   };
   return (
@@ -195,9 +199,12 @@ const BookingCard = ({ bookingData, _id }) => {
             </div>
             <div className="flex gap-2 items-center justify-center mt-2">
               <button
-                className="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors"
+                className="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors disabled:opacity-50 disabled:pointer-events-none"
+                type="button"
+                disabled={loadDelete}
                 onClick={async () => {
                   try {
+                    setLoadDelete(true);
                     const response = await axios.put(
                       `${config.API_BASE_URL}/api/v1/superadmin/bookings/${cancelBookingId}/cancel`,
                       {},
@@ -210,23 +217,26 @@ const BookingCard = ({ bookingData, _id }) => {
                       }
                     );
                     console.log("response", response);
-                     
+
                     alert(
                       response.data.message || "Booking cancelled successfully"
                     );
                     setCancelBookingId(null);
                     setCancelPopup(false);
-                    window.location.reload();
                   } catch (error) {
                     console.error("Failed to cancel booking", error);
                     alert("Failed to cancel booking");
+                  } finally {
+                    setLoadDelete(false);
                   }
                 }}
               >
                 Yes
               </button>
               <button
-                className="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded-md transition-colors"
+                className="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded-md transition-colors disabled:pointer-events-none disabled:opacity-50"
+                type="button"
+                disabled={loadDelete}
                 onClick={() => {
                   setCancelBookingId(null);
                   setCancelPopup(false);
@@ -276,14 +286,17 @@ const BookingCard = ({ bookingData, _id }) => {
       </section>
       <section className="text-gray-700 px-4 border-b border border-black overflow-x-auto break-keep">
         <ul className="grid gap-1">
-          <li>{`Drop off Time: ${formattedStartDate.toLocaleString("en-AU", {
-            hour12: true,
-            month: "short",
-            day: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-          })} (Australian Time Zone)`}</li>
+          <li className="mt-2">
+            Drop off Time:
+            <span className="bg-slate-900 text-slate-100 p-1 rounded-md">
+            {new Date(startDate).toLocaleDateString("en-AU", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })}
+            {onlyTimeFormat(startTime)}
+            </span>
+          </li>
           <li className="hidden">{`Kyes Count: ${luggageCount}`}</li>
           {/* <li>{`Payment Status: ${payment.status}`}</li> */}
           <li>
@@ -298,7 +311,6 @@ const BookingCard = ({ bookingData, _id }) => {
               {payment.status}
             </span>
           </li>
-          
         </ul>
       </section>
       {keyStorage?.isKeyStorage && (
@@ -313,9 +325,29 @@ const BookingCard = ({ bookingData, _id }) => {
               keyStorage?.keyPickUpBy?.email || "--"
             }`}</li>
 
-            <li className="break-keep">{`Pickup Time: ${getFormattedUTCTime(
-              keyStorage?.keyPickUpTime
-            )} (Australian Time Zone)`}</li>
+            <li className="break-keep">
+              {/* {`Pickup Time: ${getFormattedUTCTime(
+                keyStorage?.keyPickUpTime
+              )} (Australian Time Zone)`} */}
+              <b>Pickup Time:</b> <br />
+              <span className="bg-slate-400/50 text-slate-700 p-1 rounded-md">
+              Local Time by agent: {`${new Date(
+                  keyStorage?.keyPickUpTime
+                ).toLocaleDateString("en-AU", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                  timeZone: "GMT+0",
+                })}${onlyTimeFormat(`${endTime}`)}`}
+              </span>
+            </li>
+            <li className="break-keep my-2">
+            <span className="bg-green-200/50 text-green-700 p-1 rounded-md">
+            Time by Australian-Sydney Zone: {`${getFormattedUTCTime(
+                keyStorage?.keyPickUpTime
+              )}`}
+              </span>
+            </li>
           </ul>
         </section>
       )}
@@ -326,14 +358,21 @@ const BookingCard = ({ bookingData, _id }) => {
 const getFormattedUTCTime = (time) => {
   const now = new Date(time);
   return now.toLocaleString("en-AU", {
-    timeZone: "Australia/Sydney",
     hour12: true,
     month: "short",
     day: "2-digit",
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
+    timeZone: "Australia/Melbourne", 
   });
 };
-
+const onlyTimeFormat = (time) => {
+  const timeList = time.split(":").map((f) => Number(f)) || [0, 0];
+  const hour = String(
+    timeList[0] == 0 ? 12 : timeList[0] > 12 ? timeList[0] - 12 : timeList[0]
+  ).padStart(2, "0");
+  const minutes = String(timeList[1] || 0).padStart(2, "0");
+  return ` at ${hour}:${minutes} ${timeList[0] < 12 ? "AM" : "PM"}`;
+};
 export default SuperAdminUrloker;
