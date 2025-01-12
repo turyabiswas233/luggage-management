@@ -70,6 +70,7 @@ const SuperAdminPartnerAnalytics = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(res.data);
       if (res.data.success) {
         setData(res.data?.data);
         setDataM(

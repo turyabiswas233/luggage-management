@@ -37,17 +37,6 @@ const BookingForm = ({
     phone: "",
   });
 
-  // useEffect(() => {
-  //   // Set default check-in and check-out times
-  //   const checkin = moment().add(6, "hours").format("YYYY-MM-DDTHH:mm");
-  //   const checkout = moment(checkin)
-  //     .add(20, "hours")
-  //     .format("YYYY-MM-DDTHH:mm");
-
-  //   setTotalPrice(0);
-  //   setDiscount(0);
-  // }, [setTotalPrice, setDiscount, setCheckinTime, setCheckoutTime]);
-
   const handleApplyPromo = async () => {
     const url = config.API_BASE_URL;
     try {
@@ -77,7 +66,7 @@ const BookingForm = ({
     setPromoApplied(false);
     const dailyRate = 10.5; // Combined service fee and luggage price per day
     const duration = calculateDuration(checkinTime, checkoutTime);
-    let price = dailyRate * duration * luggageQuantity - discount;
+    let price = dailyRate * duration * luggageQuantity;
     price = parseFloat(price.toFixed(2)); // Round to two decimal places
     setTotalPrice(price);
   };
@@ -136,9 +125,12 @@ const BookingForm = ({
     ) {
       const dailyRate = 10.5; // Combined service fee and luggage price per day
       const duration = calculateDuration(checkinTime, checkoutTime);
-      let price =
-        dailyRate * duration * luggageQuantity -
-        (discount / 100) * 7.9 * duration * luggageQuantity;
+      let price = discount
+        ? discount == 101
+          ? 0
+          : dailyRate * duration * luggageQuantity -
+            (discount / 100) * 7.9 * duration * luggageQuantity
+        : dailyRate * duration * luggageQuantity; // URL192BDD101
 
       price = parseFloat(price.toFixed(2)); // Round to two decimal places
       setTotalPrice(price);
@@ -384,7 +376,7 @@ const BookingForm = ({
                 Total{" "}
                 {promoApplied && (
                   <small className="font-thin text-sm">
-                    ({discount}% discount)
+                    ({discount == 101 ? 'Full Free': discount+'% discount'})
                   </small>
                 )}{" "}
               </span>

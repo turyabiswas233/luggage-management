@@ -6,7 +6,7 @@ import SuperAdminHeader from "../../../partials/SuperAdminHeader";
 
 function PromoCodeManagement() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
+  const [isTrigger, setIsTrigger] = useState(true);
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -31,8 +31,8 @@ function PromoCodeManagement() {
             <h1 className="text-2xl font-semibold text-gray-800">
               Promo Code Management
             </h1>
-            <BulkPromoCodeGeneration />
-            <PromoCodeEdit />
+            <BulkPromoCodeGeneration setIsTrigger={setIsTrigger} />
+            <PromoCodeEdit isTrigger={isTrigger} setIsTrigger={setIsTrigger} />
           </div>
         </main>
       </div>

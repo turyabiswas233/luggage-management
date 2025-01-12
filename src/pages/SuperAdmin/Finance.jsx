@@ -97,7 +97,7 @@ const Finance = () => {
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
             {/* Welcome banner */}
             <WelcomeBanner />
-
+            <h3 className="text-red-600 font-bold text-xl mb-10 bg-red-200/60 rounded-md p-2 ring-1 ring-red-500">NB:- This page is under development</h3>
             {/* Add Price Button */}
             <div className="mb-4">
               <button

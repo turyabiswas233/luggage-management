@@ -3,8 +3,8 @@ import axios from "axios";
 import config from "../../../config";
 import { LuLoader2 } from "react-icons/lu";
 
-function BulkPromoCodeGeneration() {
-  const [discountPercentage, setDiscountPercentage] = useState(0);
+function BulkPromoCodeGeneration({ setIsTrigger }) {
+  const [discountPercentage, setDiscountPercentage] = useState('101');
   const [codeCount, setCodeCount] = useState(10);
   const [expiresAt, setExpiresAt] = useState("");
   const [message, setMessage] = useState("");
@@ -29,6 +29,7 @@ function BulkPromoCodeGeneration() {
       console.log(error);
     } finally {
       setLoad(false);
+      setIsTrigger(true);
     }
   };
 
@@ -59,18 +60,37 @@ function BulkPromoCodeGeneration() {
         >
           Discount Percentage
         </label>
-        <input
-          type="number"
+        <select
+          name="discountPercentage"
           id="discountPercentage"
           placeholder="Discount Percentage"
           className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           value={discountPercentage}
-          min={0}
-          max={100}
           required
-          step={1}
           onChange={(e) => setDiscountPercentage(e.target.value)}
-        />
+        >
+          <option value="101">Super Free</option>
+          <option value="5">5%</option>
+          <option value="10">10%</option>
+          <option value="15">15%</option>
+          <option value="20">20%</option>
+          <option value="25">25%</option>
+          <option value="30">30%</option>
+          <option value="35">35%</option>
+          <option value="40">40%</option>
+          <option value="45">45%</option>
+          <option value="50">50%</option>
+          <option value="55">55%</option>
+          <option value="60">60%</option>
+          <option value="65">65%</option>
+          <option value="70">70%</option>
+          <option value="75">75%</option>
+          <option value="80">80%</option>
+          <option value="85">85%</option>
+          <option value="90">90%</option>
+          <option value="95">95%</option>
+          <option value="100">100%</option>
+        </select>
       </div>
       <div className="mb-4 space-y-4">
         <label
@@ -87,22 +107,30 @@ function BulkPromoCodeGeneration() {
           onChange={(e) => setExpiresAt(e.target.value)}
           value={expiresAt}
         />
+
+        {expiresAt && (
+          <pre className="max-w-full text-wrap ring-1 rounded-md p-2 bg-white shadow-md text-xs select-none hover:bg-blue-100/40">
+            International Time: {new Date(expiresAt).toUTCString()}`
+          </pre>
+        )}
       </div>
-      <div>
+      <div className="mb-4 space-y-4">
         {/* code count */}
         <label
           htmlFor="codeCount"
           className="block text-sm font-medium text-gray-700"
         >
-          Code Count
+          Number of Promo codes to Generate
         </label>
         <select
           name="codeCount"
           id="codeCount"
+          className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          value={codeCount}
           onChange={(e) => setCodeCount(e.target.value)}
         >
           <option value="1">1</option>
-          <option value="1">5</option>
+          <option value="5">5</option>
           <option value="10">10</option>
           <option value="20">20</option>
           <option value="50">50</option>

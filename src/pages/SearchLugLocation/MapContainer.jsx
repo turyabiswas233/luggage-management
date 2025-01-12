@@ -9,14 +9,17 @@ const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
   const GOOGLE_MAPS_API_KEY = config.GOOGLE_API_KEY;
   const isLoaded = useGoogleMapsApi(GOOGLE_MAPS_API_KEY);
 
+  // basically all partner users' shop icon as URLOKER
   const userIcon = document.createElement("img");
   userIcon.src = userLocation;
   userIcon.width = 30;
   userIcon.height = 30;
+  // client user's location icon
   const myLocIcon = document.createElement("img");
   myLocIcon.src = myLocation;
   myLocIcon.width = 30;
   myLocIcon.height = 30;
+  // central icon of a city
   const markerIcon = document.createElement("img");
   markerIcon.src = googleMapIcon;
   markerIcon.width = 30;
@@ -40,7 +43,6 @@ const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
         minZoom: 5,
         controlSize: 30,
         disableDefaultUI: true,
-        streetView: false,
         zoomControl: true,
         zoomControlOptions: {
           position: google.maps.ControlPosition.TOP_RIGHT,
@@ -111,6 +113,7 @@ const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
       map.controls[google.maps.ControlPosition.RIGHT_TOP].push(locationButton);
       // add custom location marker
       locations.forEach((location) => {
+        console.log('custom location point: ',location.coordinates);
         const marker = new AdvancedMarkerElement({
           position: {
             lat: location.coordinates.coordinates[1],
@@ -122,13 +125,23 @@ const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
           content: markerIcon,
         });
         marker.addListener("click", () => {
-          infoWindow.setOptions({ minWidth: 250, maxWidth: 250 });
+          infoWindow.setOptions({
+            minWidth: 250,
+            maxWidth: 250,
+          });
           infoWindow.setContent(
-            "<div>" +
-              `<h1 id="firstHeader"><b>${location.name}</b></h1>` +
+            "<div id='locationInfo'>" +
+              `<img style="width:80px;height=80px;border-radius:10px" src="${
+                location.pictures[0] ||
+                "https://img.freepik.com/free-vector/cartoon-style-cafe-front-shop-view_134830-697.jpg"
+              }" alt="image" />` +
+              `<p id="firstHeader">${location.name}</p>` +
               `<p>${location.address.street}, ${location.address.city}</p>` +
               `<p>${location.address.state}, ${location.address.country}</p>` +
-              `<p id='dist'>${Number(location.distance).toFixed(2)} meter</p>` +
+              `<p id='dist'>${new Intl.NumberFormat('en-AU',{
+                maximumFractionDigits:2,
+                style: 'decimal'
+              }).format(Number(location.distance))} meter</p>` +
               "</div>"
           );
           infoWindow.open(map, marker);
@@ -169,6 +182,7 @@ const MapContainer = ({ locations, setVisibleLocations, center, zoom }) => {
     if (!bounds) return;
 
     const visibleLocations = locations.filter((location) => {
+      // console.log(location.coordinates);
       const latLng = new google.maps.LatLng(
         location.coordinates.coordinates[1],
         location.coordinates.coordinates[0]

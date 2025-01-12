@@ -154,16 +154,7 @@ const LuggageStorageLocations = ({ cityType }) => {
           ]);
         }
       } else {
-        const url = config.API_BASE_URL + `/api/v1/featured/search?city=Melbourne`;
-        const res = await axios.get(url);
-        const combinedLocations = [
-          ...locations,
-          ...res.data?.data?.map((e) => ({
-            name: e?.address,
-            image: e?.images[0]?.url,
-            alt: e?.images[0]?.alt || "Luggage Storage",
-          })),
-        ];
+        const combinedLocations = locations;
         setLocations(combinedLocations.sort(() => Math.random() - 0.5)); // this will shuffle the array by sorting them randomly
       }
     } catch (err) {

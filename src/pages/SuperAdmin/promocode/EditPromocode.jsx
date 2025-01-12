@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../../../config";
-import { LuLoader } from "react-icons/lu";
-function PromoCodeEdit() {
+
+function PromoCodeEdit({ isTrigger, setIsTrigger }) {
   const [promoCodes, setPromoCodes] = useState([]);
   const [promoKeys, setPromoKeys] = useState([]);
   const [selectedPromoKey, setSelectedPromoKey] = useState(0);
@@ -21,33 +21,29 @@ function PromoCodeEdit() {
       const codeList = response.data?.groupedPromoCodes;
       setPromoKeys([]);
       setPromoCodes([]);
-
       Object.keys(codeList).forEach((key) => {
-        // if(key == 10)
-        // console.log(codeList[key]);
         setPromoKeys((prev) => [...prev, key]);
-        setPromoCodes((prev) => [...prev, ...codeList[key]]);
       });
+      setPromoCodes(codeList);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
-      // console.log(promoKeys);
+      setIsTrigger(false);
     }
   }
   useEffect(() => {
-    // Fetch promo codes from the server
-    getPromoCodes();
-  }, []);
+    if (isTrigger) getPromoCodes();
+  }, [isTrigger]);
 
   const handleEditExpiry = async () => {
     // Send PATCH request to '/promocode/:promoCode/edit-expiry' endpoint with the new expiry date
     const response = await axios.patch(
       `${config.API_BASE_URL}/api/v1/promocode/${
-        promoCodes.find((f) => f?._id === selectedPromoCode)?.code
+        promoCodes[selectedPromoKey].find((f) => f?._id === selectedPromoCode)?.code
       }/edit-expiry`,
       {
-        expiresAt: expiresAt,
+        expiresAt: new Date(expiresAt).toISOString(),
       },
       {
         headers: {
@@ -63,7 +59,7 @@ function PromoCodeEdit() {
       // Send PATCH request to '/promocode/:promoCode/toggle' endpoint
       const response = await axios.patch(
         `${config.API_BASE_URL}/api/v1/promocode/${
-          promoCodes.find((f) => f?._id === selectedPromoCode)?.code
+          promoCodes[selectedPromoKey].find((f) => f?._id === selectedPromoCode)?.code
         }/toggle-status`,
         {},
         {
@@ -80,44 +76,38 @@ function PromoCodeEdit() {
     }
   };
 
-  console.log(codeType);
-
   return (
     <div className="p-4">
       <div className="flex justify-between items-center">
         <p className="my-4">
           <b>Promo code list:</b>
         </p>
-        <button
-          type="button"
-          className="bg-blue-500 hover:bg-blue-600 transition-colors text-blue-50 rounded-full text-sm h-fit font-black px-4 py-1"
-          onClick={() => getPromoCodes()}
-        >
-          Reload
-        </button>
       </div>
       <div>
         <div className="grid grid-cols-2 gap-5 my-5">
-          <select onChange={(e) => setSelectedPromoKey(Number(e.target.value))}>
+          <select
+            className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            onChange={(e) => setSelectedPromoKey(Number(e.target.value))}
+          >
             <option value={""}>Select a code</option>
             {promoKeys.map((key, id) => {
               return (
                 <option key={`key-${key}-${id}`} value={key}>
-                  {key}
+                  {Number(key) === 101 ? "Super Free" : key}
                 </option>
               );
             })}
           </select>
-          <div className="bg-white border-2 border-black grid grid-cols-2 gap-5 p-1">
+          <div className="mt-1 flex justify-between gap-2 w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
             <button
-              className="bg-green-500 text-white rounded-md"
+              className="bg-green-500 text-white rounded-md flex-auto"
               type="button"
               onClick={(e) => setCodeType(true)}
             >
               Active
             </button>
             <button
-              className="bg-red-500 text-white rounded-md"
+              className="bg-red-500 text-white rounded-md flex-auto"
               type="button"
               onClick={(e) => setCodeType(false)}
             >
@@ -131,46 +121,47 @@ function PromoCodeEdit() {
               <tr>
                 <th>Code</th>
                 <th>{"Discount(%)"}</th>
-                <th>Expire Time</th>
+                <th>Expire Time (Local Region)</th>
               </tr>
             </thead>
 
             <tbody className="space-y-2 my-2 overflow-y-scroll text-center h-auto">
-              {promoCodes
-                ?.filter(
-                  (f) =>
-                    f.discountPercentage === selectedPromoKey &&
-                    codeType == Boolean(f.isActive)
-                )
-                .sort((a, b) =>
+              {promoCodes[selectedPromoKey]
+                ?.filter((f) => Boolean(codeType) === Boolean(f.isActive))
+                ?.sort((a, b) =>
                   new Date(a.expiresAt).getTime() -
                     new Date(b.expiresAt).getTime() <=
                   0
                     ? 1
                     : -1
                 )
-                .map((code, id) => (
-                 (new Date().getTime() < new Date(code.expiresAt).getTime()) && <tr
-                    key={code + id}
-                    onClick={() => setSelectedPromoCode(code._id)}
-                    className={`cursor-pointer p-2 rounded text-cyan-900 ${
-                      id % 2 == 0 ? "bg-gray-200" : "bg-gray-100"
-                    } hover:bg-custom-teal-deep/70 hover:text-white `}
-                  >
-                    <td className="p-2">{code.code}</td>
-                    <td className="p-2">{code.discountPercentage}%</td>
-                    <td className="p-2">
-                      {new Date(code?.expiresAt).toLocaleString("en-AU", {
-                        timeZone: "Australia/Sydney",
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                        hour: "numeric",
-                        minute: "numeric",
-                      })}
-                    </td>
-                  </tr>
-                ))}
+                ?.map(
+                  (code, id) =>
+                    (
+                      <tr
+                        key={code + id}
+                        onClick={() => setSelectedPromoCode(code._id)}
+                        className={`cursor-pointer p-2 rounded text-cyan-900 ${
+                          id % 2 == 0 ? (new Date().getTime() <
+                      new Date(code.expiresAt).getTime() ? "bg-gray-200":'bg-red-100/50 border-y border-y-red-100') : (new Date().getTime() <
+                      new Date(code.expiresAt).getTime() ?"bg-gray-100":'bg-red-100/50 border-y border-y-red-100')
+                        } hover:bg-custom-teal-deep/70 hover:text-white `}
+                      >
+                        <td className="p-2">{code.code}</td>
+                        <td className="p-2">{code.discountPercentage}%</td>
+                        <td className="p-2">
+                          {new Date(code?.expiresAt).toLocaleString("en-AU", {
+                            // timeZone: "UTC",
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                          })}
+                        </td>
+                      </tr>
+                    )
+                )}
             </tbody>
           </table>
         </section>
@@ -180,22 +171,21 @@ function PromoCodeEdit() {
               <p>
                 Modify Promo code:{" "}
                 <small className="bg-slate-900 text-slate-50 px-4 py-1 rounded-md">
-                  {promoCodes.find((f) => f?._id == selectedPromoCode)?.code ||
-                    "-- --"}
+                  {promoCodes[selectedPromoKey]?.find((f) => f?._id == selectedPromoCode)?.code}
                 </small>
               </p>
               <p className="flex flex-auto flex-wrap">
                 Current Expiry Time:{" "}
                 <small className="bg-slate-900 text-slate-50 px-4 py-1 rounded-md">
-                  {new Date(expiresAt).toLocaleString("en-AU", {
-                    timeZone: "Australia/Sydney",
+                  {expiresAt?new Date(expiresAt).toLocaleString("en-AU", {
+                    timeZone: "UTC",
                     day: "numeric",
                     month: "short",
                     year: "numeric",
                     hour: "numeric",
                     minute: "numeric",
-                  }) || "-- --"}{" "}
-                  (Australia/Sydney)
+                  }):'-- --'}{" "}
+                  (GMT 0)
                 </small>
               </p>
               <input
@@ -216,13 +206,13 @@ function PromoCodeEdit() {
                   onClick={handleToggleActive}
                   type="button"
                   className={`${
-                    promoCodes.find((f) => f?._id === selectedPromoCode)
+                    promoCodes[selectedPromoKey].find((f) => f?._id === selectedPromoCode)
                       ?.isActive === false
                       ? "bg-green-500"
                       : "bg-red-500"
                   } text-white p-2 rounded`}
                 >
-                  {promoCodes.find((f) => f?._id === selectedPromoCode)
+                  {promoCodes[selectedPromoKey].find((f) => f?._id === selectedPromoCode)
                     ?.isActive
                     ? "Deactivate"
                     : "Activate"}

@@ -109,12 +109,22 @@ img {
   outline: 2px solid #04581f;
   outline-offset: 3px;
 }
+#locationInfo{
+  /* position: absolute; */
+  top: 5%;
+  left: 5%;
+  width: fit-content;
+  height: fit-content;
+  text-wrap: wrap;
+}
 #firstHeader {
-  font-size: 1.2em;
+  font-size: 1rem;
   font-weight: 700;
-  margin-bottom: 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 #dist{
+  margin-top: 1em;
   font-size: 1em;
   font-weight: 700;
 }
