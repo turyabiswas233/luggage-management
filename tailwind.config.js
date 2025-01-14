@@ -56,6 +56,7 @@ export default {
         "custom-blue": "#3b82f6",
         "primary-5": "var(--clr-primary-5)",
         "custom-teal": '#2a9b84',
+        "teal-def":"#4A686A",
         "custom-teal-deep": '#0c7560',
         cream: "#f5f5dc",
       },

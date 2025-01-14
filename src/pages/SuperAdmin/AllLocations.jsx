@@ -424,7 +424,7 @@ const AllLocations = () => {
                 </div>
               ) : (
                 <table className="min-w-full">
-                  <thead className="bg-[#4A686A] text-white">
+                  <thead className="bg-teal-def text-white">
                     <tr>
                       <th className="py-3 px-6 text-left font-bold">Name</th>
                       <th className="py-3 px-6 text-left font-bold">Address</th>

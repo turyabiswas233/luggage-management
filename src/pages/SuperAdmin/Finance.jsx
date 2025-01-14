@@ -111,7 +111,7 @@ const Finance = () => {
             {/* Partner List Table */}
             <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
               <table className="min-w-full">
-                <thead className="bg-[#4A686A] text-white">
+                <thead className="bg-teal-def text-white">
                   <tr>
                     <th className="w-1/8 py-3 px-6 text-left">ID</th>
                     <th className="w-1/8 py-3 px-6 text-left">Name</th>

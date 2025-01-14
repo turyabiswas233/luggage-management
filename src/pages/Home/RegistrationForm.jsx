@@ -21,6 +21,7 @@ const RegistrationForm = ({ loginType, onClose }) => {
     tradeLicenseNumber: "",
   });
   const [keyServiceOnly, setKeyServiceOnly] = useState(false);
+  const [agreePLA, setAgreePLA] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState({});
   const [responseMessage, setResponseMessage] = useState("");
@@ -76,7 +77,14 @@ const RegistrationForm = ({ loginType, onClose }) => {
     e.preventDefault();
 
     if (!validateForm()) return;
-
+    if (formData.password !== formData.confirmPassword) {
+      setErrors({ password: "Passwords do not match" });
+      return;
+    }
+    if (loginType === "Partner" && !agreePLA) {
+      setErrors({ error: "Please agree to the Partner License Agreement" });
+      return;
+    }
     setLoading(true); // Start loading
 
     const endpoint =
@@ -94,7 +102,6 @@ const RegistrationForm = ({ loginType, onClose }) => {
         keyServiceOnly: keyServiceOnly,
       }),
     };
-    console.log(body);
 
     try {
       const response = await fetch(endpoint, {
@@ -137,16 +144,16 @@ const RegistrationForm = ({ loginType, onClose }) => {
   if (!loginType) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg relative w-full max-w-lg">
+    <div className="fixed inset-0 flex justify-center items-center">
+      <div className="bg-white p-8 rounded-lg shadow-lg relative w-full max-w-lg max-h-screen overflow-y-auto">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-600 text-2xl"
+          className="sticky float-right top-0 right-0 bg-white rounded-sm ring-1 ring-teal-def text-gray-600 hover:bg-teal-50 transition-colors text-2xl"
           aria-label="Close"
         >
           <FaTimes />
         </button>
-        <h2 className="text-center mb-6 text-4xl font-semibold text-[#4A686A]">{`Register as ${loginType}`}</h2>
+        <h2 className="text-center mb-6 text-4xl font-semibold text-teal-def">{`Register as ${loginType}`}</h2>
         {errors.general && (
           <p className="text-red-500 text-center mb-4">{errors.general}</p>
         )}
@@ -163,7 +170,8 @@ const RegistrationForm = ({ loginType, onClose }) => {
           <div className="text-center mb-4">
             <button
               onClick={handleOkClick}
-              className="bg-[#4A686A] hover:bg-[#518689] text-white py-2 px-4 rounded transition duration-200"
+              type="button"
+              className="bg-teal-def hover:bg-[#518689] text-white py-2 px-4 rounded transition duration-200"
             >
               OK
             </button>
@@ -171,90 +179,92 @@ const RegistrationForm = ({ loginType, onClose }) => {
         )}
         {!isSuccess && loginType === "Partner" && (
           <>
-            {currentStep === 1 && (
-              <form>
-                <div className="mb-4">
-                  <label
-                    className="block text-[#4A686A] font-medium"
-                    htmlFor="username"
-                  >
-                    Username
-                  </label>
-                  <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
-                    value={formData.username}
-                    onChange={handleChange}
-                  />
-                  {errors.username && (
-                    <span className="text-red-500">{errors.username}</span>
-                  )}
-                  {errors.error && errors.error.includes("Username") && (
-                    <span className="text-red-500">{errors.error}</span>
-                  )}
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-[#4A686A] font-medium"
-                    htmlFor="email"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
-                    value={formData.email}
-                    onChange={handleChange}
-                  />
-                  {errors.email && (
-                    <span className="text-red-500">{errors.email}</span>
-                  )}
-                  {errors.error && errors.error.includes("Email") && (
-                    <span className="text-red-500">{errors.error}</span>
-                  )}
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-[#4A686A] font-medium"
-                    htmlFor="password"
-                  >
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
-                    value={formData.password}
-                    onChange={handleChange}
-                  />
-                  {errors.password && (
-                    <span className="text-red-500">{errors.password}</span>
-                  )}
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-[#4A686A] font-medium"
-                    htmlFor="conPass"
-                  >
-                    Confirm Password
-                  </label>
-                  <input
-                    type="password"
-                    id="conPass"
-                    name="confirmPassword"
-                    className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="flex justify-between items-center mb-4">
+            <form
+              onSubmit={handleFormSubmit}
+              className="h-full overflow-y-auto"
+            >
+              <div className="mb-4">
+                <label
+                  className="block text-teal-def font-medium"
+                  htmlFor="username"
+                >
+                  Username
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
+                  value={formData.username}
+                  onChange={handleChange}
+                />
+                {errors.username && (
+                  <span className="text-red-500">{errors.username}</span>
+                )}
+                {errors.error && errors.error.includes("Username") && (
+                  <span className="text-red-500">{errors.error}</span>
+                )}
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-teal-def font-medium"
+                  htmlFor="email"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+                {errors.email && (
+                  <span className="text-red-500">{errors.email}</span>
+                )}
+                {errors.error && errors.error.includes("Email") && (
+                  <span className="text-red-500">{errors.error}</span>
+                )}
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-teal-def font-medium"
+                  htmlFor="password"
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+                {errors.password && (
+                  <span className="text-red-500">{errors.password}</span>
+                )}
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-teal-def font-medium"
+                  htmlFor="conPass"
+                >
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  id="conPass"
+                  name="confirmPassword"
+                  className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                />
+              </div>
+              {/* <div className="flex justify-between items-center mb-4">
                   <button
-                    className="w-full bg-[#4A686A] hover:bg-[#518689] text-white py-2 px-4 rounded transition duration-200"
+                    className="w-full bg-teal-def hover:bg-[#518689] text-white py-2 px-4 rounded transition duration-200"
                     type="button"
                     onClick={() => {
                       if (formData.password === formData.confirmPassword) {
@@ -267,245 +277,241 @@ const RegistrationForm = ({ loginType, onClose }) => {
                   >
                     Next
                   </button>
-                </div>
-              </form>
-            )}
-            {currentStep === 2 && (
-              <form>
-                <div className="mb-4">
-                  <label
-                    className="block text-[#4A686A] font-medium"
-                    htmlFor="businessAddress.street"
-                  >
-                    Street
-                  </label>
-                  <input
-                    type="text"
-                    id="businessAddress.street"
-                    name="businessAddress.street"
-                    className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
-                    value={formData.businessAddress.street}
-                    onChange={handleChange}
-                  />
-                  {errors.street && (
-                    <span className="text-red-500">{errors.street}</span>
-                  )}
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-[#4A686A] font-medium"
-                    htmlFor="businessAddress.district"
-                  >
-                    Suburb
-                  </label>
-                  <input
-                    type="text"
-                    id="businessAddress.district"
-                    name="businessAddress.district"
-                    className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
-                    value={formData.businessAddress.district}
-                    onChange={handleChange}
-                  />
-                  {errors.district && (
-                    <span className="text-red-500">{errors.district}</span>
-                  )}
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-[#4A686A] font-medium"
-                    htmlFor="businessAddress.city"
-                  >
-                    City
-                  </label>
-                  <input
-                    type="text"
-                    id="businessAddress.city"
-                    name="businessAddress.city"
-                    className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
-                    value={formData.businessAddress.city}
-                    onChange={handleChange}
-                  />
-                  {errors.city && (
-                    <span className="text-red-500">{errors.city}</span>
-                  )}
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-[#4A686A] font-medium"
-                    htmlFor="businessAddress.state"
-                  >
-                    State
-                  </label>
-                  <input
-                    type="text"
-                    id="businessAddress.state"
-                    name="businessAddress.state"
-                    className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
-                    value={formData.businessAddress.state}
-                    onChange={handleChange}
-                  />
-                  {errors.state && (
-                    <span className="text-red-500">{errors.state}</span>
-                  )}
-                </div>
-                <div className="flex justify-between items-center mb-4">
-                  <button
-                    className="w-full bg-[#4A686A] hover:bg-[#518689] text-white py-2 mx-3 px-4 rounded transition duration-200"
-                    type="button"
-                    onClick={() => setCurrentStep(1)}
-                  >
-                    Back
-                  </button>
-                  <button
-                    className="w-full bg-[#4A686A] hover:bg-[#518689] text-white py-2 mx-3 px-4 rounded transition duration-200"
-                    type="button"
-                    onClick={() => setCurrentStep(3)}
-                  >
-                    Next
-                  </button>
-                </div>
-              </form>
-            )}
-            {currentStep === 3 && (
-              <form onSubmit={handleFormSubmit}>
-                <div className="mb-4">
-                  <label
-                    className="block text-[#4A686A] font-medium"
-                    htmlFor="businessAddress.zipCode"
-                  >
-                    Post Code
-                  </label>
-                  <input
-                    type="text"
-                    id="businessAddress.zipCode"
-                    name="businessAddress.zipCode"
-                    className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
-                    value={formData.businessAddress.zipCode}
-                    onChange={handleChange}
-                  />
-                  {errors.zipCode && (
-                    <span className="text-red-500">{errors.zipCode}</span>
-                  )}
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-[#4A686A] font-medium"
-                    htmlFor="businessAddress.country"
-                  >
-                    Country
-                  </label>
-                  <input
-                    type="text"
-                    id="businessAddress.country"
-                    name="businessAddress.country"
-                    className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
-                    value={formData.businessAddress.country}
-                    onChange={handleChange}
-                  />
-                  {errors.country && (
-                    <span className="text-red-500">{errors.country}</span>
-                  )}
-                </div>
-                <div className="mb-4">
-                  <label
-                    className="block text-[#4A686A] font-medium"
-                    htmlFor="tradeLicenseNumber"
-                  >
-                    ABN Number
-                  </label>
-                  <input
-                    type="text"
-                    id="tradeLicenseNumber"
-                    name="tradeLicenseNumber"
-                    className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
-                    value={formData.tradeLicenseNumber}
-                    onChange={handleChange}
-                  />
-                  {errors.tradeLicenseNumber && (
-                    <span className="text-red-500">
-                      {errors.tradeLicenseNumber}
-                    </span>
-                  )}
-                </div>
-                <div className="mb-4 flex items-center gap-2 text-[#518689]">
-                  <span onClick={() => setKeyServiceOnly((p) => !p)}>
-                    {keyServiceOnly ? (
-                      <MdCheckBox />
-                    ) : (
-                      <MdCheckBoxOutlineBlank />
-                    )}
+                </div> */}
+              <div className="mb-4">
+                <label
+                  className="block text-teal-def font-medium"
+                  htmlFor="businessAddress.street"
+                >
+                  Street
+                </label>
+                <input
+                  type="text"
+                  id="businessAddress.street"
+                  name="businessAddress.street"
+                  className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
+                  value={formData.businessAddress.street}
+                  onChange={handleChange}
+                />
+                {errors.street && (
+                  <span className="text-red-500">{errors.street}</span>
+                )}
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-teal-def font-medium"
+                  htmlFor="businessAddress.district"
+                >
+                  Suburb
+                </label>
+                <input
+                  type="text"
+                  id="businessAddress.district"
+                  name="businessAddress.district"
+                  className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
+                  value={formData.businessAddress.district}
+                  onChange={handleChange}
+                />
+                {errors.district && (
+                  <span className="text-red-500">{errors.district}</span>
+                )}
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-teal-def font-medium"
+                  htmlFor="businessAddress.city"
+                >
+                  City
+                </label>
+                <input
+                  type="text"
+                  id="businessAddress.city"
+                  name="businessAddress.city"
+                  className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
+                  value={formData.businessAddress.city}
+                  onChange={handleChange}
+                />
+                {errors.city && (
+                  <span className="text-red-500">{errors.city}</span>
+                )}
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-teal-def font-medium"
+                  htmlFor="businessAddress.state"
+                >
+                  State
+                </label>
+                <input
+                  type="text"
+                  id="businessAddress.state"
+                  name="businessAddress.state"
+                  className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
+                  value={formData.businessAddress.state}
+                  onChange={handleChange}
+                />
+                {errors.state && (
+                  <span className="text-red-500">{errors.state}</span>
+                )}
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-teal-def font-medium"
+                  htmlFor="businessAddress.zipCode"
+                >
+                  Post Code
+                </label>
+                <input
+                  type="text"
+                  id="businessAddress.zipCode"
+                  name="businessAddress.zipCode"
+                  className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
+                  value={formData.businessAddress.zipCode}
+                  onChange={handleChange}
+                />
+                {errors.zipCode && (
+                  <span className="text-red-500">{errors.zipCode}</span>
+                )}
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-teal-def font-medium"
+                  htmlFor="businessAddress.country"
+                >
+                  Country
+                </label>
+                <input
+                  type="text"
+                  id="businessAddress.country"
+                  name="businessAddress.country"
+                  className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
+                  value={formData.businessAddress.country}
+                  onChange={handleChange}
+                />
+                {errors.country && (
+                  <span className="text-red-500">{errors.country}</span>
+                )}
+              </div>
+              <div className="mb-4">
+                <label
+                  className="block text-teal-def font-medium"
+                  htmlFor="tradeLicenseNumber"
+                >
+                  ABN Number
+                </label>
+                <input
+                  type="text"
+                  id="tradeLicenseNumber"
+                  name="tradeLicenseNumber"
+                  className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
+                  value={formData.tradeLicenseNumber}
+                  onChange={handleChange}
+                />
+                {errors.tradeLicenseNumber && (
+                  <span className="text-red-500">
+                    {errors.tradeLicenseNumber}
                   </span>
-                  <input
-                    aria-hidden="true"
-                    type="checkbox"
-                    id="keyServiceOnly"
-                    name="keyServiceOnly"
-                    className="aria-hidden:hidden"
-                    value={keyServiceOnly}
-                    onChange={(e) => {
-                      console.log(e.target.checked);
-                      setKeyServiceOnly(e.target.checked);
-                    }}
-                  />
-                  <label
-                    className="block text-[#4A686A] font-bold"
-                    htmlFor="keyServiceOnly"
+                )}
+              </div>
+              <div className="flex gap-2 items-center mb-4">
+                <span
+                  className="text-teal-def"
+                  onClick={() => setAgreePLA((p) => !p)}
+                >
+                  {agreePLA ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+                </span>
+                <input
+                  aria-hidden="true"
+                  type="checkbox"
+                  id="agreePLA"
+                  name="agreePLA"
+                  required
+                  className="aria-hidden:hidden"
+                  value={agreePLA}
+                  onChange={(e) => {
+                    console.log(e.target.checked);
+                    setAgreePLA(e.target.checked);
+                  }}
+                />
+                <label
+                  htmlFor="agreePLA"
+                  className="block text-black font-thin"
+                >
+                  Agree our{" "}
+                  <a
+                    className="decoration-0 underline text-teal-def"
+                    href="/legal-partner-agreement"
+                    target="_blank"
                   >
-                    Check this if you only provide key services
-                  </label>
-                  {errors.tradeLicenseNumber && (
-                    <span className="text-red-500">
-                      {errors.tradeLicenseNumber}
-                    </span>
+                    Partner License Agreement
+                  </a>
+                </label>
+              </div>{" "}
+              <div className="mb-4 flex items-center gap-2">
+                <span
+                  className="text-teal-800/80"
+                  onClick={() => setKeyServiceOnly((p) => !p)}
+                >
+                  {keyServiceOnly ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+                </span>
+                <input
+                  aria-hidden="true"
+                  type="checkbox"
+                  id="keyServiceOnly"
+                  name="keyServiceOnly"
+                  className="aria-hidden:hidden"
+                  value={keyServiceOnly}
+                  onChange={(e) => {
+                    console.log(e.target.checked);
+                    setKeyServiceOnly(e.target.checked);
+                  }}
+                />
+                <label
+                  className="block text-teal-def font-bold"
+                  htmlFor="keyServiceOnly"
+                >
+                  Check this if you only provide key services
+                </label>
+              </div>
+              <div className="flex justify-between items-center mb-4">
+                <button
+                  className="w-full bg-teal-def hover:bg-[#518689] text-white py-2 mx-3 px-4 rounded transition duration-200"
+                  type="submit"
+                >
+                  {loading ? (
+                    <div className="flex justify-center items-center">
+                      <svg
+                        className="animate-spin h-5 w-5 mr-3"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                          fill="none"
+                        />
+                        <path
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      Submitting...
+                    </div>
+                  ) : (
+                    "Register"
                   )}
-                </div>
-                <div className="flex justify-between items-center mb-4">
-                  <button
-                    className="w-full bg-[#4A686A] hover:bg-[#518689] text-white py-2 mx-3 px-4 rounded transition duration-200"
-                    type="button"
-                    onClick={() => setCurrentStep(2)}
-                  >
-                    Back
-                  </button>
-                  <button
-                    className="w-full bg-[#4A686A] hover:bg-[#518689] text-white py-2 mx-3 px-4 rounded transition duration-200"
-                    type="submit"
-                  >
-                    {loading ? (
-                      <div className="flex justify-center items-center">
-                        <svg
-                          className="animate-spin h-5 w-5 mr-3"
-                          viewBox="0 0 24 24"
-                        >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                            fill="none"
-                          />
-                          <path
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                        Submitting...
-                      </div>
-                    ) : (
-                      "Register"
-                    )}
-                  </button>
-                </div>
-              </form>
-            )}
+                </button>
+              </div>
+            </form>
           </>
         )}
         {!isSuccess && loginType !== "Partner" && (
           <form onSubmit={handleFormSubmit}>
             <div className="mb-4">
               <label
-                className="block text-[#4A686A] font-medium"
+                className="block text-teal-def font-medium"
                 htmlFor="username"
               >
                 Username
@@ -514,7 +520,7 @@ const RegistrationForm = ({ loginType, onClose }) => {
                 type="text"
                 id="username"
                 name="username"
-                className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
+                className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
                 value={formData.username}
                 onChange={handleChange}
               />
@@ -527,7 +533,7 @@ const RegistrationForm = ({ loginType, onClose }) => {
             </div>
             <div className="mb-4">
               <label
-                className="block text-[#4A686A] font-medium"
+                className="block text-teal-def font-medium"
                 htmlFor="email"
               >
                 Email address
@@ -536,7 +542,7 @@ const RegistrationForm = ({ loginType, onClose }) => {
                 type="email"
                 id="email"
                 name="email"
-                className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
+                className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
                 value={formData.email}
                 onChange={handleChange}
               />
@@ -549,7 +555,7 @@ const RegistrationForm = ({ loginType, onClose }) => {
             </div>
             <div className="mb-4">
               <label
-                className="block text-[#4A686A] font-medium"
+                className="block text-teal-def font-medium"
                 htmlFor="password"
               >
                 Password
@@ -558,7 +564,7 @@ const RegistrationForm = ({ loginType, onClose }) => {
                 type="password"
                 id="password"
                 name="password"
-                className="mt-1 p-2 w-full border border-[#4A686A] rounded-md focus:outline-none focus:border-[#518689]"
+                className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
                 value={formData.password}
                 onChange={handleChange}
               />
@@ -566,9 +572,25 @@ const RegistrationForm = ({ loginType, onClose }) => {
                 <span className="text-red-500">{errors.password}</span>
               )}
             </div>
+            <div className="mb-4">
+              <label
+                className="block text-teal-def font-medium"
+                htmlFor="conPass"
+              >
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                id="conPass"
+                name="confirmPassword"
+                className="mt-1 p-2 w-full border border-teal-def rounded-md focus:outline-none focus:border-[#518689]"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
+            </div>
             <div className="flex justify-center items-center mb-4">
               <button
-                className="w-full bg-[#4A686A] hover:bg-[#518689] text-white py-2 px-4 rounded transition duration-200"
+                className="w-full bg-teal-def hover:bg-[#518689] text-white py-2 px-4 rounded transition duration-200"
                 type="submit"
               >
                 {loading ? (

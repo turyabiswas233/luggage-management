@@ -169,7 +169,7 @@ const LoginForm = ({ loginType, onClose }) => {
           </>
         ) : isLogin ? (
           <>
-            <h2 className="text-center mb-4 text-3xl font-bold text-[#4A686A]">{`Login as ${loginType}`}</h2>
+            <h2 className="text-center mb-4 text-3xl font-bold text-teal-def">{`Login as ${loginType}`}</h2>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
               <div className="mb-4">
                 <label className="block text-gray-700" htmlFor="email">
@@ -201,7 +201,7 @@ const LoginForm = ({ loginType, onClose }) => {
               </div>
               <div className="mb-4">
                 <button
-                  className="w-full bg-[#518689] hover:bg-[#4A686A] text-white py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105"
+                  className="w-full bg-[#518689] hover:bg-teal-def text-white py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105"
                   type="submit"
                 >
                   {isLoading ? (
@@ -217,13 +217,13 @@ const LoginForm = ({ loginType, onClose }) => {
             )}
             <div className="text-center">
               <button
-                className="text-[#4A686A] hover:underline me-4"
+                className="text-teal-def hover:underline me-4"
                 onClick={() => setIsLogin(false)}
               >
                 Need an account? Register
               </button>
               <button
-                className="text-[#4A686A] hover:underline"
+                className="text-teal-def hover:underline"
                 onClick={() => setShowForgotPassword(true)}
               >
                 Forgot Password?

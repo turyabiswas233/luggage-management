@@ -59,7 +59,7 @@ const Review = () => {
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
           Trusted by millions of customers all over the world
         </h2>
-        <h3 className="text-2xl font-medium mt-3 mb-6 text-[#4A686A]">
+        <h3 className="text-2xl font-medium mt-3 mb-6 text-teal-def">
           {t.title}
         </h3>
 

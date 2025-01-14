@@ -168,7 +168,7 @@ const LuggageStorageLocations = ({ cityType }) => {
   return (
     <div className="bg-gradient-to-t from-white via-white to-custom-teal-deep/20 py-16">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-extrabold text-center mb-12 text-[#4A686A]">
+        <h2 className="text-4xl font-extrabold text-center mb-12 text-teal-def">
           {t?.title}
         </h2>
         <Swiper

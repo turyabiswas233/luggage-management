@@ -35,8 +35,8 @@ const ChargingLocations = () => {
   const [locs, setLocs] = useState([]);
   const [error, setError] = useState("");
   const [locationId, setLocationId] = useState("");
-  const [pickUpDate, setPickUpDate] = useState(new Date());
   const [dropOffDate, setDropOffDate] = useState(new Date());
+  const [pickUpDate, setPickUpDate] = useState(new Date(dropOffDate.getTime()+5*60000));
   const [bookingIndent, setBookingIndent] = useState(null);
   const [finalMessage, setFinalMessage] = useState("");
 
@@ -49,6 +49,7 @@ const ChargingLocations = () => {
 
   const handleTimeChange = (event) => {
     setChargeTime(parseInt(event.target.value));
+    setPickUpDate(new Date(dropOffDate.getTime() + event.target.value * 60000));
   };
 
   const getAllLocations = async () => {
@@ -103,9 +104,15 @@ const ChargingLocations = () => {
             phone: phone || "00000000",
           },
           location: locationId,
-          startDate: dropOffDate.toLocaleDateString(),
+          startDate: dropOffDate.toLocaleDateString({
+            language: "en-AU",
+            numeric: "auto",
+          }),
           startTime: dropOffDate.toLocaleTimeString(),
-          endDate: pickUpDate.toLocaleDateString(),
+          endDate: pickUpDate.toLocaleDateString({
+            language: "en-AU",
+            numeric: "auto",
+          }),
           endTime: pickUpDate.toLocaleTimeString(),
           durationInMinutes: chargeTime,
           // chargingFee: getCharge(chargeTime),
@@ -244,7 +251,7 @@ const ChargingLocations = () => {
                   value={fullName}
                   required
                   onInvalid={(e) => {
-                    e.target.setCustomValidity("Please Type your full name");
+                    setCustomValidity("Please Type your full name");
                   }}
                   placeholder="John Doe"
                   onChange={(e) => setFullName(e.target.value)}
@@ -264,9 +271,7 @@ const ChargingLocations = () => {
                   value={email}
                   required
                   onInvalid={(e) => {
-                    e.target.setCustomValidity(
-                      "Please Type your email address"
-                    );
+                    setCustomValidity("Please Type your email address");
                   }}
                   placeholder="john@example.com"
                   onChange={(e) => setEmail(e.target.value)}
@@ -322,15 +327,30 @@ const ChargingLocations = () => {
                   required
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 >
+                  <option value={""} disabled>
+                    Choose a location
+                  </option>
+
                   {locs.map((loc, i) => (
                     <option value={loc?._id} key={loc?._id}>
                       {loc?.name}
                     </option>
                   ))}
-                  {locs.length == 0 && (
-                    <option value={""}>Choose a location</option>
-                  )}
                 </select>
+                <div className="my-5 aria-hidden:hidden" aria-hidden={locs.findIndex((f) => f._id === locationId) === -1}>
+                  <p className="text-xs text-gray-500">
+                    Open Time:{" "}
+                    {timeConvert(
+                      locs.find((f) => f._id === locationId)?.openTime
+                    ) || "--:--"}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    Close Time:{" "}
+                    {timeConvert(
+                      locs.find((f) => f._id === locationId)?.closeTime
+                    ) || "--:--"}
+                  </p>
+                </div>
                 <div className="my-5">
                   <Link
                     hidden={!locationId}
@@ -391,14 +411,6 @@ const ChargingLocations = () => {
                 </select>
               </div>
 
-              {/* <DatePicker
-                setCheckinTime={setDropOffDate}
-                setCheckoutTime={setPickUpDate}
-                setLuggageQuantity={(e) => {
-                  console.log("Luggage Quantity", e);
-                }}
-                hideBags={true}
-              /> */}
               <div className="mb-4">
                 <label className="block text-sm text-gray-700 font-semibold">
                   Charging start time [approximate]
@@ -407,7 +419,7 @@ const ChargingLocations = () => {
                   type="time"
                   name="dropOffTime"
                   onInvalid={(e) => {
-                    e.target.setCustomValidity(
+                    setCustomValidity(
                       "Please select a time when you want to start charging"
                     );
                   }}
@@ -419,20 +431,33 @@ const ChargingLocations = () => {
                       dropOffDate.getMonth(),
                       e.target.value
                     );
-                    setDropOffDate(
-                      new Date(
-                        pre.getFullYear(),
-                        pre.getMonth(),
-                        pre.getDate(),
-                        e.target.value.split(":")[0],
-                        e.target.value.split(":")[1]
-                      )
+                    const newDate = new Date(
+                      pre.getFullYear(),
+                      pre.getMonth(),
+                      pre.getDate(),
+                      e.target.value.split(":")[0],
+                      e.target.value.split(":")[1]
+                    );
+                    setDropOffDate(newDate);
+                    setPickUpDate(
+                      new Date(newDate.getTime() + chargeTime * 60000)
                     );
                   }}
                 />
 
                 <p>
                   {dropOffDate.toLocaleString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    timeZone: "Australia/Sydney",
+                  })}{" "}
+                  (in Australia/Sydney)
+                </p>
+                <p>
+                  {pickUpDate.toLocaleString("en-US", {
                     year: "numeric",
                     month: "short",
                     day: "numeric",
@@ -574,4 +599,15 @@ const PaymentFormModal = ({ clientSecret, bookingId, setFinalMessage }) => {
     </div>
   );
 };
+function timeConvert(time) {
+  let ap = "";
+  const h = Number(time?.split(":")[0]) || 0;
+  const m = Number(time?.split(":")[1]) || 0;
+  if (h < 12 || h == 24) ap = "AM";
+  else ap = "PM";
+  let hh = h == 24 || h == 0 ? 12 : h == 12 ? 12 : h % 12;
+  return `${hh.toString().padStart(2, "0")}:${m
+    .toString()
+    .padStart(2, "0")} ${ap}`;
+}
 export default ChargingLocations;

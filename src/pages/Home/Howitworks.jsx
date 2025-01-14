@@ -54,7 +54,7 @@ function HowItWorks() {
   return (
     <section className="bg-gradient-to-b from-gray-50 to-gray-100 px-3 py-10 md:p-14">
       <div className="mx-auto">
-        <h2 className="px-3 text-4xl font-bold text-[#4A686A] mb-16">
+        <h2 className="px-3 text-4xl font-bold text-teal-def mb-16">
           {t?.title}
         </h2>
         <div className="flex flex-col justify-center lg:justify-between items-center space-y-12">

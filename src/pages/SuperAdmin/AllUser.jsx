@@ -80,7 +80,7 @@ const AllUsers = () => {
                         {/* User List Table */}
                         <div className="overflow-x-auto bg-white rounded-lg shadow-lg">
                             <table className="min-w-full">
-                                <thead className="bg-[#4A686A] text-white">
+                                <thead className="bg-teal-def text-white">
                                     <tr>
                                         <th className="w-1/8 py-3 px-6 text-left">ID</th>
                                         <th className="w-1/8 py-3 px-6 text-left">Username</th>
@@ -124,7 +124,7 @@ const AllUsers = () => {
                                     <button
                                         key={number}
                                         onClick={() => paginate(number + 1)}
-                                        className={`relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium hover:bg-blue-500 hover:text-black transition duration-300 ${currentPage === number + 1 ? 'bg-[blue-500] text-[#4A686A]' : ''}`}
+                                        className={`relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium hover:bg-blue-500 hover:text-black transition duration-300 ${currentPage === number + 1 ? 'bg-[blue-500] text-teal-def' : ''}`}
                                     >
                                         {number + 1}
                                     </button>
