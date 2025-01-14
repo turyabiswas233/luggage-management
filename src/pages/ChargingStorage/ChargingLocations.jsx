@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 // import final from "/files/img/charger/final.jpg";
 import config from "../../config";
 import axios from "axios";
-import { LuLoader } from "react-icons/lu";
+import { LuLoader, LuLoader2 } from "react-icons/lu";
 import { MdCurrencyExchange } from "react-icons/md";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const final = config.BUCKET_URL + "/files/img/charger/final.jpg";
@@ -36,9 +36,12 @@ const ChargingLocations = () => {
   const [error, setError] = useState("");
   const [locationId, setLocationId] = useState("");
   const [dropOffDate, setDropOffDate] = useState(new Date());
-  const [pickUpDate, setPickUpDate] = useState(new Date(dropOffDate.getTime()+5*60000));
+  const [pickUpDate, setPickUpDate] = useState(
+    new Date(dropOffDate.getTime() + 5 * 60000)
+  );
   const [bookingIndent, setBookingIndent] = useState(null);
   const [finalMessage, setFinalMessage] = useState("");
+  const [loader, setLoader] = useState(false);
 
   const handleLoc = (event) => {
     setLocationId(event.target.value);
@@ -56,7 +59,7 @@ const ChargingLocations = () => {
     const url = link
       ? `${config.API_BASE_URL}/api/v1/locations/url/${link}`
       : `${config.API_BASE_URL}/api/v1/locations/public/all-locations`;
-    console.log(link);
+    
     try {
       const response = await axios.get(url);
       const data = response.data;
@@ -95,6 +98,7 @@ const ChargingLocations = () => {
     e.preventDefault();
     const url = config.API_BASE_URL;
     try {
+      setLoader(true);
       const response = await axios.post(
         `${url}/api/v1/charging/bookings`,
         {
@@ -104,15 +108,9 @@ const ChargingLocations = () => {
             phone: phone || "00000000",
           },
           location: locationId,
-          startDate: dropOffDate.toLocaleDateString({
-            language: "en-AU",
-            numeric: "auto",
-          }),
+          startDate: dropOffDate.toISOString(),
           startTime: dropOffDate.toLocaleTimeString(),
-          endDate: pickUpDate.toLocaleDateString({
-            language: "en-AU",
-            numeric: "auto",
-          }),
+          endDate: pickUpDate.toISOString(),
           endTime: pickUpDate.toLocaleTimeString(),
           durationInMinutes: chargeTime,
           // chargingFee: getCharge(chargeTime),
@@ -132,6 +130,8 @@ const ChargingLocations = () => {
     } catch (err) {
       console.log("error", err);
       setError(err?.response?.data?.message);
+    } finally {
+      setLoader(false);
     }
   };
   useEffect(() => {
@@ -250,9 +250,6 @@ const ChargingLocations = () => {
                   id="fullName"
                   value={fullName}
                   required
-                  onInvalid={(e) => {
-                    setCustomValidity("Please Type your full name");
-                  }}
                   placeholder="John Doe"
                   onChange={(e) => setFullName(e.target.value)}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder:text-xs"
@@ -270,9 +267,6 @@ const ChargingLocations = () => {
                   id="email"
                   value={email}
                   required
-                  onInvalid={(e) => {
-                    setCustomValidity("Please Type your email address");
-                  }}
                   placeholder="john@example.com"
                   onChange={(e) => setEmail(e.target.value)}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm placeholder:text-xs"
@@ -337,7 +331,12 @@ const ChargingLocations = () => {
                     </option>
                   ))}
                 </select>
-                <div className="my-5 aria-hidden:hidden" aria-hidden={locs.findIndex((f) => f._id === locationId) === -1}>
+                <div
+                  className="my-5 aria-hidden:hidden"
+                  aria-hidden={
+                    locs.findIndex((f) => f._id === locationId) === -1
+                  }
+                >
                   <p className="text-xs text-gray-500">
                     Open Time:{" "}
                     {timeConvert(
@@ -418,11 +417,6 @@ const ChargingLocations = () => {
                 <input
                   type="time"
                   name="dropOffTime"
-                  onInvalid={(e) => {
-                    setCustomValidity(
-                      "Please select a time when you want to start charging"
-                    );
-                  }}
                   className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   onChange={(e) => {
                     const pre = new Date();
@@ -471,8 +465,9 @@ const ChargingLocations = () => {
               <button
                 type="submit"
                 className="w-full inline-flex items-center justify-center px-4 py-2 bg-teal-600 border border-transparent rounded-md font-medium text-white hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm text-center disabled:pointer-events-none disabled:grayscale disabled:opacity-55"
+                disabled={loader}
               >
-                Pay Now <MdCurrencyExchange className="ml-3 text-teal-50" />
+                Pay Now {loader? <LuLoader2 className="animate-spin ml-3 text-teal-50"/> : <MdCurrencyExchange className="ml-3 text-teal-50" />}
               </button>
             </form>
           )}
