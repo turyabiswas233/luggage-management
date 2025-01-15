@@ -214,10 +214,7 @@ function Footer() {
         </div>
         <div className="text-center mt-8">
           <ScrollToTopButton />
-          <p className="text-white no-underline hover:text-teal-200 transition-colors duration-300">
-            &copy;
-            {t.copyright.replace("{year}", new Date().getFullYear())}
-          </p>
+          <p className="text-white no-underline">&copy; {t.copyright}</p>
         </div>
       </div>
     </footer>

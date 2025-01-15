@@ -244,7 +244,7 @@ const AllChargings = () => {
 
             <div className="bg-white p-4 rounded-lg shadow-lg mb-4 flex flex-col justify-between">
               <p>
-                Total Luggage Booking: <b>{bookings.length || 0}</b>{" "}
+                Total Charging Booking: <b>{bookings.length || 0}</b>{" "}
               </p>
               <p>
                 Total Paid Booking:{" "}
